@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "da432377-07eb-45dc-9d43-018bf2b0ed70",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-01T02:59:53.497Z",
+      "scope_hash": "a6193eaa9e0da6ca294f0811f99bff68c4d07d0cca652486e250fa0029e0c81b",
+      "agent": "curator",
+      "filename": "2026-05-01-da432377-07eb-45dc-9d43-018bf2b0ed70.json"
+    }
+  ]
+}
