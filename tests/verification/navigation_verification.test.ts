@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
@@ -15,7 +15,7 @@ const mobileNavPath = path.join(repoRoot, 'components', 'MobileNav.tsx');
 const layoutPath = path.join(repoRoot, 'app', 'layout.tsx');
 
 function readCode(p: string): string {
-  if (!require('fs').existsSync(p)) {
+  if (!existsSync(p)) {
     throw new Error(`Missing file for test: ${p}`);
   }
   return readFileSync(p, 'utf8');

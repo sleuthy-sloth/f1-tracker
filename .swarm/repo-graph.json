@@ -71,6 +71,14 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx",
+      "moduleName": "components/ui/Card.tsx",
+      "exports": [],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-01T19:11:29.298Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
       "moduleName": "eslint.config.mjs",
@@ -224,11 +232,10 @@
         "node:path",
         "node:url",
         "node:child_process",
-        "bun:test",
-        "fs"
+        "bun:test"
       ],
       "language": "typescript",
-      "mtime": "2026-05-01T19:00:54.798Z"
+      "mtime": "2026-05-01T19:09:57.797Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts",
@@ -265,9 +272,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-01T19:00:54.812Z",
+    "generatedAt": "2026-05-01T19:11:29.334Z",
     "generator": "repo-graph",
-    "nodeCount": 16,
+    "nodeCount": 17,
     "edgeCount": 3
   }
 }

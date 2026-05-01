@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "2.4",
+  "declaredAt": 1777662489459,
+  "expiresAt": 1777748889459,
+  "files": [
+    "components/ui/Card.tsx"
+  ]
+}

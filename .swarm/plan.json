@@ -161,7 +161,7 @@
         {
           "id": "2.4",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build glassmorphic Card component - targets: components/ui/Card.tsx",
           "depends": [
