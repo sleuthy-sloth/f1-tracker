@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "1.2",
+  "declaredAt": 1777637386552,
+  "expiresAt": 1777723786552,
+  "files": [
+    "app/globals.css"
+  ]
+}

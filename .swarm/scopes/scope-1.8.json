@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "1.8",
+  "declaredAt": 1777639133171,
+  "expiresAt": 1777725533171,
+  "files": [
+    "components/ProtectedRoute.tsx"
+  ]
+}

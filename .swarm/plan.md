@@ -1,17 +1,17 @@
-<!-- PLAN_HASH: 1o1usl5ddygmg -->
+<!-- PLAN_HASH: 3brneltp4v9eg -->
 # F1 Tracker
 Swarm: default
-Phase: 1 [PENDING] | Updated: 2026-05-01T03:14:03.528Z
+Phase: 1 [IN PROGRESS] | Updated: 2026-05-01T12:38:40.717Z
 
 ---
-## Phase 1: Project Setup & Foundation [PENDING]
-- [ ] 1.1: Scaffold Next.js project with TypeScript using create-next-app - targets: package.json, tsconfig.json, next.config.ts [SMALL]
-- [ ] 1.2: Configure Tailwind CSS with custom theme, import globals.css - targets: tailwind.config.ts, app/globals.css [SMALL] (depends: 1.1)
-- [ ] 1.3: Set up app directory with root layout and default home page - targets: app/layout.tsx, app/page.tsx [SMALL] (depends: 1.2)
-- [ ] 1.4: Define TypeScript types for all F1 data entities: Session, Driver, Lap, TelemetrySnapshot, TrackLayout, RaceEvent, WeatherReading - targets: lib/types.ts [SMALL] (depends: 1.3)
-- [ ] 1.5: Create OpenF1 API client with base URL, fetch wrapper, exponential-backoff rate-limit handling, typed endpoint functions - targets: lib/api/openf1.ts [SMALL] (depends: 1.4)
+## Phase 1: Project Setup & Foundation [IN PROGRESS]
+- [x] 1.1: Scaffold Next.js project with TypeScript using create-next-app - targets: package.json, tsconfig.json, next.config.ts [SMALL]
+- [x] 1.2: Configure Tailwind CSS with custom theme, import globals.css - targets: tailwind.config.ts, app/globals.css [SMALL] (depends: 1.1)
+- [x] 1.3: Set up app directory with root layout and default home page - targets: app/layout.tsx, app/page.tsx [SMALL] (depends: 1.2)
+- [ ] 1.4: Define TypeScript types for all F1 data entities: Session, Driver, Lap, TelemetrySnapshot, TrackLayout, RaceEvent, WeatherReading - targets: lib/types.ts [SMALL] (depends: 1.3) ← CURRENT
+- [x] 1.5: Create OpenF1 API client with base URL, fetch wrapper, exponential-backoff rate-limit handling, typed endpoint functions - targets: lib/api/openf1.ts [SMALL] (depends: 1.4)
 - [ ] 1.6: Install Firebase SDK, set up config with env vars, initialize Firebase app - targets: lib/firebase.ts, .env.local [SMALL] (depends: 1.3)
-- [ ] 1.7: Build Firebase Auth context provider with sign-up, login, logout, session persistence, useAuth hook - targets: lib/auth/AuthContext.tsx, lib/auth/useAuth.ts [SMALL] (depends: 1.6)
+- [x] 1.7: Build Firebase Auth context provider with sign-up, login, logout, session persistence, useAuth hook - targets: lib/auth/AuthContext.tsx, lib/auth/useAuth.ts [SMALL] (depends: 1.6)
 - [ ] 1.8: Implement ProtectedRoute wrapper that redirects unauthenticated users - targets: components/ProtectedRoute.tsx [SMALL] (depends: 1.7)
 - [ ] 1.9: Configure Vercel deployment: env vars template, build settings - targets: .env.local.example, vercel.json [SMALL] (depends: 1.3)
 

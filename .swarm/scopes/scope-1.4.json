@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "1.4",
+  "declaredAt": 1777637993704,
+  "expiresAt": 1777724393704,
+  "files": [
+    "lib/types.ts"
+  ]
+}

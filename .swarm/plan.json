@@ -7,12 +7,12 @@
     {
       "id": 1,
       "name": "Project Setup & Foundation",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "1.1",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Scaffold Next.js project with TypeScript using create-next-app - targets: package.json, tsconfig.json, next.config.ts",
           "depends": [],
@@ -22,7 +22,7 @@
         {
           "id": "1.2",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Configure Tailwind CSS with custom theme, import globals.css - targets: tailwind.config.ts, app/globals.css",
           "depends": [
@@ -34,7 +34,7 @@
         {
           "id": "1.3",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Set up app directory with root layout and default home page - targets: app/layout.tsx, app/page.tsx",
           "depends": [
@@ -46,7 +46,7 @@
         {
           "id": "1.4",
           "phase": 1,
-          "status": "pending",
+          "status": "in_progress",
           "size": "small",
           "description": "Define TypeScript types for all F1 data entities: Session, Driver, Lap, TelemetrySnapshot, TrackLayout, RaceEvent, WeatherReading - targets: lib/types.ts",
           "depends": [
@@ -58,7 +58,7 @@
         {
           "id": "1.5",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Create OpenF1 API client with base URL, fetch wrapper, exponential-backoff rate-limit handling, typed endpoint functions - targets: lib/api/openf1.ts",
           "depends": [
@@ -70,7 +70,7 @@
         {
           "id": "1.6",
           "phase": 1,
-          "status": "pending",
+          "status": "in_progress",
           "size": "small",
           "description": "Install Firebase SDK, set up config with env vars, initialize Firebase app - targets: lib/firebase.ts, .env.local",
           "depends": [
@@ -82,7 +82,7 @@
         {
           "id": "1.7",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build Firebase Auth context provider with sign-up, login, logout, session persistence, useAuth hook - targets: lib/auth/AuthContext.tsx, lib/auth/useAuth.ts",
           "depends": [
@@ -94,7 +94,7 @@
         {
           "id": "1.8",
           "phase": 1,
-          "status": "pending",
+          "status": "in_progress",
           "size": "small",
           "description": "Implement ProtectedRoute wrapper that redirects unauthenticated users - targets: components/ProtectedRoute.tsx",
           "depends": [

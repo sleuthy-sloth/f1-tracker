@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "1.7",
+  "declaredAt": 1777638900235,
+  "expiresAt": 1777725300235,
+  "files": [
+    "lib/auth/AuthContext.tsx"
+  ]
+}

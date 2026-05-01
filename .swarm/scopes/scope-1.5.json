@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "1.5",
+  "declaredAt": 1777638245025,
+  "expiresAt": 1777724645025,
+  "files": [
+    "lib/api/openf1.ts"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "taskId": "1.6",
+  "declaredAt": 1777638624128,
+  "expiresAt": 1777725024128,
+  "files": [
+    ".env.local",
+    ".env.local.example"
+  ]
+}

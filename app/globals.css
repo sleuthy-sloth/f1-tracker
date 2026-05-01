@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  /* F1 Team Colors */
+  --team-redbull: #1e41ff;
+  --team-ferrari: #dc0000;
+  --team-mercedes: #27f4d2;
+  --team-mclaren: #ff8700;
+  --team-aston: #006f62;
+  --team-williams: #00a0dc;
+  --team-haas: #b6babd;
+  --team-rb: #6692ff;
+  --team-alpine: #ff87bc;
+  --team-sauber: #00e700;
+
+  /* Base colors */
+  --background: #0f0f1a;
+  --foreground: #f5f5f5;
+}
+
+@theme inline {
+  /* F1 Color Palette */
+  --color-f1-red: #e10600;
+  --color-f1-dark: #1a1a2e;
+  --color-f1-carbon: #0f0f1a;
+  --color-f1-silver: #b0b0b0;
+  --color-f1-white: #f5f5f5;
+
+  /* Base colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
