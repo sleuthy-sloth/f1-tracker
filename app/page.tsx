@@ -30,11 +30,11 @@ export default function Home() {
 
       <div className="relative z-10 flex flex-col items-center gap-8 px-6 text-center">
         <h1 className="text-5xl font-extrabold tracking-tight text-f1-white sm:text-6xl lg:text-7xl">
-          F1 <span className="text-f1-red">Tracker</span>
+          <span className="text-f1-red">SECTOR</span>ONE
         </h1>
 
         <p className="max-w-xl text-lg leading-relaxed text-f1-silver sm:text-xl">
-          Real-time race replays, telemetry analysis, and session data
+          High-performance telemetry, fantasy leagues, and race analysis
         </p>
 
         <Link href="/sessions" className="mt-4 rounded-full bg-f1-red px-8 py-3 text-base font-semibold text-white transition-all duration-200 hover:bg-red-700 hover:shadow-lg hover:shadow-f1-red/20 focus:outline-none focus:ring-2 focus:ring-f1-red focus:ring-offset-2 focus:ring-offset-f1-carbon">

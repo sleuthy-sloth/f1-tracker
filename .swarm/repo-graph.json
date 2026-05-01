@@ -12,10 +12,12 @@
       "imports": [
         "next/font/google",
         "@/lib/auth/AuthContext",
+        "@/components/SideNav",
+        "@/components/MobileNav",
         "./globals.css"
       ],
       "language": "typescript",
-      "mtime": "2026-05-01T12:33:58.271Z"
+      "mtime": "2026-05-01T18:49:16.095Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx",
@@ -27,7 +29,20 @@
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-01T12:17:28.203Z"
+      "mtime": "2026-05-01T17:35:22.621Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx",
+      "moduleName": "components/MobileNav.tsx",
+      "exports": [
+        "MobileNav"
+      ],
+      "imports": [
+        "next/link",
+        "next/navigation"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T18:53:29.261Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx",
@@ -42,6 +57,19 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T12:39:23.471Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx",
+      "moduleName": "components/SideNav.tsx",
+      "exports": [
+        "SideNav"
+      ],
+      "imports": [
+        "next/link",
+        "next/navigation"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T18:53:26.984Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
@@ -186,6 +214,34 @@
       "imports": [],
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.296Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts",
+      "moduleName": "tests/verification/navigation_verification.test.ts",
+      "exports": [],
+      "imports": [
+        "node:fs",
+        "node:path",
+        "node:url",
+        "node:child_process",
+        "bun:test",
+        "fs"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T19:00:54.798Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts",
+      "moduleName": "tests/verify-task2-2.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs",
+        "path",
+        "child_process"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T18:50:38.737Z"
     }
   },
   "edges": [
@@ -209,9 +265,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-01T12:57:11.589Z",
+    "generatedAt": "2026-05-01T19:00:54.812Z",
     "generator": "repo-graph",
-    "nodeCount": 12,
+    "nodeCount": 16,
     "edgeCount": 3
   }
 }

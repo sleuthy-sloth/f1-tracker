@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "taskId": "2.1",
+  "declaredAt": 1777656595919,
+  "expiresAt": 1777742995919,
+  "files": [
+    "app/layout.tsx",
+    "app/page.tsx",
+    "app/favicon.ico"
+  ]
+}

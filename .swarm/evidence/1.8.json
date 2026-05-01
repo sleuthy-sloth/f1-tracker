@@ -4,5 +4,16 @@
     "reviewer",
     "test_engineer"
   ],
-  "gates": {}
+  "gates": {
+    "reviewer": {
+      "sessionId": "ses_21f77c9d7ffe1UtNeh6f3g6X7r",
+      "timestamp": "2026-05-01T16:54:23.171Z",
+      "agent": "reviewer"
+    },
+    "test_engineer": {
+      "sessionId": "ses_21f77c9d7ffe1UtNeh6f3g6X7r",
+      "timestamp": "2026-05-01T16:55:02.974Z",
+      "agent": "test_engineer"
+    }
+  }
 }

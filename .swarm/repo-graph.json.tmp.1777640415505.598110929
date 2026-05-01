@@ -1,0 +1,217 @@
+{
+  "schema_version": "1.0.0",
+  "workspaceRoot": "/Users/spkoehl/Documents/OpenCode/F1 Tracker",
+  "nodes": {
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
+      "moduleName": "app/layout.tsx",
+      "exports": [
+        "metadata",
+        "RootLayout"
+      ],
+      "imports": [
+        "next/font/google",
+        "@/lib/auth/AuthContext",
+        "./globals.css"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:33:58.271Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx",
+      "moduleName": "app/page.tsx",
+      "exports": [
+        "Home"
+      ],
+      "imports": [
+        "next/link"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:17:28.203Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx",
+      "moduleName": "components/ProtectedRoute.tsx",
+      "exports": [
+        "ProtectedRoute"
+      ],
+      "imports": [
+        "react",
+        "next/navigation",
+        "@/lib/auth/useAuth"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:39:23.471Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
+      "moduleName": "eslint.config.mjs",
+      "exports": [
+        "eslintConfig"
+      ],
+      "imports": [
+        "eslint/config",
+        "eslint-config-next/core-web-vitals",
+        "eslint-config-next/typescript"
+      ],
+      "language": "javascript",
+      "mtime": "2026-05-01T12:01:32.295Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts",
+      "moduleName": "lib/api/openf1.ts",
+      "exports": [
+        "OpenF1Error",
+        "OpenF1Error.message",
+        "OpenF1Error.statusCode",
+        "OpenF1Error.endpoint",
+        "OpenF1Error.super",
+        "StartingGridEntry",
+        "getSessionsByYear",
+        "getMeetingsByYear",
+        "getAvailableYears"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:24:58.744Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx",
+      "moduleName": "lib/auth/AuthContext.tsx",
+      "exports": [
+        "AuthContextValue",
+        "AuthContext",
+        "AuthProvider"
+      ],
+      "imports": [
+        "react",
+        "firebase/auth",
+        "@/lib/firebase"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:35:54.553Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts",
+      "moduleName": "lib/auth/useAuth.ts",
+      "exports": [
+        "useAuth"
+      ],
+      "imports": [
+        "react",
+        "./AuthContext"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:33:53.010Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/firebase.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/firebase.ts",
+      "moduleName": "lib/firebase.ts",
+      "exports": [
+        "getFirebaseApp",
+        "getFirebaseAuth",
+        "getFirebaseDb"
+      ],
+      "imports": [
+        "firebase/app",
+        "firebase/auth",
+        "firebase/firestore"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:29:50.389Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts",
+      "moduleName": "lib/types.ts",
+      "exports": [
+        "SessionType",
+        "Session",
+        "Meeting",
+        "Driver",
+        "CarData",
+        "TelemetrySnapshot",
+        "LocationData",
+        "LapData",
+        "PositionData",
+        "IntervalData",
+        "WeatherData",
+        "PitData",
+        "TyreCompound",
+        "StintData",
+        "RaceControlData",
+        "SessionResult",
+        "SafetyCarStatus",
+        "DriverPosition",
+        "ReplayFrame",
+        "TrackCoordinate",
+        "TrackLayout",
+        "ChampionshipDriver",
+        "ChampionshipTeam",
+        "SEGMENT_VALUES",
+        "DRS_VALUES",
+        "UserRole",
+        "SessionHistoryEntry",
+        "UserProfile"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:20:48.493Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts",
+      "moduleName": "next-env.d.ts",
+      "exports": [],
+      "imports": [
+        "./.next/types/routes.d.ts"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:01:32.295Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next.config.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next.config.ts",
+      "moduleName": "next.config.ts",
+      "exports": [
+        "nextConfig"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-01T12:01:32.295Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/postcss.config.mjs": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/postcss.config.mjs",
+      "moduleName": "postcss.config.mjs",
+      "exports": [
+        "config"
+      ],
+      "imports": [],
+      "language": "javascript",
+      "mtime": "2026-05-01T12:01:32.296Z"
+    }
+  },
+  "edges": [
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/globals.css",
+      "importSpecifier": "./globals.css",
+      "importType": "sideeffect"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx",
+      "importSpecifier": "./AuthContext",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/.next/types/routes.d.ts",
+      "importSpecifier": "./.next/types/routes.d.ts",
+      "importType": "sideeffect"
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-05-01T13:00:15.505Z",
+    "generator": "repo-graph",
+    "nodeCount": 12,
+    "edgeCount": 3
+  }
+}

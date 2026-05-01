@@ -1,162 +1,161 @@
 {
   "schema_version": "1.0.0",
-  "title": "F1 Tracker",
+  "title": "SectorOne",
   "swarm": "default",
   "current_phase": 1,
   "phases": [
     {
       "id": 1,
       "name": "Project Setup & Foundation",
-      "status": "pending",
+      "status": "complete",
       "tasks": [
         {
           "id": "1.1",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Scaffold Next.js project with TypeScript using create-next-app - targets: package.json, tsconfig.json, next.config.ts",
           "depends": [],
-          "acceptance": "npm run dev starts without errors, TypeScript compiles cleanly",
+          "acceptance": "npm run dev starts, TypeScript compiles",
           "files_touched": []
         },
         {
           "id": "1.2",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Configure Tailwind CSS with custom theme, import globals.css - targets: tailwind.config.ts, app/globals.css",
           "depends": [
             "1.1"
           ],
-          "acceptance": "Tailwind utility classes render correctly in the browser",
+          "acceptance": "Tailwind classes render correctly",
           "files_touched": []
         },
         {
           "id": "1.3",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Set up app directory with root layout and default home page - targets: app/layout.tsx, app/page.tsx",
           "depends": [
             "1.2"
           ],
-          "acceptance": "npm run dev renders a page at localhost, layout wraps all pages",
+          "acceptance": "npm run dev renders a page",
           "files_touched": []
         },
         {
           "id": "1.4",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Define TypeScript types for all F1 data entities: Session, Driver, Lap, TelemetrySnapshot, TrackLayout, RaceEvent, WeatherReading - targets: lib/types.ts",
+          "description": "Define TypeScript types for all F1 data entities - targets: lib/types.ts",
           "depends": [
             "1.3"
           ],
-          "acceptance": "All OpenF1 API response structures map to typed interfaces with no any usage",
+          "acceptance": "28 types exported, tsc compiles",
           "files_touched": []
         },
         {
           "id": "1.5",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Create OpenF1 API client with base URL, fetch wrapper, exponential-backoff rate-limit handling, typed endpoint functions - targets: lib/api/openf1.ts",
+          "description": "Create OpenF1 API client with rate limiting and typed endpoints - targets: lib/api/openf1.ts",
           "depends": [
             "1.4"
           ],
-          "acceptance": "API client fetches from OpenF1, handles rate limits, returns typed responses",
+          "acceptance": "21 endpoint functions, rate limiter, tsc compiles",
           "files_touched": []
         },
         {
           "id": "1.6",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Install Firebase SDK, set up config with env vars, initialize Firebase app - targets: lib/firebase.ts, .env.local",
+          "description": "Install Firebase SDK, set up config with env vars - targets: lib/firebase.ts, .env.local",
           "depends": [
             "1.3"
           ],
-          "acceptance": "Firebase app initializes without errors using env vars",
+          "acceptance": "Firebase initializes from env vars",
           "files_touched": []
         },
         {
           "id": "1.7",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Build Firebase Auth context provider with sign-up, login, logout, session persistence, useAuth hook - targets: lib/auth/AuthContext.tsx, lib/auth/useAuth.ts",
+          "description": "Build Firebase Auth context provider with useAuth hook - targets: lib/auth/AuthContext.tsx, lib/auth/useAuth.ts",
           "depends": [
             "1.6"
           ],
-          "acceptance": "Auth context provides user state, persists across page refreshes",
+          "acceptance": "Auth context provides login/signup/logout",
           "files_touched": []
         },
         {
           "id": "1.8",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Implement ProtectedRoute wrapper that redirects unauthenticated users - targets: components/ProtectedRoute.tsx",
+          "description": "Implement ProtectedRoute wrapper - targets: components/ProtectedRoute.tsx",
           "depends": [
             "1.7"
           ],
-          "acceptance": "Protected pages redirect to /auth/login when unauthenticated",
+          "acceptance": "Redirects unauthenticated users to login",
           "files_touched": []
         },
         {
           "id": "1.9",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Configure Vercel deployment: env vars template, build settings - targets: .env.local.example, vercel.json",
+          "description": "Configure Vercel deployment config and env template - targets: .env.local.example, vercel.json",
           "depends": [
             "1.3"
           ],
-          "acceptance": "npm run build completes with 0 errors",
+          "acceptance": "Build passes, env template created",
           "files_touched": []
         }
       ]
     },
     {
       "id": 2,
-      "name": "Session Browser & User Accounts",
+      "name": "SectorOne Branding & Design System",
       "status": "pending",
       "tasks": [
         {
           "id": "2.1",
           "phase": 2,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build session listing page: fetch years, rounds, session types from OpenF1 API - targets: app/sessions/page.tsx, components/SessionBrowser.tsx",
+          "status": "completed",
+          "size": "small",
+          "description": "Rebrand app layout, metadata, landing page, and favicon from F1 Tracker to SectorOne - targets: app/layout.tsx, app/page.tsx, app/favicon.ico",
           "depends": [
-            "1.5"
+            "1.3"
           ],
-          "acceptance": "User navigates year to round to session type in 3 clicks",
+          "acceptance": "App displays SectorOne branding throughout",
           "files_touched": []
         },
         {
           "id": "2.2",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Build session detail page with event info, circuit, country, date - targets: app/sessions/[year]/[round]/page.tsx",
+          "description": "Install Space Grotesk and Inter fonts via next/font/google, update theme config - targets: app/layout.tsx, app/globals.css",
           "depends": [
             "2.1"
           ],
-          "acceptance": "Session detail shows all metadata, replay button present",
+          "acceptance": "Fonts load correctly, design tokens available",
           "files_touched": []
         },
         {
           "id": "2.3",
           "phase": 2,
           "status": "pending",
-          "size": "small",
-          "description": "Build Firebase Auth sign-up page - targets: app/auth/signup/page.tsx",
+          "size": "medium",
+          "description": "Build sidebar navigation with Archive, Strategy Lab, Fantasy, Settings sections - targets: components/SideNav.tsx, components/MobileNav.tsx",
           "depends": [
-            "1.7",
-            "1.8"
+            "2.2"
           ],
-          "acceptance": "User can create account with email and password",
+          "acceptance": "Sidebar on desktop, bottom nav on mobile with active highlighting",
           "files_touched": []
         },
         {
@@ -164,11 +163,11 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Build Firebase Auth login page with password reset - targets: app/auth/login/page.tsx",
+          "description": "Build glassmorphic Card component - targets: components/ui/Card.tsx",
           "depends": [
-            "2.3"
+            "2.2"
           ],
-          "acceptance": "User can log in with existing credentials and reset password",
+          "acceptance": "Card renders with glassmorphism styling",
           "files_touched": []
         },
         {
@@ -176,11 +175,11 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Build user account settings page - targets: app/auth/account/page.tsx",
+          "description": "Build Button components (primary and ghost) - targets: components/ui/Button.tsx",
           "depends": [
-            "2.4"
+            "2.2"
           ],
-          "acceptance": "User can view and manage account settings",
+          "acceptance": "Button renders with primary and ghost variants",
           "files_touched": []
         },
         {
@@ -188,12 +187,11 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Implement Firestore user preferences: save and load favorite sessions - targets: lib/userPreferences.ts, components/FavoriteButton.tsx",
+          "description": "Build Chip component for tyre compounds and status indicators - targets: components/ui/Chip.tsx",
           "depends": [
-            "2.2",
-            "2.5"
+            "2.2"
           ],
-          "acceptance": "User can favorite and unfavorite sessions",
+          "acceptance": "Chip renders with compound color variants",
           "files_touched": []
         },
         {
@@ -201,30 +199,31 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Build watch history component showing recently viewed sessions - targets: components/WatchHistory.tsx",
+          "description": "Build Input component with dark styling and F1 Red focus - targets: components/ui/Input.tsx",
           "depends": [
-            "2.6"
+            "2.2"
           ],
-          "acceptance": "Recent sessions appear in user watch history",
+          "acceptance": "Input has dark background and red focus ring",
           "files_touched": []
         }
       ]
     },
     {
       "id": 3,
-      "name": "Race Replay Engine",
+      "name": "Race Archive (Session Browser)",
       "status": "pending",
       "tasks": [
         {
           "id": "3.1",
           "phase": 3,
           "status": "pending",
-          "size": "small",
-          "description": "Build Canvas track map component rendering circuit from coordinate array - targets: components/TrackMap.tsx",
+          "size": "medium",
+          "description": "Build Archive grid page with GP cards showing circuit outlines, podium, and session info - targets: app/archive/page.tsx, components/GpCard.tsx",
           "depends": [
-            "1.4"
+            "1.5",
+            "2.3"
           ],
-          "acceptance": "Track renders from coordinate data, adapts to canvas size",
+          "acceptance": "Archive displays GP cards with session type badges",
           "files_touched": []
         },
         {
@@ -232,130 +231,81 @@
           "phase": 3,
           "status": "pending",
           "size": "small",
-          "description": "Build track rendering utilities: coordinate scaling, rotation, driver positioning - targets: utils/trackRenderer.ts",
+          "description": "Add filters for circuit type and weather to the Archive page - targets: components/ArchiveFilters.tsx",
           "depends": [
             "3.1"
           ],
-          "acceptance": "Driver positions plot correctly from telemetry coordinates",
+          "acceptance": "User can filter sessions by circuit type and weather",
           "files_touched": []
         },
         {
           "id": "3.3",
           "phase": 3,
           "status": "pending",
-          "size": "medium",
-          "description": "Build race data service fetching telemetry, positions, laps, weather from OpenF1 - targets: lib/raceData.ts",
-          "depends": [
-            "1.5",
-            "2.2"
-          ],
-          "acceptance": "Race data loads for a session, returns structured frame data",
-          "files_touched": []
-        },
-        {
-          "id": "3.4",
-          "phase": 3,
-          "status": "pending",
           "size": "small",
-          "description": "Build frame buffer with sequential access and pre-fetching - targets: lib/frameBuffer.ts",
+          "description": "Build session detail page with replay launch and session info - targets: app/archive/[sessionKey]/page.tsx",
           "depends": [
-            "3.3"
+            "3.1"
           ],
-          "acceptance": "Frames accessible by index, pre-fetches next segment",
-          "files_touched": []
-        },
-        {
-          "id": "3.5",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Implement replay playback engine hook: play/pause, seek, speed multiplier - targets: hooks/useReplayEngine.ts",
-          "depends": [
-            "3.2",
-            "3.4"
-          ],
-          "acceptance": "Replay plays, pauses, and seeks at correct times and speeds",
-          "files_touched": []
-        },
-        {
-          "id": "3.6",
-          "phase": 3,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build leaderboard: positions, names, team colors, lap counts, OUT status - targets: components/Leaderboard.tsx",
-          "depends": [
-            "3.4"
-          ],
-          "acceptance": "Leaderboard updates every frame, retired drivers show OUT",
-          "files_touched": []
-        },
-        {
-          "id": "3.7",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Implement driver selection and telemetry HUD: speed, gear, throttle, brake, DRS - targets: components/DriverTelemetryHUD.tsx, hooks/useDriverSelection.ts",
-          "depends": [
-            "3.5",
-            "3.6"
-          ],
-          "acceptance": "Clicking a driver selects them, telemetry HUD updates per frame",
+          "acceptance": "Session detail shows event info and launches replay",
           "files_touched": []
         }
       ]
     },
     {
       "id": 4,
-      "name": "Telemetry & Insights",
+      "name": "Strategy Lab (Race Replay Engine)",
       "status": "pending",
       "tasks": [
         {
           "id": "4.1",
           "phase": 4,
           "status": "pending",
-          "size": "small",
-          "description": "Build weather and session info panel: lap, time, temps, humidity, wind - targets: components/WeatherPanel.tsx, components/SessionInfoBar.tsx",
+          "size": "medium",
+          "description": "Build Canvas track map with circuit rendering, driver dots, active sector highlighting - targets: components/TrackMap.tsx",
           "depends": [
-            "3.4"
+            "1.4",
+            "1.5"
           ],
-          "acceptance": "Panel updates frame-by-frame with all weather data",
+          "acceptance": "Track renders from circuit coordinate data",
           "files_touched": []
         },
         {
           "id": "4.2",
           "phase": 4,
           "status": "pending",
-          "size": "small",
-          "description": "Build race control messages feed: flags, SC/VSC status, session changes - targets: components/RaceControlFeed.tsx",
+          "size": "medium",
+          "description": "Build race data service and frame buffer for sequential replay frames - targets: lib/raceData.ts, lib/frameBuffer.ts",
           "depends": [
-            "3.4"
+            "1.5",
+            "3.1"
           ],
-          "acceptance": "Messages display chronologically with flag visuals",
+          "acceptance": "Race data loads and frames accessible by index",
           "files_touched": []
         },
         {
           "id": "4.3",
           "phase": 4,
           "status": "pending",
-          "size": "small",
-          "description": "Implement safety car visualization on track map with deploy/on-track/return phases - targets: components/SafetyCar.tsx",
+          "size": "medium",
+          "description": "Build replay playback engine and bottom timeline controls with event markers - targets: hooks/useReplayEngine.ts, components/TimelineControls.tsx",
           "depends": [
-            "3.1",
-            "3.4"
+            "4.1",
+            "4.2"
           ],
-          "acceptance": "Safety car renders during SC periods with phase transitions",
+          "acceptance": "Replay plays, pauses, seeks with timeline markers",
           "files_touched": []
         },
         {
           "id": "4.4",
           "phase": 4,
           "status": "pending",
-          "size": "small",
-          "description": "Build pit stop event display: driver, timing, tyre compound - targets: components/PitStopIndicator.tsx",
+          "size": "medium",
+          "description": "Build scrollable leaderboard with position, driver, team color, gap, tyre life, stint count, and retired OUT indicators - targets: components/Leaderboard.tsx",
           "depends": [
-            "3.4"
+            "4.2"
           ],
-          "acceptance": "Pit stops show for relevant drivers at correct frames",
+          "acceptance": "Leaderboard shows all drivers with team colors, DNF flags, and tyre data",
           "files_touched": []
         },
         {
@@ -363,19 +313,105 @@
           "phase": 4,
           "status": "pending",
           "size": "medium",
-          "description": "Build per-driver telemetry charts: speed trace, gear distribution, throttle/brake timeline - targets: components/TelemetryCharts.tsx, utils/chartRenderer.ts",
+          "description": "Build floating driver telemetry HUD: speed, gear, RPM bar, DRS, throttle, brake - targets: components/TelemetryHUD.tsx",
           "depends": [
-            "3.4",
-            "3.7"
+            "4.3",
+            "4.4"
           ],
-          "acceptance": "Charts update in sync with replay for selected driver",
+          "acceptance": "Telemetry updates per frame for selected driver",
+          "files_touched": []
+        },
+        {
+          "id": "4.6",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build lap and time display showing current lap, total laps, elapsed race time - targets: components/LapTimeDisplay.tsx",
+          "depends": [
+            "4.2"
+          ],
+          "acceptance": "Displays lap number, total laps, and race time updating each frame",
+          "files_touched": []
+        },
+        {
+          "id": "4.7",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build gap-to-leader chart and tyre degradation heatmap side panels - targets: components/GapChart.tsx, components/TyreWidget.tsx",
+          "depends": [
+            "4.2"
+          ],
+          "acceptance": "Charts render with per-driver data during replay",
+          "files_touched": []
+        },
+        {
+          "id": "4.8",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build weather radar visualization with precipitation radar and stats - targets: components/WeatherRadar.tsx",
+          "depends": [
+            "4.2"
+          ],
+          "acceptance": "Weather radar displays conditions and rain risk",
+          "files_touched": []
+        },
+        {
+          "id": "4.9",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build safety car visualization on track map with deploy, on-track, return phases - targets: components/SafetyCar.tsx",
+          "depends": [
+            "4.1",
+            "4.2"
+          ],
+          "acceptance": "Safety car renders on track during SC periods with phase transitions",
+          "files_touched": []
+        },
+        {
+          "id": "4.10",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build race control messages feed showing flags, SC/VSC, and session status changes - targets: components/RaceControlFeed.tsx",
+          "depends": [
+            "4.2"
+          ],
+          "acceptance": "Messages display chronologically with flag visuals",
+          "files_touched": []
+        },
+        {
+          "id": "4.11",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build pit stop event display with driver, timing, and tyre compound - targets: components/PitStopIndicator.tsx",
+          "depends": [
+            "4.2"
+          ],
+          "acceptance": "Pit stops show for relevant drivers at correct frames",
+          "files_touched": []
+        },
+        {
+          "id": "4.12",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build strategic pit window predictor widget - targets: components/PitWindowWidget.tsx",
+          "depends": [
+            "4.2",
+            "4.4"
+          ],
+          "acceptance": "Pit window shows optimal lap range and undercut delta",
           "files_touched": []
         }
       ]
     },
     {
       "id": 5,
-      "name": "Mobile Responsiveness & Polish",
+      "name": "Championship Standings",
       "status": "pending",
       "tasks": [
         {
@@ -383,12 +419,12 @@
           "phase": 5,
           "status": "pending",
           "size": "medium",
-          "description": "Implement responsive mobile-first layout for replay: collapsible panels, touch targets - targets: app/replay/[sessionId]/page.tsx, styles/replay.css",
+          "description": "Build driver and constructor standings page with points, wins, podiums, and team color bars - targets: app/standings/page.tsx, components/StandingsTable.tsx",
           "depends": [
-            "3.5",
-            "3.6"
+            "1.5",
+            "2.3"
           ],
-          "acceptance": "Replay usable on 375px mobile viewport, no horizontal scroll",
+          "acceptance": "Standings display drivers and constructors with full stats",
           "files_touched": []
         },
         {
@@ -396,11 +432,11 @@
           "phase": 5,
           "status": "pending",
           "size": "small",
-          "description": "Add touch replay controls: tap to play/pause, swipe seek, pinch zoom - targets: hooks/useTouchControls.ts, components/ReplayControls.tsx",
+          "description": "Build form chart bars (last 5 races) for each driver in standings - targets: components/FormChart.tsx",
           "depends": [
             "5.1"
           ],
-          "acceptance": "Replay controllable via touch gestures on mobile",
+          "acceptance": "Form bars show recent race performance with F1 Red highlighting",
           "files_touched": []
         },
         {
@@ -408,12 +444,11 @@
           "phase": 5,
           "status": "pending",
           "size": "small",
-          "description": "Add loading skeletons and error boundaries for API failures - targets: components/ErrorBoundary.tsx, components/LoadingSkeleton.tsx",
+          "description": "Build points progression chart with multi-driver heartbeat lines - targets: components/PointsChart.tsx",
           "depends": [
-            "2.1",
-            "3.5"
+            "5.1"
           ],
-          "acceptance": "API failures show user-friendly error UI",
+          "acceptance": "Points chart shows season trends for selected drivers",
           "files_touched": []
         },
         {
@@ -421,11 +456,11 @@
           "phase": 5,
           "status": "pending",
           "size": "small",
-          "description": "Add ARIA accessibility attributes to TrackMap component - targets: components/TrackMap.tsx",
+          "description": "Build leading constructor card with driver point split bars - targets: components/ConstructorCard.tsx",
           "depends": [
-            "5.3"
+            "5.1"
           ],
-          "acceptance": "Track map has keyboard navigation and screen reader labels",
+          "acceptance": "Constructor card shows team points with per-driver split",
           "files_touched": []
         },
         {
@@ -433,53 +468,175 @@
           "phase": 5,
           "status": "pending",
           "size": "small",
-          "description": "Add ARIA accessibility attributes to Leaderboard component - targets: components/Leaderboard.tsx",
+          "description": "Build year-aware team identity service with historical color mapping (e.g., Audi/Sauber 2026, Chevrolet entry) - targets: lib/teams.ts",
           "depends": [
-            "5.4"
+            "5.1"
           ],
-          "acceptance": "Leaderboard has keyboard navigation and screen reader labels",
+          "acceptance": "Team colors render correctly per season, including historical teams and new entries",
           "files_touched": []
         },
         {
           "id": "5.6",
           "phase": 5,
           "status": "pending",
-          "size": "small",
-          "description": "Add ARIA accessibility attributes to ReplayControls component - targets: components/ReplayControls.tsx",
+          "size": "medium",
+          "description": "Build power unit component usage tracker showing each driver's ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust counts with penalty indicators - targets: app/standings/components/page.tsx, components/PuUsageTable.tsx",
           "depends": [
-            "5.5"
+            "1.5",
+            "5.1"
           ],
-          "acceptance": "Playback controls have keyboard navigation and screen reader labels",
+          "acceptance": "Table shows component usage per driver with over-limit penalties flagged in red",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Fantasy F1 League",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "6.1",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart - targets: app/fantasy/page.tsx, components/FantasyDashboard.tsx",
+          "depends": [
+            "1.7",
+            "2.3",
+            "5.1"
+          ],
+          "acceptance": "Dashboard shows team stats and points chart",
           "files_touched": []
         },
         {
-          "id": "5.7",
-          "phase": 5,
+          "id": "6.2",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Build fantasy points scoring system based on real race results - targets: lib/fantasy/scoring.ts",
+          "depends": [
+            "1.5"
+          ],
+          "acceptance": "Points calculated from session results and stints data",
+          "files_touched": []
+        },
+        {
+          "id": "6.3",
+          "phase": 6,
           "status": "pending",
           "size": "medium",
-          "description": "Performance optimization: lazy-load panels, memoize canvas render, code-split with dynamic imports - targets: app/replay/[sessionId]/page.tsx, next.config.ts",
+          "description": "Build roster editor with driver browsing, budget tracking, and save/revert - targets: components/RosterEditor.tsx, components/DriverCard.tsx",
           "depends": [
-            "5.6"
+            "6.1",
+            "6.2"
+          ],
+          "acceptance": "User can build a 5+1 roster within $100M budget",
+          "files_touched": []
+        },
+        {
+          "id": "6.4",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build league system: create, join, and view league leaderboards with rank trends - targets: app/fantasy/leagues/page.tsx, components/LeagueLeaderboard.tsx",
+          "depends": [
+            "6.1"
+          ],
+          "acceptance": "Users can create and view leagues with standings",
+          "files_touched": []
+        },
+        {
+          "id": "6.5",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Implement Firestore persistence for fantasy teams and league data - targets: lib/fantasy/firestore.ts",
+          "depends": [
+            "1.6",
+            "6.1"
+          ],
+          "acceptance": "Fantasy data persists across sessions for authenticated users",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Mobile Responsiveness & Final Polish",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "7.1",
+          "phase": 7,
+          "status": "pending",
+          "size": "medium",
+          "description": "Implement responsive layouts for all pages: Archive, Strategy Lab, Standings, Fantasy - targets: app/archive/page.tsx, app/archive/[sessionKey]/page.tsx, app/standings/page.tsx, app/fantasy/page.tsx, app/fantasy/leagues/page.tsx",
+          "depends": [
+            "2.3",
+            "3.1",
+            "4.4",
+            "5.1",
+            "6.1"
+          ],
+          "acceptance": "All features usable on 375px mobile viewport",
+          "files_touched": []
+        },
+        {
+          "id": "7.2",
+          "phase": 7,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add loading skeletons, error boundaries, and graceful error handling - targets: components/ErrorBoundary.tsx, components/LoadingSkeleton.tsx",
+          "depends": [
+            "3.1",
+            "4.3",
+            "5.1",
+            "6.1"
+          ],
+          "acceptance": "API failures show user-friendly error UI",
+          "files_touched": []
+        },
+        {
+          "id": "7.3",
+          "phase": 7,
+          "status": "pending",
+          "size": "small",
+          "description": "Add touch replay controls for mobile: tap, swipe, pinch gestures - targets: hooks/useTouchControls.ts",
+          "depends": [
+            "7.1"
+          ],
+          "acceptance": "Replay controllable via touch on mobile",
+          "files_touched": []
+        },
+        {
+          "id": "7.4",
+          "phase": 7,
+          "status": "pending",
+          "size": "medium",
+          "description": "Performance optimization: lazy load panels, memoize canvas, code-split routes - targets: app/*/page.tsx, next.config.ts",
+          "depends": [
+            "7.2"
           ],
           "acceptance": "Lighthouse performance score >= 80 on mobile",
           "files_touched": []
         },
         {
-          "id": "5.8",
-          "phase": 5,
+          "id": "7.5",
+          "phase": 7,
           "status": "pending",
           "size": "small",
-          "description": "Final Vercel deployment, env var audit, README with setup docs - targets: README.md",
+          "description": "Final deployment verification, env var audit, and README - targets: README.md, vercel.json",
           "depends": [
-            "5.7"
+            "7.4"
           ],
-          "acceptance": "Deployment succeeds, README documents setup and architecture",
+          "acceptance": "Deployment succeeds end-to-end",
           "files_touched": []
         }
       ]
     }
   ],
   "migration_status": "native",
-  "specMtime": "2026-05-01T02:58:08.251Z",
-  "specHash": "339d5848e0a8deb9135fb1ade5a907ae3c909c104df94e23b42c69957a6476bf"
+  "specMtime": "2026-05-01T17:15:04.766Z",
+  "specHash": "f9944b097bf1df050db0a3151161364955c2c36f2c83f5d7791bc254e2fc0e95"
 }

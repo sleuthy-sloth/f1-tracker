@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "taskId": "1.9",
+  "declaredAt": 1777654568850,
+  "expiresAt": 1777740968850,
+  "files": [
+    ".env.local.example",
+    "vercel.json"
+  ]
+}

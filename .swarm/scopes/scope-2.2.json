@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "taskId": "2.2",
+  "declaredAt": 1777660280791,
+  "expiresAt": 1777746680791,
+  "files": [
+    "app/layout.tsx",
+    "app/globals.css",
+    "app/icon.svg"
+  ]
+}

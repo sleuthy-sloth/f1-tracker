@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthContext";
+import { SideNav } from "@/components/SideNav";
+import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "%s | F1 Tracker",
-  description: "Real-time Formula 1 race replays and telemetry analysis",
+  title: "%s | SectorOne",
+  description: "High-performance Formula 1 telemetry suite",
 };
 
 export default function RootLayout({
@@ -26,19 +30,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-f1-carbon">
-        <header className="border-b border-white/10 bg-f1-dark/50 backdrop-blur-sm">
-          <nav className="mx-auto flex h-16 max-w-7xl items-center px-6">
-            <span className="text-xl font-bold tracking-tight text-f1-white">
-              F1 Tracker
-            </span>
-          </nav>
-        </header>
+        <SideNav />
         <AuthProvider>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 md:ml-60 pb-16 md:pb-0">{children}</main>
         </AuthProvider>
+        <MobileNav />
       </body>
     </html>
   );

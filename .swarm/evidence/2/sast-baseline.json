@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "phase": 2,
+  "created_at": "2026-05-01T17:29:57.226Z",
+  "updated_at": "2026-05-01T17:29:57.226Z",
+  "engine": "tier_a",
+  "files_indexed": [
+    "app/layout.tsx",
+    "app/page.tsx"
+  ],
+  "fingerprints": [],
+  "findings_snapshot": [],
+  "truncated": false
+}
