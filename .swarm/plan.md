@@ -1,7 +1,7 @@
-<!-- PLAN_HASH: 1qnye4d03mjna -->
+<!-- PLAN_HASH: 1a4gt865fraog -->
 # SectorOne
 Swarm: default
-Phase: 1 [COMPLETE] | Updated: 2026-05-02T19:07:30.839Z
+Phase: 1 [COMPLETE] | Updated: 2026-05-02T21:27:58.261Z
 
 ---
 ## Phase 1: Project Setup & Foundation [COMPLETE]
@@ -36,8 +36,8 @@ Phase: 1 [COMPLETE] | Updated: 2026-05-02T19:07:30.839Z
 - [x] 4.1: Build Canvas track map with circuit rendering, driver dots, active sector highlighting - targets: components/TrackMap.tsx [MEDIUM] (depends: 1.4, 1.5)
 - [x] 4.2: Build race data service and frame buffer for sequential replay frames - targets: lib/raceData.ts, lib/frameBuffer.ts [MEDIUM] (depends: 1.5, 3.1)
 - [x] 4.3: Build replay playback engine and bottom timeline controls with event markers - targets: hooks/useReplayEngine.ts, components/TimelineControls.tsx [MEDIUM] (depends: 4.1, 4.2)
-- [ ] 4.4: Build scrollable leaderboard with position, driver, team color, gap, tyre life, stint count, and retired OUT indicators - targets: components/Leaderboard.tsx [MEDIUM] (depends: 4.2)
-- [ ] 4.5: Build floating driver telemetry HUD: speed, gear, RPM bar, DRS, throttle, brake - targets: components/TelemetryHUD.tsx [MEDIUM] (depends: 4.3, 4.4)
+- [x] 4.4: Build scrollable leaderboard with position, driver, team color, gap, tyre life, stint count, and retired OUT indicators - targets: components/Leaderboard.tsx [MEDIUM] (depends: 4.2)
+- [x] 4.5: Build floating driver telemetry HUD: speed, gear, RPM bar, DRS, throttle, brake - targets: components/TelemetryHUD.tsx [MEDIUM] (depends: 4.3, 4.4)
 - [ ] 4.6: Build lap and time display showing current lap, total laps, elapsed race time - targets: components/LapTimeDisplay.tsx [SMALL] (depends: 4.2)
 - [ ] 4.7: Build gap-to-leader chart and tyre degradation heatmap side panels - targets: components/GapChart.tsx, components/TyreWidget.tsx [SMALL] (depends: 4.2)
 - [ ] 4.8: Build weather radar visualization with precipitation radar and stats - targets: components/WeatherRadar.tsx [SMALL] (depends: 4.2)

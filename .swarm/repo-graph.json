@@ -97,6 +97,16 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:53:25.567Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx",
+      "moduleName": "components/Leaderboard.tsx",
+      "exports": [
+        "Leaderboard"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T19:22:50.999Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx",
       "moduleName": "components/MobileNav.tsx",
@@ -136,6 +146,16 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx",
+      "moduleName": "components/TelemetryHUD.tsx",
+      "exports": [
+        "TelemetryHUD"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T21:21:52.578Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx",
@@ -467,6 +487,16 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:17:27.790Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx",
+      "moduleName": "tests/components/Leaderboard.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T20:25:18.860Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx",
       "moduleName": "tests/components/TimelineControls.test.tsx",
@@ -754,9 +784,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-02T19:07:10.793Z",
+    "generatedAt": "2026-05-02T21:21:57.618Z",
     "generator": "repo-graph",
-    "nodeCount": 45,
+    "nodeCount": 48,
     "edgeCount": 20
   }
 }

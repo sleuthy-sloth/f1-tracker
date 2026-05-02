@@ -277,7 +277,7 @@
         {
           "id": "4.4",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build scrollable leaderboard with position, driver, team color, gap, tyre life, stint count, and retired OUT indicators - targets: components/Leaderboard.tsx",
           "depends": [
@@ -288,7 +288,7 @@
         {
           "id": "4.5",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build floating driver telemetry HUD: speed, gear, RPM bar, DRS, throttle, brake - targets: components/TelemetryHUD.tsx",
           "depends": [
