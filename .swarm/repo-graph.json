@@ -137,6 +137,19 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx",
+      "moduleName": "components/TimelineControls.tsx",
+      "exports": [
+        "TimelineControls"
+      ],
+      "imports": [
+        "react",
+        "@/components/ui/Button"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:42:12.379Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx",
       "moduleName": "components/TrackMap.tsx",
@@ -148,7 +161,7 @@
         "@/lib/track-map"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T16:06:52.972Z"
+      "mtime": "2026-05-02T16:53:37.687Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
@@ -203,6 +216,22 @@
       ],
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.295Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/hooks/useReplayEngine.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/hooks/useReplayEngine.ts",
+      "moduleName": "hooks/useReplayEngine.ts",
+      "exports": [
+        "ReplayEngineConfig",
+        "ReplayEngineState",
+        "useReplayEngine",
+        "useReplayEngine"
+      ],
+      "imports": [
+        "react",
+        "@/lib/frameBuffer"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:55:21.235Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts",
@@ -267,6 +296,57 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:29:50.389Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "moduleName": "lib/frameBuffer.ts",
+      "exports": [
+        "FrameBuffer",
+        "FrameBuffer.constructor",
+        "FrameBuffer.if",
+        "FrameBuffer.if",
+        "FrameBuffer.load",
+        "FrameBuffer.next",
+        "FrameBuffer.if",
+        "FrameBuffer.prev",
+        "FrameBuffer.if",
+        "FrameBuffer.seek",
+        "FrameBuffer.if",
+        "FrameBuffer.seekToFrame",
+        "FrameBuffer.if",
+        "FrameBuffer.findIndexByTimestamp",
+        "FrameBuffer.if",
+        "FrameBuffer.while",
+        "FrameBuffer.if",
+        "FrameBuffer.if",
+        "FrameBuffer.seekToTimestamp",
+        "FrameBuffer.if",
+        "FrameBuffer.getRange",
+        "FrameBuffer.if",
+        "FrameBuffer.getAll",
+        "FrameBuffer.getTimeRange",
+        "FrameBuffer.if",
+        "FrameBuffer.start",
+        "FrameBuffer.end"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:14:26.184Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+      "moduleName": "lib/raceData.ts",
+      "exports": [
+        "RaceDataServiceConfig",
+        "RaceDataServiceResult",
+        "getFrameCount"
+      ],
+      "imports": [
+        "./frameBuffer",
+        "./api/openf1"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:15:14.793Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
       "moduleName": "lib/track-map.ts",
@@ -275,7 +355,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T16:09:36.569Z"
+      "mtime": "2026-05-02T16:52:29.048Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts",
@@ -345,6 +425,17 @@
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.296Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts",
+      "moduleName": "tests/adversarial/track-map.adversarial.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/track-map"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T17:32:26.865Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx",
       "moduleName": "tests/archive-filters.test.tsx",
@@ -375,6 +466,73 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T15:17:27.790Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx",
+      "moduleName": "tests/components/TimelineControls.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T19:07:05.774Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
+      "moduleName": "tests/components/TrackMap.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../components/TrackMap",
+        "../../lib/track-map"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T17:08:19.926Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
+      "moduleName": "tests/hooks/useReplayEngine.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/frameBuffer"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T19:06:43.795Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts",
+      "moduleName": "tests/lib/frameBuffer.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/frameBuffer"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:37:59.342Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts",
+      "moduleName": "tests/lib/raceData.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/raceData",
+        "../../lib/raceData"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T18:37:15.771Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts",
+      "moduleName": "tests/lib/track-map.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/track-map"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T17:04:24.367Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx",
@@ -487,10 +645,28 @@
       "importType": "named"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts",
+      "importSpecifier": "./api/openf1",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "importSpecifier": "./frameBuffer",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/.next/types/routes.d.ts",
       "importSpecifier": "./.next/types/routes.d.ts",
       "importType": "sideeffect"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "importSpecifier": "../../lib/track-map",
+      "importType": "named"
     },
     {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx",
@@ -509,6 +685,42 @@
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx",
       "importSpecifier": "../components/GpCard",
       "importType": "sideeffect"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx",
+      "importSpecifier": "../../components/TrackMap",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "importSpecifier": "../../lib/track-map",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "importSpecifier": "../../lib/frameBuffer",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "importSpecifier": "../../lib/frameBuffer",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+      "importSpecifier": "../../lib/raceData",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "importSpecifier": "../../lib/track-map",
+      "importType": "named"
     },
     {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx",
@@ -542,9 +754,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-02T16:37:14.284Z",
+    "generatedAt": "2026-05-02T19:07:10.793Z",
     "generator": "repo-graph",
-    "nodeCount": 34,
-    "edgeCount": 11
+    "nodeCount": 45,
+    "edgeCount": 20
   }
 }

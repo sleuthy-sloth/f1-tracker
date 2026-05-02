@@ -7,7 +7,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import type { TrackLayout, DriverPosition, SafetyCarStatus } from '@/lib/types';
-import { normalizeTrackCoordinates, getSectorCoordinates } from '@/lib/track-map';
+import { normalizeTrackCoordinates, getSectorCoordinates, getCircuitBounds } from '@/lib/track-map';
 
 /**
  * TrackMap component props
@@ -61,7 +61,7 @@ export default function TrackMap({
   // Serialize props for change detection
   const serializeProps = useCallback(() => {
     return JSON.stringify({
-      trackLayout: trackLayout.coordinates.length,
+      trackLayout: `${trackLayout.circuit_name || 'unknown'}-${trackLayout.coordinates.length}`,
       driverPositions: driverPositions.map(d => `${d.driver_number}-${d.x}-${d.y}`),
       selectedDriver,
       activeSector,
@@ -103,12 +103,16 @@ export default function TrackMap({
       return;
     }
 
-    // Normalize track coordinates
+    // Calculate track bounds once so drivers and safety car share the same coordinate space
+    const trackBounds = getCircuitBounds(trackLayout.coordinates);
+
+    // Normalize track coordinates using shared bounds
     const normalizedTrack = normalizeTrackCoordinates(
       trackLayout.coordinates,
       width,
       height,
-      40
+      40,
+      trackBounds
     );
 
     // Draw the circuit path
@@ -175,12 +179,13 @@ export default function TrackMap({
 
     // Draw driver positions
     if (driverPositions.length > 0) {
-      // Normalize driver positions using same transformation
+      // Normalize driver positions using track bounds for consistent coordinate space
       const normalizedDrivers = normalizeTrackCoordinates(
         driverPositions.map(d => ({ x: d.x, y: d.y })),
         width,
         height,
-        40
+        40,
+        trackBounds
       );
 
       for (let i = 0; i < driverPositions.length; i++) {
@@ -213,12 +218,13 @@ export default function TrackMap({
 
     // Draw safety car
     if (safetyCar && (safetyCar.status === 'deployed' || safetyCar.status === 'returning') && safetyCar.x !== undefined && safetyCar.y !== undefined) {
-      // Normalize safety car position
+      // Normalize safety car position using track bounds to avoid degenerate single-point case
       const normalizedSC = normalizeTrackCoordinates(
         [{ x: safetyCar.x, y: safetyCar.y }],
         width,
         height,
-        40
+        40,
+        trackBounds
       );
 
       if (normalizedSC.length > 0) {

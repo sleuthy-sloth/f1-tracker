@@ -241,7 +241,7 @@
         {
           "id": "4.1",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build Canvas track map with circuit rendering, driver dots, active sector highlighting - targets: components/TrackMap.tsx",
           "depends": [
@@ -253,7 +253,7 @@
         {
           "id": "4.2",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build race data service and frame buffer for sequential replay frames - targets: lib/raceData.ts, lib/frameBuffer.ts",
           "depends": [
@@ -265,7 +265,7 @@
         {
           "id": "4.3",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build replay playback engine and bottom timeline controls with event markers - targets: hooks/useReplayEngine.ts, components/TimelineControls.tsx",
           "depends": [
