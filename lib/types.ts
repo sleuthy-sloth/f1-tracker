@@ -311,6 +311,15 @@ export interface SessionResult {
   session_key: number;
 }
 
+/**
+ * Podium entry for a GP card
+ */
+export interface PodiumEntry {
+  position: number;
+  driver_name: string;
+  driver_number: number;
+}
+
 // ============================================================================
 // Replay Types
 // ============================================================================

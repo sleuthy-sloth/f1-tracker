@@ -1,20 +1,22 @@
-"use client";
-
 import { Card } from "@/components/ui/Card";
 import { Chip } from "@/components/ui/Chip";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import type { Meeting, Session } from "@/lib/types";
+import type { Meeting, Session, PodiumEntry } from "@/lib/types";
 
 interface GpCardProps {
   meeting: Meeting;
   sessions: Session[];
+  podium?: PodiumEntry[];
 }
 
 /**
  * Convert country code to flag emoji
  */
 function getFlagEmoji(countryCode: string): string {
+  if (!countryCode || countryCode.length !== 2) {
+    return "🏁";
+  }
   const codePoints = countryCode
     .toUpperCase()
     .split("")
@@ -27,6 +29,7 @@ function getFlagEmoji(countryCode: string): string {
  */
 function formatDateRange(start: string, end: string): string {
   const startDate = new Date(start);
+  if (isNaN(startDate.getTime())) return start;
   const endDate = new Date(end);
 
   const month = startDate.toLocaleString("en-US", { month: "short" });
@@ -91,7 +94,7 @@ function getSessionDisplayName(sessionType: string): string {
 /**
  * GpCard - Displays a Grand Prix weekend card with session info
  */
-export function GpCard({ meeting, sessions }: GpCardProps) {
+export function GpCard({ meeting, sessions, podium }: GpCardProps) {
   // Get unique session types for this meeting
   const uniqueSessionTypes = [...new Set(sessions.map((s) => s.session_type))];
 
@@ -130,6 +133,24 @@ export function GpCard({ meeting, sessions }: GpCardProps) {
         <p className="text-f1-silver/70 text-xs">
           {formatDateRange(meeting.date_start, meeting.date_end)}
         </p>
+
+        {/* Podium results */}
+        {podium && podium.length > 0 && (
+          <div className="flex items-center gap-3 mt-1">
+            {podium.map((entry) => (
+              <div key={entry.position} className="flex items-center gap-1">
+                <span className={`text-xs font-bold ${
+                  entry.position === 1 ? "text-yellow-400" :
+                  entry.position === 2 ? "text-gray-400" :
+                  "text-amber-600"
+                }`}>
+                  #{entry.position}
+                </span>
+                <span className="text-xs text-f1-silver">{entry.driver_name}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Session type badges */}
         {uniqueSessionTypes.length > 0 ? (
