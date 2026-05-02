@@ -472,6 +472,300 @@ Phase 3 completed. 3/3 tasks completed. 0 compliance observations.
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T20:53:31.185Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T20:53:56.976Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:05:13.964Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:13:50.943Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:13:51.447Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:13:59.257Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:03.166Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:03.645Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:04.188Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:04.689Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:09.830Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:10.363Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:10.890Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:16.414Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:16.934Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:21.043Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:21.379Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:22.004Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:25.181Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:25.745Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:37.801Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:38.140Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:41.517Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:49.719Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:50.008Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:53.769Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:14:54.128Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:01.141Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:05.097Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:05.727Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:10.464Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:16.073Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:16.442Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:21.744Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:23.924Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:29.747Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:30.284Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:34.916Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:15:38.381Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:16:13.324Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:17:37.934Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:21:35.050Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:21:47.239Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:21:57.590Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:22:02.228Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:22:02.735Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:22:19.787Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:23:19.098Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:24:35.541Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:25:46.029Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:25:57.644Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:26:47.039Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:26:51.475Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:26:55.139Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:26:59.616Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:04.786Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:09.492Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:13.043Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:18.344Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:30.791Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:39.538Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:43.601Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:47.855Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:27:58.263Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:28:06.491Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:28:44.111Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:28:44.489Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:28:47.770Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:28:54.284Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:12.416Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:30.422Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:38.267Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:46.551Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:56.515Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:29:59.831Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:30:03.008Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:30:06.468Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:30:10.118Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:30:20.774Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:32.865Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:33.491Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:33.922Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:44.951Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:45.243Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:45.584Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:45.974Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:46.406Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:46.738Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:47.080Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:47.511Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:47.982Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:53.289Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:44:53.649Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:00.497Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:00.971Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:01.552Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:07.569Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:08.014Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:08.692Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:19.503Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:19.970Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:20.477Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:31.956Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:37.974Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:38.330Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:42.172Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:45:47.544Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:06.825Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:06.851Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:09.165Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:11.534Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:14.357Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:25.973Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:31.591Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:35.038Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:35.671Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:40.504Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:40.834Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:41.213Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:50.015Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:46:58.042Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:47:04.023Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:47:08.047Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T21:47:28.409Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:17:37.026Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:18:02.287Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:19:16.462Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:19:42.460Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:20:06.919Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:20:53.503Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:22:44.939Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:22:44.965Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:29:54.201Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:32:52.544Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:33:16.812Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:33:16.819Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:09.818Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:19.891Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:26.590Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:38.469Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:46.001Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:48.383Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:50.972Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:36:54.299Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:37:01.440Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:38:45.013Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:39:01.859Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:39:42.313Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:43:38.009Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:46:10.238Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:47:55.095Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:48:03.343Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:48:15.023Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:48:38.887Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:48:45.785Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:48:56.150Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:02.736Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:03.135Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:06.740Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:07.149Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:11.345Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:32.130Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:49:49.082Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:50:58.539Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:04.746Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:16.587Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:26.448Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:32.949Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:42.752Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:51:51.167Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:02.195Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:05.956Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:11.174Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:23.157Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:26.727Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:27.069Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:32.075Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:36.199Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:39.370Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:43.066Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:49.336Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:52:49.736Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:53:31.212Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:01.901Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:28.555Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:38.242Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:43.665Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:47.058Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:56:58.380Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:57:00.150Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:57:03.361Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:00.600Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:14.084Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:26.043Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:45.542Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:50.816Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:58:53.870Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:04.370Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:05.442Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:06.578Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:10.565Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:12.950Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:17.925Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:24.032Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:32.045Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:35.733Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:39.663Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:43.122Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:43.697Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:50.749Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T22:59:54.046Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:00:40.627Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:00:41.601Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:00:53.516Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:25.194Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:32.002Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:50.301Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:52.416Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:54.914Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:57.053Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:02:59.502Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:02.360Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:18.650Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:21.333Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:26.100Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:28.850Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:32.171Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:36.720Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:43.555Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:49.071Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:52.826Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:58.011Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:03:58.417Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:01.419Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:11.507Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:16.728Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:22.497Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:37.759Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:38.810Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:39.915Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:42.173Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:43.508Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:44.639Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:04:45.919Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:04.041Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:08.115Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:15.966Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:22.589Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:31.822Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:32.978Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:39.319Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:45.630Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:05:52.789Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:12.733Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:20.353Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:23.408Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:33.565Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:44.543Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:49.461Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:07:50.349Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:08:06.353Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:11:14.809Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:12:28.135Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:12:41.867Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:12:52.481Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:23.214Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:31.094Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:43.369Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:51.961Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:56.779Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:13:57.304Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:14:17.395Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:14:34.478Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:14:38.596Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:14:53.803Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:14:57.661Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:15:02.608Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:15:08.323Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:15:11.101Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:15:36.394Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:15:36.916Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:00.408Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:02.614Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:02.618Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:06.209Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:08.380Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:10.485Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:12.372Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:14.573Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:29.111Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:33.389Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:43.139Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:45.665Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:53.021Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:16:57.483Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:17:00.156Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-02T23:17:16.533Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 
 ## Context Summary
 
@@ -480,49 +774,48 @@ Phase 3 completed. 3/3 tasks completed. 0 compliance observations.
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| read | 319 | 319 | 0 | 13ms |
-| bash | 318 | 318 | 0 | 5305ms |
-| update_task_status | 101 | 101 | 0 | 11ms |
-| edit | 89 | 89 | 0 | 3053ms |
-| task | 71 | 71 | 0 | 275057ms |
-| glob | 65 | 65 | 0 | 30ms |
-| write | 45 | 45 | 0 | 1123ms |
-| grep | 29 | 29 | 0 | 36ms |
-| declare_scope | 29 | 29 | 0 | 6ms |
-| todowrite | 26 | 26 | 0 | 9ms |
-| lint | 13 | 13 | 0 | 2713ms |
-| test_runner | 11 | 11 | 0 | 874ms |
-| apply_patch | 11 | 11 | 0 | 5018ms |
-| pre_check_batch | 9 | 9 | 0 | 898ms |
-| syntax_check | 9 | 9 | 0 | 22ms |
-| todo_extract | 8 | 8 | 0 | 12ms |
-| check_gate_status | 8 | 8 | 0 | 5ms |
-| build_check | 7 | 7 | 0 | 3160ms |
+| bash | 272 | 272 | 0 | 2910ms |
+| read | 226 | 226 | 0 | 15ms |
+| update_task_status | 104 | 104 | 0 | 10ms |
+| task | 63 | 63 | 0 | 176283ms |
+| edit | 49 | 49 | 0 | 1445ms |
+| glob | 44 | 44 | 0 | 32ms |
+| write | 41 | 41 | 0 | 499ms |
+| grep | 28 | 28 | 0 | 40ms |
+| declare_scope | 25 | 25 | 0 | 7ms |
+| todowrite | 17 | 17 | 0 | 10ms |
+| test_runner | 15 | 15 | 0 | 641ms |
+| check_gate_status | 11 | 11 | 0 | 4ms |
 | phase_complete | 7 | 7 | 0 | 16926ms |
-| diff | 7 | 7 | 0 | 101ms |
+| apply_patch | 7 | 7 | 0 | 5011ms |
 | save_plan | 6 | 6 | 0 | 31ms |
+| lint | 6 | 6 | 0 | 2866ms |
 | get_approved_plan | 6 | 6 | 0 | 15ms |
 | req_coverage | 5 | 5 | 0 | 6ms |
 | knowledge_add | 5 | 5 | 0 | 24ms |
-| batch_symbols | 4 | 4 | 0 | 9ms |
+| todo_extract | 4 | 4 | 0 | 18ms |
+| build_check | 4 | 4 | 0 | 3873ms |
+| pre_check_batch | 4 | 4 | 0 | 1021ms |
 | write_retro | 4 | 4 | 0 | 12ms |
 | write_drift_evidence | 4 | 4 | 0 | 30ms |
-| placeholder_scan | 4 | 4 | 0 | 17ms |
-| imports | 4 | 4 | 0 | 2ms |
 | set_qa_gates | 3 | 3 | 0 | 13ms |
-| sast_scan | 3 | 3 | 0 | 9ms |
-| knowledge_recall | 3 | 3 | 0 | 2ms |
+| syntax_check | 3 | 3 | 0 | 52ms |
 | detect_domains | 2 | 2 | 0 | 7ms |
 | sbom_generate | 2 | 2 | 0 | 46ms |
+| batch_symbols | 2 | 2 | 0 | 15ms |
+| diff | 2 | 2 | 0 | 205ms |
+| placeholder_scan | 2 | 2 | 0 | 17ms |
+| imports | 2 | 2 | 0 | 2ms |
 | get_qa_gate_profile | 2 | 2 | 0 | 6ms |
 | complexity_hotspots | 1 | 1 | 0 | 389ms |
 | doc_scan | 1 | 1 | 0 | 759ms |
 | lint_spec | 1 | 1 | 0 | 8ms |
+| sast_scan | 1 | 1 | 0 | 10ms |
 | secretscan | 1 | 1 | 0 | 137ms |
 | pkg_audit | 1 | 1 | 0 | 3123ms |
 | evidence_check | 1 | 1 | 0 | 9ms |
 | test_impact | 1 | 1 | 0 | 55ms |
-| checkpoint | 1 | 1 | 0 | 16ms |
+| search | 1 | 1 | 0 | 2139ms |
 ## QA Gates Applied (SectorOne)
 - reviewer: true, test_engineer: true, sast_enabled: true, sme_enabled: true
 - critic_pre_plan: true, drift_check: true
@@ -531,23 +824,27 @@ Phase 3 completed. 3/3 tasks completed. 0 compliance observations.
 
 ## LLM-Enhanced Analysis
 BRIEFING:
-- Summary: Prior session claims Phase 3 is completed (3/3 tasks, 0 compliance issues). Current project context, however, shows Phase 2 Upgrade (Next.js 14→15→16) as the next active work item with QA after each step. This is a phase-state mismatch that needs alignment.
-- Key decisions (from SWARM context): Proceed with two sequential PRs (14→15, then 15→16), no staging environment; validate on feature branches; QA pass after each MR.
-- Active blockers: The Phase 3 completion claim conflicts with Phase 2 being pending. Resolve phase alignment before proceeding with Phase 2 tasks.
-- Immediate next steps for the architect: Confirm the actual current phase, publish a revised plan if needed, prepare Phase 2 upgrade PRs (with gated QA), and ensure gating artifacts (tests, lint, build) are wired to the feature-branch workflow.
+- Status: Phase 3 complete (3/3 tasks done). Phase 4 is in progress (Strategy Lab: Race Replay Engine) with 4.8 weather radar in progress; 4.9 safety car visualization; 4.10 race control feed planned. Phase 5 (Championship Standings) is pending.
+- Gates/QA: SectorOne QA gates are in effect (reviewer, test_engineer, sme, sast, drift check enabled; applied at 2026-05-01). No blockers flagged in the summary.
+- Knowledge: Phase 3 learnings exist as candidate lessons (5 entries) to be considered for the ongoing Phase 4 work. No explicit decisions recorded for Phase 4 yet.
+- Active blockers: Not stated; architecture appears aligned to proceed with 4.8→4.10 tasks and then Phase 5 pending.
 
-CONTRADICITIONS:
-- Phase status mismatch: PRIOR_SUMMARY reports Phase 3 completed; PROJECT_CONTEXT shows Phase 2 [PENDING]. This indicates drift between recorded session outcomes and current project state.
+CONTRADICTIONS:
+- None detected between PRIOR_SUMMARY and PROJECT_CONTEXT as provided.
 
 OBSERVATIONS:
-- entry 8741aec3-668f-4c3f-98b5-b94425e555f2 appears high-confidence: aligns with reviewer-fix culture (edge cases) and gate-quality mindset.
-- entry 84de33d5-4f6d-46ac-8bc8-0f4e69629c2f could be tighter: specific testing isolation note; actionable but could be trimmed for brevity.
-- entry 3790a49d-8d5f-4bbc-91af-df671819f032 could be tighter: Next.js 16 dynamic route param guidance; knowledge aligns with upgrade plan but is version-specific.
-- entry 847e6f40-8e47-4f21-8ce4-6c94d8b191c2 appears high-confidence: practical UI consideration (remount handling via key) relevant to React components.
-- entry 33509489-aeb1-414c-9066-bf9032fa1244 could be tighter: server components error handling guidance; aligns with robust error handling practices.
+- entry 8741aec3-668f-4c3f-98b5-b94425e555f2 appears mid-confidence (candidate) and is a general reviewer-focused tip. 
+- entry 84de33d5-4f6d-46ac-8bc8-0f4e69629c2f could be tightened: “Test isolation matters: bun vi.mock hoisting can contaminate across test files when run together” → suggested tighter form: “Test isolation matters: hoisted mocks across files can contaminate tests; isolate them.”
+- entry 3790a49d-8d5f-4bbc-91af-df671819f032 could be tighter: “Dynamic route params in Next.js 16 are Promises that must be awaited” → tighter: “Next.js 16 dynamic route params are async; await them.”
+- entry 847e6f40-8e47-4f21-8ce4-6c94d8b191c2 could be tighter: “Client component state resets on remount via key prop is cleaner than resetting state manually” → tighter: “Reset client component state on remount using a key prop.”
+- entry 33509489-aeb1-414c-9066-bf9032fa1244 could be tighter: “Server components must handle API errors with try/catch and fallback UI to pass review” → tighter: “Server components require try/catch around APIs with a fallback UI.”
+- new candidate: Given Phase 4’s emphasis on UI + server boundaries, add a lesson: “Ensure error boundaries and fallback UI exist for all server-driven data paths to satisfy reviewer expectations and prevent crashes in Strategy Lab features.”
 
-New candidate: Hive-style practices for upgrade gates — consider a concise note like: “Gate content: enforce per-phase PRs with automated checks (lint, type-check, tests, build) before merging; track phase readiness in plan.md.”
+KNOWLEDGE_ENTRIES:
+- Reviewed 5 entries (IDs above). All are candidate-level insights relevant to ongoing work but not yet promoted or archived.
 
 KNOWLEDGE_STATS:
 - Entries reviewed: 5
 - Prior phases covered: 3
+
+If you want, I can draft tightened rewrites for each observation, and propose integrating these as explicit knowledge entries into the Hive with short, 1-2 sentence lessons.

@@ -236,7 +236,7 @@
     {
       "id": 4,
       "name": "Strategy Lab (Race Replay Engine)",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "4.1",
@@ -300,7 +300,7 @@
         {
           "id": "4.6",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build lap and time display showing current lap, total laps, elapsed race time - targets: components/LapTimeDisplay.tsx",
           "depends": [
@@ -311,7 +311,7 @@
         {
           "id": "4.7",
           "phase": 4,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build gap-to-leader chart and tyre degradation heatmap side panels - targets: components/GapChart.tsx, components/TyreWidget.tsx",
           "depends": [
@@ -322,7 +322,7 @@
         {
           "id": "4.8",
           "phase": 4,
-          "status": "pending",
+          "status": "in_progress",
           "size": "small",
           "description": "Build weather radar visualization with precipitation radar and stats - targets: components/WeatherRadar.tsx",
           "depends": [

@@ -82,6 +82,16 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:52:49.534Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
+      "moduleName": "components/GapChart.tsx",
+      "exports": [
+        "GapChart"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:04:06.501Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx",
       "moduleName": "components/GpCard.tsx",
@@ -96,6 +106,16 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T15:53:25.567Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+      "moduleName": "components/LapTimeDisplay.tsx",
+      "exports": [
+        "LapTimeDisplay"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T22:36:40.988Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx",
@@ -183,6 +203,16 @@
       "language": "typescript",
       "mtime": "2026-05-02T16:53:37.687Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx",
+      "moduleName": "components/TyreWidget.tsx",
+      "exports": [
+        "TyreWidget"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:07:39.533Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
       "moduleName": "components/ui/Button.tsx",
@@ -222,6 +252,16 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T02:24:59.899Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx",
+      "moduleName": "components/WeatherRadar.tsx",
+      "exports": [
+        "WeatherRadar"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:16:38.134Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
@@ -487,6 +527,42 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:17:27.790Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
+      "moduleName": "tests/components/GapChart.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/GapChart"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:14:48.797Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx",
+      "moduleName": "tests/components/LapTimeDisplay.adversarial.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/LapTimeDisplay",
+        "bun:test"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T22:51:57.188Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx",
+      "moduleName": "tests/components/LapTimeDisplay.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../components/LapTimeDisplay"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T22:48:33.880Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx",
       "moduleName": "tests/components/Leaderboard.test.tsx",
@@ -496,6 +572,23 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T20:25:18.860Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx",
+      "moduleName": "tests/components/TelemetryHUD.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD",
+        "../../components/TelemetryHUD"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T21:25:41.022Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx",
@@ -518,6 +611,18 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T17:08:19.926Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx",
+      "moduleName": "tests/components/TyreWidget.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/TyreWidget"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:14:29.466Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
@@ -717,6 +822,30 @@
       "importType": "sideeffect"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
+      "importSpecifier": "../../components/GapChart",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+      "importSpecifier": "../../components/LapTimeDisplay",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+      "importSpecifier": "../../components/LapTimeDisplay",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx",
+      "importSpecifier": "../../components/TelemetryHUD",
+      "importType": "default"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx",
       "importSpecifier": "../../components/TrackMap",
@@ -727,6 +856,12 @@
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
       "importSpecifier": "../../lib/track-map",
       "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx",
+      "importSpecifier": "../../components/TyreWidget",
+      "importType": "default"
     },
     {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
@@ -784,9 +919,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-02T21:21:57.618Z",
+    "generatedAt": "2026-05-02T23:18:14.270Z",
     "generator": "repo-graph",
-    "nodeCount": 48,
-    "edgeCount": 20
+    "nodeCount": 57,
+    "edgeCount": 25
   }
 }
