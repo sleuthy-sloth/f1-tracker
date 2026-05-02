@@ -2,6 +2,19 @@
   "schema_version": "1.0.0",
   "workspaceRoot": "/Users/spkoehl/Documents/OpenCode/F1 Tracker",
   "nodes": {
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/page.tsx",
+      "moduleName": "app/archive/page.tsx",
+      "exports": [
+        "async"
+      ],
+      "imports": [
+        "@/lib/api/openf1",
+        "@/components/GpCard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:32:00.801Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
       "moduleName": "app/layout.tsx",
@@ -30,6 +43,21 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T17:35:22.621Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx",
+      "moduleName": "components/GpCard.tsx",
+      "exports": [
+        "GpCard"
+      ],
+      "imports": [
+        "@/components/ui/Card",
+        "@/components/ui/Chip",
+        "@/components/ui/Button",
+        "next/link"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:32:07.254Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx",
@@ -71,6 +99,16 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
+      "moduleName": "components/ui/Button.tsx",
+      "exports": [
+        "ButtonProps"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:10:03.541Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx",
       "moduleName": "components/ui/Card.tsx",
@@ -78,6 +116,28 @@
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-01T19:11:29.298Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx",
+      "moduleName": "components/ui/Chip.tsx",
+      "exports": [
+        "ChipProps"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:19:55.925Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx",
+      "moduleName": "components/ui/Input.tsx",
+      "exports": [
+        "InputProps"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:24:59.899Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
@@ -223,6 +283,61 @@
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.296Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx",
+      "moduleName": "tests/verification/button_verification.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/ui/Button",
+        "child_process"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:13:33.517Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx",
+      "moduleName": "tests/verification/card_verification.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@testing-library/react",
+        "bun:test",
+        "../../components/ui/Card",
+        "child_process"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-01T19:17:55.317Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx",
+      "moduleName": "tests/verification/chip_verification.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs",
+        "path",
+        "../../components/ui/Chip"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:21:46.870Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx",
+      "moduleName": "tests/verification/input_verification.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs",
+        "path",
+        "react-dom/server",
+        "react",
+        "../../components/ui/Input"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T02:27:21.223Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts",
       "moduleName": "tests/verification/navigation_verification.test.ts",
@@ -269,12 +384,36 @@
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/.next/types/routes.d.ts",
       "importSpecifier": "./.next/types/routes.d.ts",
       "importType": "sideeffect"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
+      "importSpecifier": "../../components/ui/Button",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx",
+      "importSpecifier": "../../components/ui/Card",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx",
+      "importSpecifier": "../../components/ui/Chip",
+      "importType": "sideeffect"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx",
+      "importSpecifier": "../../components/ui/Input",
+      "importType": "sideeffect"
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-01T19:11:29.334Z",
+    "generatedAt": "2026-05-02T04:11:46.905Z",
     "generator": "repo-graph",
-    "nodeCount": 17,
-    "edgeCount": 3
+    "nodeCount": 26,
+    "edgeCount": 7
   }
 }

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "2.7",
+  "declaredAt": 1777688528068,
+  "expiresAt": 1777774928068,
+  "files": [
+    "components/ui/Input.tsx"
+  ]
+}

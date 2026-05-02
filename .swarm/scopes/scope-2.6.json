@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "taskId": "2.6",
+  "declaredAt": 1777688035081,
+  "expiresAt": 1777774435081,
+  "files": [
+    "components/ui/Chip.tsx"
+  ]
+}

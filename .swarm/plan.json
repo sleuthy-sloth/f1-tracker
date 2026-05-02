@@ -120,7 +120,7 @@
     {
       "id": 2,
       "name": "SectorOne Branding & Design System",
-      "status": "pending",
+      "status": "complete",
       "tasks": [
         {
           "id": "2.1",
@@ -173,7 +173,7 @@
         {
           "id": "2.5",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build Button components (primary and ghost) - targets: components/ui/Button.tsx",
           "depends": [
@@ -185,7 +185,7 @@
         {
           "id": "2.6",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build Chip component for tyre compounds and status indicators - targets: components/ui/Chip.tsx",
           "depends": [
@@ -197,7 +197,7 @@
         {
           "id": "2.7",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build Input component with dark styling and F1 Red focus - targets: components/ui/Input.tsx",
           "depends": [
@@ -211,12 +211,12 @@
     {
       "id": 3,
       "name": "Race Archive (Session Browser)",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "3.1",
           "phase": 3,
-          "status": "pending",
+          "status": "in_progress",
           "size": "medium",
           "description": "Build Archive grid page with GP cards showing circuit outlines, podium, and session info - targets: app/archive/page.tsx, components/GpCard.tsx",
           "depends": [
