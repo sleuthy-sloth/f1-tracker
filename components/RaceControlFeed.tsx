@@ -64,7 +64,7 @@ export default function RaceControlFeed({
     return (
       <div
         className={cn(
-          'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+          'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -84,7 +84,7 @@ export default function RaceControlFeed({
     return (
       <div
         className={cn(
-          'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+          'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -106,7 +106,7 @@ export default function RaceControlFeed({
   return (
     <div
       className={cn(
-        'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+        'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}
     >

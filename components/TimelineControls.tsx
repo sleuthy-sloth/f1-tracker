@@ -195,7 +195,7 @@ export function TimelineControls({
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-28 bg-surface/80 backdrop-blur-xl border-t border-white/[0.10] px-4 py-3">
+    <div className="fixed bottom-0 left-0 right-0 h-28 bg-surface-dim border-t border-white/[0.10] px-4 py-3">
       {/* Controls row */}
       <div className="flex items-center justify-between mb-3">
         {/* Left: Playback controls */}

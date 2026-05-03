@@ -83,10 +83,10 @@ export default function Home() {
           
           {/* Mockup Overlays */}
           <div className="absolute bottom-6 left-6 flex items-center gap-4">
-            <div className="px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-white/10 font-mono text-[10px] text-f1-red font-bold">
+            <div className="px-3 py-1.5 rounded bg-[#0a0c10] border border-white/10 font-mono text-[10px] text-f1-red font-bold">
               SYSTEM: ACTIVE
             </div>
-            <div className="px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-white/10 font-mono text-[10px] text-f1-silver font-bold">
+            <div className="px-3 py-1.5 rounded bg-[#0a0c10] border border-white/10 font-mono text-[10px] text-f1-silver font-bold">
               GPS: 44.5011° N, 11.3435° E
             </div>
           </div>

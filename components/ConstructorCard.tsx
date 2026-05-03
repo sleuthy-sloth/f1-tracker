@@ -32,7 +32,7 @@ export interface ConstructorCardProps {
  */
 function LoadingSkeleton() {
   return (
-    <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-6">
+    <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-6">
       <div className="flex items-center gap-4 mb-6">
         <div className="animate-pulse w-12 h-12 rounded-full bg-white/[0.1]" />
         <div className="flex-1">
@@ -53,7 +53,7 @@ function LoadingSkeleton() {
  */
 function EmptyState() {
   return (
-    <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-6">
+    <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-6">
       <div className="flex items-center justify-center h-48">
         <p className="text-f1-silver text-sm">No championship data available</p>
       </div>
@@ -144,7 +144,7 @@ export default function ConstructorCard({
   return (
     <div
       className={cn(
-        'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-6',
+        'bg-[#111418] border border-white/[0.07] rounded-xl p-6',
         isLeader && 'ring-1 ring-[#FFD700]/30',
         className
       )}

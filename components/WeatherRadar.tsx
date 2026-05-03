@@ -48,7 +48,7 @@ export default function WeatherRadar({ currentFrame, className }: WeatherRadarPr
   // Empty state - no race data
   if (currentFrame === null) {
     return (
-      <div className={cn('w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4', className)}>
+      <div className={cn('w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4', className)}>
         <div className="text-f1-silver text-sm text-center py-8">
           No race data
         </div>
@@ -61,7 +61,7 @@ export default function WeatherRadar({ currentFrame, className }: WeatherRadarPr
   // Weather data not available
   if (!weather) {
     return (
-      <div className={cn('w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4', className)}>
+      <div className={cn('w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4', className)}>
         <div className="text-f1-silver text-sm text-center py-8">
           Weather data not available
         </div>
@@ -74,7 +74,7 @@ export default function WeatherRadar({ currentFrame, className }: WeatherRadarPr
   const precipitationLabel = rainfall === 0 ? 'DRY' : `PRECIPITATION: ${rainfall}%`;
 
   return (
-    <div className={cn('w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4', className)}>
+    <div className={cn('w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4', className)}>
       {/* Header */}
       <div className="mb-4">
         <h2 className="text-[10px] uppercase tracking-widest text-f1-silver font-medium">

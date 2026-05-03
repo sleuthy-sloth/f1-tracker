@@ -125,7 +125,7 @@ export function MobileNav() {
 
   return (
     <nav
-      className="flex md:hidden fixed bottom-0 left-0 right-0 z-50 flex-col border-t border-white/5 bg-surface/80 backdrop-blur-xl"
+      className="flex md:hidden fixed bottom-0 left-0 right-0 z-50 flex-col border-t border-white/5 bg-surface-dim"
       aria-label="Mobile navigation"
     >
       {/* Safe area padding for iPhone home indicator */}

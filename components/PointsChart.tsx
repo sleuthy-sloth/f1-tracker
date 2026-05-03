@@ -141,7 +141,7 @@ export default function PointsChart({
   // Empty state
   if (series.length === 0 || series.every((s) => s.data.length === 0)) {
     return (
-      <div className={cn('bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4', className)}>
+      <div className={cn('bg-[#111418] border border-white/[0.07] rounded-xl p-4', className)}>
         <div className="text-[10px] uppercase tracking-widest text-[#9b9b9b] mb-4">
           Points Progression
         </div>
@@ -168,7 +168,7 @@ export default function PointsChart({
   }
 
   return (
-    <div className={cn('bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4', className)}>
+    <div className={cn('bg-[#111418] border border-white/[0.07] rounded-xl p-4', className)}>
       <div className="text-[10px] uppercase tracking-widest text-[#9b9b9b] mb-4">
         Points Progression
       </div>

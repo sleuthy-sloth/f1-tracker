@@ -67,7 +67,7 @@ export function SideNav() {
       aria-label="Main navigation"
     >
       {/* Branding */}
-      <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface-dim/40 backdrop-blur-xl">
+      <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface-dim">
         <Link href="/" className="group flex flex-col gap-0.5">
           <div className="flex items-center gap-2.5">
             <div className="relative w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-f1-red/30 shadow-[0_0_15px_rgba(225,6,0,0.15)] group-hover:border-f1-red/60 group-hover:shadow-[0_0_20px_rgba(225,6,0,0.3)] transition-all duration-300">
@@ -132,7 +132,7 @@ export function SideNav() {
       </div>
 
       {/* User Info / Status */}
-      <div className="border-t border-white/5 p-4 bg-surface/20 backdrop-blur-sm">
+      <div className="border-t border-white/5 p-4 bg-surface-dim">
         <div className="flex items-center gap-3 px-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="text-[10px] font-mono text-f1-silver/60 uppercase tracking-widest">

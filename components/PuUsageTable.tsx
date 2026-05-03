@@ -161,7 +161,7 @@ export default function PuUsageTable({
   return (
     <div
       className={cn(
-        'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl overflow-hidden',
+        'bg-[#111418] border border-white/[0.07] rounded-xl overflow-hidden',
         className
       )}
     >
@@ -173,7 +173,7 @@ export default function PuUsageTable({
       </div>
 
       {/* Column Headers */}
-      <div className="grid grid-cols-[60px_1fr_repeat(7,60px)_80px] px-4 py-2 bg-surface/80 backdrop-blur-md border-b border-white/[0.1] text-xs text-f1-silver uppercase">
+      <div className="grid grid-cols-[60px_1fr_repeat(7,60px)_80px] px-4 py-2 bg-surface-dim border-b border-white/[0.1] text-xs text-f1-silver uppercase">
         <span>#</span>
         <span>Driver</span>
         {componentKeys.map((key) => (
