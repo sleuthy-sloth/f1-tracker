@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthContext";
-import { SideNav } from "@/components/SideNav";
+import { TopNav } from "@/components/TopNav";
 import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
@@ -33,9 +33,9 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-f1-carbon">
-        <SideNav />
+        <TopNav />
         <AuthProvider>
-          <main className="flex-1 md:ml-60 pb-16 md:pb-0">{children}</main>
+          <main className="flex-1 pt-14 md:pt-16 pb-16 md:pb-0">{children}</main>
         </AuthProvider>
         <MobileNav />
       </body>

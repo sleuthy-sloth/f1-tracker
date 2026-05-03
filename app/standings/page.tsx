@@ -1,6 +1,8 @@
 import { getSessions, getDrivers, getChampionshipDrivers, getChampionshipTeams, getAvailableYears } from '@/lib/api/openf1';
 import StandingsClient from './StandingsClient';
 import type { Driver, ChampionshipDriver, ChampionshipTeam, Session } from '@/lib/types';
+import { SeasonSelector } from '@/components/SeasonSelector';
+import { DataCard } from '@/components/DataCard';
 
 interface StandingsPageProps {
   searchParams: Promise<{ year?: string }>;
@@ -68,26 +70,40 @@ export default async function StandingsPage({ searchParams }: StandingsPageProps
 
   return (
     <div className="p-6">
-      {/* Year Selector */}
+      {/* Season Selector + DataCards */}
       <div className="flex items-center gap-2 mb-8">
         <h1 className="font-heading text-2xl font-bold text-f1-white">CHAMPIONSHIP</h1>
         <span className="text-f1-silver font-medium ml-2">{selectedYear}</span>
-        <div className="flex gap-1 ml-auto">
-          {availableYears.map((year) => (
-            <a
-              key={year}
-              href={`/standings?year=${year}`}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                year === selectedYear
-                  ? 'bg-f1-red/20 text-f1-red border border-f1-red/30 font-bold'
-                  : 'bg-white/[0.05] text-f1-silver/70 border border-white/[0.08] hover:bg-white/[0.08] hover:text-f1-white'
-              }`}
-            >
-              {year}
-            </a>
-          ))}
-        </div>
+        <SeasonSelector
+          years={availableYears}
+          selectedYear={selectedYear}
+          hrefBase="/standings?year="
+          className="ml-auto"
+        />
       </div>
+
+      {/* Key Metrics */}
+      {latestRaceSession && (driverStandings.length > 0 || teamStandings.length > 0) && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <DataCard
+            label="Total Drivers"
+            value={driverStandings.length}
+          />
+          <DataCard
+            label="Total Teams"
+            value={teamStandings.length}
+          />
+          <DataCard
+            label="Leader Points"
+            value={driverStandings[0]?.points_current || 0}
+          />
+          <DataCard
+            label="Gap to Lead"
+            value={driverStandings.length > 1 ? `${(driverStandings[0].points_current - driverStandings[1].points_current).toFixed(0)}` : "—"}
+            unit="pts"
+          />
+        </div>
+      )}
 
       {/* Error state: No session found */}
       {!latestRaceSession && sessions.length > 0 && (

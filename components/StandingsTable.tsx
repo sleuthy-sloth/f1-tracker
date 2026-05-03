@@ -92,7 +92,7 @@ export default function StandingsTable({
       <div
         key={standing.driver_number}
         className={cn(
-          'group relative grid grid-cols-[60px_1fr_100px_80px_80px] items-center',
+          'group relative grid grid-cols-[80px_1fr_100px_80px_80px] items-center',
           'px-6 py-4 hover:bg-white/[0.03] transition-all duration-200 border-b border-white/[0.03]'
         )}
       >
@@ -102,8 +102,15 @@ export default function StandingsTable({
           style={{ backgroundColor: driverInfo?.team_colour || '#333' }}
         />
         
-        {/* Position */}
-        <div className="flex justify-start">
+        {/* Position with Team Color Bar */}
+        <div className="flex items-center gap-2">
+          {/* Team-colored bar next to position */}
+          {driverInfo?.team_colour && (
+            <div
+              className="w-1 h-8 rounded-full"
+              style={{ backgroundColor: driverInfo.team_colour, boxShadow: `0 0 6px ${driverInfo.team_colour}40` }}
+            />
+          )}
           <div
             className={cn(
               "w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm transition-all",
@@ -221,7 +228,7 @@ export default function StandingsTable({
 
       {/* Table Column Headers */}
       {view === 'drivers' && (
-        <div className="grid grid-cols-[60px_1fr_100px_80px_80px] px-6 py-3 bg-white/[0.01] border-b border-white/[0.03] text-[10px] text-f1-silver/40 font-bold uppercase tracking-widest">
+        <div className="grid grid-cols-[80px_1fr_100px_80px_80px] px-6 py-3 bg-white/[0.01] border-b border-white/[0.03] text-[10px] text-f1-silver/40 font-bold uppercase tracking-widest">
           <span>Pos</span>
           <span>Competitor</span>
           <span className="text-right">Points</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Card } from '@/components/ui/Card';
 import StandingsTable from '@/components/StandingsTable';
 import type { ChampionshipDriver, ChampionshipTeam, Driver } from '@/lib/types';
 
@@ -55,7 +56,7 @@ function StandingsClient({
   const [view, setView] = useState<'drivers' | 'constructors'>('drivers');
 
   return (
-    <>
+    <Card glow="cyan" variant="glass" padding="none" className="max-w-4xl mx-auto">
       <ViewToggle view={view} onChange={setView} />
       <StandingsTable
         driverStandings={driverStandings}
@@ -63,7 +64,7 @@ function StandingsClient({
         drivers={drivers}
         view={view}
       />
-    </>
+    </Card>
   );
 }
 

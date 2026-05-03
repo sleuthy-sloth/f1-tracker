@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/lib/auth/useAuth';
+import { DataCard } from '@/components/DataCard';
 import FantasyDashboard from '@/components/FantasyDashboard';
 import Link from 'next/link';
 
@@ -170,7 +171,7 @@ export default function FantasyPage() {
   // Loading auth state
   if (loading) {
     return (
-      <div className="min-h-screen bg-f1-black">
+      <div className="min-h-screen bg-f1-carbon">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <header className="mb-8">
@@ -190,7 +191,7 @@ export default function FantasyPage() {
   // Not authenticated
   if (!user) {
     return (
-      <div className="min-h-screen bg-f1-black">
+      <div className="min-h-screen bg-f1-carbon">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <header className="mb-8">
@@ -209,15 +210,41 @@ export default function FantasyPage() {
   
   // Authenticated - show dashboard with mock data
   return (
-    <div className="min-h-screen bg-f1-black">
+    <div className="min-h-screen bg-f1-carbon">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <header className="mb-8">
+        <header className="mb-6">
           <h1 className="font-heading text-4xl md:text-5xl font-bold text-f1-white mb-2">
             FANTASY
           </h1>
           <p className="text-f1-silver">Build and manage your fantasy F1 team</p>
         </header>
+        
+        {/* Key Metrics - DataCard Row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <DataCard
+            label="Total Points"
+            value={mockTeam.totalPoints}
+            trend="up"
+            trendLabel="+12 this round"
+          />
+          <DataCard
+            label="Budget Remaining"
+            value={`$${mockTeam.budgetRemaining}M`}
+          />
+          <DataCard
+            label="Team Value"
+            value={`$${(mockTeam.drivers.reduce((s, d) => s + d.cost, 0) + mockTeam.constructor.cost).toFixed(1)}M`}
+            trend="up"
+            trendLabel="+$2.5M"
+          />
+          <DataCard
+            label="League Rank"
+            value="#3"
+            trend="up"
+            trendLabel="+2 positions"
+          />
+        </div>
         
         {/* Dashboard */}
         <FantasyDashboard team={mockTeam} />

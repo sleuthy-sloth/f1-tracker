@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/Card";
 import { Chip } from "@/components/ui/Chip";
-import { Button } from "@/components/ui/Button";
+import { CircuitOutline } from "@/components/CircuitOutline";
 import Link from "next/link";
 import type { Meeting, Session, PodiumEntry } from "@/lib/types";
 
@@ -103,50 +103,60 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
   const targetSession = raceSession || sessions[0];
   const linkHref = targetSession ? `/archive/${targetSession.session_key}` : "#";
 
-  // Circuit type badge color
-  const circuitTypeColor = meeting.circuit_type === "street" ? "blue" : "gray";
+  // Build circuit identifier for CircuitOutline
+  const circuitName = meeting.circuit_short_name?.toLowerCase().replace(/\s+/g, '_') || "";
 
   return (
-    <Card variant="glass" padding="md" hoverable>
+    <Card glow="cyan" variant="glass" padding="md" hoverable>
       <div className="flex flex-col gap-3">
-        {/* Header: Circuit type badge + Meeting name */}
-        <div className="flex items-start justify-between">
-          <Chip
-            label={meeting.circuit_type === "street" ? "Street" : "Race"}
-            variant="status"
-            color={circuitTypeColor}
-            size="sm"
-          />
+        {/* Top row: Circuit SVG + Info */}
+        <div className="flex gap-4">
+          {/* Circuit Outline - Neon Glow */}
+          <div className="shrink-0">
+            <CircuitOutline
+              circuitName={circuitName}
+              size={90}
+              strokeWidth={2}
+              glowColor="#00D2BE"
+            />
+          </div>
+
+          {/* Meeting Info */}
+          <div className="flex-1 min-w-0">
+            {/* Circuit type badge */}
+            <Chip
+              label={meeting.circuit_type === "street" ? "Street" : "Race"}
+              variant="status"
+              color={meeting.circuit_type === "street" ? "blue" : "gray"}
+              size="sm"
+            />
+
+            {/* Meeting name */}
+            <h3 className="font-heading text-lg font-bold text-f1-white leading-tight mt-2">
+              {meeting.meeting_name}
+            </h3>
+            <p className="text-f1-silver text-sm mt-0.5">
+              {meeting.circuit_short_name}, {meeting.country_name} {getFlagEmoji(meeting.country_code)}
+            </p>
+            <p className="text-f1-silver/50 text-xs mt-1 font-mono">
+              {formatDateRange(meeting.date_start, meeting.date_end)}
+            </p>
+          </div>
         </div>
 
-        {/* Meeting name */}
-        <div>
-          <h3 className="font-heading text-lg font-bold text-f1-white leading-tight">
-            {meeting.meeting_name}
-          </h3>
-          <p className="text-f1-silver text-sm mt-1">
-            {meeting.circuit_short_name}, {meeting.country_name} {getFlagEmoji(meeting.country_code)}
-          </p>
-        </div>
-
-        {/* Date range */}
-        <p className="text-f1-silver/70 text-xs">
-          {formatDateRange(meeting.date_start, meeting.date_end)}
-        </p>
-
-        {/* Podium results */}
+        {/* Podium Results */}
         {podium && podium.length > 0 && (
-          <div className="flex items-center gap-3 mt-1">
+          <div className="flex items-center gap-3 mt-1 px-1">
             {podium.map((entry) => (
-              <div key={entry.position} className="flex items-center gap-1">
-                <span className={`text-xs font-bold ${
-                  entry.position === 1 ? "text-yellow-400" :
-                  entry.position === 2 ? "text-gray-400" :
-                  "text-amber-600"
+              <div key={entry.position} className="flex items-center gap-1.5">
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                  entry.position === 1 ? "bg-yellow-400/20 text-yellow-400" :
+                  entry.position === 2 ? "bg-gray-400/20 text-gray-400" :
+                  "bg-amber-600/20 text-amber-600"
                 }`}>
-                  #{entry.position}
+                  {entry.position}
                 </span>
-                <span className="text-xs text-f1-silver">{entry.driver_name}</span>
+                <span className="text-xs text-f1-silver font-medium">{entry.driver_name}</span>
               </div>
             ))}
           </div>
@@ -154,7 +164,7 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
 
         {/* Session type badges */}
         {uniqueSessionTypes.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5 mt-1">
+          <div className="flex flex-wrap gap-1.5">
             {uniqueSessionTypes.map((sessionType) => (
               <Chip
                 key={sessionType}
@@ -169,26 +179,14 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
           <p className="text-f1-silver/50 text-xs">No sessions available</p>
         )}
 
-        {/* View Sessions Link */}
+        {/* Cyan CTA Button (rendered as a styled link, not nested) */}
         {targetSession && (
-          <div className="mt-2">
-            <Link href={linkHref} className="inline-block">
-              <Button variant="ghost" size="sm">
-                View Sessions
-                <svg
-                  className="w-4 h-4 ml-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Button>
+          <div className="mt-1">
+            <Link
+              href={linkHref}
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-all duration-200 bg-[#00D2BE] text-white shadow-[var(--neon-glow-cyan)] hover:bg-[#00E8D0] hover:shadow-[0_0_15px_rgba(0,210,190,0.6),0_0_30px_rgba(0,210,190,0.3)]"
+            >
+              VIEW FULL TELEMETRY
             </Link>
           </div>
         )}

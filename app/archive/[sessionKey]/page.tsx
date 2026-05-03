@@ -1,5 +1,7 @@
 import { getSessions, getDrivers, getSessionResult } from "@/lib/api/openf1";
 import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { DataCard } from "@/components/DataCard";
 import type { Session, Driver, SessionResult } from "@/lib/types";
 import Link from "next/link";
 
@@ -153,10 +155,31 @@ export default async function SessionPage({ params }: SessionPageProps) {
           <span className="text-f1-silver/50">•</span>
           <span className="text-f1-silver">{session.location}</span>
         </div>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          <DataCard
+            label="Drivers"
+            value={drivers.length}
+          />
+          <DataCard
+            label="Finishers"
+            value={sortedResults.filter(r => !r.dnf).length}
+            unit={`of ${sortedResults.length}`}
+          />
+          <DataCard
+            label="Total Laps"
+            value={sortedResults.length > 0 ? Math.max(...sortedResults.map(r => r.number_of_laps)) : "—"}
+          />
+          <DataCard
+            label="Session Type"
+            value={getSessionDisplayName(session.session_type)}
+          />
+        </div>
       </div>
 
       {/* Results Card */}
-      <div className="bg-[#111418] rounded-xl border border-white/[0.05] p-6 mb-6">
+      <Card glow="cyan" variant="glass" padding="md" className="mb-6">
         <h2 className="font-heading text-xl font-bold text-f1-white mb-4">Results</h2>
         
         {sortedResults.length === 0 ? (
@@ -225,11 +248,11 @@ export default async function SessionPage({ params }: SessionPageProps) {
             </table>
           </div>
         )}
-      </div>
+      </Card>
 
       {/* Launch Replay Button */}
       <Link href={`/strategy-lab?session=${sessionKey}`}>
-        <Button variant="primary" size="lg">
+        <Button variant="cyan" size="lg">
           <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

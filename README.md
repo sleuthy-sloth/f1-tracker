@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06b6d4?logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Status:** Active development (v0.3.0) — Phase 5 of 7 complete
+**Status:** Active development (v0.4.0) — Phase 5.5 of 7 complete
 
 ---
 
@@ -101,6 +101,25 @@ The project is organized into seven development phases, progressing from foundat
 - **Year-aware team identity service** (`lib/teams.ts`) — historical color mapping for 2024–2026 including Audi (2026) and Cadillac (2025+) entries with fallback handling
 - **Power Unit component tracker** (`components/PuUsageTable.tsx`, `app/standings/components/`) — ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust usage counts with green/yellow/red penalty indicators
 
+**Neon Telemetry HUD Redesign (Phase 5.5):**
+
+- **Top navigation bar** (`components/TopNav.tsx`) — horizontal nav bar replacing sidebar: logo left, tabs center (LIVE, ANALYSIS, HISTORY, SETTINGS), profile icon right. Collapses to hamburger drawer on mobile with Escape-key and click-outside dismissal
+- **Hexagonal background pattern** (`public/hex-pattern.svg`, `app/globals.css`) — seamless SVG hex grid at 8% opacity applied globally via CSS multi-background
+- **Neon glow design tokens** (`app/globals.css`) — CSS custom properties for cyan, yellow, and green neon glow effects with matching utility classes (`.glow-{color}`, `.text-glow-{color}`) and `--color-cyan-accent: #00D2BE`
+- **Card glow variants** (`components/ui/Card.tsx`) — new `glow` prop (`"cyan" | "red" | "yellow" | "green"`) with base neon shadow that intensifies 1.5× on hover
+- **Button cyan variant** (`components/ui/Button.tsx`) — new `"cyan"` variant with `#00D2BE` background, neon glow shadow, and brighter hover state
+- **Archive filter sidebar** (`components/FilterSidebar.tsx`) — collapsible left sidebar with 5 filter sections (Year pills, Circuit Type, Weather, Team checkboxes, Driver Wins dropdown). Desktop: fixed sidebar. Mobile: slide-in drawer with overlay
+- **Season selector** (`components/SeasonSelector.tsx`) — reusable pill-bar year selector with link mode (server routing via `hrefBase`) and button mode (client-side `onYearChange`). Selected year highlighted in cyan with glow
+- **Circuit outline SVG** (`components/CircuitOutline.tsx`) — built-in simplified SVG paths for 10 F1 circuits with SVG `feGaussianBlur` neon glow filter. Supports custom glow colors via `glowColor` prop. Uses React `useId` for unique filter IDs per instance
+- **DataCard** (`components/DataCard.tsx`) — reusable metric display with uppercase monospace label, large Space Grotesk value, optional unit suffix, and trend indicator (up/down/neutral arrow + text label)
+- **Archive page redesign** (`components/ArchiveClient.tsx`, `app/archive/page.tsx`) — new two-column layout with FilterSidebar + SeasonSelector + GP card grid. Filter state flows from sidebar through ArchiveClient to ArchiveFilters
+- **GP card redesign** (`components/GpCard.tsx`) — circuit outline SVG with cyan glow on the left, enhanced metadata layout, podium position badges, session chips, and cyan "VIEW FULL TELEMETRY" CTA link
+- **Fantasy page enhancements** (`app/fantasy/page.tsx`, `components/FantasyDashboard.tsx`) — 4 DataCard metrics row (Total Points, Budget Remaining, Team Value, League Rank), Card glow wrapper for dashboard container, DataCard budget display replacing static bar
+- **Standings page redesign** (`app/standings/page.tsx`, `app/standings/StandingsClient.tsx`, `components/StandingsTable.tsx`) — SeasonSelector replacing inline year pills, DataCard metrics row, Card glow wrapper, team-colored position bars with glow
+- **Session replay redesign** (`app/archive/[sessionKey]/page.tsx`) — DataCard metrics row (Drivers, Finishers, Total Laps, Session Type), Card glow wrapper for results table, cyan "Launch Replay" button
+- **Speed gauge** (`components/SpeedGauge.tsx`) — SVG arc gauge showing speed in KM/H with color-coded zones (green <50%, yellow <80%, red ≥80%), smooth CSS transitions
+- **Tire indicator** (`components/TireIndicator.tsx`) — SVG circular progress for each position (FL, FR, RL, RR) with color-coded wear states (green >60%, yellow >30%, red ≤30%)
+
 ### Planned (Phases 6–7)
 
 - **Fantasy F1 League** — team dashboard, roster editor with $100M budget, league system with leaderboards, Firestore persistence
@@ -135,23 +154,29 @@ The project is organized into seven development phases, progressing from foundat
 │   ├── archive/
 │   │   ├── page.tsx         # Archive grid: GP cards with circuit, podium, session info
 │   │   └── [sessionKey]/
-│   │       └── page.tsx     # Session detail: results table, Launch Replay entry
-│   ├── globals.css          # Theme tokens, glassmorphism, telemetry glow, scrollbar styling
+│   │       └── page.tsx     # Session detail: results table + DataCard metrics + Card glow
+│   ├── globals.css          # Theme tokens, neon glow effects, hex pattern, scrollbar styling
 │   ├── icon.svg             # SVG favicon (S1 branding)
-│   ├── layout.tsx           # Root layout: SideNav + MobileNav + AuthProvider
-│   └── page.tsx             # Landing page with SectorOne branding
-├── app/
-│   ├── archive/...
+│   ├── layout.tsx           # Root layout: TopNav + MobileNav + AuthProvider
+│   |── fantasy/
+│   |   └── page.tsx         # Fantasy F1 dashboard with DataCard metrics
 │   ├── standings/
-│   │   ├── page.tsx                    # Championship standings with year selector
+│   │   ├── page.tsx         # Championship standings with SeasonSelector + DataCards
+│   │   ├── StandingsClient.tsx # ViewToggle wrapper with Card glow
 │   │   └── components/
-│   │       └── page.tsx                # Power Unit component usage page
+│   │       └── page.tsx     # Power Unit component usage page
+│   └── page.tsx             # Landing page with SectorOne branding
 ├── components/
-│   ├── ArchiveFilters.tsx   # Circuit type, weather, and search filters
+│   ├── ArchiveClient.tsx    # Client wrapper: FilterSidebar + SeasonSelector + ArchiveFilters
+│   ├── ArchiveFilters.tsx   # GP card grid with circuit type / search filtering
+│   ├── CircuitOutline.tsx   # SVG circuit paths with feGaussianBlur neon glow filter
 │   ├── ConstructorCard.tsx  # Leading constructor with driver point split bars
+│   ├── DataCard.tsx         # Metric display: label, value, unit, trend indicator
+│   ├── FantasyDashboard.tsx # Fantasy team: roster, budget, points history + DataCard
+│   ├── FilterSidebar.tsx    # Collapsible archive filter sidebar (5 sections)
 │   ├── FormChart.tsx        # Last 5 race results as color-coded blocks
 │   ├── GapChart.tsx         # Live gap-to-leader horizontal bar chart
-│   ├── GpCard.tsx           # Grand Prix card with circuit outline and podium
+│   ├── GpCard.tsx           # GP card: CircuitOutline SVG + cyan telemetry CTA
 │   ├── LapTimeDisplay.tsx   # Lap counter, elapsed time, progress bar
 │   ├── Leaderboard.tsx      # Scrollable leaderboard: positions, gaps, tyres, stints, OUT
 │   ├── MobileNav.tsx        # Mobile bottom navigation bar (5 items)
@@ -162,16 +187,20 @@ The project is organized into seven development phases, progressing from foundat
 │   ├── PuUsageTable.tsx     # PU component usage tracker with penalty indicators
 │   ├── RaceControlFeed.tsx  # Scrollable race control messages feed
 │   ├── SafetyCar.tsx        # Safety car status visualization
-│   ├── SideNav.tsx          # Desktop fixed sidebar navigation
-│   ├── StandingsTable.tsx   # Driver and constructor standings table
+│   ├── SeasonSelector.tsx   # Pill-bar year selector (link/button modes)
+│   ├── SideNav.tsx          # Desktop fixed sidebar navigation (preserved for rollback)
+│   ├── SpeedGauge.tsx       # SVG arc speed gauge with color-coded zones
+│   ├── StandingsTable.tsx   # Driver/constructor standings with team-colored position bars
 │   ├── TelemetryHUD.tsx     # Floating driver telemetry: speed, gear, RPM, DRS, throttle, brake
 │   ├── TimelineControls.tsx # Bottom replay bar: play/pause, speed, progress, event markers
+│   ├── TireIndicator.tsx    # SVG circular tire wear progress (FL, FR, RL, RR)
+│   ├── TopNav.tsx           # Horizontal top nav bar with mobile hamburger drawer
 │   ├── TrackMap.tsx         # Canvas circuit map with driver dots and sector highlights
 │   ├── TyreWidget.tsx       # Tyre degradation with compound badges and life bars
 │   ├── WeatherRadar.tsx     # Weather conditions grid with SVG precipitation radar
 │   └── ui/
-│       ├── Button.tsx       # 4 variants (primary, secondary, ghost, outline), 3 sizes, loading
-│       ├── Card.tsx         # Glassmorphic card (4 variants, 4 padding levels)
+│       ├── Button.tsx       # 5 variants (primary, secondary, ghost, outline, cyan), loading
+│       ├── Card.tsx         # Glassmorphic card (4 variants + glow prop), 4 padding levels
 │       ├── Chip.tsx         # Tyre compound and status indicators
 │       └── Input.tsx        # Dark-styled input with F1 Red focus
 ├── hooks/
@@ -371,7 +400,44 @@ import { Card } from "@/components/ui/Card";
 | `padding` | `"none" \| "sm" \| "md" \| "lg"` | `"md"` | Internal spacing |
 | `hoverable` | `boolean` | `false` | Enable hover state transitions |
 | `onClick` | `() => void` | — | Makes card clickable (renders as `<button>`) |
+| `glow` | `"cyan" \| "red" \| "yellow" \| "green"` | — | Applies neon glow border that intensifies on hover |
 | `className` | `string` | — | Additional Tailwind classes |
+
+**Glow variant example:**
+```tsx
+// Cyan neon glow that intensifies on hover
+<Card glow="cyan" variant="glass">
+  Neon glow card
+</Card>
+```
+
+#### Button
+
+A reusable button with 5 visual variants, 3 sizes, and loading state.
+
+```tsx
+import { Button } from "@/components/ui/Button";
+
+// Primary (F1 Red)
+<Button variant="primary">Browse Sessions</Button>
+
+// Cyan accent with neon glow
+<Button variant="cyan">VIEW FULL TELEMETRY</Button>
+
+// Ghost with loading state
+<Button variant="ghost" loading>Loading...</Button>
+```
+
+**Props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"primary" \| "secondary" \| "ghost" \| "outline" \| "cyan"` | `"primary"` | Visual style |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Button size |
+| `loading` | `boolean` | `false` | Show spinner and disable |
+| `icon` | `ReactNode` | — | Icon slot |
+| `iconPosition` | `"left" \| "right"` | `"left"` | Icon alignment |
+| `fullWidth` | `boolean` | `false` | Stretch to container width |
 
 #### ProtectedRoute
 
@@ -621,7 +687,7 @@ bun test tests/verification/
 | `tests/lib/teams.test.ts` | Team identity service mapping and year-aware lookups |
 | `tests/session-page.test.tsx` | Session detail page rendering with driver results table |
 | `tests/adversarial/track-map.adversarial.test.ts` | Track map adversarial edge cases |
-| `tests/verification/` | Button, Card, Input, and Navigation component verification |
+| `tests/verification/` | Button, Card, Input, Navigation, TopNav, layout, hex pattern, neon glow, FilterSidebar, CircuitOutline, DataCard, archive layout, GpCard redesign verification |
 
 ---
 
@@ -666,6 +732,7 @@ The `vercel.json` configuration specifies the Next.js framework, build command, 
 | **3** | Race Archive | ✅ Complete | Session browser, GP cards, circuit outlines, archive filters, session detail page with results |
 | **4** | Strategy Lab — Replay Engine | ✅ Complete | Track map, race data service, frame buffer, replay engine, timeline controls, leaderboard, telemetry HUD, lap/time display, gap chart, tyre widget, weather radar, safety car, race control feed, pit stop indicator, pit window predictor |
 | **5** | Championship Standings | ✅ Complete | Driver/constructor tables, form charts, points progression, constructor card, team identity service, PU component tracker |
+| **5.5** | Neon Telemetry HUD Redesign | ✅ Complete | TopNav, hex pattern, neon glow tokens, Card glow, Button cyan, FilterSidebar, SeasonSelector, CircuitOutline, DataCard, SpeedGauge, TireIndicator, page redesigns |
 | **6** | Fantasy F1 League | 🔜 Planned | Team dashboard, roster editor, league system, Firestore |
 | **7** | Mobile & Final Polish | 🔜 Planned | Responsive layouts, skeletons, error boundaries, performance |
 

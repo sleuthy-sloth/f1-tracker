@@ -15,6 +15,7 @@ interface CardProps {
   padding?: "none" | "sm" | "md" | "lg";
   onClick?: () => void;
   hoverable?: boolean;
+  glow?: "cyan" | "red" | "yellow" | "green";
 }
 
 type CardVariant = NonNullable<CardProps["variant"]>;
@@ -32,6 +33,20 @@ const paddingStyles: Record<CardPadding, string> = {
   sm: "p-3",
   md: "p-4",
   lg: "p-6",
+};
+
+const glowStyles: Record<string, string> = {
+  cyan: "shadow-[var(--neon-glow-cyan)]",
+  red: "shadow-[var(--neon-glow-red)]",
+  yellow: "shadow-[var(--neon-glow-yellow)]",
+  green: "shadow-[var(--neon-glow-green)]",
+};
+
+const glowHoverStyles: Record<string, string> = {
+  cyan: "hover:shadow-[0_0_15px_rgba(0,210,190,0.6),0_0_30px_rgba(0,210,190,0.3)]",
+  red: "hover:shadow-[0_0_15px_rgba(225,6,0,0.6),0_0_30px_rgba(225,6,0,0.3)]",
+  yellow: "hover:shadow-[0_0_15px_rgba(255,251,0,0.6),0_0_30px_rgba(255,251,0,0.3)]",
+  green: "hover:shadow-[0_0_15px_rgba(34,197,94,0.6),0_0_30px_rgba(34,197,94,0.3)]",
 };
 
 interface CardWrapperProps {
@@ -89,6 +104,7 @@ export function Card({
   padding = "md",
   onClick,
   hoverable = false,
+  glow,
 }: CardProps) {
   const baseStyles = "rounded-xl transition-all duration-200 overflow-hidden";
   const variantStyle = variantStyles[variant];
@@ -101,12 +117,17 @@ export function Card({
     ? "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-surface active:scale-[0.99]"
     : "";
 
+  const glowStyle = glow ? glowStyles[glow] : "";
+  const glowHoverStyle = glow ? glowHoverStyles[glow] : "";
+
   const combinedClassName = cn(
     baseStyles,
     variantStyle,
     paddingStyle,
     hoverStyle,
     interactiveStyles,
+    glowStyle,
+    glowHoverStyle,
     className
   );
 

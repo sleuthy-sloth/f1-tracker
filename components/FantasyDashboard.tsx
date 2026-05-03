@@ -1,5 +1,8 @@
 'use client';
 
+import { Card } from "@/components/ui/Card";
+import { DataCard } from "@/components/DataCard";
+
 /**
  * Fantasy driver interface
  */
@@ -49,15 +52,6 @@ interface FantasyDashboardProps {
  */
 function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
-}
-
-/**
- * Get budget bar color based on remaining percentage
- */
-function getBudgetColor(percentage: number): string {
-  if (percentage > 50) return '#22c55e'; // green-500
-  if (percentage > 25) return '#eab308'; // yellow-500
-  return '#ef4444'; // red-500
 }
 
 /**
@@ -310,7 +304,6 @@ export default function FantasyDashboard({
 
   // Calculate budget percentage
   const budgetPercentage = (team.budgetRemaining / totalBudget) * 100;
-  const budgetColor = getBudgetColor(budgetPercentage);
 
   // Driver count
   const driverCount = team.drivers?.length || 0;
@@ -319,7 +312,7 @@ export default function FantasyDashboard({
   const hasEmptyRoster = driverCount === 0 && !team.constructor;
 
   return (
-    <div className={cn('bg-[#111418] border border-white/[0.07] rounded-xl p-4 max-w-2xl', className)}>
+    <Card glow="cyan" className={cn('p-4 max-w-2xl', className)}>
       {/* SECTION 1: Team Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -335,25 +328,15 @@ export default function FantasyDashboard({
         </div>
       </div>
 
-      {/* SECTION 2: Budget Bar */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] uppercase tracking-widest text-f1-silver">BUDGET</span>
-        </div>
-        <div className="h-2 bg-white/[0.1] rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full transition-all duration-300"
-            style={{
-              width: `${budgetPercentage}%`,
-              backgroundColor: budgetColor,
-            }}
-          />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-xs text-f1-silver">${team.budgetRemaining}M remaining</span>
-          <span className="text-xs text-f1-silver">${totalBudget}M total</span>
-        </div>
-      </div>
+      {/* SECTION 2: Budget */}
+      <DataCard
+        label="Budget Remaining"
+        value={`$${team.budgetRemaining}M`}
+        unit={`of $${totalBudget}M`}
+        trend={budgetPercentage > 50 ? "up" : budgetPercentage > 25 ? "neutral" : "down"}
+        trendLabel={`${budgetPercentage.toFixed(0)}% remaining`}
+        className="mb-6"
+      />
 
       {/* SECTION 3: Roster Grid */}
       <div className="mb-6">
@@ -404,7 +387,7 @@ export default function FantasyDashboard({
         </span>
         <PointsHistoryChart pointsHistory={team.pointsHistory || []} />
       </div>
-    </div>
+    </Card>
   );
 }
 

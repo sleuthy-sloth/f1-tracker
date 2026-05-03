@@ -1,5 +1,5 @@
 import { getMeetingsByYear, getSessions, getAvailableYears, getSessionResult } from "@/lib/api/openf1";
-import { ArchiveFilters } from "@/components/ArchiveFilters";
+import { ArchiveClient } from "@/components/ArchiveClient";
 import type { Session, PodiumEntry } from "@/lib/types";
 
 interface ArchivePageProps {
@@ -73,43 +73,12 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
   }
 
   return (
-    <div className="p-6">
-      {/* Year Selector */}
-      <div className="flex items-center gap-2 mb-8">
-        <h1 className="font-heading text-2xl font-bold text-f1-white">Race Archive</h1>
-        <div className="flex gap-1 ml-auto">
-          {availableYears.map((year) => (
-            <a
-              key={year}
-              href={`/archive?year=${year}`}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                year === selectedYear
-                  ? "bg-f1-red text-white"
-                  : "bg-white/10 text-f1-silver hover:text-f1-white hover:bg-white/15"
-              }`}
-            >
-              {year}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* GP Grid or Empty State */}
-      {sortedMeetings.length > 0 ? (
-        <ArchiveFilters
-          key={selectedYear}
-          meetings={sortedMeetings}
-          sessionsByMeeting={sessionsByMeeting}
-          selectedYear={selectedYear}
-          podiumByMeeting={podiumByMeeting}
-        />
-      ) : (
-        <div className="text-center py-12">
-          <p className="text-f1-silver text-lg">
-            No Grands Prix found for {selectedYear}
-          </p>
-        </div>
-      )}
-    </div>
+    <ArchiveClient
+      meetings={sortedMeetings}
+      sessionsByMeeting={sessionsByMeeting}
+      selectedYear={selectedYear}
+      availableYears={availableYears}
+      podiumByMeeting={podiumByMeeting}
+    />
   );
 }
