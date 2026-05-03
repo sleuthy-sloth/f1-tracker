@@ -26,7 +26,7 @@ const mockTeam = {
 function AuthLoadingSkeleton() {
   return (
     <div className="max-w-2xl">
-      <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4">
+      <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-4">
         {/* Header skeleton */}
         <div className="animate-pulse h-8 w-48 bg-white/[0.1] rounded mb-6" />
         
@@ -56,7 +56,7 @@ function AuthLoadingSkeleton() {
 function NotAuthenticatedPrompt() {
   return (
     <div className="max-w-2xl">
-      <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-8 text-center">
+      <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-8 text-center">
         {/* Icon */}
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/[0.05] flex items-center justify-center">
           <svg

@@ -66,7 +66,7 @@ export default function LapTimeDisplay({
     <div
       className={cn(
         'glass-panel w-[200px] p-4 rounded-xl',
-        'bg-[rgba(26,26,26,0.8)] backdrop-blur-xl',
+        'bg-[#111418]',
         'border border-[rgba(255,255,255,0.1)]',
         className
       )}

@@ -84,7 +84,7 @@ export default function GapChart({
     return (
       <div
         className={cn(
-          'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+          'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -103,7 +103,7 @@ export default function GapChart({
     return (
       <div
         className={cn(
-          'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+          'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -153,7 +153,7 @@ export default function GapChart({
     return (
       <div
         className={cn(
-          'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+          'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -185,7 +185,7 @@ export default function GapChart({
   return (
     <div
       className={cn(
-        'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}
     >

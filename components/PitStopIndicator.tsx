@@ -144,7 +144,7 @@ export default function PitStopIndicator({
     return (
       <div
         className={cn(
-          'bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4',
+          'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -163,7 +163,7 @@ export default function PitStopIndicator({
     return (
       <div
         className={cn(
-          'bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4',
+          'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
           className
         )}
       >
@@ -183,7 +183,7 @@ export default function PitStopIndicator({
   return (
     <div
       className={cn(
-        'bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4',
+        'bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}
     >

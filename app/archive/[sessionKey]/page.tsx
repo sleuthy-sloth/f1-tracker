@@ -156,7 +156,7 @@ export default async function SessionPage({ params }: SessionPageProps) {
       </div>
 
       {/* Results Card */}
-      <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl border border-white/[0.05] p-6 mb-6">
+      <div className="bg-[#111418] rounded-xl border border-white/[0.05] p-6 mb-6">
         <h2 className="font-heading text-xl font-bold text-f1-white mb-4">Results</h2>
         
         {sortedResults.length === 0 ? (

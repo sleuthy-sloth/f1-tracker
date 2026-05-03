@@ -121,7 +121,7 @@ export function TelemetryHUD({
   if (selectedDriverNumber === null) {
     return (
       <div className={cn(
-        'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}>
         <div className="text-f1-silver text-sm text-center py-8">
@@ -135,7 +135,7 @@ export function TelemetryHUD({
   if (!currentFrame) {
     return (
       <div className={cn(
-        'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}>
         <div className="flex items-center justify-center gap-2 py-8">
@@ -173,7 +173,7 @@ export function TelemetryHUD({
   if (!telemetry) {
     return (
       <div className={cn(
-        'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}>
         {driver && (
@@ -205,7 +205,7 @@ export function TelemetryHUD({
 
   return (
     <div className={cn(
-      'w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4',
+      'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
       className
     )}>
       {/* Header */}

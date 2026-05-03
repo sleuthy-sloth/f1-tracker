@@ -178,7 +178,7 @@ export function Leaderboard({
   // Empty state - no drivers
   if (!drivers || drivers.length === 0) {
     return (
-      <div className="w-full min-w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4">
+      <div className="w-full min-w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4">
         <div className="text-f1-silver text-sm text-center py-8">
           No driver data
         </div>
@@ -189,7 +189,7 @@ export function Leaderboard({
   // Loading state - no frame data
   if (!currentFrame) {
     return (
-      <div className="w-full min-w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4">
+      <div className="w-full min-w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4">
         <div className="flex items-center justify-center gap-2 py-8">
           <svg
             className="animate-spin h-4 w-4 text-f1-silver"
@@ -228,9 +228,9 @@ export function Leaderboard({
   };
 
   return (
-    <div className="w-full min-w-[280px] bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl overflow-hidden">
+    <div className="w-full min-w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl overflow-hidden">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-surface/80 backdrop-blur-md border-b border-white/[0.1]">
+      <div className="sticky top-0 z-10 bg-surface-dim border-b border-white/[0.1]">
         <div className="grid grid-cols-[40px_1fr_60px_50px_40px_50px] gap-2 px-3 py-2">
           <div className="text-xs uppercase tracking-wider text-f1-silver font-medium text-center">
             Pos

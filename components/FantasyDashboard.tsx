@@ -65,7 +65,7 @@ function getBudgetColor(percentage: number): string {
  */
 function LoadingSkeleton() {
   return (
-    <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4">
+    <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-4">
       {/* Team Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="animate-pulse h-8 w-48 bg-white/[0.1] rounded" />
@@ -102,7 +102,7 @@ function LoadingSkeleton() {
  */
 function EmptyTeamState({ onBuildTeam }: { onBuildTeam?: () => void }) {
   return (
-    <div className="bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4">
+    <div className="bg-[#111418] border border-white/[0.07] rounded-xl p-4">
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-heading text-2xl font-bold text-f1-white">My Team</h2>
         <div className="flex items-center gap-2">
@@ -319,7 +319,7 @@ export default function FantasyDashboard({
   const hasEmptyRoster = driverCount === 0 && !team.constructor;
 
   return (
-    <div className={cn('bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl p-4 max-w-2xl', className)}>
+    <div className={cn('bg-[#111418] border border-white/[0.07] rounded-xl p-4 max-w-2xl', className)}>
       {/* SECTION 1: Team Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
