@@ -4,24 +4,24 @@
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| read | 393 | 393 | 0 | 26ms |
-| bash | 368 | 368 | 0 | 2303ms |
-| edit | 139 | 139 | 0 | 3326ms |
-| update_task_status | 134 | 134 | 0 | 11ms |
-| glob | 96 | 96 | 0 | 26ms |
-| task | 93 | 93 | 0 | 129973ms |
-| write | 88 | 88 | 0 | 2525ms |
-| grep | 83 | 83 | 0 | 24ms |
-| declare_scope | 50 | 50 | 0 | 6ms |
-| pre_check_batch | 21 | 21 | 0 | 1498ms |
+| read | 407 | 407 | 0 | 26ms |
+| bash | 373 | 373 | 0 | 2292ms |
+| edit | 141 | 141 | 0 | 3350ms |
+| update_task_status | 138 | 138 | 0 | 11ms |
+| glob | 101 | 101 | 0 | 26ms |
+| task | 99 | 99 | 0 | 139486ms |
+| write | 90 | 90 | 0 | 2580ms |
+| grep | 85 | 85 | 0 | 24ms |
+| declare_scope | 53 | 53 | 0 | 6ms |
+| pre_check_batch | 23 | 23 | 0 | 1476ms |
 | todowrite | 20 | 20 | 0 | 10ms |
-| check_gate_status | 16 | 16 | 0 | 4ms |
+| check_gate_status | 18 | 18 | 0 | 4ms |
+| apply_patch | 15 | 15 | 0 | 4692ms |
 | placeholder_scan | 13 | 13 | 0 | 17ms |
-| save_plan | 9 | 9 | 0 | 32ms |
-| search | 9 | 9 | 0 | 2017ms |
+| save_plan | 10 | 10 | 0 | 31ms |
+| search | 10 | 10 | 0 | 2052ms |
 | phase_complete | 8 | 8 | 0 | 18802ms |
-| syntax_check | 7 | 7 | 0 | 37ms |
-| apply_patch | 7 | 7 | 0 | 4308ms |
+| syntax_check | 8 | 8 | 0 | 35ms |
 | test_runner | 6 | 6 | 0 | 1598ms |
 | get_approved_plan | 6 | 6 | 0 | 15ms |
 | req_coverage | 6 | 6 | 0 | 8ms |
@@ -39,6 +39,7 @@
 | sbom_generate | 2 | 2 | 0 | 46ms |
 | imports | 2 | 2 | 0 | 2ms |
 | invalid | 2 | 2 | 0 | 3ms |
+| grep_app_searchGitHub | 2 | 2 | 0 | 678ms |
 | complexity_hotspots | 1 | 1 | 0 | 389ms |
 | doc_scan | 1 | 1 | 0 | 759ms |
 | lint_spec | 1 | 1 | 0 | 8ms |

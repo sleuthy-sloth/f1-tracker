@@ -271,6 +271,22 @@
       "language": "typescript",
       "mtime": "2026-05-03T15:15:55.444Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/LeagueLeaderboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LeagueLeaderboard.tsx",
+      "moduleName": "components/LeagueLeaderboard.tsx",
+      "exports": [
+        "LeagueEntry",
+        "LeagueData"
+      ],
+      "imports": [
+        "react",
+        "@/components/ui/Card",
+        "@/components/ui/Button",
+        "@/components/DataCard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T22:18:10.550Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx",
       "moduleName": "components/MobileNav.tsx",
@@ -354,6 +370,17 @@
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-03T15:15:55.453Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/RosterEditor.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/RosterEditor.tsx",
+      "moduleName": "components/RosterEditor.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@/components/ui/Button"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T22:06:11.098Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
@@ -602,6 +629,17 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T12:33:53.010Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-scoring.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-scoring.ts",
+      "moduleName": "lib/fantasy-scoring.ts",
+      "exports": [
+        "FantasyScoreResult",
+        "FantasyScoringOptions"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:53:01.565Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/firebase.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/firebase.ts",
@@ -944,6 +982,19 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-03T01:19:56.788Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RosterEditor.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RosterEditor.test.tsx",
+      "moduleName": "tests/components/RosterEditor.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@testing-library/react",
+        "bun:test",
+        "../../components/RosterEditor"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T22:16:21.226Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx",
@@ -1387,6 +1438,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RosterEditor.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/RosterEditor.tsx",
+      "importSpecifier": "../../components/RosterEditor",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
       "importSpecifier": "../../components/SafetyCar",
@@ -1508,9 +1565,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-03T21:40:14.302Z",
+    "generatedAt": "2026-05-03T22:19:11.250Z",
     "generator": "repo-graph",
-    "nodeCount": 98,
-    "edgeCount": 41
+    "nodeCount": 102,
+    "edgeCount": 42
   }
 }

@@ -1,6 +1,6 @@
 # SectorOne
 Swarm: default
-Phase: 1 [PENDING] | Updated: 2026-05-03T21:41:31.110Z
+Phase: 1 [PENDING] | Updated: 2026-05-03T21:52:00.003Z
 
 ---
 ## Phase 1: Project Setup & Foundation [PENDING]
@@ -56,14 +56,14 @@ Phase: 1 [PENDING] | Updated: 2026-05-03T21:41:31.110Z
 
 ---
 ## Phase 6: Fantasy F1 League [PENDING]
-- [ ] 6.1: Build fantasy team dashboard [MEDIUM] (depends: 1.7, 2.3, 5.1)
+- [ ] 6.1: Build fantasy team dashboard: team name, total points, budget bar, points history chart [MEDIUM] (depends: 1.7, 2.3, 5.1)
 - [ ] 6.2: Build fantasy points scoring system based on real race results [SMALL] (depends: 1.5)
 - [ ] 6.3: Build roster editor with driver browsing, budget tracking, and save/revert [MEDIUM] (depends: 6.1, 6.2)
 - [ ] 6.4: Build league system: create, join, and view league leaderboards with rank trends [MEDIUM] (depends: 6.1)
 - [ ] 6.5: Implement Firestore persistence for fantasy teams and league data [SMALL] (depends: 1.6, 6.1)
 
 ---
-## Phase 55: Visual Redesign — Neon Telemetry HUD [PENDING]
+## Phase 55: 5.5: Visual Redesign — Neon Telemetry HUD [PENDING]
 - [ ] 55.1: Create TopNav component with horizontal tabs, logo, user profile [SMALL]
 - [ ] 55.2: Replace SideNav with TopNav in root layout [SMALL] (depends: 55.1)
 - [ ] 55.3: Add hexagonal background pattern [SMALL] (depends: 55.2)

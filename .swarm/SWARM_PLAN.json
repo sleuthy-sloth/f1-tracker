@@ -455,7 +455,7 @@
     },
     {
       "id": 55,
-      "name": "Visual Redesign — Neon Telemetry HUD",
+      "name": "5.5: Visual Redesign — Neon Telemetry HUD",
       "status": "pending",
       "tasks": [
         {
@@ -573,9 +573,9 @@
           "size": "small",
           "description": "Redesign Archive page layout with FilterSidebar and SeasonSelector",
           "depends": [
+            "3.1",
             "55.7",
-            "55.8",
-            "3.1"
+            "55.8"
           ],
           "files_touched": []
         },
@@ -631,8 +631,8 @@
           "size": "small",
           "description": "Redesign Standings page layout with SeasonSelector and DataCards",
           "depends": [
-            "55.10",
-            "5.1"
+            "5.1",
+            "55.10"
           ],
           "files_touched": []
         },
@@ -665,8 +665,8 @@
           "size": "small",
           "description": "Redesign session replay page with DataCards",
           "depends": [
-            "55.10",
-            "4.1"
+            "4.1",
+            "55.10"
           ],
           "files_touched": []
         },
@@ -720,7 +720,7 @@
           "phase": 6,
           "status": "pending",
           "size": "medium",
-          "description": "Build fantasy team dashboard",
+          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart",
           "depends": [
             "1.7",
             "2.3",

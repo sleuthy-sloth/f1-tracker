@@ -455,7 +455,7 @@
     },
     {
       "id": 55,
-      "name": "Visual Redesign — Neon Telemetry HUD",
+      "name": "5.5: Visual Redesign — Neon Telemetry HUD",
       "status": "pending",
       "tasks": [
         {
@@ -573,9 +573,9 @@
           "size": "small",
           "description": "Redesign Archive page layout with FilterSidebar and SeasonSelector",
           "depends": [
+            "3.1",
             "55.7",
-            "55.8",
-            "3.1"
+            "55.8"
           ],
           "files_touched": []
         },
@@ -631,8 +631,8 @@
           "size": "small",
           "description": "Redesign Standings page layout with SeasonSelector and DataCards",
           "depends": [
-            "55.10",
-            "5.1"
+            "5.1",
+            "55.10"
           ],
           "files_touched": []
         },
@@ -665,8 +665,8 @@
           "size": "small",
           "description": "Redesign session replay page with DataCards",
           "depends": [
-            "55.10",
-            "4.1"
+            "4.1",
+            "55.10"
           ],
           "files_touched": []
         },
@@ -713,14 +713,14 @@
     {
       "id": 6,
       "name": "Fantasy F1 League",
-      "status": "pending",
+      "status": "in_progress",
       "tasks": [
         {
           "id": "6.1",
           "phase": 6,
           "status": "pending",
           "size": "medium",
-          "description": "Build fantasy team dashboard",
+          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart",
           "depends": [
             "1.7",
             "2.3",
@@ -731,7 +731,7 @@
         {
           "id": "6.2",
           "phase": 6,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build fantasy points scoring system based on real race results",
           "depends": [
@@ -742,7 +742,7 @@
         {
           "id": "6.3",
           "phase": 6,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build roster editor with driver browsing, budget tracking, and save/revert",
           "depends": [
@@ -754,7 +754,7 @@
         {
           "id": "6.4",
           "phase": 6,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build league system: create, join, and view league leaderboards with rank trends",
           "depends": [
@@ -765,7 +765,7 @@
         {
           "id": "6.5",
           "phase": 6,
-          "status": "pending",
+          "status": "in_progress",
           "size": "small",
           "description": "Implement Firestore persistence for fantasy teams and league data",
           "depends": [
