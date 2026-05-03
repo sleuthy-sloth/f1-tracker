@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "workspaceRoot": "/Users/spkoehl/Documents/OpenCode/F1 Tracker",
+  "workspaceRoot": "/Users/spkoehl/Documents/OpenCode/sectorone",
   "nodes": {
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/[sessionKey]/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/[sessionKey]/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx",
       "moduleName": "app/archive/[sessionKey]/page.tsx",
       "exports": [
         "async"
@@ -16,8 +16,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:43:27.050Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/error.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/error.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx",
       "moduleName": "app/archive/error.tsx",
       "exports": [
         "ArchiveError"
@@ -28,8 +28,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:06:15.133Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/page.tsx",
       "moduleName": "app/archive/page.tsx",
       "exports": [
         "async"
@@ -41,8 +41,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:51:50.825Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/fantasy/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/fantasy/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx",
       "moduleName": "app/fantasy/page.tsx",
       "exports": [
         "FantasyPage"
@@ -55,8 +55,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:40:46.249Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx",
       "moduleName": "app/layout.tsx",
       "exports": [
         "metadata",
@@ -72,8 +72,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:49:16.095Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx",
       "moduleName": "app/page.tsx",
       "exports": [
         "Home"
@@ -84,8 +84,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T17:35:22.621Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/components/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/components/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx",
       "moduleName": "app/standings/components/page.tsx",
       "exports": [
         "async"
@@ -98,8 +98,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:02:27.952Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx",
       "moduleName": "app/standings/page.tsx",
       "exports": [
         "async"
@@ -111,8 +111,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:41:51.532Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx",
       "moduleName": "app/standings/StandingsClient.tsx",
       "exports": [
         "StandingsClient"
@@ -124,8 +124,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:39:24.392Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ArchiveFilters.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ArchiveFilters.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveFilters.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveFilters.tsx",
       "moduleName": "components/ArchiveFilters.tsx",
       "exports": [],
       "imports": [
@@ -136,8 +136,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:52:49.534Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ConstructorCard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ConstructorCard.tsx",
       "moduleName": "components/ConstructorCard.tsx",
       "exports": [
         "ConstructorCardProps",
@@ -147,8 +147,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:00:26.571Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/FantasyDashboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FantasyDashboard.tsx",
       "moduleName": "components/FantasyDashboard.tsx",
       "exports": [
         "FantasyDashboard"
@@ -157,8 +157,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:39:41.503Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/FormChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FormChart.tsx",
       "moduleName": "components/FormChart.tsx",
       "exports": [
         "FormChart"
@@ -167,8 +167,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:46:03.327Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/GapChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GapChart.tsx",
       "moduleName": "components/GapChart.tsx",
       "exports": [
         "GapChart"
@@ -177,8 +177,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:04:06.501Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx",
       "moduleName": "components/GpCard.tsx",
       "exports": [
         "GpCard"
@@ -192,8 +192,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:53:25.567Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
       "moduleName": "components/LapTimeDisplay.tsx",
       "exports": [
         "LapTimeDisplay"
@@ -202,8 +202,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T22:36:40.988Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/Leaderboard.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/Leaderboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/Leaderboard.tsx",
       "moduleName": "components/Leaderboard.tsx",
       "exports": [
         "Leaderboard"
@@ -212,8 +212,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T19:22:50.999Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/MobileNav.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx",
       "moduleName": "components/MobileNav.tsx",
       "exports": [
         "MobileNav"
@@ -225,8 +225,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:29.261Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitStopIndicator.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitStopIndicator.tsx",
       "moduleName": "components/PitStopIndicator.tsx",
       "exports": [
         "PitStopIndicator"
@@ -235,8 +235,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:24:30.064Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitWindowWidget.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitWindowWidget.tsx",
       "moduleName": "components/PitWindowWidget.tsx",
       "exports": [
         "PitWindowWidget"
@@ -245,8 +245,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:31:28.291Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/PointsChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PointsChart.tsx",
       "moduleName": "components/PointsChart.tsx",
       "exports": [
         "PointsChart"
@@ -257,8 +257,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:59:11.279Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx",
       "moduleName": "components/ProtectedRoute.tsx",
       "exports": [
         "ProtectedRoute"
@@ -271,8 +271,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:39:23.471Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/PuUsageTable.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PuUsageTable.tsx",
       "moduleName": "components/PuUsageTable.tsx",
       "exports": [
         "PuComponentCounts",
@@ -286,8 +286,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:02:06.639Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/RaceControlFeed.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/RaceControlFeed.tsx",
       "moduleName": "components/RaceControlFeed.tsx",
       "exports": [
         "RaceControlFeed"
@@ -296,8 +296,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:19:20.447Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
       "moduleName": "components/SafetyCar.tsx",
       "exports": [
         "SafetyCar"
@@ -306,8 +306,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T00:40:33.867Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/SideNav.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SideNav.tsx",
       "moduleName": "components/SideNav.tsx",
       "exports": [
         "SideNav"
@@ -319,8 +319,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx",
       "moduleName": "components/StandingsTable.tsx",
       "exports": [
         "StandingsTable"
@@ -331,8 +331,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:43:38.919Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryHUD.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryHUD.tsx",
       "moduleName": "components/TelemetryHUD.tsx",
       "exports": [
         "TelemetryHUD"
@@ -341,8 +341,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T21:21:52.578Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TimelineControls.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx",
       "moduleName": "components/TimelineControls.tsx",
       "exports": [
         "TimelineControls"
@@ -354,8 +354,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:42:12.379Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx",
       "moduleName": "components/TrackMap.tsx",
       "exports": [
         "TrackMap"
@@ -367,8 +367,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T16:53:37.687Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TyreWidget.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TyreWidget.tsx",
       "moduleName": "components/TyreWidget.tsx",
       "exports": [
         "TyreWidget"
@@ -377,8 +377,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:07:39.533Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx",
       "moduleName": "components/ui/Button.tsx",
       "exports": [
         "ButtonProps"
@@ -387,16 +387,16 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:10:03.541Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Card.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Card.tsx",
       "moduleName": "components/ui/Card.tsx",
       "exports": [],
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-01T19:11:29.298Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Chip.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Chip.tsx",
       "moduleName": "components/ui/Chip.tsx",
       "exports": [
         "ChipProps"
@@ -405,8 +405,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:19:55.925Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Input.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Input.tsx",
       "moduleName": "components/ui/Input.tsx",
       "exports": [
         "InputProps"
@@ -417,8 +417,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:24:59.899Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/WeatherRadar.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/WeatherRadar.tsx",
       "moduleName": "components/WeatherRadar.tsx",
       "exports": [
         "WeatherRadar"
@@ -427,8 +427,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:16:38.134Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/eslint.config.mjs",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/eslint.config.mjs": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/eslint.config.mjs",
       "moduleName": "eslint.config.mjs",
       "exports": [
         "eslintConfig"
@@ -441,8 +441,8 @@
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.295Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/hooks/useReplayEngine.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/hooks/useReplayEngine.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/hooks/useReplayEngine.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/hooks/useReplayEngine.ts",
       "moduleName": "hooks/useReplayEngine.ts",
       "exports": [
         "ReplayEngineConfig",
@@ -457,8 +457,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:55:21.235Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openf1.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openf1.ts",
       "moduleName": "lib/api/openf1.ts",
       "exports": [
         "OpenF1Error",
@@ -475,8 +475,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:24:58.744Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx",
       "moduleName": "lib/auth/AuthContext.tsx",
       "exports": [
         "AuthContextValue",
@@ -491,8 +491,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:35:54.553Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/useAuth.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/useAuth.ts",
       "moduleName": "lib/auth/useAuth.ts",
       "exports": [
         "useAuth"
@@ -504,8 +504,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:33:53.010Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/firebase.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/firebase.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/firebase.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/firebase.ts",
       "moduleName": "lib/firebase.ts",
       "exports": [
         "getFirebaseApp",
@@ -520,8 +520,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:29:50.389Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "moduleName": "lib/frameBuffer.ts",
       "exports": [
         "FrameBuffer",
@@ -556,8 +556,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:14:26.184Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/raceData.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/raceData.ts",
       "moduleName": "lib/raceData.ts",
       "exports": [
         "RaceDataServiceConfig",
@@ -571,8 +571,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:15:14.793Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts",
       "moduleName": "lib/teams.ts",
       "exports": [
         "TeamIdentity",
@@ -584,8 +584,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:01:18.502Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/track-map.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/track-map.ts",
       "moduleName": "lib/track-map.ts",
       "exports": [
         "getCircuitBounds"
@@ -594,8 +594,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T16:52:29.048Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/types.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/types.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/types.ts",
       "moduleName": "lib/types.ts",
       "exports": [
         "SessionType",
@@ -632,8 +632,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:51:12.309Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/next-env.d.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/next-env.d.ts",
       "moduleName": "next-env.d.ts",
       "exports": [],
       "imports": [
@@ -642,8 +642,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:01:32.295Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next.config.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next.config.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/next.config.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/next.config.ts",
       "moduleName": "next.config.ts",
       "exports": [
         "nextConfig"
@@ -652,8 +652,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:01:32.295Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/postcss.config.mjs": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/postcss.config.mjs",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/postcss.config.mjs": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/postcss.config.mjs",
       "moduleName": "postcss.config.mjs",
       "exports": [
         "config"
@@ -662,8 +662,8 @@
       "language": "javascript",
       "mtime": "2026-05-01T12:01:32.296Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/adversarial/track-map.adversarial.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/adversarial/track-map.adversarial.test.ts",
       "moduleName": "tests/adversarial/track-map.adversarial.test.ts",
       "exports": [],
       "imports": [
@@ -673,8 +673,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T17:32:26.865Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive-filters.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive-filters.test.tsx",
       "moduleName": "tests/archive-filters.test.tsx",
       "exports": [],
       "imports": [
@@ -686,8 +686,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:28:14.741Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive.test.tsx",
       "moduleName": "tests/archive.test.tsx",
       "exports": [],
       "imports": [
@@ -704,8 +704,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:17:27.790Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/ConstructorCard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/ConstructorCard.test.tsx",
       "moduleName": "tests/components/ConstructorCard.test.tsx",
       "exports": [],
       "imports": [
@@ -716,8 +716,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:03:38.426Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FantasyDashboard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FantasyDashboard.test.tsx",
       "moduleName": "tests/components/FantasyDashboard.test.tsx",
       "exports": [],
       "imports": [
@@ -728,8 +728,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:41:40.952Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FormChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FormChart.test.tsx",
       "moduleName": "tests/components/FormChart.test.tsx",
       "exports": [],
       "imports": [
@@ -740,8 +740,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:46:31.680Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/GapChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/GapChart.test.tsx",
       "moduleName": "tests/components/GapChart.test.tsx",
       "exports": [],
       "imports": [
@@ -752,8 +752,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:14:48.797Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.adversarial.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.adversarial.test.tsx",
       "moduleName": "tests/components/LapTimeDisplay.adversarial.test.tsx",
       "exports": [],
       "imports": [
@@ -765,8 +765,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T22:51:57.188Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.test.tsx",
       "moduleName": "tests/components/LapTimeDisplay.test.tsx",
       "exports": [],
       "imports": [
@@ -776,8 +776,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T22:48:33.880Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/Leaderboard.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/Leaderboard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/Leaderboard.test.tsx",
       "moduleName": "tests/components/Leaderboard.test.tsx",
       "exports": [],
       "imports": [
@@ -786,8 +786,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T20:25:18.860Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitStopIndicator.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitStopIndicator.test.tsx",
       "moduleName": "tests/components/PitStopIndicator.test.tsx",
       "exports": [],
       "imports": [
@@ -798,8 +798,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:31:42.194Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitWindowWidget.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitWindowWidget.test.tsx",
       "moduleName": "tests/components/PitWindowWidget.test.tsx",
       "exports": [],
       "imports": [
@@ -810,8 +810,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:32:39.380Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PointsChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PointsChart.test.tsx",
       "moduleName": "tests/components/PointsChart.test.tsx",
       "exports": [],
       "imports": [
@@ -822,8 +822,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:03:25.507Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PuUsageTable.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PuUsageTable.test.tsx",
       "moduleName": "tests/components/PuUsageTable.test.tsx",
       "exports": [],
       "imports": [
@@ -834,8 +834,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:03:50.941Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RaceControlFeed.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RaceControlFeed.test.tsx",
       "moduleName": "tests/components/RaceControlFeed.test.tsx",
       "exports": [],
       "imports": [
@@ -846,8 +846,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:19:56.788Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx",
       "moduleName": "tests/components/SafetyCar.test.tsx",
       "exports": [],
       "imports": [
@@ -858,8 +858,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T00:40:48.236Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx",
       "moduleName": "tests/components/StandingsTable.test.tsx",
       "exports": [],
       "imports": [
@@ -870,8 +870,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T01:44:01.321Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TelemetryHUD.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TelemetryHUD.test.tsx",
       "moduleName": "tests/components/TelemetryHUD.test.tsx",
       "exports": [],
       "imports": [
@@ -887,8 +887,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T21:25:41.022Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TimelineControls.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TimelineControls.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TimelineControls.test.tsx",
       "moduleName": "tests/components/TimelineControls.test.tsx",
       "exports": [],
       "imports": [
@@ -897,8 +897,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T19:07:05.774Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx",
       "moduleName": "tests/components/TrackMap.test.tsx",
       "exports": [],
       "imports": [
@@ -909,8 +909,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T17:08:19.926Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TyreWidget.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TyreWidget.test.tsx",
       "moduleName": "tests/components/TyreWidget.test.tsx",
       "exports": [],
       "imports": [
@@ -921,8 +921,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:14:29.466Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/WeatherRadar.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/WeatherRadar.test.tsx",
       "moduleName": "tests/components/WeatherRadar.test.tsx",
       "exports": [],
       "imports": [
@@ -933,8 +933,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:46:27.139Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/hooks/useReplayEngine.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/hooks/useReplayEngine.test.ts",
       "moduleName": "tests/hooks/useReplayEngine.test.ts",
       "exports": [],
       "imports": [
@@ -944,8 +944,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T19:06:43.795Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
       "moduleName": "tests/lib/frameBuffer.test.ts",
       "exports": [],
       "imports": [
@@ -955,8 +955,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:37:59.342Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/raceData.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/raceData.test.ts",
       "moduleName": "tests/lib/raceData.test.ts",
       "exports": [],
       "imports": [
@@ -967,8 +967,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:37:15.771Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/teams.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/teams.test.ts",
       "moduleName": "tests/lib/teams.test.ts",
       "exports": [],
       "imports": [
@@ -978,8 +978,8 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:04:03.390Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/track-map.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/track-map.test.ts",
       "moduleName": "tests/lib/track-map.test.ts",
       "exports": [],
       "imports": [
@@ -989,8 +989,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T17:04:24.367Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/session-page.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/session-page.test.tsx",
       "moduleName": "tests/session-page.test.tsx",
       "exports": [],
       "imports": [
@@ -1003,8 +1003,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:48:13.907Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx",
       "moduleName": "tests/verification/button_verification.test.tsx",
       "exports": [],
       "imports": [
@@ -1016,8 +1016,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:13:33.517Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/card_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/card_verification.test.tsx",
       "moduleName": "tests/verification/card_verification.test.tsx",
       "exports": [],
       "imports": [
@@ -1030,8 +1030,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T19:17:55.317Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/chip_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/chip_verification.test.tsx",
       "moduleName": "tests/verification/chip_verification.test.tsx",
       "exports": [],
       "imports": [
@@ -1043,8 +1043,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:21:46.870Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx",
       "moduleName": "tests/verification/input_verification.test.tsx",
       "exports": [],
       "imports": [
@@ -1058,8 +1058,8 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:27:21.223Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/navigation_verification.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/navigation_verification.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/navigation_verification.test.ts",
       "moduleName": "tests/verification/navigation_verification.test.ts",
       "exports": [],
       "imports": [
@@ -1072,8 +1072,8 @@
       "language": "typescript",
       "mtime": "2026-05-01T19:09:57.797Z"
     },
-    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts": {
-      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verify-task2-2.test.ts",
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verify-task2-2.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verify-task2-2.test.ts",
       "moduleName": "tests/verify-task2-2.test.ts",
       "exports": [],
       "imports": [
@@ -1088,236 +1088,236 @@
   },
   "edges": [
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/globals.css",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/app/globals.css",
       "importSpecifier": "./globals.css",
       "importType": "sideeffect"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx",
       "importSpecifier": "./StandingsClient",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/useAuth.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx",
       "importSpecifier": "./AuthContext",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/api/openf1.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/raceData.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openf1.ts",
       "importSpecifier": "./api/openf1",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/raceData.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "importSpecifier": "./frameBuffer",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/next-env.d.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/.next/types/routes.d.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/next-env.d.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/.next/types/routes.d.ts",
       "importSpecifier": "./.next/types/routes.d.ts",
       "importType": "sideeffect"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/adversarial/track-map.adversarial.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/adversarial/track-map.adversarial.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/track-map.ts",
       "importSpecifier": "../../lib/track-map",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive-filters.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ArchiveFilters.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive-filters.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveFilters.tsx",
       "importSpecifier": "../components/ArchiveFilters",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/page.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/page.tsx",
       "importSpecifier": "../app/archive/page",
       "importType": "sideeffect"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/archive.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GpCard.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/archive.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx",
       "importSpecifier": "../components/GpCard",
       "importType": "sideeffect"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/ConstructorCard.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ConstructorCard.tsx",
       "importSpecifier": "../../components/ConstructorCard",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FantasyDashboard.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FantasyDashboard.tsx",
       "importSpecifier": "../../components/FantasyDashboard",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/FormChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FormChart.tsx",
       "importSpecifier": "../../components/FormChart",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/GapChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GapChart.tsx",
       "importSpecifier": "../../components/GapChart",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.adversarial.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.adversarial.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
       "importSpecifier": "../../components/LapTimeDisplay",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/LapTimeDisplay.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
       "importSpecifier": "../../components/LapTimeDisplay",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitStopIndicator.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitStopIndicator.tsx",
       "importSpecifier": "../../components/PitStopIndicator",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PitWindowWidget.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitWindowWidget.tsx",
       "importSpecifier": "../../components/PitWindowWidget",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PointsChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PointsChart.tsx",
       "importSpecifier": "../../components/PointsChart",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/PuUsageTable.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PuUsageTable.tsx",
       "importSpecifier": "../../components/PuUsageTable",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/RaceControlFeed.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/RaceControlFeed.tsx",
       "importSpecifier": "../../components/RaceControlFeed",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SafetyCar.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
       "importSpecifier": "../../components/SafetyCar",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx",
       "importSpecifier": "../../components/StandingsTable",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TelemetryHUD.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryHUD.tsx",
       "importSpecifier": "../../components/TelemetryHUD",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TrackMap.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx",
       "importSpecifier": "../../components/TrackMap",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TrackMap.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/track-map.ts",
       "importSpecifier": "../../lib/track-map",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TyreWidget.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TyreWidget.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TyreWidget.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TyreWidget.tsx",
       "importSpecifier": "../../components/TyreWidget",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/WeatherRadar.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/WeatherRadar.tsx",
       "importSpecifier": "../../components/WeatherRadar",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/hooks/useReplayEngine.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "importSpecifier": "../../lib/frameBuffer",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/frameBuffer.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "importSpecifier": "../../lib/frameBuffer",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/raceData.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/raceData.ts",
       "importSpecifier": "../../lib/raceData",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/teams.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts",
       "importSpecifier": "../../lib/teams",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/track-map.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/track-map.ts",
       "importSpecifier": "../../lib/track-map",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/session-page.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/archive/[sessionKey]/page.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/session-page.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx",
       "importSpecifier": "../app/archive/[sessionKey]/page",
       "importType": "default"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/button_verification.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Button.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx",
       "importSpecifier": "../../components/ui/Button",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/card_verification.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Card.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/card_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Card.tsx",
       "importSpecifier": "../../components/ui/Card",
       "importType": "named"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/chip_verification.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Chip.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/chip_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Chip.tsx",
       "importSpecifier": "../../components/ui/Chip",
       "importType": "sideeffect"
     },
     {
-      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/verification/input_verification.test.tsx",
-      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ui/Input.tsx",
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Input.tsx",
       "importSpecifier": "../../components/ui/Input",
       "importType": "sideeffect"
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-03T02:41:46.005Z",
+    "generatedAt": "2026-05-03T04:06:39.424Z",
     "generator": "repo-graph",
     "nodeCount": 84,
     "edgeCount": 38
