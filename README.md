@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06b6d4?logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Status:** Early development (v0.2.0) — Phase 4 of 7 in progress
+**Status:** Active development (v0.3.0) — Phase 5 of 7 complete
 
 ---
 
@@ -83,12 +83,27 @@ The project is organized into seven development phases, progressing from foundat
 - **Timeline controls** (`components/TimelineControls.tsx`) — bottom bar with play/pause, speed selector, frame counter, elapsed time, clickable progress bar, and safety car/flag event markers with tooltips
 - **Scrollable leaderboard** (`components/Leaderboard.tsx`) — driver positions with team color bars, gap-to-leader, tyre compound chips, tyre life bars, stint count, and OUT indicators for retired drivers
 - **Driver telemetry HUD** (`components/TelemetryHUD.tsx`) — floating panel showing selected driver's speed, gear, RPM bar with redline zone, DRS status (OFF/DET/ON), throttle percentage, and brake ON/OFF with percentage
+- **Lap & time display** (`components/LapTimeDisplay.tsx`) — glassmorphic card showing current lap, total laps, elapsed race time (MM:SS), and lap progress bar
+- **Gap-to-leader chart** (`components/GapChart.tsx`) — live horizontal bar visualization with team colors, proportional widths, and lapped driver detection
+- **Tyre degradation widget** (`components/TyreWidget.tsx`) — compound badges, tyre life bars with green/yellow/red coloring, stint count, and tyre age per driver
+- **Weather radar** (`components/WeatherRadar.tsx`) — conditions grid (track/air temp, humidity, rainfall, wind), SVG precipitation radar with intensity-based coloring, pressure display
+- **Safety car indicator** (`components/SafetyCar.tsx`) — status visualization with pulsing orange for deployed, yellow for returning, and dimmed for inactive
+- **Race control feed** (`components/RaceControlFeed.tsx`) — scrollable message feed with color-coded flag dots, category badges, lap numbers, and timestamps
+- **Pit stop indicator** (`components/PitStopIndicator.tsx`) — chronological pit event feed with driver, lap, stop duration, and tyre compound badges
+- **Pit window predictor** (`components/PitWindowWidget.tsx`) — strategic insights: optimal pit window, tyre life estimation, pit loss time, undercut delta, and recommendation engine
 
-### Planned (Phases 5–7)
+**Championship Standings (Phase 5):**
 
-- **Championship Standings** — driver/constructor tables, form charts, points progression, and Power Unit component tracker
+- **Driver & constructor standings** (`components/StandingsTable.tsx`, `app/standings/`) — server-rendered page with Drivers/Constructors toggle, podium color badges (gold/silver/bronze), team color bars, and points-change indicators
+- **Form chart bars** (`components/FormChart.tsx`) — last 5 race results displayed as color-coded blocks (P1=gold, P2-3=silver, P4-5=green, P6-10=yellow, >P10=orange, DNF=red)
+- **Points progression chart** (`components/PointsChart.tsx`) — pure SVG multi-driver line chart with smooth bezier paths, custom axis scales, and team-colored traces
+- **Leading constructor card** (`components/ConstructorCard.tsx`) — prominent leader card with driver point-split bars showing each driver's contribution percentage
+- **Year-aware team identity service** (`lib/teams.ts`) — historical color mapping for 2024–2026 including Audi (2026) and Cadillac (2025+) entries with fallback handling
+- **Power Unit component tracker** (`components/PuUsageTable.tsx`, `app/standings/components/`) — ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust usage counts with green/yellow/red penalty indicators
+
+### Planned (Phases 6–7)
+
 - **Fantasy F1 League** — team dashboard, roster editor with $100M budget, league system with leaderboards, Firestore persistence
-- **Strategy Lab — Extended** — gap-to-leader chart, tyre degradation heatmap, weather radar, safety car visualization, race control feed, pit stop indicator, pit window predictor
 - **Mobile & Polish** — responsive layouts, loading skeletons, error boundaries, touch replay controls, performance optimization
 
 ---
@@ -125,16 +140,35 @@ The project is organized into seven development phases, progressing from foundat
 │   ├── icon.svg             # SVG favicon (S1 branding)
 │   ├── layout.tsx           # Root layout: SideNav + MobileNav + AuthProvider
 │   └── page.tsx             # Landing page with SectorOne branding
+├── app/
+│   ├── archive/...
+│   ├── standings/
+│   │   ├── page.tsx                    # Championship standings with year selector
+│   │   └── components/
+│   │       └── page.tsx                # Power Unit component usage page
 ├── components/
 │   ├── ArchiveFilters.tsx   # Circuit type, weather, and search filters
+│   ├── ConstructorCard.tsx  # Leading constructor with driver point split bars
+│   ├── FormChart.tsx        # Last 5 race results as color-coded blocks
+│   ├── GapChart.tsx         # Live gap-to-leader horizontal bar chart
 │   ├── GpCard.tsx           # Grand Prix card with circuit outline and podium
+│   ├── LapTimeDisplay.tsx   # Lap counter, elapsed time, progress bar
 │   ├── Leaderboard.tsx      # Scrollable leaderboard: positions, gaps, tyres, stints, OUT
 │   ├── MobileNav.tsx        # Mobile bottom navigation bar (5 items)
+│   ├── PitStopIndicator.tsx # Pit stop event feed with tyre compounds
+│   ├── PitWindowWidget.tsx  # Strategic pit window predictor
+│   ├── PointsChart.tsx      # SVG multi-driver points progression chart
 │   ├── ProtectedRoute.tsx   # Auth guard wrapper with loading spinner
+│   ├── PuUsageTable.tsx     # PU component usage tracker with penalty indicators
+│   ├── RaceControlFeed.tsx  # Scrollable race control messages feed
+│   ├── SafetyCar.tsx        # Safety car status visualization
 │   ├── SideNav.tsx          # Desktop fixed sidebar navigation
+│   ├── StandingsTable.tsx   # Driver and constructor standings table
 │   ├── TelemetryHUD.tsx     # Floating driver telemetry: speed, gear, RPM, DRS, throttle, brake
 │   ├── TimelineControls.tsx # Bottom replay bar: play/pause, speed, progress, event markers
 │   ├── TrackMap.tsx         # Canvas circuit map with driver dots and sector highlights
+│   ├── TyreWidget.tsx       # Tyre degradation with compound badges and life bars
+│   ├── WeatherRadar.tsx     # Weather conditions grid with SVG precipitation radar
 │   └── ui/
 │       ├── Button.tsx       # 4 variants (primary, secondary, ghost, outline), 3 sizes, loading
 │       ├── Card.tsx         # Glassmorphic card (4 variants, 4 padding levels)
@@ -144,13 +178,14 @@ The project is organized into seven development phases, progressing from foundat
 │   └── useReplayEngine.ts  # Replay playback: play/pause, variable speed, seek, accumulation
 ├── lib/
 │   ├── api/
-│   │   └── openf1.ts        # OpenF1 API client (21 endpoints, rate limited, exponential backoff)
+│   │   └── openf1.ts        # OpenF1 API client (23 endpoints, rate limited, exponential backoff)
 │   ├── auth/
 │   │   ├── AuthContext.tsx  # Firebase Auth context provider
 │   │   └── useAuth.ts       # useAuth() hook
 │   ├── firebase.ts          # Firebase config and lazy initialization
 │   ├── frameBuffer.ts       # Replay frame buffer: binary search, seeking, range extraction
 │   ├── raceData.ts          # Race data service: fetch, merge, build ReplayFrame objects
+│   ├── teams.ts             # Year-aware team identity service (2024-2026)
 │   ├── track-map.ts         # Track coordinate normalization, circuit bounds, grid alignment
 │   └── types.ts             # 28+ TypeScript types for F1 data entities + replay types
 ├── tests/
@@ -557,21 +592,36 @@ bun test tests/verify-task2-2.test.ts
 bun test tests/verification/
 ```
 
-**Current test coverage:**
+**Current test coverage (222+ tests across 33 files):**
 
 | Test File | Coverage |
 |-----------|----------|
 | `tests/archive-filters.test.tsx` | ArchiveFilters component rendering and filter behavior |
 | `tests/archive.test.tsx` | Archive page session browsing and GP card grid |
+| `tests/components/ConstructorCard.test.tsx` | Constructor card states (loading, empty, data) |
+| `tests/components/FormChart.test.tsx` | Form chart color mapping, DNF handling, result display |
+| `tests/components/GapChart.test.tsx` | Gap chart states (no data, no selection, live, LAP strings) |
+| `tests/components/LapTimeDisplay.test.tsx` | Lap/time display states (null, NaN, elapsed calculation) |
+| `tests/components/LapTimeDisplay.adversarial.test.tsx` | XSS injection, overflow, NaN, boundary values |
 | `tests/components/Leaderboard.test.tsx` | Leaderboard component exports and DriverPosition integration |
+| `tests/components/PitStopIndicator.test.tsx` | Pit stop feed states (empty, events, durations) |
+| `tests/components/PitWindowWidget.test.tsx` | Pit strategy states (fresh tyres, critical degradation) |
+| `tests/components/PointsChart.test.tsx` | Points chart empty state and multi-driver rendering |
+| `tests/components/PuUsageTable.test.tsx` | PU table loading, empty, and data states |
+| `tests/components/RaceControlFeed.test.tsx` | Race control feed states and maxMessages limit |
+| `tests/components/SafetyCar.test.tsx` | Safety car deployed/returning/none states |
+| `tests/components/StandingsTable.test.tsx` | Standings table loading, empty, driver/constructor views |
 | `tests/components/TelemetryHUD.test.tsx` | TelemetryHUD states (null, loading, full data) and helper functions |
 | `tests/components/TimelineControls.test.tsx` | TimelineControls component exports and ReplayEngineState integration |
-| `tests/components/TrackMap.test.tsx` | TrackMap exports, coordinate normalization, props (safety car, active sector, selected driver) |
-| `tests/lib/frameBuffer.test.ts` | Frame buffer operations (load, seek, next/prev, binary search timestamp, range extraction) |
-| `tests/lib/raceData.test.ts` | Race data service fetch, frame building, safety car detection, empty data handling |
+| `tests/components/TrackMap.test.tsx` | TrackMap exports, coordinate normalization, props |
+| `tests/components/TyreWidget.test.tsx` | Tyre widget compound badges, stint data, NaN lap handling |
+| `tests/components/WeatherRadar.test.tsx` | Weather radar states, null fields, rainfall rendering |
+| `tests/lib/frameBuffer.test.ts` | Frame buffer operations (load, seek, binary search, range) |
+| `tests/lib/raceData.test.ts` | Race data service fetch, frame building, safety car detection |
+| `tests/lib/teams.test.ts` | Team identity service mapping and year-aware lookups |
 | `tests/session-page.test.tsx` | Session detail page rendering with driver results table |
-| `tests/adversarial/track-map.adversarial.test.ts` | Track map adversarial edge cases (null/undefined/invalid coordinates) |
-| `tests/verification/` | Button, Card, Input, and Navigation component verification tests |
+| `tests/adversarial/track-map.adversarial.test.ts` | Track map adversarial edge cases |
+| `tests/verification/` | Button, Card, Input, and Navigation component verification |
 
 ---
 
@@ -614,8 +664,8 @@ The `vercel.json` configuration specifies the Next.js framework, build command, 
 | **1** | Project Setup & Foundation | ✅ Complete | Next.js scaffold, TypeScript types, OpenF1 client, Firebase Auth, Vercel config |
 | **2** | SectorOne Branding & Design System | ✅ Complete | Dark theme, glassmorphism, SideNav, MobileNav, Card/Button/Chip/Input components, landing page |
 | **3** | Race Archive | ✅ Complete | Session browser, GP cards, circuit outlines, archive filters, session detail page with results |
-| **4** | Strategy Lab — Replay Engine | 🔄 In Progress (tasks 4.1–4.5 done) | Track map, race data service, frame buffer, replay engine, timeline controls, leaderboard, telemetry HUD |
-| **5** | Championship Standings | 🔜 Planned | Driver/constructor tables, form charts, PU component tracker |
+| **4** | Strategy Lab — Replay Engine | ✅ Complete | Track map, race data service, frame buffer, replay engine, timeline controls, leaderboard, telemetry HUD, lap/time display, gap chart, tyre widget, weather radar, safety car, race control feed, pit stop indicator, pit window predictor |
+| **5** | Championship Standings | ✅ Complete | Driver/constructor tables, form charts, points progression, constructor card, team identity service, PU component tracker |
 | **6** | Fantasy F1 League | 🔜 Planned | Team dashboard, roster editor, league system, Firestore |
 | **7** | Mobile & Final Polish | 🔜 Planned | Responsive layouts, skeletons, error boundaries, performance |
 
