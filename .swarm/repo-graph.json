@@ -70,6 +70,46 @@
       "language": "typescript",
       "mtime": "2026-05-01T17:35:22.621Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/components/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/components/page.tsx",
+      "moduleName": "app/standings/components/page.tsx",
+      "exports": [
+        "async"
+      ],
+      "imports": [
+        "next/link",
+        "@/lib/api/openf1",
+        "@/components/PuUsageTable"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:02:27.952Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx",
+      "moduleName": "app/standings/page.tsx",
+      "exports": [
+        "async"
+      ],
+      "imports": [
+        "@/lib/api/openf1",
+        "./StandingsClient"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:41:51.532Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx",
+      "moduleName": "app/standings/StandingsClient.tsx",
+      "exports": [
+        "StandingsClient"
+      ],
+      "imports": [
+        "react",
+        "@/components/StandingsTable"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:39:24.392Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ArchiveFilters.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ArchiveFilters.tsx",
       "moduleName": "components/ArchiveFilters.tsx",
@@ -81,6 +121,27 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T15:52:49.534Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx",
+      "moduleName": "components/ConstructorCard.tsx",
+      "exports": [
+        "ConstructorCardProps",
+        "ConstructorCard"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:00:26.571Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
+      "moduleName": "components/FormChart.tsx",
+      "exports": [
+        "FormChart"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:46:03.327Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
@@ -140,6 +201,38 @@
       "language": "typescript",
       "mtime": "2026-05-01T18:53:29.261Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx",
+      "moduleName": "components/PitStopIndicator.tsx",
+      "exports": [
+        "PitStopIndicator"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:24:30.064Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx",
+      "moduleName": "components/PitWindowWidget.tsx",
+      "exports": [
+        "PitWindowWidget"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:31:28.291Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx",
+      "moduleName": "components/PointsChart.tsx",
+      "exports": [
+        "PointsChart"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:59:11.279Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ProtectedRoute.tsx",
       "moduleName": "components/ProtectedRoute.tsx",
@@ -154,6 +247,41 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:39:23.471Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx",
+      "moduleName": "components/PuUsageTable.tsx",
+      "exports": [
+        "PuComponentCounts",
+        "PuUsageEntry",
+        "PuUsageTableProps",
+        "PuUsageTable"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:02:06.639Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx",
+      "moduleName": "components/RaceControlFeed.tsx",
+      "exports": [
+        "RaceControlFeed"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:19:20.447Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx",
+      "moduleName": "components/SafetyCar.tsx",
+      "exports": [
+        "SafetyCar"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T00:40:33.867Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SideNav.tsx",
       "moduleName": "components/SideNav.tsx",
@@ -166,6 +294,18 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T18:53:26.984Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx",
+      "moduleName": "components/StandingsTable.tsx",
+      "exports": [
+        "StandingsTable"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:43:38.919Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/TelemetryHUD.tsx",
@@ -407,6 +547,19 @@
       "language": "typescript",
       "mtime": "2026-05-02T18:15:14.793Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts",
+      "moduleName": "lib/teams.ts",
+      "exports": [
+        "TeamIdentity",
+        "getTeamIdentity",
+        "getTeamColour",
+        "teamColours"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:01:18.502Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/track-map.ts",
       "moduleName": "lib/track-map.ts",
@@ -527,6 +680,30 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:17:27.790Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx",
+      "moduleName": "tests/components/ConstructorCard.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/ConstructorCard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:03:38.426Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
+      "moduleName": "tests/components/FormChart.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/FormChart"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:46:31.680Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
       "moduleName": "tests/components/GapChart.test.tsx",
@@ -572,6 +749,90 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T20:25:18.860Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx",
+      "moduleName": "tests/components/PitStopIndicator.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/PitStopIndicator"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:31:42.194Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx",
+      "moduleName": "tests/components/PitWindowWidget.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/PitWindowWidget"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:32:39.380Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx",
+      "moduleName": "tests/components/PointsChart.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/PointsChart"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:03:25.507Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx",
+      "moduleName": "tests/components/PuUsageTable.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/PuUsageTable"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:03:50.941Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx",
+      "moduleName": "tests/components/RaceControlFeed.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/RaceControlFeed"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:19:56.788Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx",
+      "moduleName": "tests/components/SafetyCar.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/SafetyCar"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T00:40:48.236Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx",
+      "moduleName": "tests/components/StandingsTable.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/StandingsTable"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T01:44:01.321Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/TelemetryHUD.test.tsx",
@@ -624,6 +885,18 @@
       "language": "typescript",
       "mtime": "2026-05-02T23:14:29.466Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx",
+      "moduleName": "tests/components/WeatherRadar.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/WeatherRadar"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-02T23:46:27.139Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
       "moduleName": "tests/hooks/useReplayEngine.test.ts",
@@ -657,6 +930,17 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T18:37:15.771Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts",
+      "moduleName": "tests/lib/teams.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "../../lib/teams"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:04:03.390Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/track-map.test.ts",
@@ -774,6 +1058,12 @@
       "importType": "sideeffect"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/page.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/standings/StandingsClient.tsx",
+      "importSpecifier": "./StandingsClient",
+      "importType": "default"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/useAuth.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/auth/AuthContext.tsx",
       "importSpecifier": "./AuthContext",
@@ -822,6 +1112,18 @@
       "importType": "sideeffect"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/ConstructorCard.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/ConstructorCard.tsx",
+      "importSpecifier": "../../components/ConstructorCard",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
+      "importSpecifier": "../../components/FormChart",
+      "importType": "default"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/GapChart.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/GapChart.tsx",
       "importSpecifier": "../../components/GapChart",
@@ -837,6 +1139,48 @@
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/LapTimeDisplay.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/LapTimeDisplay.tsx",
       "importSpecifier": "../../components/LapTimeDisplay",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitStopIndicator.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitStopIndicator.tsx",
+      "importSpecifier": "../../components/PitStopIndicator",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PitWindowWidget.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PitWindowWidget.tsx",
+      "importSpecifier": "../../components/PitWindowWidget",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PointsChart.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PointsChart.tsx",
+      "importSpecifier": "../../components/PointsChart",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/PuUsageTable.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/PuUsageTable.tsx",
+      "importSpecifier": "../../components/PuUsageTable",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/RaceControlFeed.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/RaceControlFeed.tsx",
+      "importSpecifier": "../../components/RaceControlFeed",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/SafetyCar.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/SafetyCar.tsx",
+      "importSpecifier": "../../components/SafetyCar",
+      "importType": "default"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/StandingsTable.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/StandingsTable.tsx",
+      "importSpecifier": "../../components/StandingsTable",
       "importType": "default"
     },
     {
@@ -864,6 +1208,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/WeatherRadar.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/WeatherRadar.tsx",
+      "importSpecifier": "../../components/WeatherRadar",
+      "importType": "default"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/hooks/useReplayEngine.test.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/frameBuffer.ts",
       "importSpecifier": "../../lib/frameBuffer",
@@ -879,6 +1229,12 @@
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/raceData.test.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/raceData.ts",
       "importSpecifier": "../../lib/raceData",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/lib/teams.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/lib/teams.ts",
+      "importSpecifier": "../../lib/teams",
       "importType": "named"
     },
     {
@@ -919,9 +1275,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-02T23:18:14.270Z",
+    "generatedAt": "2026-05-03T02:04:08.507Z",
     "generator": "repo-graph",
-    "nodeCount": 57,
-    "edgeCount": 25
+    "nodeCount": 81,
+    "edgeCount": 37
   }
 }
