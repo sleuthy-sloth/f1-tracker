@@ -192,6 +192,54 @@
       "scope_hash": "66d2ed26a6da996f5461b6885e833e70690e998a9c658b334698c294fce4bdc8",
       "agent": "curator",
       "filename": "2026-05-03-a364c82d-ab71-4df9-bc35-5ec1ac299b2c.json"
+    },
+    {
+      "id": "74ebc2c7-9789-4a95-84ed-7509fbf094ef",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T14:52:53.147Z",
+      "scope_hash": "1d712f8266f6475d7df1dbe9623b38eb2e090cc66d84612c806c94203f262dab",
+      "agent": "curator",
+      "filename": "2026-05-03-74ebc2c7-9789-4a95-84ed-7509fbf094ef.json"
+    },
+    {
+      "id": "11867f2e-9e26-43a1-833e-21bb2d50af3c",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T15:22:01.691Z",
+      "scope_hash": "a5e83f3239ff313926449dced4ab3b90ffb54614d4994a7bff14517eef482601",
+      "agent": "curator",
+      "filename": "2026-05-03-11867f2e-9e26-43a1-833e-21bb2d50af3c.json"
+    },
+    {
+      "id": "84bf3108-1f05-4ccc-a791-e306bcba9f42",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T16:31:39.438Z",
+      "scope_hash": "f75ac45ecaefdb452b60c82c9dd568358ebede707d3207492c8df7de6e7eaa51",
+      "agent": "curator",
+      "filename": "2026-05-03-84bf3108-1f05-4ccc-a791-e306bcba9f42.json"
+    },
+    {
+      "id": "89a92c92-a9b3-408a-a96f-dcf4c951fe84",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T16:38:16.722Z",
+      "scope_hash": "670cb9be5bd7ecfeeb3b91bfcea3bcdef7137e8ed6875f2421d2f19ee80a3aed",
+      "agent": "curator",
+      "filename": "2026-05-03-89a92c92-a9b3-408a-a96f-dcf4c951fe84.json"
+    },
+    {
+      "id": "784965c7-7c79-4e1e-bd8f-bea1e52e8ab7",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T17:32:03.719Z",
+      "scope_hash": "345e1d8e2c78200794df8ff77b0b77ea2ffc8c002037920b217ee373639f0d96",
+      "agent": "curator",
+      "filename": "2026-05-03-784965c7-7c79-4e1e-bd8f-bea1e52e8ab7.json"
+    },
+    {
+      "id": "d4137513-1b0e-406d-84fe-9da7d381d798",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T17:45:17.386Z",
+      "scope_hash": "78e64fa2d42666f0a8aa03ee9ff4dcd0fbfa0dbdc1d38a2dc2366c9c29105a2e",
+      "agent": "curator",
+      "filename": "2026-05-03-d4137513-1b0e-406d-84fe-9da7d381d798.json"
     }
   ]
 }

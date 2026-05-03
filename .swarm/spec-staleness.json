@@ -1,9 +1,9 @@
 {
   "type": "spec_stale_detected",
-  "timestamp": "2026-05-01T17:19:10.143Z",
+  "timestamp": "2026-05-03T15:22:47.279Z",
   "phase": 1,
-  "specHash_plan": "339d5848e0a8deb9135fb1ade5a907ae3c909c104df94e23b42c69957a6476bf",
-  "specHash_current": "f9944b097bf1df050db0a3151161364955c2c36f2c83f5d7791bc254e2fc0e95",
+  "specHash_plan": "f9944b097bf1df050db0a3151161364955c2c36f2c83f5d7791bc254e2fc0e95",
+  "specHash_current": "b7f6807d00a08959a5d40b22ba96915556a10e3d713180692ac641396b0d5d17",
   "reason": "spec.md has been modified since plan was saved",
-  "planTitle": "F1 Tracker"
+  "planTitle": "SectorOne"
 }

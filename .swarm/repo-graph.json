@@ -11,10 +11,12 @@
       "imports": [
         "@/lib/api/openf1",
         "@/components/ui/Button",
+        "@/components/ui/Card",
+        "@/components/DataCard",
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T15:43:27.050Z"
+      "mtime": "2026-05-03T21:40:09.232Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx",
@@ -36,10 +38,10 @@
       ],
       "imports": [
         "@/lib/api/openf1",
-        "@/components/ArchiveFilters"
+        "@/components/ArchiveClient"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T15:51:50.825Z"
+      "mtime": "2026-05-03T21:07:21.299Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx",
@@ -49,11 +51,12 @@
       ],
       "imports": [
         "@/lib/auth/useAuth",
+        "@/components/DataCard",
         "@/components/FantasyDashboard",
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T02:40:46.249Z"
+      "mtime": "2026-05-03T21:29:20.514Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx",
@@ -65,12 +68,12 @@
       "imports": [
         "next/font/google",
         "@/lib/auth/AuthContext",
-        "@/components/SideNav",
+        "@/components/TopNav",
         "@/components/MobileNav",
         "./globals.css"
       ],
       "language": "typescript",
-      "mtime": "2026-05-01T18:49:16.095Z"
+      "mtime": "2026-05-03T17:57:56.679Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx",
@@ -83,7 +86,7 @@
         "next/image"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T05:51:56.717Z"
+      "mtime": "2026-05-03T15:15:55.435Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx",
@@ -107,10 +110,12 @@
       ],
       "imports": [
         "@/lib/api/openf1",
-        "./StandingsClient"
+        "./StandingsClient",
+        "@/components/SeasonSelector",
+        "@/components/DataCard"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T05:51:56.717Z"
+      "mtime": "2026-05-03T21:35:10.257Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx",
@@ -120,10 +125,25 @@
       ],
       "imports": [
         "react",
+        "@/components/ui/Card",
         "@/components/StandingsTable"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T01:39:24.392Z"
+      "mtime": "2026-05-03T21:36:16.630Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx",
+      "moduleName": "components/ArchiveClient.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@/components/ArchiveFilters",
+        "@/components/FilterSidebar",
+        "@/components/SeasonSelector",
+        "@/lib/types"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:23:00.350Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveFilters.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveFilters.tsx",
@@ -131,11 +151,22 @@
       "exports": [],
       "imports": [
         "react",
-        "@/components/GpCard",
-        "@/components/ui/Input"
+        "@/components/GpCard"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T15:52:49.534Z"
+      "mtime": "2026-05-03T21:25:32.280Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/CircuitOutline.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/CircuitOutline.tsx",
+      "moduleName": "components/CircuitOutline.tsx",
+      "exports": [
+        "CircuitOutlineProps"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T20:53:10.563Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ConstructorCard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ConstructorCard.tsx",
@@ -146,7 +177,15 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T02:00:26.571Z"
+      "mtime": "2026-05-03T15:15:55.437Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/DataCard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/DataCard.tsx",
+      "moduleName": "components/DataCard.tsx",
+      "exports": [],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T20:55:44.396Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/FantasyDashboard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FantasyDashboard.tsx",
@@ -154,9 +193,28 @@
       "exports": [
         "FantasyDashboard"
       ],
-      "imports": [],
+      "imports": [
+        "@/components/ui/Card",
+        "@/components/DataCard"
+      ],
       "language": "typescript",
-      "mtime": "2026-05-03T02:39:41.503Z"
+      "mtime": "2026-05-03T21:33:45.788Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/FilterSidebar.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FilterSidebar.tsx",
+      "moduleName": "components/FilterSidebar.tsx",
+      "exports": [
+        "CircuitTypeFilter",
+        "WeatherFilter",
+        "DriverWinsFilter",
+        "FilterSidebarState",
+        "FilterSidebarProps"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T20:35:17.434Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/FormChart.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/FormChart.tsx",
@@ -176,7 +234,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T23:04:06.501Z"
+      "mtime": "2026-05-03T15:15:55.440Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx",
@@ -187,11 +245,11 @@
       "imports": [
         "@/components/ui/Card",
         "@/components/ui/Chip",
-        "@/components/ui/Button",
+        "@/components/CircuitOutline",
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T15:53:25.567Z"
+      "mtime": "2026-05-03T21:19:42.519Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
@@ -201,7 +259,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T22:36:40.988Z"
+      "mtime": "2026-05-03T15:15:55.442Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/Leaderboard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/Leaderboard.tsx",
@@ -211,7 +269,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T19:22:50.999Z"
+      "mtime": "2026-05-03T15:15:55.444Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx",
@@ -224,7 +282,7 @@
         "next/navigation"
       ],
       "language": "typescript",
-      "mtime": "2026-05-01T18:53:29.261Z"
+      "mtime": "2026-05-03T15:15:55.446Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitStopIndicator.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitStopIndicator.tsx",
@@ -234,7 +292,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T01:24:30.064Z"
+      "mtime": "2026-05-03T15:15:55.448Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitWindowWidget.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PitWindowWidget.tsx",
@@ -244,7 +302,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T01:31:28.291Z"
+      "mtime": "2026-05-03T15:15:55.450Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/PointsChart.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PointsChart.tsx",
@@ -256,7 +314,7 @@
         "react"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T01:59:11.279Z"
+      "mtime": "2026-05-03T15:15:55.451Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx",
@@ -285,7 +343,7 @@
         "react"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T02:02:06.639Z"
+      "mtime": "2026-05-03T15:15:55.452Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/RaceControlFeed.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/RaceControlFeed.tsx",
@@ -295,7 +353,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T01:19:20.447Z"
+      "mtime": "2026-05-03T15:15:55.453Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
@@ -305,7 +363,17 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T00:40:33.867Z"
+      "mtime": "2026-05-03T15:15:55.455Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx",
+      "moduleName": "components/SeasonSelector.tsx",
+      "exports": [
+        "SeasonSelectorProps"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T20:43:11.813Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SideNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SideNav.tsx",
@@ -318,7 +386,15 @@
         "next/navigation"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T05:51:56.719Z"
+      "mtime": "2026-05-03T15:15:55.455Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/SpeedGauge.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SpeedGauge.tsx",
+      "moduleName": "components/SpeedGauge.tsx",
+      "exports": [],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:38:45.611Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx",
@@ -330,7 +406,7 @@
         "react"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T05:51:56.720Z"
+      "mtime": "2026-05-03T21:36:35.148Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryHUD.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryHUD.tsx",
@@ -340,7 +416,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T21:21:52.578Z"
+      "mtime": "2026-05-03T15:15:55.456Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx",
@@ -353,7 +429,29 @@
         "@/components/ui/Button"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T18:42:12.379Z"
+      "mtime": "2026-05-03T15:15:55.457Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TireIndicator.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TireIndicator.tsx",
+      "moduleName": "components/TireIndicator.tsx",
+      "exports": [],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:38:58.876Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TopNav.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TopNav.tsx",
+      "moduleName": "components/TopNav.tsx",
+      "exports": [
+        "TopNav"
+      ],
+      "imports": [
+        "next/link",
+        "next/navigation",
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T16:00:40.292Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx",
@@ -376,7 +474,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T23:07:39.533Z"
+      "mtime": "2026-05-03T15:15:55.458Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx",
@@ -386,7 +484,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T02:10:03.541Z"
+      "mtime": "2026-05-03T20:21:21.626Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Card.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Card.tsx",
@@ -394,7 +492,7 @@
       "exports": [],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-03T05:51:56.722Z"
+      "mtime": "2026-05-03T19:27:04.721Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Chip.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Chip.tsx",
@@ -426,7 +524,7 @@
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-02T23:16:38.134Z"
+      "mtime": "2026-05-03T15:15:55.459Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/eslint.config.mjs": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/eslint.config.mjs",
@@ -898,6 +996,19 @@
       "language": "typescript",
       "mtime": "2026-05-02T19:07:05.774Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TopNav.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TopNav.test.tsx",
+      "moduleName": "tests/components/TopNav.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@testing-library/react",
+        "../../components/TopNav",
+        "vitest"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T17:49:45.062Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx",
       "moduleName": "tests/components/TrackMap.test.tsx",
@@ -1004,6 +1115,19 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:48:13.907Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/archive-layout.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/archive-layout.test.ts",
+      "moduleName": "tests/verification/archive-layout.test.ts",
+      "exports": [],
+      "imports": [
+        "react",
+        "@testing-library/react",
+        "bun:test",
+        "../../components/ArchiveClient"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:09:44.582Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx",
       "moduleName": "tests/verification/button_verification.test.tsx",
@@ -1044,6 +1168,30 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:21:46.870Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/gp-card-redesign.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/gp-card-redesign.test.tsx",
+      "moduleName": "tests/verification/gp-card-redesign.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "@testing-library/react",
+        "../../components/GpCard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T21:18:49.158Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/hex-pattern.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/hex-pattern.test.ts",
+      "moduleName": "tests/verification/hex-pattern.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs",
+        "path"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T18:37:41.876Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx",
       "moduleName": "tests/verification/input_verification.test.tsx",
@@ -1059,6 +1207,18 @@
       "language": "typescript",
       "mtime": "2026-05-02T02:27:21.223Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/layout-topnav.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/layout-topnav.test.ts",
+      "moduleName": "tests/verification/layout-topnav.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs",
+        "path"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T18:01:03.561Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/navigation_verification.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/navigation_verification.test.ts",
       "moduleName": "tests/verification/navigation_verification.test.ts",
@@ -1072,6 +1232,18 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T19:09:57.797Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/neon-glow-tokens.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/neon-glow-tokens.test.ts",
+      "moduleName": "tests/verification/neon-glow-tokens.test.ts",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "fs/promises",
+        "path"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T18:51:10.265Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verify-task2-2.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verify-task2-2.test.ts",
@@ -1233,6 +1405,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TopNav.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TopNav.tsx",
+      "importSpecifier": "../../components/TopNav",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/TrackMap.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TrackMap.tsx",
       "importSpecifier": "../../components/TrackMap",
@@ -1293,6 +1471,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/archive-layout.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx",
+      "importSpecifier": "../../components/ArchiveClient",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/button_verification.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Button.tsx",
       "importSpecifier": "../../components/ui/Button",
@@ -1311,6 +1495,12 @@
       "importType": "sideeffect"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/gp-card-redesign.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/GpCard.tsx",
+      "importSpecifier": "../../components/GpCard",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/verification/input_verification.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ui/Input.tsx",
       "importSpecifier": "../../components/ui/Input",
@@ -1318,9 +1508,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-03T06:32:23.618Z",
+    "generatedAt": "2026-05-03T21:40:14.302Z",
     "generator": "repo-graph",
-    "nodeCount": 84,
-    "edgeCount": 38
+    "nodeCount": 98,
+    "edgeCount": 41
   }
 }

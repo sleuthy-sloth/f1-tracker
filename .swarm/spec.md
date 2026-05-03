@@ -1,293 +1,183 @@
-# Specification: SectorOne
+# Specification: SectorOne Visual Redesign — "Neon Telemetry HUD"
 
-A high-performance Formula 1 telemetry suite combining race replay visualization, fantasy F1 league management, championship standings, and real-time telemetry analysis — presented as a mission-control dashboard accessible on both mobile and desktop devices.
-
-## Brand Overview
-
-**SectorOne** is the cockpit for the modern F1 enthusiast — blending the analytical depth of a professional pit wall with the competitive thrill of fantasy sports. The brand personality is authoritative, technical, and precision-engineered. Every interface element is designed as part of a mission-critical telemetry suite, using a dark glassmorphism aesthetic inspired by Head-Up Displays (HUD) in modern racing cockpits.
+A comprehensive visual redesign of SectorOne's layout, navigation, and component styling to match a "Neon Telemetry HUD" aesthetic — featuring top navigation, enhanced neon glow effects, modular dashboard cards, circuit outline visualizations with team-colored glows, and a subtle hexagonal background pattern across all pages.
 
 ## Feature Description
 
-Users can relive and analyze F1 races through an interactive replay experience, manage fantasy F1 teams with real budgets and points, view championship standings, and explore telemetry data — all within a unified dashboard. Data is sourced from the free OpenF1 API (2023 onwards) for historical race data, with fantasy league scoring derived from actual race results.
+The redesign transforms SectorOne from a sidebar-navigation layout to a top-navigation dashboard layout with enhanced visual depth. Every page receives updated styling with neon glow borders, glassmorphic cards with colored accents, and a cohesive "mission control" aesthetic. The redesign preserves all existing functionality while elevating the visual presentation to match professional F1 telemetry dashboards.
 
-The app is organized into four primary sections:
-- **Archive**: Browse and replay past races with full telemetry visualization
-- **Strategy Lab**: Race replays with live telemetry, gap analysis, tyre degradation, and weather radar
-- **Fantasy**: Build and manage fantasy F1 teams with budget caps, leagues, and standings
-- **Settings**: Account management and app configuration
+The redesign covers:
+- **Global Shell**: Top navigation bar replacing sidebar, hexagonal background pattern, updated design tokens
+- **Component Library**: Enhanced cards with glow variants, cyan accent buttons, new filter sidebar and circuit outline components
+- **Archive Page**: Left filter panel, neon circuit outline cards, season selector pill bar
+- **Fantasy Page**: Dashboard grid with driver cards, standings table, budget tracker, countdown timer
+- **Standings Page**: Dashboard cards, enhanced tables with position color bars
+- **Strategy Lab**: Modular dashboard layout with speed gauge, track position, tire status, live standings
 
 ## User Scenarios
 
-### Scenario 1: Race Replay (Strategy Lab)
-**Given** a user has selected a completed race session from the Archive
-**When** they start the replay in Strategy Lab
-**Then** they see an animated track visualization showing all drivers' positions updating frame-by-frame with a floating telemetry HUD
+### Scenario 1: Top Navigation
+**Given** a user is on any page of SectorOne
+**When** they look at the top of the viewport
+**Then** they see a horizontal navigation bar with the SectorOne logo on the left, navigation tabs (LIVE, ANALYSIS, HISTORY, SETTINGS) in the center, and user profile on the right
 
-**Given** the race replay is running
-**When** the user pauses playback
-**Then** the visualization freezes and all driver data remains at their current state
+**Given** a user clicks a navigation tab
+**When** the page changes
+**Then** the active tab shows an underline/glow indicator and the content area updates
 
-**Given** the race replay is paused or playing
-**When** the user rewinds or fast-forwards
-**Then** the visualization jumps to the corresponding point in the race
+### Scenario 2: Archive Browsing with Filters
+**Given** a user navigates to the Archive page
+**When** they view the page
+**Then** they see a left sidebar with collapsible filter sections (Year, Circuit, Team, Weather, Driver Wins) and a grid of GP cards with neon-glowing circuit outlines
 
-**Given** a driver is visible on the track
-**When** the user selects them on the leaderboard
-**Then** their telemetry data (speed, gear, RPM, DRS, throttle, brake) is displayed in the floating panel
+**Given** a user selects filter options
+**When** the filters are applied
+**Then** the GP card grid updates to show only matching sessions
 
-### Scenario 2: Session Browsing
-**Given** a user wants to explore F1 sessions
-**When** they browse the Archive
-**Then** they see a grid of GP cards with circuit outlines, session info, podium results, and a "Watch Replay" button
+**Given** a user hovers over a GP card
+**When** the hover state activates
+**Then** the circuit outline glow intensifies and the card border brightens
 
-**Given** a user has previously viewed a session
-**When** they return to the app
-**Then** recently viewed sessions are available for quick access
-
-### Scenario 3: Fantasy Team Management
-**Given** a user is authenticated and on the Fantasy page
+### Scenario 3: Fantasy Dashboard
+**Given** a user navigates to the Fantasy page
 **When** they view their dashboard
-**Then** they see their team name, total points, budget remaining, roster of drivers, and league standings
+**Then** they see a modular grid layout with: driver cards showing team color gradients, a league standings table with colored position bars, a budget tracker with progress bar, and a next-race countdown timer
 
-**Given** a user wants to change their roster
-**When** they click "Edit Team"
-**Then** they can browse available drivers with their cost and recent points, and swap drivers within their $100M budget
+### Scenario 4: Standings Dashboard
+**Given** a user navigates to the Standings page
+**When** they view the page
+**Then** they see driver and constructor standings in dashboard cards with team color indicators, form charts, and points progression
 
-**Given** a race weekend completes
-**When** the fantasy standings update
-**Then** user's team points reflect the real race results, and league leaderboards refresh
-
-### Scenario 4: Fantasy Leagues
-**Given** a user has joined a fantasy league
-**When** they view their league
-**Then** they see a leaderboard of all members with rank trends and total points
-
-**Given** a user wants to compete with friends
-**When** they create or join a league
-**Then** they can invite friends and track performance across race weekends
-
-### Scenario 5: Championship Standings
-**Given** a user wants to see season standings
-**When** they view the Championship page
-**Then** they see driver and constructor rankings with points, wins, podiums, and recent form charts
-
-**Given** a user selects a constructor
-**When** the constructor detail is shown
-**Then** they see the team's total points with per-driver point splits
-
-### Scenario 6: Telemetry Analysis
-**Given** a race replay is in progress
-**When** the user views the sidebar panels
-**Then** they can see gap-to-leader charts, tyre degradation heatmaps, and weather radar information
-
-**Given** a driver is selected for telemetry analysis
-**When** the replay plays through a lap
-**Then** the telemetry visualization updates in sync with the race playback
-
-### Scenario 7: User Account
-**Given** a user wants to save their preferences
-**When** they sign in with their Firebase account
-**Then** their fantasy team, league memberships, session history, and favorite sessions are preserved across devices
+### Scenario 5: Strategy Lab Dashboard
+**Given** a user opens a race replay in Strategy Lab
+**When** they view the page
+**Then** they see modular dashboard cards: speed gauge, track position map, live standings, tire status indicators, brake temperatures, and speed/RPM charts
 
 ## Functional Requirements
 
-### FR-001: App Navigation
-The system MUST provide a persistent sidebar navigation (desktop) and bottom navigation (mobile) with sections: Archive, Strategy Lab, Fantasy, and Settings.
+### FR-031: Top Navigation Bar
+The system MUST provide a persistent horizontal top navigation bar with: SectorOne logo (left), navigation tabs (center: LIVE/DASHBOARD, ANALYSIS/STRATEGY, HISTORY/ARCHIVE, SETTINGS), and user profile icon (right). The active tab MUST show a visual indicator (underline or glow).
 
-### FR-002: Session Browser (Archive)
-The system MUST present a browsable grid of F1 race weekends showing circuit outline SVGs, round number, event name, podium results, and session type badges — available for replay.
+### FR-032: Hexagonal Background Pattern
+The system MUST display a subtle hexagonal grid pattern as the background across ALL pages, rendered at low opacity (5-10%) to avoid distracting from content.
 
-### FR-003: Race Replay Engine (Strategy Lab)
-The system MUST provide a frame-by-frame replay of race sessions with driver positions animated on a track map, with an anchored timeline control bar at the bottom.
+### FR-033: Neon Glow Card Variants
+The system MUST support card components with colored neon glow borders that intensify on hover. Glow colors should match team colors or use cyan (#00D2BE) as the default accent.
 
-### FR-004: Playback Controls
-The system MUST support pause, resume, rewind, fast-forward, playback speed adjustment (0.5x, 1x, 2x, 4x), and restart controls during replay.
+### FR-034: Circuit Outline Visualization
+The system MUST render simplified circuit outlines as SVG paths with neon stroke effects (2-3px stroke with glow filter). Circuit outlines MUST support team-colored or cyan glow variants.
 
-### FR-005: Leaderboard
-The system MUST display a scrollable leaderboard showing driver positions, gaps to leader, tyre compound (with life bar), stint/pit count, and team affiliation with team color indicators.
+### FR-035: Archive Filter Sidebar
+The system MUST provide a collapsible left sidebar on the Archive page with filter sections: Year (checkboxes), Circuit Type (Street/Circuit/Hybrid), Weather (Dry/Wet/Mixed), Team (checkboxes), and Driver Wins (dropdown).
 
-### FR-006: Driver Telemetry HUD
-The system MUST display a floating telemetry panel for a selected driver showing speed, gear, RPM (with bar), DRS status, throttle percentage, and brake status.
+### FR-036: Season Selector Pill Bar
+The system MUST display a horizontal pill-style year selector at the top of Archive and Standings pages, with the selected year highlighted in cyan/teal.
 
-### FR-007: Lap & Time Display
-The system MUST show the current lap number, total laps, and elapsed race time during replay.
+### FR-037: Enhanced GP Cards
+The system MUST display GP cards with: circuit outline SVG (neon glow), winner name, date, fastest lap, top speed, total laps, and a cyan "VIEW FULL TELEMETRY" button.
 
-### FR-008: Driver Status Tracking
-The system MUST indicate drivers who have retired or are otherwise no longer competing.
+### FR-038: Fantasy Driver Cards
+The system MUST display fantasy roster drivers as cards with team color gradient backgrounds, driver name, points per race, and total points.
 
-### FR-009: Safety Car Visualization
-The system MUST display the Safety Car on track when deployed, with appropriate visual indicators and timeline markers.
+### FR-039: Fantasy Standings Table
+The system MUST display league standings as a clean table with: position number with colored bar, player name, team affiliation, total points, and gap to leader.
 
-### FR-010: Weather Information
-The system MUST show current weather conditions (track temperature, air temperature, humidity, rainfall, wind) during race sessions, with a weather radar visualization.
+### FR-040: Budget Tracker
+The system MUST display a budget tracker with: current spending, remaining budget, progress bar with color-coded fill (green/yellow/red based on remaining percentage), and a "MANAGE TEAM" button.
 
-### FR-011: Race Control Messages
-The system MUST display race control messages, flags, and session status changes during replay.
+### FR-041: Next Race Countdown
+The system MUST display a countdown timer to the next race showing days, hours, minutes, and seconds with a "Predictions" button.
 
-### FR-012: Session Type Support
-The system MUST support replay of Race, Sprint, Sprint Qualifying, and Qualifying session types.
+### FR-042: Dashboard Metric Cards
+The system MUST provide reusable DataCard components displaying: label (uppercase, tracked), large numeric value (Space Grotesk, bold), and optional trend indicator.
 
-### FR-013: Driver Selection & Focus
-The system MUST allow users to select individual drivers on the track or leaderboard to view their detailed telemetry and information.
+### FR-043: Standings Table with Position Bars
+The system MUST display standings tables with colored vertical bars next to position numbers, matching team colors.
 
-### FR-014: Mobile Responsiveness
-The system MUST provide a fully functional experience on both mobile devices and desktop screens through responsive layout adaptation and adaptive navigation.
+### FR-044: Tire Status Indicators
+The system MUST display tire status as circular progress indicators showing percentage remaining for each tire position (FL, FR, RL, RR).
 
-### FR-015: Gap Analysis Chart
-The system SHOULD display gap-to-leader line charts for selected drivers during replay, with colored traces for each driver.
-
-### FR-016: Tyre Degradation Display
-The system SHOULD display tyre degradation heatmaps showing remaining tyre life percentage for each driver during replay.
-
-### FR-017: Weather Radar
-The system SHOULD provide a weather radar visualization showing precipitation zones during race sessions.
-
-### FR-018: Strategic Pit Window
-The system SHOULD show estimated optimal pit window, pit loss time, and undercut delta during race replay.
-
-### FR-019: Pit Stop Information
-The system MUST display pit stop events including timing, duration, and tyre compound changes.
-
-### FR-020: Track Map Visualization
-The system MUST render the track layout with active sector highlighting and driver position markers, using a minimalist circuit outline aesthetic.
-
-### FR-021: Session Information Display
-The system MUST show session metadata including event name, circuit name, country, date, and total lap count.
-
-### FR-022: Color-Coded Drivers
-The system MUST display each driver using their official F1 team colors for easy identification.
-
-### FR-023: Championship Standings
-The system MUST display driver and constructor championship standings with points, wins, podiums, and recent form (last 5 races) charts.
-
-### FR-024: Points Progression Chart
-The system SHOULD show season-long points progression charts for selected drivers, with a "heartbeat" line chart style.
-
-### FR-025: Fantasy Team Dashboard
-The system MUST display a fantasy team dashboard showing team name, total points, budget remaining (with progress bar), active roster, and points history chart.
-
-### FR-026: Fantasy Roster Management
-The system MUST allow users to build and edit a fantasy team roster consisting of 5 drivers and 1 constructor within a $100M budget, with pricing based on real-world performance.
-
-### FR-027: Fantasy League Standings
-The system MUST support creating and joining fantasy leagues, with leaderboards showing rank, team name, points, and rank trend indicators.
-
-### FR-028: Fantasy Points Scoring
-The system MUST calculate fantasy points based on real race results (position points, overtakes, fastest laps, qualifying performance).
-
-### FR-029: User Authentication
-The system MUST support user authentication via Firebase, allowing users to create accounts and sign in to save fantasy teams, league memberships, preferences, and watch history.
-
-### FR-030: Global Search
-The system MAY provide a global search bar in the header for searching sessions, drivers, and circuits.
+### FR-045: Speed Gauge
+The system MUST display a speed gauge visualization (arc or circular) showing current speed in KM/H with color-coded zones (green/yellow/red).
 
 ## Non-Functional Requirements
 
-### NFR-001: Performance
-The track visualization MUST render smoothly at 60 frames per second on modern devices during replay playback.
+### NFR-008: Glow Performance
+Neon glow effects MUST use CSS box-shadow and SVG filters efficiently to maintain 60fps rendering. Glow animations SHOULD use CSS transitions (not JavaScript) for smooth performance.
 
-### NFR-002: Responsiveness
-The application MUST adapt its layout across mobile phones, tablets, and desktop screens without loss of functionality.
+### NFR-009: Background Pattern Performance
+The hexagonal background pattern MUST use a lightweight SVG or CSS pattern that does not impact scroll performance or increase bundle size significantly.
 
-### NFR-003: Glassmorphism Design
-The UI MUST use glassmorphic cards (semi-transparent backgrounds with backdrop blur, 1px ghost borders) for telemetry readouts and dashboard panels.
+### NFR-010: Responsive Top Navigation
+The top navigation MUST collapse to a hamburger menu on mobile screens (< 768px) with a slide-down navigation drawer.
 
-### NFR-004: Typography
-The system MUST use Space Grotesk for headings and telemetry data, Inter for body text, and monospace for tabular data to prevent horizontal jittering.
-
-### NFR-005: Data Latency
-Historical replay data SHOULD load within 5 seconds for a full race session on a standard broadband connection.
-
-### NFR-006: Offline Graceful Degradation
-The application SHOULD handle data source unavailability gracefully, displaying clear error states rather than breaking.
-
-### NFR-007: First Load Performance
-The initial page load SHOULD deliver meaningful content within 3 seconds on a standard broadband connection.
+### NFR-011: Filter Sidebar Responsiveness
+The Archive filter sidebar MUST become a collapsible drawer on mobile screens, accessible via a "Filters" button.
 
 ## Success Criteria
 
-### SC-001: Session Selection
-A user can browse all available race weekends in the Archive and begin replaying any session within 2 clicks/taps.
+### SC-009: Navigation Consistency
+All pages display the same top navigation bar with correct active state indication.
 
-### SC-002: Smooth Playback
-Race replay maintains smooth animation (no visible stuttering) across the duration of a full race session on modern devices.
+### SC-010: Visual Cohesion
+All pages share the same hexagonal background pattern, neon glow aesthetic, and glassmorphic card styling.
 
-### SC-003: Full Playback Control
-Users can pause, rewind, fast-forward, and adjust speed without losing synchronization between track positions and telemetry data.
+### SC-011: Archive Filter Functionality
+Users can filter the Archive GP grid by year, circuit type, weather, team, and driver, with results updating in real-time.
 
-### SC-004: Driver Identification
-Any driver on the track map or leaderboard is identifiable by team color, number, and name acronym.
+### SC-012: Circuit Outline Rendering
+Circuit outlines render as SVG paths with visible neon glow effects that intensify on hover.
 
-### SC-005: Mobile Parity
-All core features (Archive browsing, replay, leaderboard, fantasy dashboard, standings) are accessible on mobile devices.
+### SC-013: Fantasy Dashboard Completeness
+The Fantasy page displays all required dashboard elements: driver cards, standings table, budget tracker, and countdown timer.
 
-### SC-006: Fantasy Budget System
-A user can build a complete roster within the $100M budget cap, with clear cost visibility per driver.
+### SC-014: Mobile Responsiveness
+All redesigned pages function correctly on mobile devices with appropriate navigation and layout adaptations.
 
-### SC-007: Daily Refresh
-Championship standings and fantasy point calculations refresh automatically after each race weekend.
+## Key Entities (Design)
 
-### SC-008: Brand Consistency
-All UI components follow the SectorOne design system: F1 Red primary (#E10600), glassmorphism cards, Space Grotesk/Inter typography, and dark theme throughout.
+- **TopNav**: Horizontal navigation bar with logo, tabs, and profile
+- **FilterSidebar**: Collapsible left panel with checkbox/dropdown filters
+- **SeasonSelector**: Horizontal pill bar for year selection
+- **CircuitOutline**: SVG circuit renderer with neon glow filter
+- **DataCard**: Dashboard metric card (label + value + trend)
+- **GlowCard**: Glassmorphic card with colored neon border glow
+- **DriverCard**: Fantasy driver display with team color gradient
+- **StandingsTable**: Clean table with colored position bars
+- **SpeedGauge**: Arc/circular speed visualization
+- **TireIndicator**: Circular progress for tire status
 
-## Key Entities
+## Design System Updates
 
-- **Meeting**: A Grand Prix weekend (e.g., "Singapore Grand Prix") with dates, circuit, location
-- **Session**: A specific session within a meeting (Practice, Qualifying, Sprint, Race)
-- **Driver**: Participant with number, name acronym, full name, team, team color
-- **Lap**: Single circuit traversal with sector times, speeds, segments
-- **Telemetry Snapshot**: Speed, RPM, gear, throttle, brake, DRS, position at a point in time
-- **Track Layout**: Circuit coordinate path for rendering with active sector highlighting
-- **Race Event**: Safety car, flags, pit stops, incidents, VSC periods
-- **Weather Reading**: Track/air temperature, humidity, rainfall, wind
-- **Race Result**: Final standings with position, points, gap, DNF/DNS/DSQ status
-- **Fantasy Team**: User's selected roster of 5 drivers + 1 constructor within budget
-- **Fantasy League**: Group of users competing with cumulative fantasy points
-- **Championship Season**: Year-long driver and constructor standings
+### Colors (Additions)
+- **Cyan Accent**: #00D2BE (secondary CTAs, active states, data highlights)
+- **Neon Glow Cyan**: 0 0 10px rgba(0, 210, 190, 0.4), 0 0 20px rgba(0, 210, 190, 0.2)
+- **Neon Glow Red**: 0 0 10px rgba(225, 6, 0, 0.4), 0 0 20px rgba(225, 6, 0, 0.2)
+- **Neon Glow Yellow**: 0 0 10px rgba(255, 251, 0, 0.4), 0 0 20px rgba(255, 251, 0, 0.2)
+- **Neon Glow Green**: 0 0 10px rgba(34, 197, 94, 0.4), 0 0 20px rgba(34, 197, 94, 0.2)
 
-## Edge Cases and Known Failure Modes
+### Typography (No Changes)
+- Headlines: Space Grotesk
+- Body: Inter
+- Data: Monospace
 
-- **Data availability gaps**: Some historical sessions may have incomplete telemetry or position data
-- **Driver substitutions**: Mid-season driver changes must be reflected in both telemetry and fantasy rosters
-- **New circuits**: Track layouts for new or modified circuits must be renderable from coordinate data
-- **Large data volumes**: Full race sessions contain thousands of frames — lazy loading and efficient rendering required
-- **Budget edge cases**: Driver prices must fluctuate based on performance, and users must be able to reorganize rosters between race weekends
-- **Tiebreaker scenarios**: Fantasy league standings must define tiebreaker rules (most recent race points, then most wins)
-- **Session schedule changes**: Weather delays, red flags, and schedule changes must be handled gracefully
-- **Time zone handling**: Session times displayed in user's local timezone
+### Components (Additions)
+- **TopNav**: Replaces SideNav for desktop navigation
+- **FilterSidebar**: Left panel for Archive filters
+- **SeasonSelector**: Horizontal year pill bar
+- **CircuitOutline**: SVG circuit with glow filter
+- **DataCard**: Metric display card
+- **GlowCard**: Enhanced Card variant with colored glow
 
-## Design System (SectorOne)
-
-### Colors
-- **Background**: #131313 (deep charcoal carbon)
-- **Surface**: #1A1A1A with glass overlays (backdrop-blur: 20px, fill: rgba(255,255,255,0.05))
-- **Primary/F1 Red**: #E10600 (buttons, active states, SC markers)
-- **Secondary/Teal**: #00D2BE (positive deltas, data highlights)
-- **Tertiary/Yellow**: #FFFB00 (soft compound indication, pit open status)
-- **Data Readouts**: Pure white (#FFFFFF) on dark backgrounds
-- **Ghost Borders**: rgba(255,255,255,0.1) for card boundaries
-
-### Typography
-- **Headlines & Telemetry**: Space Grotesk (48px/24px/18px variants)
-- **Body Text**: Inter (14px)
-- **Tabular Data**: Monospace (13px, letter-spacing 0.05em)
-- **Labels**: Inter, 11px, uppercase, letter-spacing 0.1em
-
-### Components
-- **Glassmorphic Cards**: background: rgba(26,26,26,0.8), backdrop-filter: blur(20px), border: 1px solid rgba(255,255,255,0.1)
-- **Primary Buttons**: Solid F1 Red (#E10600), white text
-- **Secondary Buttons**: Ghost style, 1px white border, 10% fill
-- **Telemetry Graphs**: 2px stroke width, "heartbeat" line motif
-- **Track Maps**: Minimalist circuit outlines (2px), active sector in F1 Red
-- **Timeline**: Bottom-anchored bar, F1 Red playhead, colored event markers
-- **Chips**: Pill-shaped for tyre compounds (Red=Soft, Yellow=Medium, White=Hard)
-- **Input Fields**: #121212 background, 1px border, F1 Red on focus
+### Background
+- **Hexagonal Pattern**: Subtle SVG hex grid at 5-10% opacity, applied globally
 
 ## Design Decisions
 
-- **Data scope**: Free OpenF1 API only, covering 2023 onwards. Live tracking is deferred.
-- **Authentication**: Firebase Auth for user accounts. Anonymous browsing supported.
-- **Fantasy scoring**: Based on real race results from OpenF1 API data.
-- **Navigation**: Sidebar on desktop, bottom tab bar on mobile.
-- **Design language**: Glassmorphism + High-Performance Minimalism, dark mode only.
-- **Font strategy**: Space Grotesk for display/telemetry, Inter for body, monospace for data tables.
+- **Navigation**: Top horizontal bar replaces sidebar for wider content area and modern dashboard feel
+- **Primary Accent**: F1 Red (#E10600) retained for critical actions and active states
+- **Secondary Accent**: Cyan (#00D2BE) used for data highlights and secondary CTAs
+- **Glow Effects**: CSS box-shadow for cards, SVG filters for circuit outlines
+- **Background Pattern**: SVG hex grid at very low opacity to avoid visual noise
+- **Circuit Outlines**: Simplified SVG paths with neon stroke, not full coordinate rendering
+- **Responsive Strategy**: Top nav → hamburger, filter sidebar → drawer on mobile
