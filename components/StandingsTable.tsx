@@ -24,11 +24,11 @@ const POSITION_COLORS: Record<number, string> = {
  */
 function LoadingSkeleton() {
   return (
-    <div className="flex flex-col gap-2">
-      {[...Array(5)].map((_, i) => (
+    <div className="flex flex-col gap-2 p-4">
+      {[...Array(8)].map((_, i) => (
         <div
           key={i}
-          className="animate-pulse bg-white/[0.05] rounded h-12 w-full"
+          className="animate-pulse bg-white/[0.03] rounded-lg h-14 w-full"
         />
       ))}
     </div>
@@ -40,15 +40,15 @@ function LoadingSkeleton() {
  */
 function EmptyState({ message }: { message: string }) {
   return (
-    <div className="flex items-center justify-center py-12">
-      <p className="text-f1-silver text-sm">{message}</p>
+    <div className="flex flex-col items-center justify-center py-20 text-center space-y-4">
+      <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-f1-silver/30">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <p className="text-f1-silver/60 font-medium">{message}</p>
     </div>
   );
 }
 
-/**
- * StandingsTableProps
- */
 interface StandingsTableProps {
   driverStandings: ChampionshipDriver[];
   teamStandings: ChampionshipTeam[];
@@ -58,10 +58,6 @@ interface StandingsTableProps {
   className?: string;
 }
 
-/**
- * StandingsTable - Championship standings display component
- * Displays driver or constructor championship standings in a glassmorphic card
- */
 export default function StandingsTable({
   driverStandings,
   teamStandings,
@@ -84,87 +80,126 @@ export default function StandingsTable({
 
   const getTeamColor = (teamName: string): string => {
     const driver = drivers.find((d) => d.team_name === teamName);
-    return driver?.team_colour || '#666';
+    return driver?.team_colour || '#333';
   };
 
   const renderDriverRow = (standing: ChampionshipDriver) => {
     const driverInfo = getDriverInfo(standing.driver_number);
     const position = standing.position_current;
-    const positionColor = POSITION_COLORS[position] || 'rgba(255,255,255,0.2)';
+    const positionColor = POSITION_COLORS[position];
 
     return (
       <div
         key={standing.driver_number}
         className={cn(
-          'relative grid grid-cols-[40px_1fr_80px_60px_60px] items-center',
-          'px-4 py-3 hover:bg-white/[0.04] transition border-b border-white/[0.05]'
+          'group relative grid grid-cols-[60px_1fr_100px_80px_80px] items-center',
+          'px-6 py-4 hover:bg-white/[0.03] transition-all duration-200 border-b border-white/[0.03]'
         )}
       >
+        {/* Team Color Accent Line */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"
-          style={{ backgroundColor: driverInfo?.team_colour || '#666' }}
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full transition-all group-hover:h-10"
+          style={{ backgroundColor: driverInfo?.team_colour || '#333' }}
         />
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-          style={{ backgroundColor: positionColor, color: position <= 3 ? '#000' : '#fff' }}
-        >
-          {position}
-        </div>
-        <div className="pl-2">
-          <span className="font-bold text-f1-white text-sm">
-            {driverInfo?.name_acronym || `#${standing.driver_number}`}
-          </span>
-          <div className="text-xs text-f1-silver">
-            {driverInfo?.full_name || driverInfo?.broadcast_name || `Driver #${standing.driver_number}`}
+        
+        {/* Position */}
+        <div className="flex justify-start">
+          <div
+            className={cn(
+              "w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm transition-all",
+              positionColor ? "bg-opacity-20 shadow-lg" : "bg-white/5"
+            )}
+            style={{ 
+              backgroundColor: positionColor ? `${positionColor}20` : undefined,
+              color: positionColor || '#fff',
+              border: positionColor ? `1px solid ${positionColor}40` : '1px solid rgba(255,255,255,0.05)'
+            }}
+          >
+            {position}
           </div>
         </div>
-        <div className="text-lg font-bold text-f1-white text-right">
-          {standing.points_current}
+
+        {/* Driver Info */}
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <span className="text-heading text-sm font-bold text-f1-white tracking-wide">
+              {driverInfo?.full_name || driverInfo?.broadcast_name || `Driver #${standing.driver_number}`}
+            </span>
+            <span className="text-[10px] font-mono text-f1-silver/40 uppercase tracking-widest border border-white/5 px-1.5 rounded">
+              {driverInfo?.name_acronym || standing.driver_number}
+            </span>
+          </div>
+          <span className="text-xs text-f1-silver/60 font-medium">
+            {driverInfo?.team_name || 'Independent'}
+          </span>
         </div>
-        <div className="text-center text-f1-silver text-sm">—</div>
-        <div className="text-center text-f1-silver text-sm">—</div>
+
+        {/* Points */}
+        <div className="text-right">
+          <span className="text-data text-xl font-bold text-f1-white tracking-tighter">
+            {standing.points_current}
+          </span>
+        </div>
+
+        {/* Placeholder Stats */}
+        <div className="text-center text-data text-xs text-f1-silver/40">—</div>
+        <div className="text-center text-data text-xs text-f1-silver/40">—</div>
       </div>
     );
   };
 
   const renderConstructorRow = (standing: ChampionshipTeam) => {
     const position = standing.position_current;
-    const positionColor = POSITION_COLORS[position] || 'rgba(255,255,255,0.2)';
+    const positionColor = POSITION_COLORS[position];
     const pointsChange = standing.points_current - standing.points_start;
 
     return (
       <div
         key={standing.team_name}
         className={cn(
-          'relative grid grid-cols-[40px_1fr_100px] items-center',
-          'px-4 py-3 hover:bg-white/[0.04] transition border-b border-white/[0.05]'
+          'group relative grid grid-cols-[60px_1fr_120px] items-center',
+          'px-6 py-5 hover:bg-white/[0.03] transition-all duration-200 border-b border-white/[0.03]'
         )}
       >
         <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-          style={{ backgroundColor: positionColor, color: position <= 3 ? '#000' : '#fff' }}
-        >
-          {position}
-        </div>
-        <div className="pl-2 flex items-center gap-3">
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-10 rounded-r-full transition-all group-hover:h-12"
+          style={{ backgroundColor: getTeamColor(standing.team_name) }}
+        />
+
+        <div className="flex justify-start">
           <div
-            className="w-1 h-10 rounded-full"
-            style={{ backgroundColor: getTeamColor(standing.team_name) }}
-          />
-          <span className="font-bold text-f1-white">{standing.team_name}</span>
-        </div>
-        <div className="text-right">
-          <div className="text-lg font-bold text-f1-white">
-            {standing.points_current}
+            className={cn(
+              "w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm transition-all",
+              positionColor ? "bg-opacity-20 shadow-lg" : "bg-white/5"
+            )}
+            style={{ 
+              backgroundColor: positionColor ? `${positionColor}20` : undefined,
+              color: positionColor || '#fff',
+              border: positionColor ? `1px solid ${positionColor}40` : '1px solid rgba(255,255,255,0.05)'
+            }}
+          >
+            {position}
           </div>
+        </div>
+
+        <div className="flex flex-col">
+          <span className="text-heading text-base font-bold text-f1-white tracking-tight">
+            {standing.team_name}
+          </span>
+        </div>
+
+        <div className="flex flex-col items-end">
+          <span className="text-data text-2xl font-black text-f1-white tracking-tighter leading-none">
+            {standing.points_current}
+          </span>
           {pointsChange !== 0 && (
             <div
               className={cn(
-                'text-xs font-medium',
-                pointsChange > 0 ? 'text-green-400' : 'text-red-400'
+                'text-[10px] font-mono font-bold mt-1 px-1.5 rounded',
+                pointsChange > 0 ? 'text-green-400 bg-green-400/10' : 'text-red-400 bg-red-400/10'
               )}
             >
-              {pointsChange > 0 ? '+' : ''}{pointsChange}
+              {pointsChange > 0 ? '▲' : '▼'} {Math.abs(pointsChange)} PTS
             </div>
           )}
         </div>
@@ -173,58 +208,72 @@ export default function StandingsTable({
   };
 
   return (
-    <div
-      className={cn(
-        'bg-white/[0.05] backdrop-blur-xl border border-white/[0.1] rounded-xl overflow-hidden',
-        className
-      )}
-    >
-      <div className="px-4 py-3 border-b border-white/[0.1]">
-        <h2 className="text-xs uppercase tracking-widest text-f1-silver font-medium">
-          {view === 'drivers' ? 'DRIVER STANDINGS' : 'CONSTRUCTOR STANDINGS'}
-        </h2>
+    <div className={cn('glass-panel rounded-2xl overflow-hidden', className)}>
+      {/* Table Header */}
+      <div className="px-6 py-5 border-b border-white/[0.05] bg-white/[0.02] flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-1 h-4 bg-f1-red rounded-full shadow-[0_0_8px_rgba(225,6,0,0.5)]" />
+          <h2 className="text-heading text-xs font-bold text-f1-white tracking-widest">
+            {view === 'drivers' ? '2024 DRIVER CHAMPIONSHIP' : '2024 CONSTRUCTOR CHAMPIONSHIP'}
+          </h2>
+        </div>
+        <div className="text-[10px] font-mono text-f1-silver/30 uppercase tracking-[0.2em]">
+          Live Data Stream // Nominal
+        </div>
       </div>
 
+      {/* Table Column Headers */}
       {view === 'drivers' && (
-        <div className="grid grid-cols-[40px_1fr_80px_60px_60px] px-4 py-2 bg-surface/80 backdrop-blur-md border-b border-white/[0.1] text-xs text-f1-silver uppercase">
+        <div className="grid grid-cols-[60px_1fr_100px_80px_80px] px-6 py-3 bg-white/[0.01] border-b border-white/[0.03] text-[10px] text-f1-silver/40 font-bold uppercase tracking-widest">
           <span>Pos</span>
-          <span>Driver</span>
-          <span className="text-right">Pts</span>
+          <span>Competitor</span>
+          <span className="text-right">Points</span>
           <span className="text-center">Wins</span>
           <span className="text-center">Podiums</span>
         </div>
       )}
 
       {view === 'constructors' && (
-        <div className="grid grid-cols-[40px_1fr_100px] px-4 py-2 bg-surface/80 backdrop-blur-md border-b border-white/[0.1] text-xs text-f1-silver uppercase">
+        <div className="grid grid-cols-[60px_1fr_120px] px-6 py-3 bg-white/[0.01] border-b border-white/[0.03] text-[10px] text-f1-silver/40 font-bold uppercase tracking-widest">
           <span>Pos</span>
-          <span>Team</span>
-          <span className="text-right">Pts</span>
+          <span>Constructor / Team</span>
+          <span className="text-right">Total Points</span>
         </div>
       )}
 
+      {/* Table Content */}
       <div className="relative">
         {isLoading ? (
-          <div className="p-4">
-            <LoadingSkeleton />
-          </div>
+          <LoadingSkeleton />
         ) : view === 'drivers' ? (
           sortedDriverStandings.length === 0 ? (
-            <EmptyState message="No championship data" />
+            <EmptyState message="No championship data available" />
           ) : (
-            <div className="flex flex-col">
+            <div className="flex flex-col min-h-[400px]">
               {sortedDriverStandings.map((standing) => renderDriverRow(standing))}
             </div>
           )
         ) : (
           sortedTeamStandings.length === 0 ? (
-            <EmptyState message="No championship data" />
+            <EmptyState message="No championship data available" />
           ) : (
-            <div className="flex flex-col">
+            <div className="flex flex-col min-h-[400px]">
               {sortedTeamStandings.map((standing) => renderConstructorRow(standing))}
             </div>
           )
         )}
+      </div>
+
+      {/* Table Footer */}
+      <div className="px-6 py-3 bg-white/[0.02] border-t border-white/[0.05] flex justify-between items-center">
+        <span className="text-[9px] font-mono text-f1-silver/30 uppercase tracking-widest">
+          End of Data Block // SectorOne Engine v0.2.0
+        </span>
+        <div className="flex gap-2">
+          <div className="w-1 h-1 rounded-full bg-f1-red/40" />
+          <div className="w-1 h-1 rounded-full bg-f1-red/20" />
+          <div className="w-1 h-1 rounded-full bg-f1-red/10" />
+        </div>
       </div>
     </div>
   );

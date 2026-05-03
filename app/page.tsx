@@ -1,45 +1,102 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden">
-      {/* Gradient accent line */}
-      <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-f1-red to-transparent" />
+    <div className="relative min-h-screen bg-surface-dim overflow-hidden flex flex-col">
+      {/* Background Grid Layer */}
+      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
+      
+      {/* Hero Section */}
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
+        {/* Animated Accent Blobs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-f1-red/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] animate-pulse delay-1000" />
 
-      {/* Subtle checkered pattern hint */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 10px,
-            #fff 10px,
-            #fff 11px
-          ),
-          repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 10px,
-            #fff 10px,
-            #fff 11px
-          )`,
-        }}
-      />
+        <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+          {/* Logo / Brand Badge */}
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-panel border-f1-red/30 shadow-xl shadow-f1-red/5">
+            <div className="w-2 h-2 rounded-full bg-f1-red animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-[0.2em] text-f1-silver/80 uppercase">
+              SectorOne Protocol v0.2.0
+            </span>
+          </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-8 px-6 text-center">
-        <h1 className="text-5xl font-extrabold tracking-tight text-f1-white sm:text-6xl lg:text-7xl">
-          <span className="text-f1-red">SECTOR</span>ONE
-        </h1>
+          {/* Hero Content */}
+          <div className="space-y-6">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-heading leading-[0.9] tracking-tighter text-f1-white">
+              PRECISION<br />
+              <span className="text-f1-red">TELEM</span>ETRY
+            </h1>
+            <p className="max-w-2xl mx-auto text-lg md:text-xl text-f1-silver font-medium leading-relaxed">
+              Experience Formula 1 like a race engineer. High-performance analysis, 
+              live strategy simulation, and advanced championship tracking.
+            </p>
+          </div>
 
-        <p className="max-w-xl text-lg leading-relaxed text-f1-silver sm:text-xl">
-          High-performance telemetry, fantasy leagues, and race analysis
-        </p>
+          {/* Call to Actions */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+            <Link 
+              href="/standings" 
+              className="group relative px-8 py-4 bg-f1-red text-white font-bold rounded-xl overflow-hidden shadow-2xl shadow-f1-red/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative z-10 flex items-center gap-2">
+                Launch Mission Control
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+              </span>
+            </Link>
+            <Link 
+              href="/archive" 
+              className="px-8 py-4 glass-panel glass-panel-hover text-f1-white font-bold rounded-xl transition-all"
+            >
+              Race Archives
+            </Link>
+          </div>
+        </div>
 
-        <Link href="/sessions" className="mt-4 rounded-full bg-f1-red px-8 py-3 text-base font-semibold text-white transition-all duration-200 hover:bg-red-700 hover:shadow-lg hover:shadow-f1-red/20 focus:outline-none focus:ring-2 focus:ring-f1-red focus:ring-offset-2 focus:ring-offset-f1-carbon">
-          Browse Sessions
-        </Link>
+        {/* Hero Visual Mockup */}
+        <div className="mt-20 relative w-full max-w-6xl aspect-[21/9] rounded-2xl overflow-hidden glass-panel border-white/10 shadow-3xl group">
+          <Image 
+            src="/images/hero.png" 
+            alt="F1 Cinematic Telemetry" 
+            fill
+            className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-700"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-transparent opacity-60" />
+          
+          {/* Mockup Overlays */}
+          <div className="absolute bottom-6 left-6 flex items-center gap-4">
+            <div className="px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-white/10 font-mono text-[10px] text-f1-red font-bold">
+              SYSTEM: ACTIVE
+            </div>
+            <div className="px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-white/10 font-mono text-[10px] text-f1-silver font-bold">
+              GPS: 44.5011° N, 11.3435° E
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Info */}
+      <div className="px-10 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex gap-12">
+          <div className="space-y-1">
+            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Latency</div>
+            <div className="text-xs font-mono text-f1-red font-bold">14ms</div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Data Stream</div>
+            <div className="text-xs font-mono text-f1-white font-bold">2.4 GB/S</div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Status</div>
+            <div className="text-xs font-mono text-green-500 font-bold">NOMINAL</div>
+          </div>
+        </div>
+        <div className="text-[10px] font-mono text-f1-silver/40">
+          DESIGNED FOR MAXIMUM PERFORMANCE BY SECTORONE LABS
+        </div>
       </div>
     </div>
   );
