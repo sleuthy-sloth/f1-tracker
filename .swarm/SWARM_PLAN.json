@@ -381,12 +381,12 @@
     {
       "id": 5,
       "name": "Championship Standings",
-      "status": "pending",
+      "status": "complete",
       "tasks": [
         {
           "id": "5.1",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build driver and constructor standings page with points, wins, podiums, and team color bars",
           "depends": [
@@ -398,7 +398,7 @@
         {
           "id": "5.2",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build form chart bars (last 5 races) for each driver in standings",
           "depends": [
@@ -409,7 +409,7 @@
         {
           "id": "5.3",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build points progression chart with multi-driver heartbeat lines",
           "depends": [
@@ -420,7 +420,7 @@
         {
           "id": "5.4",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build leading constructor card with driver point split bars",
           "depends": [
@@ -431,7 +431,7 @@
         {
           "id": "5.5",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
           "description": "Build year-aware team identity service with historical color mapping",
           "depends": [
@@ -442,12 +442,78 @@
         {
           "id": "5.6",
           "phase": 5,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
           "description": "Build power unit component usage tracker showing each driver's ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust counts with penalty indicators",
           "depends": [
             "1.5",
             "5.1"
+          ],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Fantasy F1 League",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "6.1",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart",
+          "depends": [
+            "1.7",
+            "2.3",
+            "5.1"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.2",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Build fantasy points scoring system based on real race results",
+          "depends": [
+            "1.5"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.3",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build roster editor with driver browsing, budget tracking, and save/revert",
+          "depends": [
+            "6.1",
+            "6.2"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.4",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build league system: create, join, and view league leaderboards with rank trends",
+          "depends": [
+            "6.1"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.5",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Implement Firestore persistence for fantasy teams and league data",
+          "depends": [
+            "1.6",
+            "6.1"
           ],
           "files_touched": []
         }

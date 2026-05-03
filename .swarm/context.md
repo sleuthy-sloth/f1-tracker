@@ -4,20 +4,20 @@
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| read | 288 | 288 | 0 | 13ms |
-| bash | 286 | 286 | 0 | 2682ms |
-| update_task_status | 106 | 106 | 0 | 10ms |
-| edit | 78 | 78 | 0 | 2771ms |
-| write | 74 | 74 | 0 | 2187ms |
-| glob | 69 | 69 | 0 | 26ms |
-| grep | 68 | 68 | 0 | 24ms |
-| task | 57 | 57 | 0 | 174755ms |
-| declare_scope | 33 | 33 | 0 | 6ms |
+| read | 306 | 306 | 0 | 13ms |
+| bash | 291 | 291 | 0 | 2637ms |
+| update_task_status | 112 | 112 | 0 | 10ms |
+| edit | 85 | 85 | 0 | 2662ms |
+| glob | 83 | 83 | 0 | 26ms |
+| write | 76 | 76 | 0 | 2262ms |
+| grep | 71 | 71 | 0 | 24ms |
+| task | 58 | 58 | 0 | 172973ms |
+| declare_scope | 34 | 34 | 0 | 6ms |
 | todowrite | 17 | 17 | 0 | 10ms |
 | pre_check_batch | 12 | 12 | 0 | 1602ms |
+| save_plan | 8 | 8 | 0 | 28ms |
 | phase_complete | 8 | 8 | 0 | 18802ms |
-| save_plan | 7 | 7 | 0 | 29ms |
-| search | 7 | 7 | 0 | 2270ms |
+| search | 8 | 8 | 0 | 1987ms |
 | check_gate_status | 6 | 6 | 0 | 5ms |
 | test_runner | 6 | 6 | 0 | 1598ms |
 | get_approved_plan | 6 | 6 | 0 | 15ms |
@@ -45,6 +45,7 @@
 | placeholder_scan | 1 | 1 | 0 | 14ms |
 | evidence_check | 1 | 1 | 0 | 9ms |
 | test_impact | 1 | 1 | 0 | 55ms |
+| invalid | 1 | 1 | 0 | 2ms |
 ## QA Gates Applied (SectorOne)
 - reviewer: true, test_engineer: true, sast_enabled: true, sme_enabled: true
 - critic_pre_plan: true, drift_check: true

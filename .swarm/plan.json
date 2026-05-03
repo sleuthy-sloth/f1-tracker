@@ -452,6 +452,72 @@
           "files_touched": []
         }
       ]
+    },
+    {
+      "id": 6,
+      "name": "Fantasy F1 League",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "6.1",
+          "phase": 6,
+          "status": "completed",
+          "size": "medium",
+          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart",
+          "depends": [
+            "1.7",
+            "2.3",
+            "5.1"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.2",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Build fantasy points scoring system based on real race results",
+          "depends": [
+            "1.5"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.3",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build roster editor with driver browsing, budget tracking, and save/revert",
+          "depends": [
+            "6.1",
+            "6.2"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.4",
+          "phase": 6,
+          "status": "pending",
+          "size": "medium",
+          "description": "Build league system: create, join, and view league leaderboards with rank trends",
+          "depends": [
+            "6.1"
+          ],
+          "files_touched": []
+        },
+        {
+          "id": "6.5",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "Implement Firestore persistence for fantasy teams and league data",
+          "depends": [
+            "1.6",
+            "6.1"
+          ],
+          "files_touched": []
+        }
+      ]
     }
   ],
   "migration_status": "native",

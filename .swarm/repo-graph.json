@@ -41,6 +41,20 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:51:50.825Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/fantasy/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/fantasy/page.tsx",
+      "moduleName": "app/fantasy/page.tsx",
+      "exports": [
+        "FantasyPage"
+      ],
+      "imports": [
+        "@/lib/auth/useAuth",
+        "@/components/FantasyDashboard",
+        "next/link"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:40:46.249Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/app/layout.tsx",
       "moduleName": "app/layout.tsx",
@@ -132,6 +146,16 @@
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-03T02:00:26.571Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx",
+      "moduleName": "components/FantasyDashboard.tsx",
+      "exports": [
+        "FantasyDashboard"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:39:41.503Z"
     },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
@@ -692,6 +716,18 @@
       "language": "typescript",
       "mtime": "2026-05-03T02:03:38.426Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx",
+      "moduleName": "tests/components/FantasyDashboard.test.tsx",
+      "exports": [],
+      "imports": [
+        "react",
+        "react-dom/server",
+        "../../components/FantasyDashboard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T02:41:40.952Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
       "moduleName": "tests/components/FormChart.test.tsx",
@@ -1118,6 +1154,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FantasyDashboard.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FantasyDashboard.tsx",
+      "importSpecifier": "../../components/FantasyDashboard",
+      "importType": "default"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/tests/components/FormChart.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/F1 Tracker/components/FormChart.tsx",
       "importSpecifier": "../../components/FormChart",
@@ -1275,9 +1317,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-03T02:04:08.507Z",
+    "generatedAt": "2026-05-03T02:41:46.005Z",
     "generator": "repo-graph",
-    "nodeCount": 81,
-    "edgeCount": 37
+    "nodeCount": 84,
+    "edgeCount": 38
   }
 }
