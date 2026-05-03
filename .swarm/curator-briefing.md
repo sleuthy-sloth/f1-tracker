@@ -257,6 +257,25 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T02:42:01.362Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T03:13:43.186Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T03:13:51.244Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:03.832Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:04.374Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:05.004Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:09.193Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:09.766Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:10.244Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:10.775Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:15.496Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:16.035Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:07:16.852Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:23.688Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:24.368Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:25.111Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:25.634Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:29.952Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:30.775Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:40.408Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:44.364Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:09:14.924Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 
 ## Context Summary
 
@@ -265,21 +284,21 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| read | 306 | 306 | 0 | 13ms |
-| bash | 291 | 291 | 0 | 2637ms |
-| update_task_status | 112 | 112 | 0 | 10ms |
-| edit | 85 | 85 | 0 | 2662ms |
-| glob | 83 | 83 | 0 | 26ms |
-| write | 76 | 76 | 0 | 2262ms |
-| grep | 71 | 71 | 0 | 24ms |
-| task | 58 | 58 | 0 | 172973ms |
+| read | 316 | 316 | 0 | 13ms |
+| bash | 301 | 301 | 0 | 2569ms |
+| update_task_status | 113 | 113 | 0 | 10ms |
+| edit | 86 | 86 | 0 | 2690ms |
+| glob | 84 | 84 | 0 | 26ms |
+| write | 78 | 78 | 0 | 2268ms |
+| grep | 72 | 72 | 0 | 24ms |
+| task | 59 | 59 | 0 | 170933ms |
 | declare_scope | 34 | 34 | 0 | 6ms |
 | todowrite | 17 | 17 | 0 | 10ms |
-| pre_check_batch | 12 | 12 | 0 | 1602ms |
+| pre_check_batch | 13 | 13 | 0 | 1607ms |
+| search | 9 | 9 | 0 | 2017ms |
 | save_plan | 8 | 8 | 0 | 28ms |
 | phase_complete | 8 | 8 | 0 | 18802ms |
-| search | 8 | 8 | 0 | 1987ms |
-| check_gate_status | 6 | 6 | 0 | 5ms |
+| check_gate_status | 7 | 7 | 0 | 5ms |
 | test_runner | 6 | 6 | 0 | 1598ms |
 | get_approved_plan | 6 | 6 | 0 | 15ms |
 | lint | 5 | 5 | 0 | 2901ms |
@@ -315,24 +334,30 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 
 ## LLM-Enhanced Analysis
 BRIEFING:
-- Summary: Phase 3 complete (3/3). Phase 4 complete (12/12) with two compliance observations in prior summary, notably missing reviewer and test_engineer during phase 4. Current project context shows QA gates were applied with reviewer, test_engineer and sme enabled, suggesting gating alignment may have occurred after the prior summary.
-- Decision points: Reconcile the stated Phase 4 compliance observations with the gate evidence in PROJECT_CONTEXT. Confirm whether the Phase 4 observations were resolved and update the knowledge base accordingly.
-- Next steps: Align Phase 5/6 planning with updated gate state; ensure new tasks reflect any resolved blockers and that compliance records are consistent across documents.
+- Session: session-1777737397084. Last updated 2026-05-03. Last_phase_covered: 4. Phase 3 and Phase 4 completed; Phase 4 had 12/12 tasks finished per digest.
+- Key divergence: PRIOR_SUMMARY notes 2 compliance observations in Phase 4 (reviewer/test_engineer not dispatched). However, Agent Activity/QA Gates in PROJECT_CONTEXT show reviewer and test_engineer gates as applied. Likely a stale digest entry or gating reconciliation needed.
+- Hive/genesis: Knowledge recommendations show 0 new hive entries across multiple promotions; current hive activity appears dormant.
+- Actionable risk: Align compliance observations with gate evidence; ensure correct dispatch and documentation for reviewer/test_engineer in Phase 4 and update evidence accordingly.
+- Next steps: Reconcile Phase 4 gating history, confirm evidence in .swarm/evidence, and close any gaps in compliance notes. Consider a retro to capture the mismatch and adjust future phase gating.
 
 CONTRADICTIONS:
-- Phase 4 compliance_observations: missing reviewer/test_engineer per PRIOR_SUMMARY
-- Contradiction observed: PROJECT_CONTEXT QA Gates Applied lists reviewer: true and test_engineer: true (applied 2026-05-01), which implies gating was addressed after the stated observations.
+- phase 4 compliance_observation entry: "Agent 'reviewer' required but not dispatched in phase 4" vs. PROJECT_CONTEXT QA Gates Applied showing reviewer: true and test_engineer: true (May 1). Contradiction: gating status appears to exist in gates, but digest reports absence.
 
 OBSERVATIONS:
-- entry 4c056578-49d0-4632-8cc0-2a614d697bfc appears high-confidence: notes TSX syntax false positives and recommends a pre-check path; actionable for syntax verification.
-- entry 9c19e5c2-a6ef-445f-88ad-412ef623b495 appears high-confidence: emphasizes fallback if Reviewer is unavailable; relates to gate reliability.
-- entry 33509489-aeb1-414c-9066-bf9032fa1244 appears high-confidence: server components should handle API errors with fallback UI—relevant to gating and phase reviews.
-- entry 92430e28-651c-4c2f-b5f5-5f9268f1f9e1 appears helpful: ReplayFrame timestamp handling note—ties to replay/race data realism, could tighten test coverage.
-- new candidate: Phase 4 gating reconciliation — add a concise lesson to ensure gate-state consistency across plan docs after each phase.
+- entry 4c056578-49d0-4632-8cc0-2a614d697bfc: lesson about syntax verification (Tree-sitter TSX). could be tighter: 1-liner suggestion for core action.
+- entry 9c19e5c2-a6ef-445f-88ad-412ef623b495: fallback to manual evidence attestation. could be tighter.
+- entry d2317ab6-a94d-47f5-a8a4-98e274e4e470: test data shapes must match prop types. solid, concise.
+- entry 92430e28-651c-4c2f-b5f5-5f9268f1f9e1: ReplayFrame timestamp must be Unix ms; precise.
+- entry 8741aec3-668f-4c3f-98b5-b94425e555f2: reviewers catch NaN edge cases; good practice.
+- entry 84de33d5-4f6d-46ac-8bc8-0f4e69629c2f: test isolation for mocks; relevant.
+- entry 3790a49d-8d5f-4bbc-91af-df671819f032: Next.js 16 dynamic route params are Promises; actionable.
+- entry 847e6f40-8e47-4f21-8ce4-6c94d8b191c2: client component state resets via key prop; practical.
+- entry 33509489-aeb1-414c-9066-bf9032fa1244: server components need try/catch/fallback; solid.
+- new candidate: Consider adding a concise lesson: “Explicitly align phase-compliance notes with gate evidence to avoid drift between digest and live QA gates.”
 
 KNOWLEDGE_STATS:
-- Entries reviewed: 10
+- Entries reviewed: 9
 - Prior phases covered: 4
 
 Notes:
-- No code changes requested. If you want, I can draft a plan to resolve the contradiction by validating gating records and updating the knowledge_base accordingly, plus outline Phase 5/6 tasks.
+- If you’d like, I can draft a short evidence-retro to resolve the Phase 4 gating contradiction and push a clarifying note into the knowledge base.

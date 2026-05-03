@@ -10,13 +10,13 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
         {/* Animated Accent Blobs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-f1-red/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] animate-pulse delay-1000" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-f1-red/10 rounded-full blur-[120px] animate-telemetry" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] animate-telemetry delay-1000" />
 
         <div className="relative z-10 max-w-5xl mx-auto space-y-12">
           {/* Logo / Brand Badge */}
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full glass-panel border-f1-red/30 shadow-xl shadow-f1-red/5">
-            <div className="w-2 h-2 rounded-full bg-f1-red animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-f1-red shadow-[0_0_8px_rgba(225,6,0,0.8)] animate-pulse" />
             <span className="text-xs font-mono font-bold tracking-[0.2em] text-f1-silver/80 uppercase">
               SectorOne Protocol v0.2.0
             </span>
@@ -26,8 +26,23 @@ export default function Home() {
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-heading leading-[0.9] tracking-tighter text-f1-white">
               PRECISION<br />
-              <span className="text-f1-red">TELEM</span>ETRY
+              <span className="text-f1-red text-glow-red">TELEM</span>ETRY
             </h1>
+            
+            {/* Design Influence: Telemetry Pulse Line */}
+            <div className="relative w-full max-w-lg mx-auto py-4 opacity-60">
+              <svg viewBox="0 0 400 40" className="w-full h-auto">
+                <path 
+                  d="M0 20 L40 20 L60 5 L80 35 L100 10 L125 38 L150 15 L180 20 L240 20 L260 5 L280 35 L300 10 L325 38 L350 15 L380 20 L400 20" 
+                  fill="none" 
+                  stroke="white" 
+                  strokeWidth="2"
+                  className="animate-telemetry"
+                />
+                <circle cx="400" cy="20" r="3" fill="#e10600" className="animate-pulse shadow-[0_0_8px_#e10600]" />
+              </svg>
+            </div>
+
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-f1-silver font-medium leading-relaxed">
               Experience Formula 1 like a race engineer. High-performance analysis, 
               live strategy simulation, and advanced championship tracking.

@@ -60,14 +60,19 @@ export function SideNav() {
       aria-label="Main navigation"
     >
       {/* Branding */}
-      <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface/30 backdrop-blur-md">
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-f1-red flex items-center justify-center font-bold text-white shadow-lg shadow-f1-red/20 group-hover:scale-105 transition-transform">
-            S
+      <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface-dim/40 backdrop-blur-xl">
+        <Link href="/" className="group flex flex-col gap-0.5">
+          <div className="flex items-center gap-2.5">
+            <div className="relative w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-f1-red/30 shadow-[0_0_15px_rgba(225,6,0,0.15)] group-hover:border-f1-red/60 transition-all duration-300">
+              <span className="font-bold text-f1-white text-lg">S</span>
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-f1-red shadow-[0_0_8px_rgba(225,6,0,0.8)] animate-pulse" />
+            </div>
+            <span className="text-heading text-xl font-bold text-f1-white tracking-tighter">
+              SECTOR<span className="text-f1-red text-glow-red">ONE</span>
+            </span>
           </div>
-          <span className="text-heading text-xl font-bold text-f1-white tracking-tighter">
-            SECTOR<span className="text-f1-red">ONE</span>
-          </span>
+          {/* Neon Pulse Line Sub-branding */}
+          <div className="ml-0.5 h-[1px] w-full bg-gradient-to-r from-f1-red via-white to-transparent opacity-40 group-hover:opacity-100 transition-opacity" />
         </Link>
       </div>
 
@@ -91,12 +96,12 @@ export function SideNav() {
               }`}
               aria-current={active ? "page" : undefined}
             >
-              <div className={`transition-colors duration-200 ${active ? "text-f1-red" : "group-hover:text-f1-white"}`}>
+              <div className={`transition-colors duration-200 ${active ? "text-f1-red drop-shadow-[0_0_5px_rgba(225,6,0,0.5)]" : "group-hover:text-f1-white"}`}>
                 <Icon />
               </div>
-              <span className={`font-medium ${active ? "text-f1-white" : ""}`}>{item.label}</span>
+              <span className={`font-medium tracking-tight ${active ? "text-f1-white" : ""}`}>{item.label}</span>
               {active && (
-                <div className="ml-auto w-1 h-4 rounded-full bg-f1-red shadow-[0_0_8px_rgba(225,6,0,0.5)]" />
+                <div className="ml-auto w-1 h-5 rounded-full bg-f1-red shadow-[0_0_12px_rgba(225,6,0,0.8)]" />
               )}
             </Link>
           );

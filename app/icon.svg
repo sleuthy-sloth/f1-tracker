@@ -1,5 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="4" fill="#141414"/>
-  <path d="M8 10h16v2H8zM8 15h12v2H8zM8 20h14v2H8z" fill="#e10600"/>
-  <text x="24" y="14" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#e10600" text-anchor="end">S1</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feFlood flood-color="#ff0000" flood-opacity="0.6" result="glowColor" />
+      <feComposite in="glowColor" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Container -->
+  <rect width="512" height="512" rx="112" fill="#2a3038"/>
+
+  <!-- F1 Car Profile -->
+  <path d="M120 230 C130 220, 160 215, 200 215 C260 215, 300 225, 350 240 C380 250, 410 260, 430 265 L435 275 L410 285 C360 295, 260 300, 150 280 L125 270 Z" fill="#e10600" />
+  
+  <!-- Rear Wing -->
+  <path d="M125 220 L145 215 L145 235 L125 230 Z" fill="#e10600" />
+  
+  <!-- Wheels (Stylized) -->
+  <circle cx="170" cy="285" r="18" fill="#1a1a1a" stroke="#e10600" stroke-width="4"/>
+  <circle cx="360" cy="285" r="18" fill="#1a1a1a" stroke="#e10600" stroke-width="4"/>
+
+  <!-- Telemetry Pulse Line -->
+  <path d="M130 380 L160 380 L185 340 L210 410 L240 330 L275 420 L310 350 L350 380 L430 380" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow)"/>
+
+  <!-- Checkerboard Detail -->
+  <g transform="translate(410, 365)">
+    <rect width="15" height="15" fill="white" opacity="0.8"/>
+    <rect x="15" y="15" width="15" height="15" fill="white" opacity="0.8"/>
+    <rect x="15" width="15" height="15" fill="#1a1a1a" opacity="0.4"/>
+    <rect y="15" width="15" height="15" fill="#1a1a1a" opacity="0.4"/>
+  </g>
 </svg>
