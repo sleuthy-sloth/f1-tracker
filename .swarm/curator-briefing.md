@@ -276,6 +276,16 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:40.408Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:08:44.364Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:09:14.924Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:44:51.789Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:44:57.429Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:45:01.613Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:45:06.561Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T04:45:12.393Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T05:52:15.209Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T05:52:19.840Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T05:52:26.546Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T06:02:39.062Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-03T06:02:52.852Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 
 ## Context Summary
 
@@ -334,30 +344,28 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 
 ## LLM-Enhanced Analysis
 BRIEFING:
-- Session: session-1777737397084. Last updated 2026-05-03. Last_phase_covered: 4. Phase 3 and Phase 4 completed; Phase 4 had 12/12 tasks finished per digest.
-- Key divergence: PRIOR_SUMMARY notes 2 compliance observations in Phase 4 (reviewer/test_engineer not dispatched). However, Agent Activity/QA Gates in PROJECT_CONTEXT show reviewer and test_engineer gates as applied. Likely a stale digest entry or gating reconciliation needed.
-- Hive/genesis: Knowledge recommendations show 0 new hive entries across multiple promotions; current hive activity appears dormant.
-- Actionable risk: Align compliance observations with gate evidence; ensure correct dispatch and documentation for reviewer/test_engineer in Phase 4 and update evidence accordingly.
-- Next steps: Reconcile Phase 4 gating history, confirm evidence in .swarm/evidence, and close any gaps in compliance notes. Consider a retro to capture the mismatch and adjust future phase gating.
+- Summary: Phase 3 and Phase 4 completed. Phase 4 log shows two compliance observations (workflow_deviation) citing reviewer and test_engineer were not dispatched. Project context later shows QA Gates Applied (SectorOne) with reviewer: true and test_engineer: true, implying gates were actually deployed. This is a contradiction that needs reconciliation.
+- Key tensions: discrepancy between compliance_observations in PRIOR_SUMMARY and gate-application evidence in PROJECT_CONTEXT. Verify which record reflects the actual state and align logs, gates, and evidence accordingly.
+- Active blockers: need to confirm exact gate-dispatch status for phase 4 and attach authoritative evidence (drift/hallucination gates, etc.) to resolve the contradiction.
+- Next-step recommendation for architect: pull phase-4 evidence bundle from .swarm/evidence, compare with the Phase 4 plan and the QA gates record, and update the curator notes to reflect the authoritative source. Consider updating the knowledge base with a clear, single source of truth for gate application status.
 
 CONTRADICTIONS:
-- phase 4 compliance_observation entry: "Agent 'reviewer' required but not dispatched in phase 4" vs. PROJECT_CONTEXT QA Gates Applied showing reviewer: true and test_engineer: true (May 1). Contradiction: gating status appears to exist in gates, but digest reports absence.
+- phase4-compliance-observation: Reviewer/test_engineer missing in phase 4 (from PRIOR_SUMMARY) vs QA Gates Applied shows reviewer:true and test_engineer:true in PROJECT_CONTEXT. [contradiction: gating status not aligned between plan-compliance log and gate-applied record]
 
 OBSERVATIONS:
-- entry 4c056578-49d0-4632-8cc0-2a614d697bfc: lesson about syntax verification (Tree-sitter TSX). could be tighter: 1-liner suggestion for core action.
-- entry 9c19e5c2-a6ef-445f-88ad-412ef623b495: fallback to manual evidence attestation. could be tighter.
-- entry d2317ab6-a94d-47f5-a8a4-98e274e4e470: test data shapes must match prop types. solid, concise.
-- entry 92430e28-651c-4c2f-b5f5-5f9268f1f9e1: ReplayFrame timestamp must be Unix ms; precise.
-- entry 8741aec3-668f-4c3f-98b5-b94425e555f2: reviewers catch NaN edge cases; good practice.
-- entry 84de33d5-4f6d-46ac-8bc8-0f4e69629c2f: test isolation for mocks; relevant.
-- entry 3790a49d-8d5f-4bbc-91af-df671819f032: Next.js 16 dynamic route params are Promises; actionable.
-- entry 847e6f40-8e47-4f21-8ce4-6c94d8b191c2: client component state resets via key prop; practical.
-- entry 33509489-aeb1-414c-9066-bf9032fa1244: server components need try/catch/fallback; solid.
-- new candidate: Consider adding a concise lesson: “Explicitly align phase-compliance notes with gate evidence to avoid drift between digest and live QA gates.”
+- entry 4c056578-49d0-4632-8cc0-2a614d697bfc appears high-confidence: links TS parsing/syntax verification to build_check/pre_check_batch usage; aligns with observed syntax-verification tooling in project context.
+- entry 9c19e5c2-a6ef-445f-88ad-412ef623b495 appears stale: “Reviewer agent may return empty results” guidance may be obsolete given current gate-evidence practices.
+- entry d2317ab6-a94d-47f5-a8a4-98e274e4e470 could be tighter: note naming around test data shapes; reformulate to a tighter guideline.
+- entry 92430e28-651c-4c2f-b5f5-5f9268f1f9e1 could be tighter: ReplayFrame timestamp guidance is very specific; consider consolidating to a general time-tracking guideline.
+- entry 8741aec3-668f-4c3f-98b5-b94425e555f2 could be tighter: “edge cases NaN” is useful but could be paired with concrete examples.
+- entry 84de33d5-4f6d-46ac-8bc8-0f4e69629c2f could be tighter: test isolation guidance; could include concrete mocking strategies.
+- entry 3790a49d-8d5f-4bbc-91af-df671819f032 remains relevant: Next.js 16 dynamic routes as Promises—ensure awaiting.
+- entry 847e6f40-8e47-4f21-8ce4-6c94d8b191c2 remains relevant: using key prop for remount-state resets.
+- entry 33509489-aeb1-414c-9066-bf9032fa1244 remains relevant: server components need try/catch and fallback UI.
+- new candidate: Add a concise lesson: “Ensure gate-dispatch status is reflected in both plan and evidence bundles to avoid silent contradictions; require explicit cross-check step in Phase 4 closure.”
 
-KNOWLEDGE_STATS:
+KNOWLEDGE_ENTRIES:
 - Entries reviewed: 9
 - Prior phases covered: 4
 
-Notes:
-- If you’d like, I can draft a short evidence-retro to resolve the Phase 4 gating contradiction and push a clarifying note into the knowledge base.
+You may want me to pull the exact .swarm/evidence files and cross-check the phase4 records to resolve CONTRADICTION, then propose updated wording for the compliance_observations and a concrete plan to prevent similar mismatches in the future.

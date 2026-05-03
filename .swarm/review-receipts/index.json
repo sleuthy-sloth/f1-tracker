@@ -176,6 +176,22 @@
       "scope_hash": "1fdbb0bfa3a6cdc3bad2168d0e96ca604838a7ea9b0132336a2eea0f108e6840",
       "agent": "curator",
       "filename": "2026-05-03-ee9d129d-0378-413e-9b53-646c9529db26.json"
+    },
+    {
+      "id": "05989033-b7bd-4271-83f1-93d442436484",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T05:52:49.321Z",
+      "scope_hash": "c6baeb9e94cde840d312c0d0daa97082f7567419fef209245eedaeca6d5894cc",
+      "agent": "curator",
+      "filename": "2026-05-03-05989033-b7bd-4271-83f1-93d442436484.json"
+    },
+    {
+      "id": "a364c82d-ab71-4df9-bc35-5ec1ac299b2c",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-03T06:55:58.651Z",
+      "scope_hash": "66d2ed26a6da996f5461b6885e833e70690e998a9c658b334698c294fce4bdc8",
+      "agent": "curator",
+      "filename": "2026-05-03-a364c82d-ab71-4df9-bc35-5ec1ac299b2c.json"
     }
   ]
 }
