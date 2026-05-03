@@ -79,8 +79,8 @@ export default async function StandingsPage({ searchParams }: StandingsPageProps
               href={`/standings?year=${year}`}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 year === selectedYear
-                  ? 'bg-f1-red text-white'
-                  : 'bg-white/10 text-f1-silver hover:text-f1-white hover:bg-white/15'
+                  ? 'bg-f1-red/20 text-f1-red border border-f1-red/30 font-bold'
+                  : 'bg-white/[0.05] text-f1-silver/70 border border-white/[0.08] hover:bg-white/[0.08] hover:text-f1-white'
               }`}
             >
               {year}

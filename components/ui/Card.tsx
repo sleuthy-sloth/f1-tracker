@@ -21,10 +21,10 @@ type CardVariant = NonNullable<CardProps["variant"]>;
 type CardPadding = NonNullable<CardProps["padding"]>;
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-surface border border-white/[0.05]",
-  glass: "bg-white/[0.05] backdrop-blur-xl border border-white/[0.1]",
+  default: "bg-[#161a20] border border-white/[0.07]",
+  glass: "bg-[#111418] border border-white/[0.07]",
   outlined: "bg-transparent border border-white/[0.1]",
-  elevated: "bg-surface shadow-lg shadow-black/20",
+  elevated: "bg-[#161a20] shadow-lg shadow-black/40",
 };
 
 const paddingStyles: Record<CardPadding, string> = {
@@ -94,7 +94,7 @@ export function Card({
   const variantStyle = variantStyles[variant];
   const paddingStyle = paddingStyles[padding];
   const hoverStyle = hoverable
-    ? "hover:bg-white/[0.03] hover:border-white/[0.08]"
+    ? "hover:bg-white/[0.04] hover:border-white/[0.12] hover:-translate-y-px"
     : "";
 
   const interactiveStyles = onClick

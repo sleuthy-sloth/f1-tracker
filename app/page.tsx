@@ -26,7 +26,7 @@ export default function Home() {
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-heading leading-[0.9] tracking-tighter text-f1-white">
               PRECISION<br />
-              <span className="text-f1-red text-glow-red">TELEM</span>ETRY
+              <span className="text-f1-red text-glow-red">TELEMETRY</span>
             </h1>
             
             {/* Design Influence: Telemetry Pulse Line */}
@@ -50,7 +50,7 @@ export default function Home() {
           </div>
 
           {/* Call to Actions */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <Link 
               href="/standings" 
               className="group relative px-8 py-4 bg-f1-red text-white font-bold rounded-xl overflow-hidden shadow-2xl shadow-f1-red/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
@@ -97,12 +97,12 @@ export default function Home() {
       <div className="px-10 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex gap-12">
           <div className="space-y-1">
-            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Latency</div>
-            <div className="text-xs font-mono text-f1-red font-bold">14ms</div>
+            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Data Source</div>
+            <div className="text-xs font-mono text-f1-white font-bold">OpenF1 API</div>
           </div>
           <div className="space-y-1">
-            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Data Stream</div>
-            <div className="text-xs font-mono text-f1-white font-bold">2.4 GB/S</div>
+            <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Season</div>
+            <div className="text-xs font-mono text-f1-white font-bold">{new Date().getFullYear()}</div>
           </div>
           <div className="space-y-1">
             <div className="text-[10px] font-bold text-f1-silver/40 uppercase">Status</div>

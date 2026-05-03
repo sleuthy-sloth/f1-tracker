@@ -98,7 +98,7 @@ export default function StandingsTable({
       >
         {/* Team Color Accent Line */}
         <div
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full transition-all group-hover:h-10"
+          className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm"
           style={{ backgroundColor: driverInfo?.team_colour || '#333' }}
         />
         
@@ -162,7 +162,7 @@ export default function StandingsTable({
         )}
       >
         <div
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-10 rounded-r-full transition-all group-hover:h-12"
+          className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r-sm"
           style={{ backgroundColor: getTeamColor(standing.team_name) }}
         />
 
@@ -211,14 +211,11 @@ export default function StandingsTable({
     <div className={cn('glass-panel rounded-2xl overflow-hidden', className)}>
       {/* Table Header */}
       <div className="px-6 py-5 border-b border-white/[0.05] bg-white/[0.02] flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-1 h-4 bg-f1-red rounded-full shadow-[0_0_8px_rgba(225,6,0,0.5)]" />
-          <h2 className="text-heading text-xs font-bold text-f1-white tracking-widest">
-            {view === 'drivers' ? '2024 DRIVER CHAMPIONSHIP' : '2024 CONSTRUCTOR CHAMPIONSHIP'}
-          </h2>
-        </div>
+        <h2 className="panel-header text-base">
+          {view === 'drivers' ? 'Driver Standings' : 'Constructor Standings'}
+        </h2>
         <div className="text-[10px] font-mono text-f1-silver/30 uppercase tracking-[0.2em]">
-          Live Data Stream // Nominal
+          Live Data Stream
         </div>
       </div>
 
@@ -266,14 +263,8 @@ export default function StandingsTable({
 
       {/* Table Footer */}
       <div className="px-6 py-3 bg-white/[0.02] border-t border-white/[0.05] flex justify-between items-center">
-        <span className="text-[9px] font-mono text-f1-silver/30 uppercase tracking-widest">
-          End of Data Block // SectorOne Engine v0.2.0
-        </span>
-        <div className="flex gap-2">
-          <div className="w-1 h-1 rounded-full bg-f1-red/40" />
-          <div className="w-1 h-1 rounded-full bg-f1-red/20" />
-          <div className="w-1 h-1 rounded-full bg-f1-red/10" />
-        </div>
+        <span className="data-label">Data via OpenF1 API</span>
+        <div className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
       </div>
     </div>
   );

@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// Dashboard icon
+function DashboardIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  );
+}
+
 // Archive icon
 function ArchiveIcon() {
   return (
@@ -39,7 +46,7 @@ function SettingsIcon() {
 }
 
 const NAV_ITEMS = [
-  { href: "/", label: "Dashboard", icon: ArchiveIcon }, // Home is now Dashboard
+  { href: "/", label: "Dashboard", icon: DashboardIcon },
   { href: "/archive", label: "Race Archive", icon: ArchiveIcon },
   { href: "/strategy-lab", label: "Strategy Lab", icon: StrategyIcon },
   { href: "/standings", label: "Standings", icon: StandingsIcon },
@@ -56,16 +63,15 @@ export function SideNav() {
 
   return (
     <nav
-      className="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col border-r border-white/5 bg-surface-dim z-50"
+      className="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col border-t-2 border-t-f1-red border-r border-white/5 bg-surface-dim z-50"
       aria-label="Main navigation"
     >
       {/* Branding */}
       <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface-dim/40 backdrop-blur-xl">
         <Link href="/" className="group flex flex-col gap-0.5">
           <div className="flex items-center gap-2.5">
-            <div className="relative w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-f1-red/30 shadow-[0_0_15px_rgba(225,6,0,0.15)] group-hover:border-f1-red/60 transition-all duration-300">
+            <div className="relative w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-f1-red/30 shadow-[0_0_15px_rgba(225,6,0,0.15)] group-hover:border-f1-red/60 group-hover:shadow-[0_0_20px_rgba(225,6,0,0.3)] transition-all duration-300">
               <span className="font-bold text-f1-white text-lg">S</span>
-              <div className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-f1-red shadow-[0_0_8px_rgba(225,6,0,0.8)] animate-pulse" />
             </div>
             <span className="text-heading text-xl font-bold text-f1-white tracking-tighter">
               SECTOR<span className="text-f1-red text-glow-red">ONE</span>
@@ -91,8 +97,8 @@ export function SideNav() {
               href={item.href}
               className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
                 active
-                  ? "bg-white/5 text-f1-white shadow-sm"
-                  : "text-f1-silver hover:bg-white/[0.03] hover:text-f1-white"
+                  ? "bg-f1-red/[0.1] border border-f1-red/25 text-f1-white"
+                  : "text-f1-silver hover:bg-white/[0.04] hover:text-f1-white border border-transparent"
               }`}
               aria-current={active ? "page" : undefined}
             >
@@ -114,8 +120,8 @@ export function SideNav() {
           href="/settings"
           className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
             isActive("/settings")
-              ? "bg-white/5 text-f1-white shadow-sm"
-              : "text-f1-silver hover:bg-white/[0.03] hover:text-f1-white"
+              ? "bg-f1-red/[0.1] border border-f1-red/25 text-f1-white"
+              : "text-f1-silver hover:bg-white/[0.04] hover:text-f1-white border border-transparent"
           }`}
         >
           <div className={`transition-colors duration-200 ${isActive("/settings") ? "text-f1-red" : "group-hover:text-f1-white"}`}>
