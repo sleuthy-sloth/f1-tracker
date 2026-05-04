@@ -385,45 +385,30 @@ export function SatelliteTrackMap({
     };
   }, [map]);
 
-  // Handle empty/loading states
-  if (circuitKey === 0) {
-    return (
-      <div
-        className={`rounded-xl overflow-hidden ${className}`}
-        style={{ width, height }}
-      >
-        <LoadingState />
-      </div>
-    );
-  }
-
-  if (mapState.isLoading) {
-    return (
-      <div
-        className={`rounded-xl overflow-hidden ${className}`}
-        style={{ width, height }}
-      >
-        <LoadingState />
-      </div>
-    );
-  }
-
-  if (!trackCoordinates.length) {
-    return (
-      <div
-        className={`rounded-xl overflow-hidden ${className}`}
-        style={{ width, height }}
-      >
-        <EmptyState message="Track layout unavailable for this circuit" />
-      </div>
-    );
-  }
+  const showLoading = circuitKey === 0 || mapState.isLoading;
+  const showEmpty = !showLoading && !trackCoordinates.length;
 
   return (
     <div
-      ref={mapContainerRef}
-      className={`rounded-xl overflow-hidden cursor-default ${className}`}
+      className={`relative rounded-xl overflow-hidden ${className}`}
       style={{ width, height }}
-    />
+    >
+      {/* Map container is always mounted so the ref is available for initialization */}
+      <div
+        ref={mapContainerRef}
+        className="absolute inset-0 cursor-default"
+        style={{ visibility: showLoading || showEmpty ? 'hidden' : 'visible' }}
+      />
+      {showLoading && (
+        <div className="absolute inset-0">
+          <LoadingState />
+        </div>
+      )}
+      {showEmpty && (
+        <div className="absolute inset-0">
+          <EmptyState message="Track layout unavailable for this circuit" />
+        </div>
+      )}
+    </div>
   );
 }
