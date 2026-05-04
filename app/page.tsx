@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { HeroDashboard } from "@/components/HeroDashboard";
 
 export default function Home() {
@@ -25,6 +26,23 @@ export default function Home() {
         </div>
 
         <HeroDashboard />
+
+        {/* CTA buttons */}
+        <div className="flex gap-4 justify-center mt-6 px-4">
+          <Link
+            href="/standings"
+            className="flex items-center gap-2 px-6 py-4 bg-f1-red text-white font-black rounded-xl shadow-[0_4px_24px_rgba(225,6,0,0.4)] hover:shadow-[0_4px_32px_rgba(225,6,0,0.6)] hover:scale-[1.02] transition-all"
+          >
+            <span className="text-sm font-heading tracking-wide">LAUNCH DASHBOARD</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+          </Link>
+          <Link
+            href="/archive"
+            className="flex items-center gap-2 px-6 py-4 glass-panel glass-panel-hover text-f1-silver font-bold rounded-xl transition-all"
+          >
+            <span className="text-xs font-heading tracking-wide">EXPLORE ARCHIVES</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
