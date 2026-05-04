@@ -158,16 +158,6 @@ function sortDrivers(
 
 /**
  * Leaderboard - Scrollable leaderboard component for F1 race replay
- * Displays driver positions during frame-by-frame race replay
- *
- * @example
- * <Leaderboard
- *   drivers={drivers}
- *   currentFrame={currentFrame}
- *   stints={stints}
- *   selectedDriverNumber={selected}
- *   onSelectDriver={handleSelect}
- * />
  */
 export const Leaderboard = memo(function Leaderboard({
   drivers,
@@ -364,6 +354,6 @@ export const Leaderboard = memo(function Leaderboard({
       </div>
     </div>
   );
-}
+});
 
 export default Leaderboard;

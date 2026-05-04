@@ -102,15 +102,6 @@ function getTeamColor(teamColor: string): string {
 
 /**
  * TelemetryHUD - Floating telemetry panel for selected driver during race replay
- * Displays real-time telemetry data including speed, gear, RPM, DRS, throttle, and brake
- *
- * @example
- * <TelemetryHUD
- *   drivers={drivers}
- *   currentFrame={currentFrame}
- *   selectedDriverNumber={selectedDriver}
- *   className="fixed top-4 right-4"
- * />
  */
 export const TelemetryHUD = memo(function TelemetryHUD({
   drivers,
@@ -324,6 +315,6 @@ export const TelemetryHUD = memo(function TelemetryHUD({
       </div>
     </div>
   );
-}
+});
 
 export default TelemetryHUD;

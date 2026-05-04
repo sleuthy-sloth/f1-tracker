@@ -71,4 +71,4 @@ export const ArchiveFilters = memo(function ArchiveFilters({
       )}
     </div>
   );
-}
+});
