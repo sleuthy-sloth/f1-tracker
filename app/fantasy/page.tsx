@@ -5,6 +5,7 @@ import { DataCard } from '@/components/DataCard';
 import FantasyDashboard from '@/components/FantasyDashboard';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
+import { getCached, setCache } from '@/lib/api-cache';
 
 /**
  * Authentication loading skeleton
@@ -158,11 +159,20 @@ export default function FantasyPage() {
 
   useEffect(() => {
     async function loadData() {
+      // Check cache first
+      const cached = getCached<any[]>('fantasy-drivers');
+      if (cached) {
+        setFetchedDrivers(cached.data);
+        setDataLoading(false);
+        return;
+      }
+      
       try {
         const res = await fetch('/api/data/fantasy');
         const data = await res.json();
         if (data.success && data.drivers) {
           setFetchedDrivers(data.drivers);
+          setCache('fantasy-drivers', data.drivers, 30 * 60 * 1000);
         }
       } catch {
         // Silently fail - data fetching is best-effort

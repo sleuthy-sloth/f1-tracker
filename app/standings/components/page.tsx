@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import PuUsageTable from '@/components/PuUsageTable';
+import { getCached, setCache } from '@/lib/api-cache';
 
 interface Driver {
   driver_number: number;
@@ -175,6 +176,16 @@ function ComponentsPageContent() {
     let cancelled = false;
     
     async function fetchPuData() {
+      // Check cache first
+      const cached = getCached<any[]>('pu-data');
+      if (cached) {
+        if (!cancelled) {
+          setPuData(cached.data);
+          setPuLoading(false);
+        }
+        return;
+      }
+      
       try {
         setPuLoading(true);
         setPuError(null);
@@ -183,6 +194,7 @@ function ComponentsPageContent() {
         if (!cancelled) {
           if (data.success && data.drivers) {
             setPuData(data.drivers);
+            setCache('pu-data', data.drivers, 60 * 60 * 1000); // 1 hour cache
           } else {
             setPuError(data.error || 'Failed to load PU data');
           }

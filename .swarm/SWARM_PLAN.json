@@ -98,6 +98,128 @@
           "files_touched": []
         }
       ]
+    },
+    {
+      "id": 3,
+      "name": "Mobile, Polish & Deploy",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "3.1",
+          "phase": 3,
+          "status": "pending",
+          "size": "medium",
+          "description": "Write tests for API routes and SatelliteTrackMap component",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.2",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Add client-side localStorage caching for AI API responses",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.3",
+          "phase": 3,
+          "status": "pending",
+          "size": "medium",
+          "description": "Polish Strategy Lab UX (loading, error states, keyboard shortcuts)",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.4",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Make strategy-lab layout responsive for mobile",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.5",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Vercel deploy setup with env var checklist",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pre-Deployment Polish",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "4.1",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add error.tsx boundaries for archive, fantasy, standings, strategy-lab routes",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.2",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add loading.tsx skeletons for archive, standings, strategy-lab",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.3",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add SEO metadata (titles, descriptions, OG) for all pages",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.4",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Polish landing page HeroDashboard component",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.5",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add session search functionality to archive",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.6",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Build basic Settings page (theme toggle container, preferences shell)",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.7",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Polish auth flow (password reset UX, email verification badge)",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
     }
   ],
   "migration_status": "native",

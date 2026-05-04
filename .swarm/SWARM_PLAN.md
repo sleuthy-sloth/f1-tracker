@@ -1,6 +1,6 @@
 # SectorOne
 Swarm: default
-Phase: 1 [PENDING] | Updated: 2026-05-04T03:20:40.381Z
+Phase: 1 [PENDING] | Updated: 2026-05-04T05:17:46.093Z
 
 ---
 ## Phase 1: OSM Satellite Track Map with MapLibre GL [PENDING]
@@ -16,3 +16,21 @@ Phase: 1 [PENDING] | Updated: 2026-05-04T03:20:40.381Z
 - [ ] 2.3: Create PU component data API route [SMALL]
 - [ ] 2.4: Replace mock fantasy data with API-fetched data in components [MEDIUM]
 - [ ] 2.5: Replace mock PU data with API-fetched data [SMALL]
+
+---
+## Phase 3: Mobile, Polish & Deploy [PENDING]
+- [ ] 3.1: Write tests for API routes and SatelliteTrackMap component [MEDIUM]
+- [ ] 3.2: Add client-side localStorage caching for AI API responses [SMALL]
+- [ ] 3.3: Polish Strategy Lab UX (loading, error states, keyboard shortcuts) [MEDIUM]
+- [ ] 3.4: Make strategy-lab layout responsive for mobile [SMALL]
+- [ ] 3.5: Vercel deploy setup with env var checklist [SMALL]
+
+---
+## Phase 4: Pre-Deployment Polish [PENDING]
+- [ ] 4.1: Add error.tsx boundaries for archive, fantasy, standings, strategy-lab routes [MEDIUM]
+- [ ] 4.2: Add loading.tsx skeletons for archive, standings, strategy-lab [MEDIUM]
+- [ ] 4.3: Add SEO metadata (titles, descriptions, OG) for all pages [MEDIUM]
+- [ ] 4.4: Polish landing page HeroDashboard component [SMALL]
+- [ ] 4.5: Add session search functionality to archive [MEDIUM]
+- [ ] 4.6: Build basic Settings page (theme toggle container, preferences shell) [SMALL]
+- [ ] 4.7: Polish auth flow (password reset UX, email verification badge) [SMALL]

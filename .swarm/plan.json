@@ -7,12 +7,12 @@
     {
       "id": 1,
       "name": "OSM Satellite Track Map with MapLibre GL",
-      "status": "complete",
+      "status": "pending",
       "tasks": [
         {
           "id": "1.1",
           "phase": 1,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Create circuit coordinate projection utility and circuit lat/lng reference lookup",
           "depends": [],
@@ -21,7 +21,7 @@
         {
           "id": "1.2",
           "phase": 1,
-          "status": "completed",
+          "status": "pending",
           "size": "medium",
           "description": "Create SatelliteTrackMap component using MapLibre GL with ESRI satellite tiles",
           "depends": [],
@@ -30,7 +30,7 @@
         {
           "id": "1.3",
           "phase": 1,
-          "status": "completed",
+          "status": "pending",
           "size": "medium",
           "description": "Create strategy-lab replay page with satellite track map and replay side panels",
           "depends": [],
@@ -39,7 +39,7 @@
         {
           "id": "1.4",
           "phase": 1,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Fix driver dot colors to team colors, add name labels, remove cyan track",
           "depends": [],
@@ -50,12 +50,12 @@
     {
       "id": 2,
       "name": "OpenRouter Integration for Real Data",
-      "status": "complete",
+      "status": "pending",
       "tasks": [
         {
           "id": "2.1",
           "phase": 2,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Create OpenRouter API client with web search support",
           "depends": [],
@@ -64,7 +64,7 @@
         {
           "id": "2.2",
           "phase": 2,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Create fantasy driver data API route",
           "depends": [],
@@ -73,7 +73,7 @@
         {
           "id": "2.3",
           "phase": 2,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Create PU component data API route",
           "depends": [],
@@ -82,7 +82,7 @@
         {
           "id": "2.4",
           "phase": 2,
-          "status": "completed",
+          "status": "pending",
           "size": "medium",
           "description": "Replace mock fantasy data with API-fetched data in components",
           "depends": [],
@@ -91,9 +91,131 @@
         {
           "id": "2.5",
           "phase": 2,
-          "status": "completed",
+          "status": "pending",
           "size": "small",
           "description": "Replace mock PU data with API-fetched data",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Mobile, Polish & Deploy",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "3.1",
+          "phase": 3,
+          "status": "pending",
+          "size": "medium",
+          "description": "Write tests for API routes and SatelliteTrackMap component",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.2",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Add client-side localStorage caching for AI API responses",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.3",
+          "phase": 3,
+          "status": "pending",
+          "size": "medium",
+          "description": "Polish Strategy Lab UX (loading, error states, keyboard shortcuts)",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.4",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Make strategy-lab layout responsive for mobile",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.5",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Vercel deploy setup with env var checklist",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pre-Deployment Polish",
+      "status": "complete",
+      "tasks": [
+        {
+          "id": "4.1",
+          "phase": 4,
+          "status": "completed",
+          "size": "medium",
+          "description": "Add error.tsx boundaries for archive, fantasy, standings, strategy-lab routes",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.2",
+          "phase": 4,
+          "status": "completed",
+          "size": "medium",
+          "description": "Add loading.tsx skeletons for archive, standings, strategy-lab",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.3",
+          "phase": 4,
+          "status": "completed",
+          "size": "medium",
+          "description": "Add SEO metadata (titles, descriptions, OG) for all pages",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.4",
+          "phase": 4,
+          "status": "completed",
+          "size": "small",
+          "description": "Polish landing page HeroDashboard component",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.5",
+          "phase": 4,
+          "status": "completed",
+          "size": "medium",
+          "description": "Add session search functionality to archive",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.6",
+          "phase": 4,
+          "status": "completed",
+          "size": "small",
+          "description": "Build basic Settings page (theme toggle container, preferences shell)",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.7",
+          "phase": 4,
+          "status": "completed",
+          "size": "small",
+          "description": "Polish auth flow (password reset UX, email verification badge)",
           "depends": [],
           "files_touched": []
         }

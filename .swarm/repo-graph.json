@@ -71,6 +71,7 @@
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx",
       "moduleName": "app/archive/[sessionKey]/page.tsx",
       "exports": [
+        "generateMetadata",
         "async"
       ],
       "imports": [
@@ -81,7 +82,7 @@
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T21:40:09.232Z"
+      "mtime": "2026-05-04T05:21:03.677Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx",
@@ -95,10 +96,21 @@
       "language": "typescript",
       "mtime": "2026-05-02T15:06:15.133Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/loading.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/loading.tsx",
+      "moduleName": "app/archive/loading.tsx",
+      "exports": [
+        "ArchiveLoading"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:19:37.001Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/page.tsx",
       "moduleName": "app/archive/page.tsx",
       "exports": [
+        "metadata",
         "async"
       ],
       "imports": [
@@ -106,7 +118,44 @@
         "@/components/ArchiveClient"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T21:07:21.299Z"
+      "mtime": "2026-05-04T05:21:02.406Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/auth/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/auth/page.tsx",
+      "moduleName": "app/auth/page.tsx",
+      "exports": [
+        "AuthPage"
+      ],
+      "imports": [
+        "react",
+        "next/link",
+        "@/lib/auth/useAuth"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:23:34.669Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/error.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/error.tsx",
+      "moduleName": "app/fantasy/error.tsx",
+      "exports": [
+        "FantasyError"
+      ],
+      "imports": [
+        "@/components/ui/Button"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:18:22.571Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/layout.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/layout.tsx",
+      "moduleName": "app/fantasy/layout.tsx",
+      "exports": [
+        "metadata",
+        "FantasyLayout"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:21:13.331Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/page.tsx",
@@ -119,10 +168,11 @@
         "@/components/DataCard",
         "@/components/FantasyDashboard",
         "next/link",
-        "react"
+        "react",
+        "@/lib/api-cache"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T03:38:25.395Z"
+      "mtime": "2026-05-04T04:26:40.678Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx",
@@ -139,12 +189,13 @@
         "./globals.css"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T17:57:56.679Z"
+      "mtime": "2026-05-04T05:20:59.838Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/page.tsx",
       "moduleName": "app/page.tsx",
       "exports": [
+        "metadata",
         "Home"
       ],
       "imports": [
@@ -152,7 +203,20 @@
         "@/components/HeroDashboard"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T01:13:05.036Z"
+      "mtime": "2026-05-04T05:21:00.800Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/settings/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/settings/page.tsx",
+      "moduleName": "app/settings/page.tsx",
+      "exports": [
+        "metadata",
+        "SettingsPage"
+      ],
+      "imports": [
+        "next/link"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:23:23.527Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx",
@@ -164,15 +228,39 @@
         "react",
         "next/navigation",
         "next/link",
-        "@/components/PuUsageTable"
+        "@/components/PuUsageTable",
+        "@/lib/api-cache"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T03:38:09.774Z"
+      "mtime": "2026-05-04T04:26:57.774Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/error.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/error.tsx",
+      "moduleName": "app/standings/error.tsx",
+      "exports": [
+        "StandingsError"
+      ],
+      "imports": [
+        "@/components/ui/Button"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:18:23.489Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/loading.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/loading.tsx",
+      "moduleName": "app/standings/loading.tsx",
+      "exports": [
+        "StandingsLoading"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:19:37.906Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx",
       "moduleName": "app/standings/page.tsx",
       "exports": [
+        "metadata",
         "async"
       ],
       "imports": [
@@ -182,7 +270,7 @@
         "@/components/DataCard"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T21:35:10.257Z"
+      "mtime": "2026-05-04T05:21:03.696Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/StandingsClient.tsx",
@@ -197,6 +285,39 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-03T21:36:16.630Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/error.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/error.tsx",
+      "moduleName": "app/strategy-lab/error.tsx",
+      "exports": [
+        "StrategyLabError"
+      ],
+      "imports": [
+        "@/components/ui/Button"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:18:23.489Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/layout.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/layout.tsx",
+      "moduleName": "app/strategy-lab/layout.tsx",
+      "exports": [
+        "metadata",
+        "StrategyLabLayout"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:21:13.356Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/loading.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/loading.tsx",
+      "moduleName": "app/strategy-lab/loading.tsx",
+      "exports": [
+        "StrategyLabLoading"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T05:19:37.908Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/page.tsx",
@@ -227,7 +348,7 @@
         "@/components/ui/Card"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T03:11:24.856Z"
+      "mtime": "2026-05-04T04:34:12.666Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx",
@@ -357,12 +478,13 @@
       ],
       "imports": [
         "react",
+        "next/link",
         "./TireIndicator",
         "./CircuitOutline",
         "./TelemetryPulse"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T01:13:05.037Z"
+      "mtime": "2026-05-04T05:23:11.748Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
@@ -490,10 +612,11 @@
       "exports": [],
       "imports": [
         "react",
-        "@/components/ui/Button"
+        "@/components/ui/Button",
+        "@/lib/api-cache"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T03:35:28.784Z"
+      "mtime": "2026-05-04T04:26:15.556Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
@@ -721,6 +844,19 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-02T18:55:21.235Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api-cache.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api-cache.ts",
+      "moduleName": "lib/api-cache.ts",
+      "exports": [
+        "CacheEntry",
+        "getCached",
+        "setCache",
+        "clearAllCaches"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:25:58.147Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openf1.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openf1.ts",
@@ -1211,6 +1347,19 @@
       "language": "typescript",
       "mtime": "2026-05-03T00:40:48.236Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SatelliteTrackMap.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SatelliteTrackMap.test.tsx",
+      "moduleName": "tests/components/SatelliteTrackMap.test.tsx",
+      "exports": [],
+      "imports": [
+        "vitest",
+        "react",
+        "react-dom/server",
+        "../../components/SatelliteTrackMap"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:24:13.169Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx",
       "moduleName": "tests/components/StandingsTable.test.tsx",
@@ -1322,6 +1471,28 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-03T22:42:28.701Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-lookup.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-lookup.test.ts",
+      "moduleName": "tests/lib/circuit-lookup.test.ts",
+      "exports": [],
+      "imports": [
+        "vitest",
+        "../../lib/circuit-lookup"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:22:21.858Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-projection.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-projection.test.ts",
+      "moduleName": "tests/lib/circuit-projection.test.ts",
+      "exports": [],
+      "imports": [
+        "vitest",
+        "../../lib/circuit-projection"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:22:12.895Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/fantasy-firestore.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/fantasy-firestore.test.ts",
@@ -1535,6 +1706,16 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T18:50:38.737Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/vitest.config.js": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/vitest.config.js",
+      "moduleName": "vitest.config.js",
+      "exports": [],
+      "imports": [
+        "path"
+      ],
+      "language": "javascript",
+      "mtime": "2026-05-04T04:23:22.241Z"
     }
   },
   "edges": [
@@ -1701,6 +1882,12 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/SatelliteTrackMap.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SatelliteTrackMap.tsx",
+      "importSpecifier": "../../components/SatelliteTrackMap",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/components/StandingsTable.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/StandingsTable.tsx",
       "importSpecifier": "../../components/StandingsTable",
@@ -1752,6 +1939,18 @@
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/LeagueLeaderboard.test.tsx",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LeagueLeaderboard.tsx",
       "importSpecifier": "../components/LeagueLeaderboard",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-lookup.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-lookup.ts",
+      "importSpecifier": "../../lib/circuit-lookup",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-projection.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-projection.ts",
+      "importSpecifier": "../../lib/circuit-projection",
       "importType": "named"
     },
     {
@@ -1828,9 +2027,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-04T04:11:30.064Z",
+    "generatedAt": "2026-05-04T05:23:39.743Z",
     "generator": "repo-graph",
-    "nodeCount": 117,
-    "edgeCount": 48
+    "nodeCount": 132,
+    "edgeCount": 51
   }
 }

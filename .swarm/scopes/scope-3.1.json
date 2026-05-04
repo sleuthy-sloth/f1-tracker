@@ -1,10 +1,11 @@
 {
   "version": 1,
   "taskId": "3.1",
-  "declaredAt": 1777734585766,
-  "expiresAt": 1777820985766,
+  "declaredAt": 1777868492527,
+  "expiresAt": 1777954892527,
   "files": [
-    "app/archive/page.tsx",
-    "components/GpCard.tsx"
+    "tests/components/SatelliteTrackMap.test.tsx",
+    "tests/lib/circuit-projection.test.ts",
+    "tests/lib/circuit-lookup.test.ts"
   ]
 }

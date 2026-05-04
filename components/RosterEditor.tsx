@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
+import { getCached, setCache } from "@/lib/api-cache";
 
 interface FantasyDriver {
   driverNumber: number;
@@ -43,6 +44,16 @@ export function RosterEditor({
     let cancelled = false;
 
     async function fetchDrivers() {
+      // Check cache first
+      const cached = getCached<FantasyDriver[]>('fantasy-drivers');
+      if (cached) {
+        if (!cancelled) {
+          setAvailableDrivers(cached.data);
+          setDriversLoading(false);
+        }
+        return;
+      }
+      
       try {
         setDriversLoading(true);
         const res = await fetch('/api/data/fantasy');
@@ -50,6 +61,8 @@ export function RosterEditor({
         if (!cancelled) {
           if (data.success && data.drivers) {
             setAvailableDrivers(data.drivers);
+            // Cache for 30 minutes
+            setCache('fantasy-drivers', data.drivers, 30 * 60 * 1000);
           } else {
             setDriversError(data.error || 'Failed to load drivers');
           }
