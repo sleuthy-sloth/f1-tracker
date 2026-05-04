@@ -1,147 +1,283 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { DataCard } from "./DataCard";
+import React from "react";
+import { TireIndicator } from "./TireIndicator";
+import { CircuitOutline } from "./CircuitOutline";
 import { TelemetryPulse } from "./TelemetryPulse";
 
-function logTime(offsetSeconds: number) {
-  const d = new Date(Date.now() - offsetSeconds * 1000);
-  return `[${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}]`;
+const MOCK = {
+  race: "GRAND PRIX OF ITALY – MONZA",
+  lap: 10,
+  totalLaps: 53,
+  time: "01:23:45.670",
+  driver: { name: "HAMILTON", team: "Mercedes", teamColor: "#27F4D2" },
+  speed: 312,
+  gear: 6,
+  rpm: 11200,
+  maxRpm: 15000,
+  drs: true,
+  engineTemp: 108,
+  tires: { fl: 82, fr: 80, rl: 85, rr: 83 },
+  brakes: { fl: 750, fr: 692, rl: 714, rr: 736 },
+  standings: [
+    { pos: 1, driver: "HAMILTON",   team: "Mercedes", color: "#27F4D2", lapTime: "1:23.668", gap: "—"      },
+    { pos: 2, driver: "BOTTAS",     team: "Mercedes", color: "#27F4D2", lapTime: "1:24.578", gap: "+0.910" },
+    { pos: 3, driver: "VERSTAPPEN", team: "Red Bull",  color: "#3671C6", lapTime: "1:24.305", gap: "+1.233" },
+    { pos: 4, driver: "VETTEL",     team: "Ferrari",   color: "#E8002D", lapTime: "1:24.520", gap: "+2.041" },
+    { pos: 5, driver: "LECLERC",    team: "Ferrari",   color: "#E8002D", lapTime: "1:25.333", gap: "+3.102" },
+    { pos: 6, driver: "NORRIS",     team: "McLaren",   color: "#FF8000", lapTime: "1:25.367", gap: "+4.887" },
+    { pos: 7, driver: "SAINZ",      team: "McLaren",   color: "#FF8000", lapTime: "1:25.396", gap: "+5.230" },
+    { pos: 8, driver: "RICCIARDO",  team: "Renault",   color: "#FFF500", lapTime: "1:25.144", gap: "+6.109" },
+  ],
+};
+
+function getRpmColor(rpm: number, maxRpm: number): string {
+  const ratio = rpm / maxRpm;
+  if (ratio > 0.85) return "#ef4444";
+  if (ratio > 0.7) return "#eab308";
+  return "#22c55e";
 }
 
 export function HeroDashboard() {
-  const t = [8, 6, 5, 2, 0].map(logTime);
+  const rpmRatio = MOCK.rpm / MOCK.maxRpm;
+  const rpmColor = getRpmColor(MOCK.rpm, MOCK.maxRpm);
+
   return (
-    <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 lg:p-6">
-      {/* Left Column - Key Metrics & Status */}
-      <div className="lg:col-span-3 space-y-4">
-        <div className="glass-panel p-4 rounded-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-white/5 pb-2 mb-2">
-            <span className="panel-header text-[10px]">MISSION_STATUS</span>
-            <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-mono text-green-500 font-bold">READY</span>
-            </div>
+    <div className="w-full max-w-7xl mx-auto px-4 lg:px-6">
+      {/* Unified bordered panel */}
+      <div className="border border-white/8 rounded-xl overflow-hidden bg-surface-container-low">
+
+        {/* Race header bar */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-white/8 bg-surface-dim">
+          <span className="text-sm font-black font-heading tracking-wide text-f1-white">
+            {MOCK.race}
+          </span>
+          <div className="flex items-center gap-4 font-mono text-xs">
+            <span className="text-f1-silver/50">
+              LAP <span className="text-f1-white font-bold">{MOCK.lap}</span>
+              <span className="text-f1-silver/30 mx-1">/</span>
+              {MOCK.totalLaps}
+            </span>
+            <div className="w-px h-3 bg-white/10" />
+            <span className="text-f1-white font-bold tracking-widest">{MOCK.time}</span>
           </div>
-          
-          <div className="space-y-4">
-            <div>
-              <div className="data-label mb-1">CURRENT SESSION</div>
-              <div className="text-sm font-bold text-f1-white font-heading tracking-tight">MONZA GP - RACE 01/22</div>
-            </div>
-            
-            <TelemetryPulse color="#00d2be" className="h-12" />
-            
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 bg-surface-container rounded-lg border border-white/5">
-                <div className="data-label">TRACK TEMP</div>
-                <div className="text-xl font-black text-f1-white font-heading">34.2<span className="text-xs text-f1-silver/50 ml-0.5">°C</span></div>
+        </div>
+
+        {/* Main content grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12">
+
+          {/* ── LEFT COLUMN ── */}
+          <div className="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-white/8 divide-y divide-white/8">
+
+            {/* Driver telemetry */}
+            <div className="p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-1 h-5 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: MOCK.driver.teamColor }}
+                />
+                <span className="text-[11px] font-black font-heading text-f1-white tracking-wide">
+                  L{MOCK.lap}/{MOCK.totalLaps} – {MOCK.driver.name}
+                </span>
               </div>
-              <div className="p-3 bg-surface-container rounded-lg border border-white/5">
-                <div className="data-label">AIR TEMP</div>
-                <div className="text-xl font-black text-f1-white font-heading">26.8<span className="text-xs text-f1-silver/50 ml-0.5">°C</span></div>
+
+              {/* Speed */}
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-5xl font-black font-heading text-f1-white leading-none">
+                  {MOCK.speed}
+                </span>
+                <span className="text-xs text-f1-silver/40 font-mono mb-0.5">KM/H</span>
+              </div>
+
+              {/* RPM bar */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center">
+                  <span className="data-label">RPM</span>
+                  <span className="text-[10px] font-mono text-f1-silver/50">
+                    {MOCK.rpm.toLocaleString()}
+                  </span>
+                </div>
+                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: `${rpmRatio * 100}%`, backgroundColor: rpmColor }}
+                  />
+                </div>
+              </div>
+
+              {/* Gear + DRS */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-surface-dim rounded-lg p-2.5">
+                  <div className="data-label mb-1">GEAR</div>
+                  <div className="text-2xl font-black font-heading text-f1-white leading-none">
+                    {MOCK.gear}
+                  </div>
+                </div>
+                <div className="bg-surface-dim rounded-lg p-2.5">
+                  <div className="data-label mb-1">DRS</div>
+                  <div
+                    className={`text-xs font-bold font-mono ${
+                      MOCK.drs ? "text-green-400" : "text-f1-silver/30"
+                    }`}
+                  >
+                    {MOCK.drs ? "AVAILABLE" : "OFF"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Engine temp */}
+              <div className="flex justify-between items-center text-[11px]">
+                <span className="data-label">ENGINE TEMP</span>
+                <span className="font-mono font-bold text-f1-white">{MOCK.engineTemp}°C</span>
+              </div>
+            </div>
+
+            {/* Tire status */}
+            <div className="p-4 space-y-3">
+              <span className="text-[11px] font-black font-heading text-f1-white tracking-wide">
+                TIRE STATUS
+              </span>
+              <div className="flex justify-center">
+                <TireIndicator tires={MOCK.tires} size={46} />
+              </div>
+            </div>
+
+            {/* Brake temps */}
+            <div className="p-4 space-y-2">
+              <span className="text-[11px] font-black font-heading text-f1-white tracking-wide">
+                BRAKE TEMP
+              </span>
+              <div className="space-y-1.5 text-[11px] font-mono">
+                {(["fl", "fr", "rl", "rr"] as const).map((pos) => (
+                  <div key={pos} className="flex justify-between">
+                    <span className="text-f1-silver/50 uppercase">{pos}:</span>
+                    <span className="text-f1-white font-bold">{MOCK.brakes[pos]}°C</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
 
-        <DataCard label="SEASON PROGRESS" value="48" unit="%" trend="up" trendLabel="+5% vs LY" />
-        <DataCard label="SYSTEM LATENCY" value="12" unit="ms" trend="neutral" trendLabel="STABLE" />
-      </div>
+          {/* ── RIGHT AREA ── */}
+          <div className="lg:col-span-9 divide-y divide-white/8">
 
-      {/* Middle Column - Main Visual & Branding */}
-      <div className="lg:col-span-6 space-y-4">
-        <div className="relative aspect-video lg:aspect-square xl:aspect-video rounded-2xl overflow-hidden glass-panel border-white/10 shadow-2xl group">
-          <Image 
-            src="/images/hero-command.png"
-            alt="SectorOne Command Center" 
-            fill
-            className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-700"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent" />
-          
-          {/* HUD Overlays */}
-          <div className="absolute top-4 left-4 flex gap-2">
-            <div className="px-2 py-1 bg-f1-red/20 border border-f1-red/40 rounded text-[9px] font-mono font-bold text-f1-red backdrop-blur-md">
-              LIVE_DATA_FEED
+            {/* Track live position */}
+            <div className="p-5 relative">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[10px] font-mono font-bold text-f1-silver/40 tracking-widest">
+                  TRACK LIVE POSITION
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-[9px] font-mono font-bold text-green-500">LIVE</span>
+                </div>
+              </div>
+
+              {/* Circuit + driver dot */}
+              <div className="relative flex items-center justify-center py-2">
+                <CircuitOutline
+                  circuitName="monza"
+                  glowColor={MOCK.driver.teamColor}
+                  size={130}
+                  strokeWidth={2.5}
+                  className="w-full max-w-xs lg:max-w-sm"
+                />
+                {/* Driver position dot — approximately on Monza's main straight */}
+                <div className="absolute" style={{ left: "67%", top: "43%" }}>
+                  <div
+                    className="w-3 h-3 rounded-full border-2 border-surface-dim"
+                    style={{
+                      backgroundColor: MOCK.driver.teamColor,
+                      boxShadow: `0 0 10px ${MOCK.driver.teamColor}, 0 0 4px ${MOCK.driver.teamColor}`,
+                    }}
+                  />
+                  <span
+                    className="absolute left-4 top-0 text-[10px] font-mono font-bold whitespace-nowrap -translate-y-0.5"
+                    style={{ color: MOCK.driver.teamColor }}
+                  >
+                    {MOCK.driver.name}
+                  </span>
+                </div>
+              </div>
+
+              {/* SPD + RPM mini charts */}
+              <div className="grid grid-cols-2 gap-6 mt-3 pt-3 border-t border-white/5">
+                <div>
+                  <div className="data-label mb-1.5">SPD (KM/H)</div>
+                  <TelemetryPulse color={MOCK.driver.teamColor} className="h-10" />
+                </div>
+                <div>
+                  <div className="data-label mb-1.5 text-right">RPM</div>
+                  <TelemetryPulse color={rpmColor} className="h-10" />
+                </div>
+              </div>
             </div>
-            <div className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[9px] font-mono font-bold text-f1-silver backdrop-blur-md">
-              ENCRYPTED_LINK
+
+            {/* Bottom row: Tracks + Standings */}
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/8">
+
+              {/* Tracks mini panel */}
+              <div className="p-4 space-y-3">
+                <span className="text-[11px] font-black font-heading text-f1-white tracking-wide">
+                  TRACKS
+                </span>
+                <div>
+                  <div className="data-label mb-1">SPD (KM/H)</div>
+                  <TelemetryPulse color={MOCK.driver.teamColor} className="h-8" />
+                </div>
+                <div
+                  className="text-xs font-black font-heading"
+                  style={{ color: MOCK.driver.teamColor }}
+                >
+                  {MOCK.driver.name}
+                </div>
+                <div>
+                  <div className="data-label mb-1">RPM</div>
+                  <TelemetryPulse color="#e10600" className="h-8" />
+                </div>
+              </div>
+
+              {/* Standings table */}
+              <div className="md:col-span-2 p-4">
+                <span className="text-[11px] font-black font-heading text-f1-white tracking-wide block mb-3">
+                  STANDINGS
+                </span>
+                <div className="space-y-0">
+                  {/* Header row */}
+                  <div className="grid grid-cols-[2rem_1fr_1fr_auto_auto] gap-x-3 pb-1.5 border-b border-white/5 mb-1.5">
+                    {["POS", "DRIVER", "TEAM", "LAP TIME", "GAP"].map((h) => (
+                      <span key={h} className="text-[9px] font-mono font-bold text-f1-silver/30 uppercase tracking-wider">
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                  {/* Data rows */}
+                  {MOCK.standings.map((row) => (
+                    <React.Fragment key={row.pos}>
+                      <div className="grid grid-cols-[2rem_1fr_1fr_auto_auto] gap-x-3 py-1 items-center">
+                        <span className="text-[10px] font-mono text-f1-silver/50">{row.pos}</span>
+                        <span className="text-[10px] font-mono font-bold text-f1-white">
+                          {row.driver}
+                        </span>
+                        <span
+                          className="text-[10px] font-mono font-bold"
+                          style={{ color: row.color }}
+                        >
+                          {row.team}
+                        </span>
+                        <span className="text-[10px] font-mono text-f1-silver/70">
+                          {row.lapTime}
+                        </span>
+                        <span className="text-[10px] font-mono text-f1-silver/50">
+                          {row.gap}
+                        </span>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-            <p className="text-xs text-f1-silver/80 font-medium max-w-xs">
-              Real-time data processing for the next generation of Formula 1 enthusiasts.
-            </p>
-            <div className="hidden md:block text-[10px] font-mono text-f1-silver/40 text-right">
-              COORDS: 44.5011° N, 11.3435° E<br/>
-              SECTOR_ID: NORTH_01
-            </div>
-          </div>
-        </div>
-
-        {/* Action Bar */}
-        <div className="grid grid-cols-2 gap-4">
-          <Link
-            href="/standings"
-            className="flex items-center justify-center gap-2 py-4 bg-f1-red text-white font-black rounded-xl shadow-[0_4px_24px_rgba(225,6,0,0.4)] hover:shadow-[0_4px_32px_rgba(225,6,0,0.6)] hover:scale-[1.02] transition-all"
-          >
-            <span className="text-sm font-heading tracking-wide">LAUNCH DASHBOARD</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-          </Link>
-          <Link
-            href="/archive"
-            className="flex items-center justify-center gap-2 py-4 glass-panel glass-panel-hover text-f1-silver font-bold rounded-xl transition-all"
-          >
-            <span className="text-xs font-heading tracking-wide">EXPLORE ARCHIVES</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* Right Column - Secondary Data & Logs */}
-      <div className="lg:col-span-3 space-y-4">
-        <div className="glass-panel p-4 rounded-xl">
-          <div className="panel-header text-[10px] mb-4">
-            SYSTEM_LOG
-          </div>
-
-          <div className="space-y-3 font-mono text-[10px]">
-            <div className="flex gap-2">
-              <span className="text-f1-silver/30">{t[0]}</span>
-              <span className="text-f1-white italic">SYSCFG: Initializing telemetry_link...</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-f1-silver/30">{t[1]}</span>
-              <span className="text-green-500 font-bold">SUCCESS: Connection established</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-f1-silver/30">{t[2]}</span>
-              <span className="text-f1-white italic">DATALAYER: Fetching live_sessions...</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-f1-silver/30">{t[3]}</span>
-              <span className="text-f1-white italic">UI_RENDER: Loading command_center...</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-f1-silver/30">{t[4]}</span>
-              <span className="text-f1-red font-bold animate-pulse">ALERT: Weather pattern changing (S2)</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="glass-panel p-3 rounded-xl">
-            <div className="data-label mb-1">AVG RESPONSE</div>
-            <div className="text-xl font-black text-f1-white font-heading">142<span className="text-xs text-f1-silver/50 ml-0.5">μs</span></div>
-          </div>
-          <DataCard label="THROUGHPUT" value="1.2" unit="GB/s" />
-        </div>
-
-        <div className="text-[9px] font-mono text-f1-silver/30 uppercase tracking-widest text-center pt-1">
-          SectorOne Protocol © 2026
         </div>
       </div>
     </div>
