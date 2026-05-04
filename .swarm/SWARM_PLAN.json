@@ -6,7 +6,7 @@
   "phases": [
     {
       "id": 1,
-      "name": "OSM Satellite Track Map with MapLibre GL",
+      "name": "OSM Satellite Track Map",
       "status": "pending",
       "tasks": [
         {
@@ -14,7 +14,7 @@
           "phase": 1,
           "status": "pending",
           "size": "small",
-          "description": "Create circuit coordinate projection utility and circuit lat/lng reference lookup",
+          "description": "Circuit projection",
           "depends": [],
           "files_touched": []
         },
@@ -23,7 +23,7 @@
           "phase": 1,
           "status": "pending",
           "size": "medium",
-          "description": "Create SatelliteTrackMap component using MapLibre GL with ESRI satellite tiles",
+          "description": "SatelliteTrackMap",
           "depends": [],
           "files_touched": []
         },
@@ -32,7 +32,7 @@
           "phase": 1,
           "status": "pending",
           "size": "medium",
-          "description": "Create strategy-lab replay page with satellite track map and replay side panels",
+          "description": "Strategy-lab page",
           "depends": [],
           "files_touched": []
         },
@@ -41,7 +41,7 @@
           "phase": 1,
           "status": "pending",
           "size": "small",
-          "description": "Fix driver dot colors to team colors, add name labels, remove cyan track",
+          "description": "Driver dot colors",
           "depends": [],
           "files_touched": []
         }
@@ -49,7 +49,7 @@
     },
     {
       "id": 2,
-      "name": "OpenRouter Integration for Real Data",
+      "name": "OpenRouter Integration",
       "status": "pending",
       "tasks": [
         {
@@ -57,7 +57,7 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Create OpenRouter API client with web search support",
+          "description": "AI client",
           "depends": [],
           "files_touched": []
         },
@@ -66,7 +66,7 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Create fantasy driver data API route",
+          "description": "Fantasy API route",
           "depends": [],
           "files_touched": []
         },
@@ -75,7 +75,7 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Create PU component data API route",
+          "description": "PU API route",
           "depends": [],
           "files_touched": []
         },
@@ -84,7 +84,7 @@
           "phase": 2,
           "status": "pending",
           "size": "medium",
-          "description": "Replace mock fantasy data with API-fetched data in components",
+          "description": "Replace mock data",
           "depends": [],
           "files_touched": []
         },
@@ -93,7 +93,7 @@
           "phase": 2,
           "status": "pending",
           "size": "small",
-          "description": "Replace mock PU data with API-fetched data",
+          "description": "Replace mock PU",
           "depends": [],
           "files_touched": []
         }
@@ -109,7 +109,7 @@
           "phase": 3,
           "status": "pending",
           "size": "medium",
-          "description": "Write tests for API routes and SatelliteTrackMap component",
+          "description": "Tests",
           "depends": [],
           "files_touched": []
         },
@@ -118,7 +118,7 @@
           "phase": 3,
           "status": "pending",
           "size": "small",
-          "description": "Add client-side localStorage caching for AI API responses",
+          "description": "Caching",
           "depends": [],
           "files_touched": []
         },
@@ -127,7 +127,7 @@
           "phase": 3,
           "status": "pending",
           "size": "medium",
-          "description": "Polish Strategy Lab UX (loading, error states, keyboard shortcuts)",
+          "description": "UX polish",
           "depends": [],
           "files_touched": []
         },
@@ -136,7 +136,7 @@
           "phase": 3,
           "status": "pending",
           "size": "small",
-          "description": "Make strategy-lab layout responsive for mobile",
+          "description": "Mobile responsive",
           "depends": [],
           "files_touched": []
         },
@@ -145,7 +145,7 @@
           "phase": 3,
           "status": "pending",
           "size": "small",
-          "description": "Vercel deploy setup with env var checklist",
+          "description": "Vercel setup",
           "depends": [],
           "files_touched": []
         }
@@ -161,7 +161,7 @@
           "phase": 4,
           "status": "pending",
           "size": "medium",
-          "description": "Add error.tsx boundaries for archive, fantasy, standings, strategy-lab routes",
+          "description": "Error boundaries",
           "depends": [],
           "files_touched": []
         },
@@ -170,7 +170,7 @@
           "phase": 4,
           "status": "pending",
           "size": "medium",
-          "description": "Add loading.tsx skeletons for archive, standings, strategy-lab",
+          "description": "Loading skeletons",
           "depends": [],
           "files_touched": []
         },
@@ -179,7 +179,7 @@
           "phase": 4,
           "status": "pending",
           "size": "medium",
-          "description": "Add SEO metadata (titles, descriptions, OG) for all pages",
+          "description": "SEO metadata",
           "depends": [],
           "files_touched": []
         },
@@ -188,7 +188,7 @@
           "phase": 4,
           "status": "pending",
           "size": "small",
-          "description": "Polish landing page HeroDashboard component",
+          "description": "Landing page",
           "depends": [],
           "files_touched": []
         },
@@ -197,7 +197,7 @@
           "phase": 4,
           "status": "pending",
           "size": "medium",
-          "description": "Add session search functionality to archive",
+          "description": "Archive search",
           "depends": [],
           "files_touched": []
         },
@@ -206,7 +206,7 @@
           "phase": 4,
           "status": "pending",
           "size": "small",
-          "description": "Build basic Settings page (theme toggle container, preferences shell)",
+          "description": "Settings page",
           "depends": [],
           "files_touched": []
         },
@@ -215,7 +215,82 @@
           "phase": 4,
           "status": "pending",
           "size": "small",
-          "description": "Polish auth flow (password reset UX, email verification badge)",
+          "description": "Auth polish",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Landing Page & Guest Access",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "5.1",
+          "phase": 5,
+          "status": "pending",
+          "size": "medium",
+          "description": "Landing page redesign",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "5.2",
+          "phase": 5,
+          "status": "pending",
+          "size": "small",
+          "description": "Guest access",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "5.3",
+          "phase": 5,
+          "status": "pending",
+          "size": "small",
+          "description": "Pre-deploy cleanup",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "CI/CD Pipeline",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "6.1",
+          "phase": 6,
+          "status": "pending",
+          "size": "small",
+          "description": "GitHub Action for Vercel",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Bug Fixes",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "7.1",
+          "phase": 7,
+          "status": "pending",
+          "size": "medium",
+          "description": "Circuit images in GpCard + session error page",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "7.2",
+          "phase": 7,
+          "status": "pending",
+          "size": "medium",
+          "description": "Fix raceData per-driver location/car data fetching",
           "depends": [],
           "files_touched": []
         }

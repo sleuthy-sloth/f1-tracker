@@ -82,7 +82,7 @@
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T05:21:03.677Z"
+      "mtime": "2026-05-04T13:37:40.691Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/error.tsx",
@@ -132,7 +132,7 @@
         "@/lib/auth/useAuth"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T05:23:34.669Z"
+      "mtime": "2026-05-04T07:25:28.600Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/error.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/fantasy/error.tsx",
@@ -196,14 +196,13 @@
       "moduleName": "app/page.tsx",
       "exports": [
         "metadata",
-        "Home"
+        "HomePage"
       ],
       "imports": [
-        "next/link",
-        "@/components/HeroDashboard"
+        "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T05:21:00.800Z"
+      "mtime": "2026-05-04T07:24:51.632Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/settings/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/settings/page.tsx",
@@ -468,7 +467,7 @@
         "next/link"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T21:19:42.519Z"
+      "mtime": "2026-05-04T13:37:40.691Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx",
@@ -570,16 +569,10 @@
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ProtectedRoute.tsx",
       "moduleName": "components/ProtectedRoute.tsx",
-      "exports": [
-        "ProtectedRoute"
-      ],
-      "imports": [
-        "react",
-        "next/navigation",
-        "@/lib/auth/useAuth"
-      ],
+      "exports": [],
+      "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-01T12:39:23.471Z"
+      "mtime": "2026-05-04T07:27:10.050Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/PuUsageTable.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/PuUsageTable.tsx",
@@ -1045,7 +1038,7 @@
         "./api/openf1"
       ],
       "language": "typescript",
-      "mtime": "2026-05-02T18:15:14.793Z"
+      "mtime": "2026-05-04T13:46:00.419Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts",
@@ -2027,7 +2020,7 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-04T05:23:39.743Z",
+    "generatedAt": "2026-05-04T13:46:05.518Z",
     "generator": "repo-graph",
     "nodeCount": 132,
     "edgeCount": 51

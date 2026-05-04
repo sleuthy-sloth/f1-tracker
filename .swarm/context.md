@@ -4,17 +4,17 @@
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| bash | 312 | 312 | 0 | 2451ms |
-| read | 256 | 256 | 0 | 25ms |
-| update_task_status | 111 | 111 | 0 | 11ms |
-| edit | 86 | 86 | 0 | 2175ms |
-| task | 56 | 56 | 0 | 161817ms |
-| write | 54 | 54 | 0 | 1772ms |
+| bash | 339 | 339 | 0 | 2520ms |
+| read | 281 | 281 | 0 | 464ms |
+| update_task_status | 120 | 120 | 0 | 11ms |
+| edit | 97 | 97 | 0 | 2188ms |
+| task | 60 | 60 | 0 | 153609ms |
+| write | 57 | 57 | 0 | 1917ms |
 | glob | 53 | 53 | 0 | 31ms |
-| declare_scope | 30 | 30 | 0 | 7ms |
-| todowrite | 23 | 23 | 0 | 9ms |
-| grep | 19 | 19 | 0 | 40ms |
-| save_plan | 8 | 8 | 0 | 32ms |
+| declare_scope | 40 | 40 | 0 | 7ms |
+| todowrite | 26 | 26 | 0 | 9ms |
+| grep | 23 | 23 | 0 | 39ms |
+| save_plan | 12 | 12 | 0 | 29ms |
 | check_gate_status | 7 | 7 | 0 | 7ms |
 | test_runner | 7 | 7 | 0 | 1370ms |
 | phase_complete | 7 | 7 | 0 | 16926ms |
