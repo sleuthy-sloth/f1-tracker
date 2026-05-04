@@ -210,3 +210,35 @@ body {
 .animate-telemetry {
   animation: telemetry-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* HUD Animations */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-scan {
+  animation: scan 10s linear infinite;
+}
+
+@keyframes data-flicker {
+  0% { opacity: 0.8; }
+  5% { opacity: 0.4; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.6; }
+  20% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.animate-flicker {
+  animation: data-flicker 5s linear infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
