@@ -493,32 +493,8 @@ function StrategyLabContent() {
   return (
     <div className="min-h-screen bg-f1-carbon flex flex-col animate-fade-in">
       {/* Header */}
-      <header className="h-16 bg-surface border-b border-white/[0.07] flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 lg:px-6 py-2 lg:py-0">
+      <header className="h-16 flex-shrink-0 bg-surface border-b border-white/[0.07] flex items-center justify-between px-6 z-40">
         <div className="flex items-center gap-4">
-          <Link href="/archive" className="text-f1-silver hover:text-f1-white transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </Link>
-          <h1 className="text-lg font-heading font-bold text-f1-white tracking-wider">
-            STRATEGY LAB
-          </h1>
-          {sessionInfo && (
-            <span className="text-f1-silver text-sm">
-              {sessionInfo.sessionName} {sessionInfo.year}
-            </span>
-          )}
-        </div>
-        
-        {/* Session metrics */}
-        <div className="flex flex-wrap items-center gap-2 lg:gap-6 mt-1 lg:mt-0">
-          <Card variant="glass" padding="sm" className="py-2 px-4">
-            <div className="text-[10px] uppercase tracking-wider text-f1-silver">Drivers</div>
-            <div className="text-lg font-heading font-bold text-f1-white">{drivers.length}</div>
-          </Card>
-          <Card variant="glass" padding="sm" className="py-2 px-4">
-            <div className="text-[10px] uppercase tracking-wider text-f1-silver">Frames</div>
-            <div className="text-lg font-heading font-bold text-f1-white">{engine.totalFrames}</div>
           <Link
             href="/archive"
             className="p-2 hover:bg-white/5 rounded-lg transition-colors text-f1-silver hover:text-f1-white"
@@ -538,7 +514,18 @@ function StrategyLabContent() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
+            <Card variant="glass" padding="sm" className="py-1 px-3">
+              <div className="text-[9px] uppercase tracking-wider text-f1-silver">Drivers</div>
+              <div className="text-sm font-heading font-bold text-f1-white leading-tight">{drivers.length}</div>
+            </Card>
+            <Card variant="glass" padding="sm" className="py-1 px-3">
+              <div className="text-[9px] uppercase tracking-wider text-f1-silver">Frames</div>
+              <div className="text-sm font-heading font-bold text-f1-white leading-tight">{engine.totalFrames}</div>
+            </Card>
+          </div>
+
           {isProcessing && (
             <div className="flex items-center gap-3 px-3 py-1.5 bg-white/5 rounded-full border border-white/10">
               <div className="flex gap-1">
