@@ -1,194 +1,219 @@
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { getSessions, getDrivers, getAvailableYears } from '@/lib/api/openf1';
 import PuUsageTable from '@/components/PuUsageTable';
-import type { Driver, Session } from '@/lib/types';
 
-/**
- * Example PU usage data for demonstration
- * Since OpenF1 API doesn't provide PU components endpoint, we use mock data
- */
-const EXAMPLE_PU_DATA = [
-  {
-    driverNumber: 1,
-    driverAcronym: 'VER',
-    teamColour: '#3671C6',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 16,
-    driverAcronym: 'LEC',
-    teamColour: '#E8002D',
-    components: { ice: 4, turbo: 4, mguh: 4, mguk: 3, es: 2, ce: 1, exhaust: 7 },
-  },
-  {
-    driverNumber: 55,
-    driverAcronym: 'SAI',
-    teamColour: '#E8002D',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 11,
-    driverAcronym: 'PER',
-    teamColour: '#3671C6',
-    components: { ice: 4, turbo: 4, mguh: 4, mguk: 4, es: 2, ce: 2, exhaust: 8 },
-  },
-  {
-    driverNumber: 44,
-    driverAcronym: 'HAM',
-    teamColour: '#27F4D2',
-    components: { ice: 2, turbo: 2, mguh: 2, mguk: 1, es: 1, ce: 1, exhaust: 4 },
-  },
-  {
-    driverNumber: 63,
-    driverAcronym: 'RUS',
-    teamColour: '#27F4D2',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 4,
-    driverAcronym: 'NOR',
-    teamColour: '#FF8700',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 81,
-    driverAcronym: 'PIA',
-    teamColour: '#FF8700',
-    components: { ice: 2, turbo: 2, mguh: 2, mguk: 1, es: 1, ce: 0, exhaust: 3 },
-  },
-  {
-    driverNumber: 14,
-    driverAcronym: 'ALO',
-    teamColour: '#6CD3BF',
-    components: { ice: 4, turbo: 4, mguh: 4, mguk: 3, es: 2, ce: 2, exhaust: 7 },
-  },
-  {
-    driverNumber: 31,
-    driverAcronym: 'OCO',
-    teamColour: '#6CD3BF',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 10,
-    driverAcronym: 'GAS',
-    teamColour: '#5B8DEF',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 30,
-    driverAcronym: 'LAW',
-    teamColour: '#5B8DEF',
-    components: { ice: 2, turbo: 2, mguh: 2, mguk: 1, es: 1, ce: 1, exhaust: 4 },
-  },
-  {
-    driverNumber: 23,
-    driverAcronym: 'ALB',
-    teamColour: '#37BEDD',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 22,
-    driverAcronym: 'TSU',
-    teamColour: '#37BEDD',
-    components: { ice: 2, turbo: 2, mguh: 2, mguk: 1, es: 1, ce: 0, exhaust: 3 },
-  },
-  {
-    driverNumber: 3,
-    driverAcronym: 'RIC',
-    teamColour: '#B6BABD',
-    components: { ice: 5, turbo: 5, mguh: 5, mguk: 4, es: 2, ce: 2, exhaust: 9 },
-  },
-  {
-    driverNumber: 87,
-    driverAcronym: 'HAR',
-    teamColour: '#B6BABD',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 24,
-    driverAcronym: 'ZHO',
-    teamColour: '#C92D78',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 77,
-    driverAcronym: 'BOT',
-    teamColour: '#C92D78',
-    components: { ice: 3, turbo: 3, mguh: 3, mguk: 2, es: 1, ce: 1, exhaust: 5 },
-  },
-  {
-    driverNumber: 20,
-    driverAcronym: 'MAG',
-    teamColour: '#DA291C',
-    components: { ice: 4, turbo: 4, mguh: 4, mguk: 3, es: 2, ce: 2, exhaust: 8 },
-  },
-  {
-    driverNumber: 6,
-    driverAcronym: 'LAT',
-    teamColour: '#DA291C',
-    components: { ice: 2, turbo: 2, mguh: 2, mguk: 1, es: 1, ce: 1, exhaust: 4 },
-  },
-];
-
-interface ComponentsPageProps {
-  searchParams: Promise<{ year?: string }>;
+interface Driver {
+  driver_number: number;
+  team_colour?: string;
 }
 
-export default async function ComponentsPage({ searchParams }: ComponentsPageProps) {
-  const params = await searchParams;
+interface Session {
+  session_key: number;
+  session_type: string;
+  date_start: string;
+}
 
-  // Get available years
-  let availableYears: number[] = [];
-  try {
-    availableYears = await getAvailableYears();
-  } catch {
-    availableYears = [];
-  }
+interface PuEntry {
+  driverNumber: number;
+  driverAcronym: string;
+  teamColour: string;
+  components: {
+    ice: number;
+    turbo: number;
+    mguh: number;
+    mguk: number;
+    es: number;
+    ce: number;
+    exhaust: number;
+  };
+}
 
-  const currentYear = new Date().getFullYear();
-  const parsedYear = params.year ? parseInt(params.year) : undefined;
-  const selectedYear = parsedYear !== undefined && !isNaN(parsedYear)
-    ? parsedYear
-    : (availableYears.length > 0 ? availableYears[0] : currentYear);
+/**
+ * PU component usage data is fetched via OpenRouter web search
+ * since the OpenF1 API doesn't provide a PU components endpoint.
+ */
 
-  // Get sessions for the selected year
-  let sessions: Session[] = [];
-  try {
-    sessions = await getSessions({ year: selectedYear });
-  } catch {
-    sessions = [];
-  }
-
-  // Find the most recent Race session
-  const raceSessions = sessions.filter((s) => s.session_type === 'Race');
-  const sortedRaceSessions = raceSessions.sort(
-    (a, b) => new Date(b.date_start).getTime() - new Date(a.date_start).getTime()
-  );
-  const latestRaceSession = sortedRaceSessions[0];
-
-  // Fetch drivers for team colors
-  let drivers: Driver[] = [];
-  if (latestRaceSession) {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      drivers = await (getDrivers as any)({ session_key: latestRaceSession.session_key });
-    } catch {
-      drivers = [];
+function ComponentsPageContent() {
+  const searchParams = useSearchParams();
+  const yearParam = searchParams.get('year');
+  
+  // State for available years
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
+  const [_yearsLoading, setYearsLoading] = useState(true);
+  
+  // State for selected year (derived from URL param or default)
+  const [selectedYear, setSelectedYear] = useState<number>(() => {
+    if (yearParam) {
+      const parsed = parseInt(yearParam);
+      if (!isNaN(parsed)) return parsed;
     }
-  }
+    return new Date().getFullYear();
+  });
 
+  // Update selected year when URL param changes
+  useEffect(() => {
+    if (yearParam) {
+      const parsed = parseInt(yearParam);
+      if (!isNaN(parsed) && parsed !== selectedYear) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setSelectedYear(parsed);
+      }
+    }
+  }, [yearParam, selectedYear]);
+  
+  // State for sessions
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [_sessionsLoading, setSessionsLoading] = useState(true);
+  
+  // State for drivers (team colors)
+  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [_driversLoading, setDriversLoading] = useState(true);
+  
+  // State for PU data
+  const [puData, setPuData] = useState<PuEntry[] | null>(null);
+  const [puLoading, setPuLoading] = useState(true);
+  const [puError, setPuError] = useState<string | null>(null);
+  
+  // Fetch available years
+  useEffect(() => {
+    let cancelled = false;
+    
+    async function fetchYears() {
+      try {
+        const res = await fetch('/api/data/years');
+        const data = await res.json();
+        if (!cancelled && data.years) {
+          setAvailableYears(data.years);
+          if (data.years.length > 0) {
+            setSelectedYear(data.years[0]);
+          }
+        }
+      } catch {
+        if (!cancelled) {
+          setAvailableYears([2024, 2025, 2026]);
+        }
+      } finally {
+        if (!cancelled) {
+          setYearsLoading(false);
+        }
+      }
+    }
+    
+    fetchYears();
+    return () => { cancelled = true; };
+  }, []);
+  
+  // Fetch sessions for selected year
+  useEffect(() => {
+    let cancelled = false;
+    
+    async function fetchSessions() {
+      try {
+        setSessionsLoading(true);
+        const res = await fetch(`/api/data/sessions?year=${selectedYear}`);
+        const data = await res.json();
+        if (!cancelled) {
+          if (data.success && data.sessions) {
+            setSessions(data.sessions);
+          }
+          setSessionsLoading(false);
+        }
+      } catch {
+        if (!cancelled) {
+          setSessionsLoading(false);
+        }
+      }
+    }
+    
+    fetchSessions();
+    return () => { cancelled = true; };
+  }, [selectedYear]);
+  
+  // Fetch drivers from most recent race session
+  useEffect(() => {
+    let cancelled = false;
+    
+    async function fetchDrivers() {
+      // Find the most recent Race session
+      const raceSessions = sessions.filter((s) => s.session_type === 'Race');
+      const sortedRaceSessions = raceSessions.sort(
+        (a, b) => new Date(b.date_start).getTime() - new Date(a.date_start).getTime()
+      );
+      const latestRaceSession = sortedRaceSessions[0];
+      
+      if (!latestRaceSession) {
+        setDriversLoading(false);
+        return;
+      }
+      
+      try {
+        setDriversLoading(true);
+        const res = await fetch(`/api/data/drivers?session_key=${latestRaceSession.session_key}`);
+        const data = await res.json();
+        if (!cancelled) {
+          if (data.success && data.drivers) {
+            setDrivers(data.drivers);
+          }
+          setDriversLoading(false);
+        }
+      } catch {
+        if (!cancelled) {
+          setDriversLoading(false);
+        }
+      }
+    }
+    
+    fetchDrivers();
+    return () => { cancelled = true; };
+  }, [sessions]);
+  
+  // Fetch PU data
+  useEffect(() => {
+    let cancelled = false;
+    
+    async function fetchPuData() {
+      try {
+        setPuLoading(true);
+        setPuError(null);
+        const res = await fetch('/api/data/pu');
+        const data = await res.json();
+        if (!cancelled) {
+          if (data.success && data.drivers) {
+            setPuData(data.drivers);
+          } else {
+            setPuError(data.error || 'Failed to load PU data');
+          }
+          setPuLoading(false);
+        }
+      } catch {
+        if (!cancelled) {
+          setPuError('Failed to connect');
+          setPuLoading(false);
+        }
+      }
+    }
+    
+    fetchPuData();
+    return () => { cancelled = true; };
+  }, []);
+  
   // Create driver lookup for team colors
   const driverColorMap = new Map<number, string>();
   drivers.forEach((driver) => {
     driverColorMap.set(driver.driver_number, driver.team_colour || '#666666');
   });
-
-  // Merge example data with actual team colors from API
-  const puEntries = EXAMPLE_PU_DATA.map((entry) => ({
+  
+  // Merge PU data with actual team colors from API
+  const puEntries = puData?.map((entry) => ({
     ...entry,
     teamColour: driverColorMap.get(entry.driverNumber) || entry.teamColour,
-  }));
-
+  })) || [];
+  
+  // Check if still loading
+  
   return (
     <div className="p-6">
       {/* Header */}
@@ -205,7 +230,7 @@ export default async function ComponentsPage({ searchParams }: ComponentsPagePro
         <span className="text-f1-silver font-medium ml-2">{selectedYear}</span>
         <div className="flex gap-1 ml-auto">
           {availableYears.map((year) => (
-            <a
+            <Link
               key={year}
               href={`/standings/components?year=${year}`}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
@@ -215,7 +240,7 @@ export default async function ComponentsPage({ searchParams }: ComponentsPagePro
               }`}
             >
               {year}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -228,8 +253,18 @@ export default async function ComponentsPage({ searchParams }: ComponentsPagePro
         </p>
       </div>
 
-      {/* PU Usage Table */}
-      <PuUsageTable entries={puEntries} />
+      {/* Loading/Error/Table */}
+      {puLoading ? (
+        <div className="animate-pulse">
+          <div className="bg-white/5 rounded-lg h-96" />
+        </div>
+      ) : puError ? (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-400">
+          {puError}
+        </div>
+      ) : (
+        <PuUsageTable entries={puEntries} />
+      )}
 
       {/* Legend */}
       <div className="mt-6 flex flex-wrap gap-4 text-xs">
@@ -247,5 +282,19 @@ export default async function ComponentsPage({ searchParams }: ComponentsPagePro
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ComponentsPage() {
+  return (
+    <Suspense fallback={
+      <div className="p-6">
+        <div className="animate-pulse">
+          <div className="bg-white/5 rounded-lg h-96" />
+        </div>
+      </div>
+    }>
+      <ComponentsPageContent />
+    </Suspense>
   );
 }

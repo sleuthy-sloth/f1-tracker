@@ -1,0 +1,434 @@
+'use client';
+
+import { Map, GeoJSONSource } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { useRef, useEffect, useCallback, useMemo, useState } from 'react';
+import {
+  projectToLatLng,
+  buildDriversGeoJSON,
+  buildTrackGeoJSON,
+} from '@/lib/circuit-projection';
+import { getCircuitLocation } from '@/lib/circuit-lookup';
+import type { Driver, DriverPosition, SafetyCarStatus } from '@/lib/types';
+
+export interface SatelliteTrackMapProps {
+  circuitKey: number;
+  trackCoordinates: { x: number; y: number }[];
+  driverPositions: DriverPosition[];
+  drivers: Driver[];
+  selectedDriver?: number;
+  safetyCar?: SafetyCarStatus | null;
+  className?: string;
+  width?: number | string;
+  height?: number | string;
+}
+
+interface MapState {
+  isLoading: boolean;
+  hasError: boolean;
+  errorMessage?: string;
+}
+
+function LoadingState() {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900/50 rounded-xl">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+        <span className="text-zinc-400 text-sm font-mono">Loading track map...</span>
+      </div>
+    </div>
+  );
+}
+
+function EmptyState({ message }: { message: string }) {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900/30 rounded-xl">
+      <span className="text-zinc-500 text-sm font-mono">{message}</span>
+    </div>
+  );
+}
+
+export function SatelliteTrackMap({
+  circuitKey,
+  trackCoordinates,
+  driverPositions,
+  drivers,
+  selectedDriver,
+  safetyCar,
+  className = '',
+  width = '100%',
+  height = 500,
+}: SatelliteTrackMapProps) {
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<Map | null>(null);
+  const [mapState, setMapState] = useState<MapState>({ isLoading: true, hasError: false });
+
+  // Build driver lookup map for team color and name lookup
+  const driverLookup = useMemo(() => {
+    const lookup: Record<number, { teamColour: string; nameAcronym: string }> = {};
+    for (const d of drivers) {
+      lookup[d.driver_number] = {
+        teamColour: d.team_colour || '#ffffff',
+        nameAcronym: d.name_acronym || String(d.driver_number),
+      };
+    }
+    return lookup;
+  }, [drivers]);
+
+  const getCircuitCenter = useCallback((): [number, number] => {
+    if (circuitKey === 0) {
+      return [0, 0];
+    }
+    const location = getCircuitLocation(circuitKey);
+    if (!location) {
+      console.warn(`Circuit lookup: no location found for circuit_key=${circuitKey}, using default`);
+      return [0, 0];
+    }
+    return [location.lng, location.lat];
+  }, [circuitKey]);
+
+  // Initialize map - only when circuitKey is valid
+  useEffect(() => {
+    if (!mapContainerRef.current || circuitKey === 0) return;
+
+    const [centerLng, centerLat] = getCircuitCenter();
+
+    const map = new Map({
+      container: mapContainerRef.current,
+      style: {
+        version: 8,
+        sources: {},
+        layers: [],
+        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+      },
+      center: [centerLng, centerLat],
+      zoom: 16,
+      pitch: 0,
+      bearing: 0,
+      attributionControl: false,
+      dragRotate: false,
+      keyboard: false,
+      interactive: false,
+    });
+
+    mapRef.current = map;
+
+    map.on('load', () => {
+      // Add ESRI World Imagery raster source
+      if (!map.getSource('esri-imagery')) {
+        map.addSource('esri-imagery', {
+          type: 'raster',
+          tiles: [
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+          ],
+          tileSize: 256,
+          attribution: 'ESRI',
+        });
+      }
+
+      // Add the raster layer
+      if (!map.getLayer('esri-imagery-layer')) {
+        map.addLayer({
+          id: 'esri-imagery-layer',
+          type: 'raster',
+          source: 'esri-imagery',
+          paint: {
+            'raster-opacity': 0.85,
+          },
+        });
+      }
+
+      // Add dark overlay for better contrast with HUD
+      if (!map.getSource('dark-overlay')) {
+        map.addSource('dark-overlay', {
+          type: 'raster',
+          tiles: [
+            'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+          ],
+          tileSize: 256,
+          attribution: 'ESRI',
+        });
+      }
+
+      if (!map.getLayer('dark-overlay-layer')) {
+        map.addLayer({
+          id: 'dark-overlay-layer',
+          type: 'raster',
+          source: 'dark-overlay',
+          paint: {
+            'raster-opacity': 0.3,
+          },
+        });
+      }
+
+      setMapState({ isLoading: false, hasError: false });
+    });
+
+    map.on('error', (e) => {
+      console.error('MapLibre error:', e);
+      setMapState({ isLoading: false, hasError: true, errorMessage: 'Map failed to load' });
+    });
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+    };
+  }, [circuitKey, getCircuitCenter]);
+
+  // Add circuit track layer
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || map.isStyleLoaded() === false) return;
+    if (!trackCoordinates.length) return;
+
+    const [centerLng, centerLat] = getCircuitCenter();
+    const trackGeoJSON = buildTrackGeoJSON(trackCoordinates, centerLat, centerLng);
+
+    const existingSource = map.getSource('circuit-track') as GeoJSONSource;
+    if (existingSource) {
+      existingSource.setData(trackGeoJSON as GeoJSON.Feature);
+    } else {
+      map.addSource('circuit-track', {
+        type: 'geojson',
+        data: trackGeoJSON as GeoJSON.Feature,
+      });
+
+      // Track base layer
+      map.addLayer({
+        id: 'track-base',
+        type: 'line',
+        source: 'circuit-track',
+        paint: {
+          'line-color': 'rgba(255, 255, 255, 0.4)',
+          'line-width': 3,
+          'line-opacity': 0.5,
+        },
+      });
+
+      // Track glow layer
+      map.addLayer({
+        id: 'track-glow',
+        type: 'line',
+        source: 'circuit-track',
+        paint: {
+          'line-color': 'rgba(255, 255, 255, 0.15)',
+          'line-width': 8,
+          'line-opacity': 0.15,
+          'line-blur': 3,
+        },
+      });
+    }
+  }, [trackCoordinates, getCircuitCenter]);
+
+  // Add/update driver layers
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || map.isStyleLoaded() === false) return;
+
+    const [centerLng, centerLat] = getCircuitCenter();
+    // Enrich driver positions with team color and name acronym before building GeoJSON
+    const enrichedDriverPositions = driverPositions.map((dp) => {
+      const info = driverLookup[dp.driver_number];
+      return {
+        driver_number: dp.driver_number,
+        x: dp.x,
+        y: dp.y,
+        speed: dp.speed,
+        gear: dp.gear,
+        drs: dp.drs,
+        // Extra properties that buildDriversGeoJSON passes through to GeoJSON
+        team_colour: info?.teamColour || '#ffffff',
+        name_acronym: info?.nameAcronym || String(dp.driver_number),
+      };
+    });
+    const driversGeoJSON = buildDriversGeoJSON(enrichedDriverPositions, centerLat, centerLng);
+
+    const existingSource = map.getSource('drivers') as GeoJSONSource;
+    if (existingSource) {
+      existingSource.setData(driversGeoJSON as GeoJSON.FeatureCollection);
+    } else {
+      map.addSource('drivers', {
+        type: 'geojson',
+        data: driversGeoJSON as GeoJSON.FeatureCollection,
+      });
+
+      // Driver glow layer (behind)
+      map.addLayer({
+        id: 'driver-glow',
+        type: 'circle',
+        source: 'drivers',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': ['get', 'team_colour'],
+          'circle-opacity': 0.3,
+          'circle-blur': 1,
+        },
+      });
+
+      // Driver dot layer
+      map.addLayer({
+        id: 'driver-dot',
+        type: 'circle',
+        source: 'drivers',
+        paint: {
+          'circle-radius': 5,
+          'circle-color': ['get', 'team_colour'],
+          'circle-stroke-color': ['get', 'team_colour'],
+          'circle-stroke-width': 1.5,
+        },
+      });
+
+      // Selected driver highlight layer
+      map.addLayer({
+        id: 'driver-selected',
+        type: 'circle',
+        source: 'drivers',
+        filter: ['==', ['get', 'driver_number'], selectedDriver ?? -1],
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#FFD700',
+          'circle-opacity': 0.6,
+          'circle-stroke-color': '#FFD700',
+          'circle-stroke-width': 2,
+        },
+      });
+
+      // Driver number label
+      map.addLayer({
+        id: 'driver-number',
+        type: 'symbol',
+        source: 'drivers',
+        layout: {
+          'text-field': ['get', 'name_acronym'],
+          'text-size': 8,
+          'text-offset': [0, -1.5],
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': '#000000',
+          'text-halo-width': 1,
+        },
+      });
+    }
+  }, [driverPositions, selectedDriver, getCircuitCenter, driverLookup]);
+
+  // Update selected driver filter
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.getLayer('driver-selected')) return;
+
+    map.setFilter('driver-selected', [
+      '==',
+      ['get', 'driver_number'],
+      selectedDriver ?? -1,
+    ]);
+  }, [selectedDriver]);
+
+  // Safety car layer
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || map.isStyleLoaded() === false) return;
+
+    // Remove existing safety car layer
+    if (map.getLayer('safety-car')) {
+      map.removeLayer('safety-car');
+    }
+    if (map.getSource('safety-car')) {
+      map.removeSource('safety-car');
+    }
+
+    if (!safetyCar || safetyCar.status === 'none' || safetyCar.x === undefined || safetyCar.y === undefined) {
+      return;
+    }
+
+    const [centerLng, centerLat] = getCircuitCenter();
+    const [lng, lat] = projectToLatLng(safetyCar.x, safetyCar.y, centerLat, centerLng);
+
+    map.addSource('safety-car', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [lng, lat],
+            },
+            properties: {},
+          },
+        ],
+      },
+    });
+
+    map.addLayer({
+      id: 'safety-car',
+      type: 'circle',
+      source: 'safety-car',
+      paint: {
+        'circle-radius': 7,
+        'circle-color': '#FFB300',
+        'circle-stroke-color': '#FFB300',
+        'circle-stroke-width': 2,
+      },
+    });
+  }, [safetyCar, getCircuitCenter]);
+
+  // Resize observer
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapContainerRef.current) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+
+    resizeObserver.observe(mapContainerRef.current);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  // Handle empty/loading states
+  if (circuitKey === 0) {
+    return (
+      <div
+        className={`rounded-xl overflow-hidden ${className}`}
+        style={{ width, height }}
+      >
+        <LoadingState />
+      </div>
+    );
+  }
+
+  if (mapState.isLoading) {
+    return (
+      <div
+        className={`rounded-xl overflow-hidden ${className}`}
+        style={{ width, height }}
+      >
+        <LoadingState />
+      </div>
+    );
+  }
+
+  if (!trackCoordinates.length) {
+    return (
+      <div
+        className={`rounded-xl overflow-hidden ${className}`}
+        style={{ width, height }}
+      >
+        <EmptyState message="Track layout unavailable for this circuit" />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={mapContainerRef}
+      className={`rounded-xl overflow-hidden cursor-default ${className}`}
+      style={{ width, height }}
+    />
+  );
+}

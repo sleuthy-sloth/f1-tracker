@@ -4,22 +4,7 @@ import { useAuth } from '@/lib/auth/useAuth';
 import { DataCard } from '@/components/DataCard';
 import FantasyDashboard from '@/components/FantasyDashboard';
 import Link from 'next/link';
-
-// Mock fantasy team data
-const mockTeam = {
-  teamName: 'Velocity Racing',
-  totalPoints: 342,
-  budgetRemaining: 4.5,
-  drivers: [
-    { driverNumber: 1, nameAcronym: 'VER', fullName: 'Max Verstappen', teamColour: '#3671C6', cost: 35.5, points: 102 },
-    { driverNumber: 16, nameAcronym: 'LEC', fullName: 'Charles Leclerc', teamColour: '#E8002D', cost: 28.0, points: 85 },
-    { driverNumber: 55, nameAcronym: 'SAI', fullName: 'Carlos Sainz', teamColour: '#E8002D', cost: 22.5, points: 62 },
-    { driverNumber: 81, nameAcronym: 'PIA', fullName: 'Oscar Piastri', teamColour: '#FF8000', cost: 18.0, points: 58 },
-    { driverNumber: 4, nameAcronym: 'NOR', fullName: 'Lando Norris', teamColour: '#FF8000', cost: 31.0, points: 78 },
-  ],
-  constructor: { name: 'McLaren', cost: 35.0, points: 136, colour: '#FF8000' },
-  pointsHistory: [18, 42, 58, 76, 92, 108, 124, 142, 168, 192, 218, 236, 258, 276, 298, 312, 328, 342],
-};
+import { useState, useEffect, useMemo } from 'react';
 
 /**
  * Authentication loading skeleton
@@ -166,10 +151,43 @@ function QuickLinks() {
  * and navigate to leagues and scoring info
  */
 export default function FantasyPage() {
-  const { user, loading } = useAuth();
-  
+  const { user, loading: authLoading } = useAuth();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [fetchedDrivers, setFetchedDrivers] = useState<any[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const res = await fetch('/api/data/fantasy');
+        const data = await res.json();
+        if (data.success && data.drivers) {
+          setFetchedDrivers(data.drivers);
+        }
+      } catch {
+        // Silently fail - data fetching is best-effort
+      } finally {
+        setDataLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  // Build demo team from fetched drivers (use first 5 as demo team)
+  const demoTeam = useMemo(() => {
+    const top5 = fetchedDrivers.slice(0, 5);
+    return {
+      teamName: 'Velocity Racing',
+      totalPoints: top5.reduce((s: number, d) => s + ((d as { points?: number }).points || 0), 0),
+      budgetRemaining: 4.5,
+      drivers: top5,
+      constructor: null,
+      pointsHistory: [18, 42, 58, 76, 92, 108, 124, 142, 168, 192, 218, 236, 258, 276, 298, 312, 328, 342],
+    };
+  }, [fetchedDrivers]);
+
   // Loading auth state
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-f1-carbon">
         <div className="container mx-auto px-4 py-8">
@@ -224,30 +242,30 @@ export default function FantasyPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <DataCard
             label="Total Points"
-            value={mockTeam.totalPoints}
+            value={dataLoading ? '...' : demoTeam.totalPoints}
             trend="up"
             trendLabel="+12 this round"
           />
           <DataCard
             label="Budget Remaining"
-            value={`$${mockTeam.budgetRemaining}M`}
+            value={dataLoading ? '...' : `$${demoTeam.budgetRemaining}M`}
           />
           <DataCard
             label="Team Value"
-            value={`$${(mockTeam.drivers.reduce((s, d) => s + d.cost, 0) + mockTeam.constructor.cost).toFixed(1)}M`}
+            value={dataLoading ? '...' : `$${demoTeam.drivers.reduce((s: number, d) => s + ((d as { cost: number }).cost || 0), 0).toFixed(1)}M`}
             trend="up"
             trendLabel="+$2.5M"
           />
           <DataCard
             label="League Rank"
-            value="#3"
+            value={dataLoading ? '...' : '#3'}
             trend="up"
             trendLabel="+2 positions"
           />
         </div>
         
         {/* Dashboard */}
-        <FantasyDashboard team={mockTeam} />
+        <FantasyDashboard team={dataLoading ? null : demoTeam} isLoading={dataLoading} />
         
         {/* Quick Links */}
         <QuickLinks />

@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06b6d4?logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Status:** Active development (v0.4.0) — Phase 5.5 of 7 complete
+**Status:** Active development (v0.5.0) — All 6 phases complete
 
 ---
 
@@ -44,7 +44,7 @@
 
 SectorOne is a Formula 1 telemetry dashboard built with Next.js 16, React 19, TypeScript, and Tailwind CSS v4. It connects to the [OpenF1 API](https://openf1.org/) to deliver real-time race data, historical session archives, championship standings, and a fantasy F1 league system — all wrapped in a dark carbon-themed UI with glassmorphic panels and F1 team color accents.
 
-The project is organized into seven development phases, progressing from foundational infrastructure through to a fully-featured telemetry suite with mobile-responsive layouts.
+The project is organized into six development phases, progressing from foundational infrastructure through to a fully-featured telemetry suite with AI-powered data lookups.
 
 ---
 
@@ -120,9 +120,30 @@ The project is organized into seven development phases, progressing from foundat
 - **Speed gauge** (`components/SpeedGauge.tsx`) — SVG arc gauge showing speed in KM/H with color-coded zones (green <50%, yellow <80%, red ≥80%), smooth CSS transitions
 - **Tire indicator** (`components/TireIndicator.tsx`) — SVG circular progress for each position (FL, FR, RL, RR) with color-coded wear states (green >60%, yellow >30%, red ≤30%)
 
+**OSM Satellite Track Map (Phase 6a):**
+
+- **Satellite track map** (`components/SatelliteTrackMap.tsx`) — MapLibre GL-based track visualization with ESRI World Imagery satellite tiles, replacing the Canvas 2D TrackMap. Features geographic circuit overlay via equirectangular coordinate projection, animated driver dots colored by team identity, 3-letter driver name labels (VER, HAM, LEC), and safety car indicator. Driver positions update in real-time via GeoJSON `setData()` at 5fps with data-driven MapLibre styling
+- **Coordinate projection** (`lib/circuit-projection.ts`) — equirectangular projection from local circuit X/Y meters to lat/lng for MapLibre GeoJSON overlay
+- **Circuit lookup** (`lib/circuit-lookup.ts`) — reference table with 24 F1 circuits mapped to approximate geographic center coordinates
+- **Strategy Lab page** (`app/strategy-lab/page.tsx`) — full-screen race replay with SatelliteTrackMap, floating TelemetryHUD, scrollable right sidebar (Leaderboard, GapChart, LapTimeDisplay, TyreWidget, WeatherRadar, RaceControlFeed, PitStopIndicator, SafetyCar, PitWindowWidget), and TimelineControls for playback at 0.25x–20x speed
+
+**Fantasy F1 League (Phase 6b):**
+
+- **Fantasy team dashboard** (`components/FantasyDashboard.tsx`) — team name, total points, DataCard budget bar, SVG points history chart, driver roster with team color bars, constructor display. Handles loading, empty, and populated states with neon glow card styling
+- **Fantasy scoring system** (`lib/fantasy-scoring.ts`) — position-based points (25 for P1 down to 1 for P10), fastest lap bonus (+1), qualifying bonus (+3/+2/+1 for top 3). Pure functions for single driver, full race, and season total calculations
+- **Roster editor** (`components/RosterEditor.tsx`) — driver browsing with search, budget tracking ($100M cap), add/remove drivers, salary cap $40M per driver, save/revert with change detection. Fetches live driver data from AI API instead of mock data
+- **League system** (`components/LeagueLeaderboard.tsx`) — create/join leagues via invite codes (`FF-XXXX`), leaderboard with position medals, rank trends, gap-to-leader, and DataCard stats row
+- **Firestore persistence** (`lib/fantasy-firestore.ts`) — full CRUD for fantasy teams (`/fantasy-teams/{uid}`) and leagues (`/leagues/{leagueId}` with member arrays). Invite code queries, member management, and user league discovery
+
+**AI-Powered Data Integration (Phase 6c):**
+
+- **AI API client** (`lib/api/openrouter.ts`) — multi-provider client supporting NVIDIA NIM (primary) and OpenRouter (fallback). Uses `deepseek-ai/deepseek-v4-pro` via NVIDIA's OpenAI-compatible endpoint with retry logic, JSON extraction, and structured schema enforcement
+- **Fantasy driver data API** (`app/api/data/fantasy/route.ts`) — fetches 22 current F1 drivers (2026 season, 11 teams including Cadillac/GM) with real team colors, fantasy costs, and points via AI web search
+- **PU component data API** (`app/api/data/pu/route.ts`) — fetches real power unit usage data (ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust counts per driver) with grid penalty information via AI web search
+
 ### Planned (Phases 6–7)
 
-- **Fantasy F1 League** — team dashboard, roster editor with $100M budget, league system with leaderboards, Firestore persistence
+- ~~**Fantasy F1 League** — team dashboard, roster editor with $100M budget, league system with leaderboards, Firestore persistence~~ ✅
 - **Mobile & Polish** — responsive layouts, loading skeletons, error boundaries, touch replay controls, performance optimization
 
 ---
@@ -138,8 +159,9 @@ The project is organized into seven development phases, progressing from foundat
 | **Runtime** | Node.js 20+ |
 | **Package Manager** | npm (Bun-compatible) |
 | **Authentication** | Firebase Auth |
-| **Database** | Firestore (planned) |
-| **Data Source** | [OpenF1 API](https://openf1.org/) |
+| **Database** | Firestore |
+| **Data Source** | [OpenF1 API](https://openf1.org/), AI-powered lookups via NVIDIA NIM / OpenRouter |
+| **Map Engine** | MapLibre GL JS with ESRI World Imagery satellite tiles |
 | **Fonts** | Space Grotesk (display), Inter (body) |
 | **Linting** | ESLint 9 + `eslint-config-next` |
 | **Testing** | Bun native test runner |
@@ -151,72 +173,85 @@ The project is organized into seven development phases, progressing from foundat
 
 ```
 ├── app/
+│   ├── api/
+│   │   └── data/
+│   │       ├── fantasy/route.ts   # AI-fetched F1 driver data endpoint
+│   │       └── pu/route.ts        # AI-fetched PU component data endpoint
 │   ├── archive/
-│   │   ├── page.tsx         # Archive grid: GP cards with circuit, podium, session info
+│   │   ├── page.tsx                # Archive grid: GP cards with circuit, podium, session info
 │   │   └── [sessionKey]/
-│   │       └── page.tsx     # Session detail: results table + DataCard metrics + Card glow
-│   ├── globals.css          # Theme tokens, neon glow effects, hex pattern, scrollbar styling
-│   ├── icon.svg             # SVG favicon (S1 branding)
-│   ├── layout.tsx           # Root layout: TopNav + MobileNav + AuthProvider
-│   |── fantasy/
-│   |   └── page.tsx         # Fantasy F1 dashboard with DataCard metrics
+│   │       └── page.tsx            # Session detail: results table + DataCard metrics + Card glow
+│   ├── fantasy/
+│   │   └── page.tsx               # Fantasy F1 dashboard with API-fetched driver data
+│   ├── globals.css                 # Theme tokens, neon glow effects, hex pattern, scrollbar styling
+│   ├── icon.svg                    # SVG favicon (S1 branding)
+│   ├── layout.tsx                  # Root layout: TopNav + MobileNav + AuthProvider
 │   ├── standings/
-│   │   ├── page.tsx         # Championship standings with SeasonSelector + DataCards
-│   │   ├── StandingsClient.tsx # ViewToggle wrapper with Card glow
+│   │   ├── page.tsx                # Championship standings with SeasonSelector + DataCards
+│   │   ├── StandingsClient.tsx     # ViewToggle wrapper with Card glow
 │   │   └── components/
-│   │       └── page.tsx     # Power Unit component usage page
-│   └── page.tsx             # Landing page with SectorOne branding
+│   │       └── page.tsx            # Power Unit component usage (AI-fetched data)
+│   ├── strategy-lab/
+│   │   └── page.tsx                # Race replay with SatelliteTrackMap + all side panels
+│   └── page.tsx                    # Landing page with SectorOne branding
 ├── components/
-│   ├── ArchiveClient.tsx    # Client wrapper: FilterSidebar + SeasonSelector + ArchiveFilters
-│   ├── ArchiveFilters.tsx   # GP card grid with circuit type / search filtering
-│   ├── CircuitOutline.tsx   # SVG circuit paths with feGaussianBlur neon glow filter
-│   ├── ConstructorCard.tsx  # Leading constructor with driver point split bars
-│   ├── DataCard.tsx         # Metric display: label, value, unit, trend indicator
-│   ├── FantasyDashboard.tsx # Fantasy team: roster, budget, points history + DataCard
-│   ├── FilterSidebar.tsx    # Collapsible archive filter sidebar (5 sections)
-│   ├── FormChart.tsx        # Last 5 race results as color-coded blocks
-│   ├── GapChart.tsx         # Live gap-to-leader horizontal bar chart
-│   ├── GpCard.tsx           # GP card: CircuitOutline SVG + cyan telemetry CTA
-│   ├── LapTimeDisplay.tsx   # Lap counter, elapsed time, progress bar
-│   ├── Leaderboard.tsx      # Scrollable leaderboard: positions, gaps, tyres, stints, OUT
-│   ├── MobileNav.tsx        # Mobile bottom navigation bar (5 items)
-│   ├── PitStopIndicator.tsx # Pit stop event feed with tyre compounds
-│   ├── PitWindowWidget.tsx  # Strategic pit window predictor
-│   ├── PointsChart.tsx      # SVG multi-driver points progression chart
-│   ├── ProtectedRoute.tsx   # Auth guard wrapper with loading spinner
-│   ├── PuUsageTable.tsx     # PU component usage tracker with penalty indicators
-│   ├── RaceControlFeed.tsx  # Scrollable race control messages feed
-│   ├── SafetyCar.tsx        # Safety car status visualization
-│   ├── SeasonSelector.tsx   # Pill-bar year selector (link/button modes)
-│   ├── SideNav.tsx          # Desktop fixed sidebar navigation (preserved for rollback)
-│   ├── SpeedGauge.tsx       # SVG arc speed gauge with color-coded zones
-│   ├── StandingsTable.tsx   # Driver/constructor standings with team-colored position bars
-│   ├── TelemetryHUD.tsx     # Floating driver telemetry: speed, gear, RPM, DRS, throttle, brake
-│   ├── TimelineControls.tsx # Bottom replay bar: play/pause, speed, progress, event markers
-│   ├── TireIndicator.tsx    # SVG circular tire wear progress (FL, FR, RL, RR)
-│   ├── TopNav.tsx           # Horizontal top nav bar with mobile hamburger drawer
-│   ├── TrackMap.tsx         # Canvas circuit map with driver dots and sector highlights
-│   ├── TyreWidget.tsx       # Tyre degradation with compound badges and life bars
-│   ├── WeatherRadar.tsx     # Weather conditions grid with SVG precipitation radar
+│   ├── ArchiveClient.tsx     # Client wrapper: FilterSidebar + SeasonSelector + ArchiveFilters
+│   ├── ArchiveFilters.tsx    # GP card grid with circuit type / search filtering
+│   ├── CircuitOutline.tsx    # SVG circuit paths with feGaussianBlur neon glow filter
+│   ├── ConstructorCard.tsx   # Leading constructor with driver point split bars
+│   ├── DataCard.tsx          # Metric display: label, value, unit, trend indicator
+│   ├── FantasyDashboard.tsx  # Fantasy team: roster, budget, points history + DataCard
+│   ├── FilterSidebar.tsx     # Collapsible archive filter sidebar (5 sections)
+│   ├── FormChart.tsx         # Last 5 race results as color-coded blocks
+│   ├── GapChart.tsx          # Live gap-to-leader horizontal bar chart
+│   ├── GpCard.tsx            # GP card: CircuitOutline SVG + cyan telemetry CTA
+│   ├── LapTimeDisplay.tsx    # Lap counter, elapsed time, progress bar
+│   ├── Leaderboard.tsx       # Scrollable leaderboard: positions, gaps, tyres, stints, OUT
+│   ├── MobileNav.tsx         # Mobile bottom navigation bar (5 items)
+│   ├── PitStopIndicator.tsx  # Pit stop event feed with tyre compounds
+│   ├── PitWindowWidget.tsx   # Strategic pit window predictor
+│   ├── PointsChart.tsx       # SVG multi-driver points progression chart
+│   ├── ProtectedRoute.tsx    # Auth guard wrapper with loading spinner
+│   ├── PuUsageTable.tsx      # PU component usage tracker with penalty indicators
+│   ├── RaceControlFeed.tsx   # Scrollable race control messages feed
+│   ├── RosterEditor.tsx      # Fantasy roster editor (API-fetched drivers, budget tracking)
+│   ├── SafetyCar.tsx         # Safety car status visualization
+│   ├── SatelliteTrackMap.tsx # MapLibre GL satellite track map with team-colored driver dots
+│   ├── SeasonSelector.tsx    # Pill-bar year selector (link/button modes)
+│   ├── SideNav.tsx           # Desktop fixed sidebar navigation
+│   ├── SpeedGauge.tsx        # SVG arc speed gauge with color-coded zones
+│   ├── StandingsTable.tsx    # Driver/constructor standings with team-colored position bars
+│   ├── TelemetryHUD.tsx      # Floating driver telemetry: speed, gear, RPM, DRS, throttle, brake
+│   ├── TimelineControls.tsx  # Bottom replay bar: play/pause, speed, progress, event markers
+│   ├── TireIndicator.tsx     # SVG circular tire wear progress (FL, FR, RL, RR)
+│   ├── TopNav.tsx            # Horizontal top nav bar with mobile hamburger drawer
+│   ├── TrackMap.tsx          # Canvas circuit map (deprecated, kept for reference)
+│   ├── TyreWidget.tsx        # Tyre degradation with compound badges and life bars
+│   ├── WeatherRadar.tsx      # Weather conditions grid with SVG precipitation radar
 │   └── ui/
-│       ├── Button.tsx       # 5 variants (primary, secondary, ghost, outline, cyan), loading
-│       ├── Card.tsx         # Glassmorphic card (4 variants + glow prop), 4 padding levels
-│       ├── Chip.tsx         # Tyre compound and status indicators
-│       └── Input.tsx        # Dark-styled input with F1 Red focus
+│       ├── Button.tsx        # 5 variants (primary, secondary, ghost, outline, cyan), loading
+│       ├── Card.tsx          # Glassmorphic card (4 variants + glow prop), 4 padding levels
+│       ├── Chip.tsx          # Tyre compound and status indicators
+│       └── Input.tsx         # Dark-styled input with F1 Red focus
 ├── hooks/
 │   └── useReplayEngine.ts  # Replay playback: play/pause, variable speed, seek, accumulation
 ├── lib/
 │   ├── api/
-│   │   └── openf1.ts        # OpenF1 API client (23 endpoints, rate limited, exponential backoff)
+│   │   ├── openf1.ts        # OpenF1 API client (23 endpoints, rate limited, exponential backoff)
+│   │   └── openrouter.ts    # AI API client (NVIDIA NIM + OpenRouter fallback)
 │   ├── auth/
 │   │   ├── AuthContext.tsx  # Firebase Auth context provider
 │   │   └── useAuth.ts       # useAuth() hook
-│   ├── firebase.ts          # Firebase config and lazy initialization
-│   ├── frameBuffer.ts       # Replay frame buffer: binary search, seeking, range extraction
-│   ├── raceData.ts          # Race data service: fetch, merge, build ReplayFrame objects
-│   ├── teams.ts             # Year-aware team identity service (2024-2026)
-│   ├── track-map.ts         # Track coordinate normalization, circuit bounds, grid alignment
-│   └── types.ts             # 28+ TypeScript types for F1 data entities + replay types
+│   ├── circuit-lookup.ts    # 24 F1 circuit lat/lng reference table
+│   ├── circuit-projection.ts # Equirectangular X/Y → lat/lng projection utilities
+│   ├── fantasy-firestore.ts  # Firestore CRUD for fantasy teams + leagues
+│   ├── fantasy-scoring.ts    # Fantasy points calculation engine
+│   ├── firebase.ts           # Firebase config and lazy initialization
+│   ├── frameBuffer.ts        # Replay frame buffer: binary search, seeking, range extraction
+│   ├── raceData.ts           # Race data service: fetch, merge, build ReplayFrame objects
+│   ├── teams.ts              # Year-aware team identity service (2024-2026)
+│   ├── track-map.ts          # Track coordinate normalization, circuit bounds, grid alignment
+│   └── types.ts              # 28+ TypeScript types for F1 data entities + replay types
 ├── tests/
 │   ├── archive-filters.test.tsx
 │   ├── archive.test.tsx
@@ -300,8 +335,9 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-# OpenF1 API Base URL (optional — defaults to https://api.openf1.org/v1)
-NEXT_PUBLIC_OPENF1_API_URL=https://api.openf1.org/v1
+# NVIDIA NIM API Key (for AI-powered data lookups — fantasy drivers, PU components)
+# Get yours at https://build.nvidia.com/
+NVIDIA_API_KEY=nvapi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 > **Never commit `.env.local` to version control.** The `.env.local.example` file contains placeholder values for reference.
@@ -682,6 +718,7 @@ bun test tests/verification/
 | `tests/components/TrackMap.test.tsx` | TrackMap exports, coordinate normalization, props |
 | `tests/components/TyreWidget.test.tsx` | Tyre widget compound badges, stint data, NaN lap handling |
 | `tests/components/WeatherRadar.test.tsx` | Weather radar states, null fields, rainfall rendering |
+| `tests/lib/fantasy-firestore.test.ts` | Firestore fantasy team and league CRUD operations (14 tests) |
 | `tests/lib/frameBuffer.test.ts` | Frame buffer operations (load, seek, binary search, range) |
 | `tests/lib/raceData.test.ts` | Race data service fetch, frame building, safety car detection |
 | `tests/lib/teams.test.ts` | Team identity service mapping and year-aware lookups |
@@ -733,7 +770,9 @@ The `vercel.json` configuration specifies the Next.js framework, build command, 
 | **4** | Strategy Lab — Replay Engine | ✅ Complete | Track map, race data service, frame buffer, replay engine, timeline controls, leaderboard, telemetry HUD, lap/time display, gap chart, tyre widget, weather radar, safety car, race control feed, pit stop indicator, pit window predictor |
 | **5** | Championship Standings | ✅ Complete | Driver/constructor tables, form charts, points progression, constructor card, team identity service, PU component tracker |
 | **5.5** | Neon Telemetry HUD Redesign | ✅ Complete | TopNav, hex pattern, neon glow tokens, Card glow, Button cyan, FilterSidebar, SeasonSelector, CircuitOutline, DataCard, SpeedGauge, TireIndicator, page redesigns |
-| **6** | Fantasy F1 League | 🔜 Planned | Team dashboard, roster editor, league system, Firestore |
+| **6** | Fantasy F1 League | ✅ Complete | Team dashboard, roster editor, league system, Firestore persistence |
+| **6a** | OSM Satellite Track Map | ✅ Complete | MapLibre GL satellite map, circuit projection, strategy-lab replay page |
+| **6b** | AI Data Integration | ✅ Complete | NVIDIA NIM / OpenRouter client, fantasy driver API, PU component API |
 | **7** | Mobile & Final Polish | 🔜 Planned | Responsive layouts, skeletons, error boundaries, performance |
 
 ---
