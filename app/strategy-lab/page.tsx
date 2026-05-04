@@ -4,25 +4,19 @@ import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { 
-  fetchSessionInfo, 
-  fetchTrackCoordinates, 
-  fetchDrivers, 
-  fetchStints, 
-  fetchPitStops, 
-  fetchSafetyCarEvents, 
-  fetchFlagEvents 
-} from '@/lib/raceData';
+import { fetchRaceData } from '@/lib/raceData';
+import { getSessions, getStints, getRaceControl } from '@/lib/api/openf1';
 import type { 
-  SessionInfo, 
-  TrackCoordinates, 
+  Session, 
+  TrackCoordinate, 
   Driver, 
   StintData, 
-  PitStopEvent, 
-  SafetyCarEvent, 
-  FlagEvent 
+  ReplayFrame, 
+  SafetyCarStatus, 
+  RaceControlData 
 } from '@/lib/types';
 import { useReplayEngine } from '@/hooks/useReplayEngine';
+import { FrameBuffer } from '@/lib/frameBuffer';
 import TrackMap from '@/components/TrackMap';
 import TelemetryHUD from '@/components/TelemetryHUD';
 import Leaderboard from '@/components/Leaderboard';
@@ -35,8 +29,8 @@ import PitStopIndicator from '@/components/PitStopIndicator';
 import SafetyCar from '@/components/SafetyCar';
 import PitWindowWidget from '@/components/PitWindowWidget';
 import TimelineControls from '@/components/TimelineControls';
-import MapErrorBoundary from '@/components/MapErrorBoundary';
-import Card from '@/components/ui/Card';
+import { MapErrorBoundary } from '@/components/MapErrorBoundary';
+import { Card } from '@/components/ui/Card';
 import CircuitPoster from '@/components/CircuitPoster';
 
 // Loading states
@@ -80,78 +74,66 @@ const SatelliteTrackMap = dynamic(
  */
 function StrategyLabContent() {
   const searchParams = useSearchParams();
-  const sessionKey = searchParams.get('session_key');
+  const sessionKeyStr = searchParams.get('session_key');
+  const sessionKey = parseInt(sessionKeyStr || '0', 10);
   const circuitKey = parseInt(searchParams.get('circuit_key') || '0', 10);
 
-  const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
-  const [trackCoordinates, setTrackCoordinates] = useState<TrackCoordinates[]>([]);
+  const [sessionInfo, setSessionInfo] = useState<Session | null>(null);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [stints, setStints] = useState<StintData[]>([]);
-  const [pitStops, setPitStops] = useState<PitStopEvent[]>([]);
-  const [safetyCarEvents, setSafetyCarEvents] = useState<SafetyCarEvent[]>([]);
-  const [flagEvents, setFlagEvents] = useState<FlagEvent[]>([]);
+  const [raceControlMessages, setRaceControlMessages] = useState<RaceControlData[]>([]);
+  const [frameBuffer, setFrameBuffer] = useState<FrameBuffer>(new FrameBuffer());
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingMessage, setProcessingMessage] = useState('');
-  const [mapError, setMapError] = useState(false);
   const [selectedDriverNumber, setSelectedDriverNumber] = useState<number | null>(null);
 
   // Replay engine instance
-  const engine = useReplayEngine();
+  const engine = useReplayEngine({ frameBuffer });
 
-  // Load session metadata and coordinates
+  // Load session metadata and frames
   useEffect(() => {
     if (!sessionKey || isNaN(circuitKey)) return;
 
-    async function loadMetadata() {
+    async function loadData() {
       try {
         setIsLoading(true);
-        const [sessionData, coordsData, driversData, stintsData, pitStopsData, scData, flagsData] = await Promise.all([
-          fetchSessionInfo(sessionKey!),
-          fetchTrackCoordinates(circuitKey),
-          fetchDrivers(sessionKey!),
-          fetchStints(sessionKey!),
-          fetchPitStops(sessionKey!),
-          fetchSafetyCarEvents(sessionKey!),
-          fetchFlagEvents(sessionKey!)
-        ]);
+        setIsProcessing(true);
+        setProcessingMessage('Fetching session info...');
 
-        setSessionInfo(sessionData);
-        setTrackCoordinates(coordsData);
-        setDrivers(driversData);
+        // 1. Fetch basic session info
+        const sessions = await getSessions({ session_key: sessionKey });
+        const session = sessions[0] || null;
+        setSessionInfo(session);
+
+        // 2. Fetch Stints and Race Control for analytics
+        setProcessingMessage('Fetching metadata...');
+        const [stintsData, raceControlData] = await Promise.all([
+          getStints({ session_key: sessionKey }),
+          getRaceControl({ session_key: sessionKey })
+        ]);
         setStints(stintsData);
-        setPitStops(pitStopsData);
-        setSafetyCarEvents(scData);
-        setFlagEvents(flagsData);
+        setRaceControlMessages(raceControlData);
+
+        // 3. Fetch Full Race Data (Telemetry + GPS)
+        setProcessingMessage('Synchronizing telemetry streams...');
+        const result = await fetchRaceData({ sessionKey });
         
-        // Start replay engine once metadata is ready
-        engine.init(sessionKey!, sessionData.totalLaps);
+        setDrivers(result.drivers);
+        setFrameBuffer(result.frameBuffer);
+        
       } catch (error) {
         console.error('Failed to load strategy lab data:', error);
       } finally {
         setIsLoading(false);
+        setIsProcessing(false);
+        setProcessingMessage('');
       }
     }
 
-    loadMetadata();
-  }, [sessionKey, circuitKey, engine]);
-
-  // Handle engine events
-  useEffect(() => {
-    const unsubProcessing = engine.on('processing', (msg) => {
-      setIsProcessing(true);
-      setProcessingMessage(msg);
-    });
-    const unsubReady = engine.on('ready', () => {
-      setIsProcessing(false);
-      setProcessingMessage('');
-    });
-
-    return () => {
-      unsubProcessing();
-      unsubReady();
-    };
-  }, [engine]);
+    loadData();
+  }, [sessionKey, circuitKey]);
 
   const handleSelectDriver = (driverNumber: number) => {
     setSelectedDriverNumber(driverNumber === selectedDriverNumber ? null : driverNumber);
@@ -189,7 +171,7 @@ function StrategyLabContent() {
               <span className="text-f1-red">STRATEGY</span> LAB
             </h1>
             <p className="text-[10px] text-f1-silver font-mono uppercase tracking-tighter">
-              {sessionInfo?.sessionName || 'Session'} • {sessionInfo?.year}
+              {sessionInfo?.session_name || 'Session'} • {sessionInfo?.year}
             </p>
           </div>
         </div>
@@ -345,7 +327,7 @@ function StrategyLabContent() {
               <div className="p-2">
                 <LapTimeDisplay
                   currentFrame={engine.currentFrame}
-                  totalLaps={sessionInfo?.totalLaps || 50}
+                  totalLaps={50}
                   sessionStartTimestamp={engine.timeRange?.start || null}
                 />
               </div>
@@ -370,7 +352,7 @@ function StrategyLabContent() {
               <div className="grid grid-cols-1 gap-4">
                 <PitStopIndicator
                   drivers={drivers}
-                  pitStops={pitStops}
+                  pitStops={[]}
                   stints={stints}
                   currentLap={engine.currentFrame?.lap || 1}
                 />
@@ -379,7 +361,7 @@ function StrategyLabContent() {
                 drivers={drivers}
                 stints={stints}
                 currentLap={engine.currentFrame?.lap || 1}
-                totalLaps={sessionInfo?.totalLaps || 50}
+                totalLaps={50}
                 selectedDriverNumber={selectedDriverNumber}
               />
             </div>
@@ -390,8 +372,8 @@ function StrategyLabContent() {
       {/* Timeline Controls */}
       <TimelineControls
         engine={engine}
-        safetyCarEvents={safetyCarEvents}
-        flagEvents={flagEvents}
+        safetyCarEvents={[]}
+        flagEvents={[]}
       />
       
       <style jsx>{`
