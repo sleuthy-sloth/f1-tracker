@@ -519,52 +519,92 @@ function StrategyLabContent() {
           <Card variant="glass" padding="sm" className="py-2 px-4">
             <div className="text-[10px] uppercase tracking-wider text-f1-silver">Frames</div>
             <div className="text-lg font-heading font-bold text-f1-white">{engine.totalFrames}</div>
-          </Card>
-          {engine.timeRange && (
-            <Card variant="glass" padding="sm" className="py-2 px-4">
-              <div className="text-[10px] uppercase tracking-wider text-f1-silver">Duration</div>
-              <div className="text-lg font-heading font-bold text-f1-white">
-                {formatTime(engine.timeRange.end - engine.timeRange.start)}
+          <Link
+            href="/archive"
+            className="p-2 hover:bg-white/5 rounded-lg transition-colors text-f1-silver hover:text-f1-white"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </Link>
+          <div className="h-8 w-px bg-white/10" />
+          <div>
+            <h1 className="text-lg font-heading font-bold text-f1-white tracking-wider flex items-center gap-2">
+              <span className="text-f1-red">STRATEGY</span> LAB
+            </h1>
+            <p className="text-[10px] text-f1-silver font-mono uppercase tracking-tighter">
+              {sessionInfo?.sessionName || 'Loading Session...'} • {sessionInfo?.year}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-6">
+          {isProcessing && (
+            <div className="flex items-center gap-3 px-3 py-1.5 bg-white/5 rounded-full border border-white/10">
+              <div className="flex gap-1">
+                <div className="w-1 h-3 bg-f1-red animate-pulse" />
+                <div className="w-1 h-3 bg-f1-red animate-pulse delay-75" />
+                <div className="w-1 h-3 bg-f1-red animate-pulse delay-150" />
               </div>
-            </Card>
+              <span className="text-[10px] font-mono text-f1-white/80 uppercase">
+                {processingMessage || 'Buffering Data'}
+              </span>
+            </div>
           )}
         </div>
       </header>
       
-      {/* Main content: Map + Side panels */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-        {/* Map area */}
-        <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
+      {/* Main content: 3-Column Layout */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-[#0a0c0f]">
+        {/* Left Sidebar: Leaderboard */}
+        <div className="w-full lg:w-[320px] xl:w-[360px] bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col overflow-hidden order-2 lg:order-1">
+          <div className="p-4 border-b border-white/10 flex items-center justify-between">
+            <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
+              <svg className="w-4 h-4 text-f1-red" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 18h2v2H4v-2zm0-4h2v2H4v-2zm0-4h2v2H4v-2zm0-4h2v2H4V6zm4 12h12v2H8v-2zm0-4h12v2H8v-2zm0-4h12v2H8v-2zm0-4h12v2H8V6z" />
+              </svg>
+              Live Leaderboard
+            </h2>
+          </div>
+          <div className="flex-1 overflow-hidden flex flex-col">
+            <Leaderboard
+              drivers={drivers}
+              currentFrame={engine.currentFrame}
+              stints={stints}
+              selectedDriverNumber={selectedDriverNumber}
+              onSelectDriver={handleSelectDriver}
+            />
+          </div>
+        </div>
+
+        {/* Center Column: Main Map */}
+        <div className="flex-1 relative min-h-[40vh] lg:min-h-0 order-1 lg:order-2 border-b lg:border-b-0 border-white/10">
           {isLoading && (
             <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-30 backdrop-blur-sm">
               <div className="w-10 h-10 border-4 border-f1-cyan/30 border-t-f1-cyan rounded-full animate-spin mb-4" />
               <span className="text-f1-white font-heading font-bold text-lg mb-2">Initializing Map</span>
-              <span className="text-f1-silver font-mono text-sm h-5">Loading session data...</span>
             </div>
           )}
-          {/* Base 2D Map (Guaranteed Fallback) */}
+
           <div className="w-full h-full absolute inset-0 z-0">
-              <TrackMap
-                trackLayout={{
-                  circuit_key: circuitKey,
-                  circuit_name: sessionInfo?.sessionName || 'Circuit',
-                  coordinates: trackCoordinates,
-                }}
-                driverPositions={engine.currentFrame?.driver_positions || []}
-                drivers={drivers}
-                selectedDriver={selectedDriverNumber ?? undefined}
-                safetyCar={engine.currentFrame?.safety_car ?? undefined}
-                className="w-full h-full"
-                width={800}
-                height={500}
-              />
+            <TrackMap
+              trackLayout={{
+                circuit_key: circuitKey,
+                circuit_name: sessionInfo?.sessionName || 'Circuit',
+                coordinates: trackCoordinates,
+              }}
+              driverPositions={engine.currentFrame?.driver_positions || []}
+              drivers={drivers}
+              selectedDriver={selectedDriverNumber ?? undefined}
+              safetyCar={engine.currentFrame?.safety_car ?? undefined}
+              className="w-full h-full"
+              width={800}
+              height={500}
+            />
           </div>
 
-          {/* Satellite Map (Fades in over 2D map when ready) */}
           {!mapError && (
-            <MapErrorBoundary
-              fallback={null} // Error handled by parent mapError state
-            >
+            <MapErrorBoundary fallback={null}>
               <SatelliteTrackMap
                 circuitKey={circuitKey}
                 trackCoordinates={trackCoordinates}
@@ -579,14 +619,15 @@ function StrategyLabContent() {
             </MapErrorBoundary>
           )}
           
-          {/* Frame counter badge */}
-          {engine.currentFrame && (
-            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono z-20">
-              Frame {engine.currentIndex + 1}/{engine.totalFrames}
-            </div>
-          )}
+          {/* Badge overlays */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-2 z-20">
+            {engine.currentFrame && (
+              <div className="bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono border border-white/10">
+                Frame {engine.currentIndex + 1}/{engine.totalFrames}
+              </div>
+            )}
+          </div>
           
-          {/* Processing status badge */}
           {isProcessing && !isLoading && (
             <div className="absolute bottom-4 right-4 bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2 z-20">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
@@ -596,7 +637,6 @@ function StrategyLabContent() {
             </div>
           )}
           
-          {/* Telemetry HUD floating over map */}
           <div className="absolute top-4 right-4 max-w-[calc(100%-2rem)] z-20">
             <TelemetryHUD
               drivers={drivers}
@@ -605,73 +645,81 @@ function StrategyLabContent() {
             />
           </div>
         </div>
-        
-        {/* Side panel */}
-        <div className="w-full lg:w-96 max-h-[50vh] lg:max-h-none border-t lg:border-t-0 lg:border-l border-white/[0.07] overflow-y-auto custom-scrollbar">
-          <div className="p-3 space-y-2 lg:space-y-3">
-            {/* Leaderboard */}
-            <Leaderboard
-              drivers={drivers}
-              currentFrame={engine.currentFrame}
-              stints={stints}
-              selectedDriverNumber={selectedDriverNumber}
-              onSelectDriver={handleSelectDriver}
-            />
-            
-            {/* Gap Chart */}
-            <GapChart
-              currentFrame={engine.currentFrame}
-              drivers={drivers}
-              selectedDriverNumbers={selectedDriverNumbers}
-            />
-            
-            {/* Lap Time Display */}
-            <LapTimeDisplay
-              currentFrame={engine.currentFrame}
-              totalLaps={totalLaps}
-              sessionStartTimestamp={engine.timeRange?.start || null}
-            />
-            
-            {/* Tyre Widget */}
-            <TyreWidget
-              drivers={drivers}
-              stints={stints}
-              currentLap={engine.currentFrame?.lap || 1}
-              selectedDriverNumber={selectedDriverNumber}
-              onSelectDriver={handleSelectDriver}
-            />
-            
-            {/* Weather Radar */}
-            <WeatherRadar currentFrame={engine.currentFrame} />
-            
-            {/* Race Control Feed */}
-            <RaceControlFeed currentFrame={engine.currentFrame} maxMessages={30} />
-            
-            {/* Pit Stop Indicator */}
-            <PitStopIndicator
-              drivers={drivers}
-              pitStops={pitStops}
-              stints={stints}
-              currentLap={engine.currentFrame?.lap || 1}
-              maxEvents={20}
-            />
-            
-            {/* Safety Car */}
-            <SafetyCar currentFrame={engine.currentFrame} />
-            
-            {/* Pit Window Widget */}
-            <PitWindowWidget
-              drivers={drivers}
-              stints={stints}
-              currentLap={engine.currentFrame?.lap || 1}
-              totalLaps={totalLaps}
-              selectedDriverNumber={selectedDriverNumber}
-            />
+
+        {/* Right Column: Strategy Hub */}
+        <div className="w-full lg:w-[360px] xl:w-[400px] bg-black/40 backdrop-blur-md border-l border-white/10 flex flex-col overflow-hidden order-3">
+          <div className="p-4 border-b border-white/10">
+            <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
+              <svg className="w-4 h-4 text-f1-cyan" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
+              </svg>
+              Strategy Hub
+            </h2>
+          </div>
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+            <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+              <div className="px-4 py-2 border-b border-white/10 bg-white/5">
+                <h3 className="text-[10px] font-bold text-f1-silver uppercase tracking-widest">Interval Analysis</h3>
+              </div>
+              <div className="p-2">
+                <GapChart
+                  currentFrame={engine.currentFrame}
+                  drivers={drivers}
+                  selectedDriverNumbers={selectedDriverNumber ? [selectedDriverNumber] : []}
+                />
+              </div>
+            </div>
+
+            <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+              <div className="px-4 py-2 border-b border-white/10 bg-white/5">
+                <h3 className="text-[10px] font-bold text-f1-silver uppercase tracking-widest">Race Progress</h3>
+              </div>
+              <div className="p-2">
+                <LapTimeDisplay
+                  currentFrame={engine.currentFrame}
+                  totalLaps={sessionInfo?.totalLaps || 50}
+                  sessionStartTimestamp={engine.timeRange?.start || null}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              <TyreWidget 
+                drivers={drivers}
+                stints={stints} 
+                currentLap={engine.currentFrame?.lap || 1}
+                selectedDriverNumber={selectedDriverNumber}
+                onSelectDriver={handleSelectDriver}
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <WeatherRadar currentFrame={engine.currentFrame} />
+                <SafetyCar currentFrame={engine.currentFrame} />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <RaceControlFeed currentFrame={engine.currentFrame} />
+              <div className="grid grid-cols-1 gap-4">
+                <PitStopIndicator
+                  drivers={drivers}
+                  pitStops={pitStops}
+                  stints={stints}
+                  currentLap={engine.currentFrame?.lap || 1}
+                />
+              </div>
+              <PitWindowWidget
+                drivers={drivers}
+                stints={stints}
+                currentLap={engine.currentFrame?.lap || 1}
+                totalLaps={sessionInfo?.totalLaps || 50}
+                selectedDriverNumber={selectedDriverNumber}
+              />
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Timeline Controls at bottom */}
+      {/* Timeline Controls */}
       <TimelineControls
         engine={engine}
         safetyCarEvents={safetyCarEvents}
@@ -679,13 +727,6 @@ function StrategyLabContent() {
       />
       
       <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out;
-        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
@@ -693,35 +734,13 @@ function StrategyLabContent() {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.1);
           border-radius: 2px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(225, 6, 0, 0.8);
+          background: rgba(225, 6, 0, 0.5);
         }
       `}</style>
     </div>
-  );
-}
-
-/**
- * Main Strategy Lab page component with Suspense boundary
- */
-export default function StrategyLabPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-f1-carbon flex flex-col">
-        <header className="h-16 bg-surface border-b border-white/[0.07] flex items-center px-6">
-          <h1 className="text-lg font-heading font-bold text-f1-white tracking-wider">
-            STRATEGY LAB
-          </h1>
-        </header>
-        <main className="flex-1 flex items-center justify-center p-8">
-          <LoadingState />
-        </main>
-      </div>
-    }>
-      <StrategyLabContent />
-    </Suspense>
   );
 }

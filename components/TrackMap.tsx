@@ -6,7 +6,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import type { TrackLayout, DriverPosition, SafetyCarStatus } from '@/lib/types';
+import type { TrackLayout, DriverPosition, SafetyCarStatus, Driver } from '@/lib/types';
 import { normalizeTrackCoordinates, getSectorCoordinates, getCircuitBounds } from '@/lib/track-map';
 
 /**
@@ -15,8 +15,16 @@ import { normalizeTrackCoordinates, getSectorCoordinates, getCircuitBounds } fro
 interface TrackMapProps {
   /** Track layout data with circuit coordinates */
   trackLayout: TrackLayout;
+  /** Array of driver positions for current frame */
+  driverPositions: DriverPosition[];
   /** Array of driver metadata (acronyms, colors) */
   drivers?: Driver[];
+  /** Optional: driver number to highlight */
+  selectedDriver?: number;
+  /** Optional: sector to highlight (1, 2, or 3) */
+  activeSector?: 1 | 2 | 3;
+  /** Optional: safety car status and position */
+  safetyCar?: SafetyCarStatus;
   /** Optional: additional CSS classes */
   className?: string;
   /** Canvas width in pixels (default: 800) */
