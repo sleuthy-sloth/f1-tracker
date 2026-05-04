@@ -316,15 +316,15 @@ function StrategyLabContent() {
               }
               setSafetyCarEvents(scEvents);
               setFlagEvents(flEvents);
-              
-              setIsProcessing(false);
-              worker.terminate();
-            } else if (e.data.type === 'ERROR') {
-              console.error('Worker error:', e.data.error);
-              setError('Telemetry processing failed');
-              setIsProcessing(false);
-              worker.terminate();
             }
+            
+            setIsProcessing(false);
+            worker.terminate();
+          } else if (e.data.type === 'ERROR') {
+            console.error('Worker error:', e.data.error);
+            setError('Telemetry processing failed');
+            setIsProcessing(false);
+            worker.terminate();
           }
         };
         
