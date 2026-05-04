@@ -29,12 +29,19 @@ export function projectToLatLng(
   refLat: number,
   refLng: number
 ): [number, number] {
+  // Safety check: ensure all inputs are valid numbers
+  if (isNaN(x) || isNaN(y) || isNaN(refLat) || isNaN(refLng)) {
+    return [refLng || 0, refLat || 0];
+  }
+
   // Convert reference lat to radians
   const refLatRad = (refLat * Math.PI) / 180;
   
   // Meters to radians at this latitude
   const radPerMeterLat = 1 / EARTH_RADIUS;
-  const radPerMeterLng = 1 / (EARTH_RADIUS * Math.cos(refLatRad));
+  // Prevent division by zero at poles (though unlikely for F1 tracks)
+  const cosRefLat = Math.max(0.001, Math.cos(refLatRad));
+  const radPerMeterLng = 1 / (EARTH_RADIUS * cosRefLat);
   
   // Offset in radians, then convert to degrees
   const latOffsetRad = y * radPerMeterLat;
@@ -62,7 +69,10 @@ export function projectTrackToGeoJSON(
   refLat: number,
   refLng: number
 ): [number, number][] {
-  return coords.map((c) => projectToLatLng(c.x, c.y, refLat, refLng));
+  if (!coords || !Array.isArray(coords)) return [];
+  return coords
+    .filter(c => c && typeof c.x === 'number' && typeof c.y === 'number')
+    .map((c) => projectToLatLng(c.x, c.y, refLat, refLng));
 }
 
 /**

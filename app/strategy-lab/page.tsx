@@ -133,6 +133,7 @@ function StrategyLabContent() {
   
   // State
   const [isLoading, setIsLoading] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [drivers, setDrivers] = useState<Driver[]>([]);
@@ -238,12 +239,18 @@ function StrategyLabContent() {
         });
         setCircuitKey(circuitKeyValue);
         
+        // Mark initial metadata as loaded so map can start
+        setIsLoading(false);
+        setIsProcessing(true);
+        
+        console.log(`Initial session info loaded for ${session.session_name}. Fetching telemetry...`);
+        
         // Step 3: Fetch raw race data components
         const rawData = await fetchRawRaceData(sessionKey);
         
         if (!rawData || rawData.drivers.length === 0) {
           setError('No replay data available for this session');
-          setIsLoading(false);
+          setIsProcessing(false);
           return;
         }
         
@@ -309,15 +316,15 @@ function StrategyLabContent() {
               }
               setSafetyCarEvents(scEvents);
               setFlagEvents(flEvents);
+              
+              setIsProcessing(false);
+              worker.terminate();
+            } else if (e.data.type === 'ERROR') {
+              console.error('Worker error:', e.data.error);
+              setError('Telemetry processing failed');
+              setIsProcessing(false);
+              worker.terminate();
             }
-            
-            setIsLoading(false);
-            worker.terminate();
-          } else if (e.data.type === 'ERROR') {
-            console.error('Worker error:', e.data.error);
-            setError('Telemetry processing failed');
-            setIsLoading(false);
-            worker.terminate();
           }
         };
         
@@ -328,12 +335,12 @@ function StrategyLabContent() {
             setSelectedDriverNumber(driverNum);
           }
         }
-        
-        setIsLoading(false);
+        }
       } catch (err) {
         console.error('Error loading session:', err);
         setError('Failed to load session data');
         setIsLoading(false);
+        setIsProcessing(false);
       }
     }
     
@@ -494,8 +501,14 @@ function StrategyLabContent() {
         {/* Map area */}
         <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
           {!engine.currentFrame && (
-            <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
-              <span className="text-f1-silver font-mono text-sm">Initializing replay...</span>
+            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-10 backdrop-blur-sm">
+              <div className="w-10 h-10 border-4 border-f1-cyan/30 border-t-f1-cyan rounded-full animate-spin mb-4" />
+              <span className="text-f1-white font-heading font-bold text-lg mb-2">
+                {isProcessing ? 'Processing Telemetry' : 'Initializing Map'}
+              </span>
+              <span className="text-f1-silver font-mono text-sm">
+                {isProcessing ? 'Streaming race data from OpenF1...' : 'Synchronizing track coordinates...'}
+              </span>
             </div>
           )}
           <SatelliteTrackMap

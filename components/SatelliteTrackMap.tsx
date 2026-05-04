@@ -60,7 +60,7 @@ export function SatelliteTrackMap({
   height = 500,
 }: SatelliteTrackMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<Map | null>(null);
+  const [map, setMap] = useState<Map | null>(null);
   const [mapState, setMapState] = useState<MapState>({ isLoading: true, hasError: false });
 
   // Build driver lookup map for team color and name lookup
@@ -93,7 +93,7 @@ export function SatelliteTrackMap({
 
     const [centerLng, centerLat] = getCircuitCenter();
 
-    const map = new Map({
+    const mapInstance = new Map({
       container: mapContainerRef.current,
       style: {
         version: 8,
@@ -111,12 +111,12 @@ export function SatelliteTrackMap({
       interactive: false,
     });
 
-    mapRef.current = map;
+    setMap(mapInstance);
 
-    map.on('load', () => {
+    mapInstance.on('load', () => {
       // Add ESRI World Imagery raster source
-      if (!map.getSource('esri-imagery')) {
-        map.addSource('esri-imagery', {
+      if (!mapInstance.getSource('esri-imagery')) {
+        mapInstance.addSource('esri-imagery', {
           type: 'raster',
           tiles: [
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -127,8 +127,8 @@ export function SatelliteTrackMap({
       }
 
       // Add the raster layer
-      if (!map.getLayer('esri-imagery-layer')) {
-        map.addLayer({
+      if (!mapInstance.getLayer('esri-imagery-layer')) {
+        mapInstance.addLayer({
           id: 'esri-imagery-layer',
           type: 'raster',
           source: 'esri-imagery',
@@ -139,8 +139,8 @@ export function SatelliteTrackMap({
       }
 
       // Add dark overlay for better contrast with HUD
-      if (!map.getSource('dark-overlay')) {
-        map.addSource('dark-overlay', {
+      if (!mapInstance.getSource('dark-overlay')) {
+        mapInstance.addSource('dark-overlay', {
           type: 'raster',
           tiles: [
             'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
@@ -150,8 +150,8 @@ export function SatelliteTrackMap({
         });
       }
 
-      if (!map.getLayer('dark-overlay-layer')) {
-        map.addLayer({
+      if (!mapInstance.getLayer('dark-overlay-layer')) {
+        mapInstance.addLayer({
           id: 'dark-overlay-layer',
           type: 'raster',
           source: 'dark-overlay',
@@ -164,21 +164,20 @@ export function SatelliteTrackMap({
       setMapState({ isLoading: false, hasError: false });
     });
 
-    map.on('error', (e) => {
+    mapInstance.on('error', (e) => {
       console.error('MapLibre error:', e);
       setMapState({ isLoading: false, hasError: true, errorMessage: 'Map failed to load' });
     });
 
     return () => {
-      map.remove();
-      mapRef.current = null;
+      mapInstance.remove();
+      setMap(null);
     };
   }, [circuitKey, getCircuitCenter]);
 
   // Add circuit track layer
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map || map.isStyleLoaded() === false) return;
+    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
     if (!trackCoordinates.length) return;
 
     const [centerLng, centerLat] = getCircuitCenter();
@@ -218,12 +217,11 @@ export function SatelliteTrackMap({
         },
       });
     }
-  }, [trackCoordinates, getCircuitCenter]);
+  }, [map, mapState.isLoading, trackCoordinates, getCircuitCenter]);
 
   // Add/update driver layers
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map || map.isStyleLoaded() === false) return;
+    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
 
     const [centerLng, centerLat] = getCircuitCenter();
     // Enrich driver positions with team color and name acronym before building GeoJSON
@@ -310,11 +308,10 @@ export function SatelliteTrackMap({
         },
       });
     }
-  }, [driverPositions, selectedDriver, getCircuitCenter, driverLookup]);
+  }, [map, mapState.isLoading, driverPositions, selectedDriver, getCircuitCenter, driverLookup]);
 
   // Update selected driver filter
   useEffect(() => {
-    const map = mapRef.current;
     if (!map || !map.getLayer('driver-selected')) return;
 
     map.setFilter('driver-selected', [
@@ -322,12 +319,11 @@ export function SatelliteTrackMap({
       ['get', 'driver_number'],
       selectedDriver ?? -1,
     ]);
-  }, [selectedDriver]);
+  }, [map, selectedDriver]);
 
   // Safety car layer
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map || map.isStyleLoaded() === false) return;
+    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
 
     // Remove existing safety car layer
     if (map.getLayer('safety-car')) {
@@ -372,11 +368,10 @@ export function SatelliteTrackMap({
         'circle-stroke-width': 2,
       },
     });
-  }, [safetyCar, getCircuitCenter]);
+  }, [map, mapState.isLoading, safetyCar, getCircuitCenter]);
 
   // Resize observer
   useEffect(() => {
-    const map = mapRef.current;
     if (!map || !mapContainerRef.current) return;
 
     const resizeObserver = new ResizeObserver(() => {
@@ -388,7 +383,7 @@ export function SatelliteTrackMap({
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [map]);
 
   // Handle empty/loading states
   if (circuitKey === 0) {

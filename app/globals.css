@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   /* SectorOne Brand Colors - Refined for "Functional Premium" */
   --color-primary: #e10600; /* Ferrari Red */
   --color-primary-container: rgba(225, 6, 0, 0.15);
@@ -8,84 +8,98 @@
   --color-tertiary: #ff8000;  /* McLaren Orange */
   
   /* Surface Colors - Near-black HUD Palette */
-  --surface: #161a20;
-  --surface-dim: #0e1014;
-  --surface-bright: #1e232b;
-  --surface-container-lowest: #0a0c10;
-  --surface-container-low: #111418;
-  --surface-container: #181c22;
-  --surface-container-high: #1e2330;
-  --surface-container-highest: #252c38;
+  --color-surface: #161a20;
+  --color-surface-dim: #0e1014;
+  --color-surface-bright: #1e232b;
+  --color-surface-container-lowest: #0a0c10;
+  --color-surface-container-low: #111418;
+  --color-surface-container: #181c22;
+  --color-surface-container-high: #1e2330;
+  --color-surface-container-highest: #252c38;
   
   /* Text Colors - High Contrast */
-  --on-surface: #f5f5f5;
-  --on-surface-variant: #a0a0a0;
-  --on-background: #f5f5f5;
-  --on-primary: #ffffff;
+  --color-on-surface: #f5f5f5;
+  --color-on-surface-variant: #a0a0a0;
+  --color-on-background: #f5f5f5;
+  --color-on-primary: #ffffff;
   
   /* Accent Colors */
   --color-accent: #6366f1;
-  --color-cyan-accent: var(--color-accent); /* Alias for backward compatibility */
-  --outline: rgba(255, 255, 255, 0.1);
-  --outline-variant: rgba(255, 255, 255, 0.05);
+  --color-cyan-accent: var(--color-accent);
+  --color-outline: rgba(255, 255, 255, 0.1);
+  --color-outline-variant: rgba(255, 255, 255, 0.05);
   
   /* F1 Team Colors */
-  --team-redbull: #3671C6;
-  --team-ferrari: #E8002D;
-  --team-mercedes: #27f4d2;
-  --team-mclaren: #FF8000;
-  --team-aston: #00594F;
-  --team-williams: #005AFF;
-  --team-haas: #b6babd;
-  --team-rb: #4E7FCD;
-  --team-alpine: #ff87bc;
-  --team-sauber: #00E700;
+  --color-team-redbull: #3671C6;
+  --color-team-ferrari: #E8002D;
+  --color-team-mercedes: #27f4d2;
+  --color-team-mclaren: #FF8000;
+  --color-team-aston: #00594F;
+  --color-team-williams: #005AFF;
+  --color-team-haas: #b6babd;
+  --color-team-rb: #4E7FCD;
+  --color-team-alpine: #ff87bc;
+  --color-team-sauber: #00E700;
 
-  /* Effects */
-  --neon-glow-red: 0 0 10px rgba(225, 6, 0, 0.4), 0 0 20px rgba(225, 6, 0, 0.2);
-  --neon-glow-white: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
-  --glow-accent: 0 0 8px rgba(99, 102, 241, 0.3), 0 0 16px rgba(99, 102, 241, 0.1);
-  --neon-glow-cyan: var(--glow-accent); /* Alias */
-  --neon-glow-yellow: 0 0 10px rgba(255, 251, 0, 0.4), 0 0 20px rgba(255, 251, 0, 0.2);
-  --neon-glow-green: 0 0 10px rgba(34, 197, 94, 0.4), 0 0 20px rgba(34, 197, 94, 0.2);
-}
-
-@theme inline {
-  --color-primary: var(--color-primary);
-  --color-primary-container: var(--color-primary-container);
-  --color-secondary: var(--color-secondary);
-  --color-tertiary: var(--color-tertiary);
-  --color-accent: var(--color-accent);
-  --color-cyan-accent: var(--color-accent);
-  
-  --color-surface: var(--surface);
-  --color-surface-dim: var(--surface-dim);
-  --color-surface-bright: var(--surface-bright);
-  --color-surface-container: var(--surface-container);
-  --color-surface-container-high: var(--surface-container-high);
-  
-  --color-on-surface: var(--on-surface);
-  --color-on-surface-variant: var(--on-surface-variant);
-  
+  /* Legacy / Specific Mappings */
   --color-f1-red: var(--color-primary);
-  --color-f1-carbon: var(--surface);
-  --color-f1-dark: var(--surface-dim);
-  --color-f1-silver: var(--on-surface-variant);
-  --color-f1-white: var(--on-surface);
+  --color-f1-carbon: var(--color-surface);
+  --color-f1-dark: var(--color-surface-dim);
+  --color-f1-silver: var(--color-on-surface-variant);
+  --color-f1-white: var(--color-on-surface);
 
+  /* Backward Compatibility Aliases */
+  --surface: var(--color-surface);
+  --surface-dim: var(--color-surface-dim);
+  --surface-bright: var(--color-surface-bright);
+  --surface-container-lowest: var(--color-surface-container-lowest);
+  --surface-container-low: var(--color-surface-container-low);
+  --surface-container: var(--color-surface-container);
+  --surface-container-high: var(--color-surface-container-high);
+  --surface-container-highest: var(--color-surface-container-highest);
+  --on-surface: var(--color-on-surface);
+  --on-surface-variant: var(--color-on-surface-variant);
+  --outline: var(--color-outline);
+  --outline-variant: var(--color-outline-variant);
+
+  /* Team Aliases */
+  --team-redbull: var(--color-team-redbull);
+  --team-ferrari: var(--color-team-ferrari);
+  --team-mercedes: var(--color-team-mercedes);
+  --team-mclaren: var(--color-team-mclaren);
+  --team-aston: var(--color-team-aston);
+  --team-williams: var(--color-team-williams);
+  --team-haas: var(--color-team-haas);
+  --team-rb: var(--color-team-rb);
+  --team-alpine: var(--color-team-alpine);
+  --team-sauber: var(--color-team-sauber);
+
+  /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui;
   --font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
+  /* Spacing & Radius */
   --radius-xl: 12px;
   --radius-2xl: 16px;
+
+  /* Effects - Effects in @theme will be available as CSS variables */
+  --neon-glow-red: 0 0 10px rgba(225, 6, 0, 0.4), 0 0 20px rgba(225, 6, 0, 0.2);
+  --neon-glow-white: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+  --glow-accent: 0 0 8px rgba(99, 102, 241, 0.3), 0 0 16px rgba(99, 102, 241, 0.1);
+  --neon-glow-cyan: var(--glow-accent);
+  --neon-glow-yellow: 0 0 10px rgba(255, 251, 0, 0.4), 0 0 20px rgba(255, 251, 0, 0.2);
+  --neon-glow-green: 0 0 10px rgba(34, 197, 94, 0.4), 0 0 20px rgba(34, 197, 94, 0.2);
 }
+
 
 /* Base styles */
 body {
-  background: 
-    url('/hex-pattern.svg') center / 60px 52px,
-    radial-gradient(circle at 50% -20%, #1e2330 0%, #0e1014 100%);
+  background-image: 
+    url('/hex-pattern.svg'),
+    radial-gradient(circle at 50% -20%, #1e2330 0%, var(--surface-dim) 100%);
+  background-position: center, 0 0;
+  background-size: 60px 52px, 100% 100%;
   background-attachment: fixed;
   color: var(--on-surface);
   font-family: var(--font-inter);
