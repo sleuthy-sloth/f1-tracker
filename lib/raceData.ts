@@ -185,7 +185,11 @@ function estimateLap(
 /**
  * Fetch raw data components for a race session
  */
-export async function fetchRawRaceData(sessionKey: number) {
+export async function fetchRawRaceData(
+  sessionKey: number, 
+  onProgress?: (msg: string) => void
+) {
+  if (onProgress) onProgress('Fetching driver list...');
   const drivers = await getDrivers({ session_key: sessionKey } as any).catch((err) => {
     console.error('Error fetching drivers:', err);
     return [] as Driver[];
@@ -193,6 +197,11 @@ export async function fetchRawRaceData(sessionKey: number) {
 
   if (drivers.length === 0) return null;
 
+  const totalDrivers = drivers.length;
+  let completedDrivers = 0;
+
+  // We fetch driver data in parallel but with a small limit if needed
+  // For now, Promise.all is fine but we track completion
   const perDriverResults = await Promise.all(
     drivers.map(async (driver) => {
       const dn = driver.driver_number;
@@ -200,6 +209,12 @@ export async function fetchRawRaceData(sessionKey: number) {
         getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
         getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
       ]);
+      
+      completedDrivers++;
+      if (onProgress) {
+        onProgress(`Fetching telemetry: ${completedDrivers}/${totalDrivers} (${driver.name_acronym})`);
+      }
+      
       return { driverNumber: dn, locations: locs, carData: cars };
     })
   );
@@ -211,6 +226,8 @@ export async function fetchRawRaceData(sessionKey: number) {
     if (result.locations.length > 0) locationByDriver.set(result.driverNumber, result.locations);
     if (result.carData.length > 0) carDataByDriver.set(result.driverNumber, result.carData);
   }
+
+  if (onProgress) onProgress('Fetching weather and race control messages...');
 
   const [weatherData, raceControlData] = await Promise.all([
     getWeather({ session_key: sessionKey }).catch(() => [] as WeatherData[]),

@@ -134,6 +134,7 @@ function StrategyLabContent() {
   // State
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processingMessage, setProcessingMessage] = useState('Initializing...');
   const [error, setError] = useState<string | null>(null);
   const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
   const [drivers, setDrivers] = useState<Driver[]>([]);
@@ -246,7 +247,9 @@ function StrategyLabContent() {
         console.log(`Initial session info loaded for ${session.session_name}. Fetching telemetry...`);
         
         // Step 3: Fetch raw race data components
-        const rawData = await fetchRawRaceData(sessionKey);
+        const rawData = await fetchRawRaceData(sessionKey, (msg) => {
+          setProcessingMessage(msg);
+        });
         
         if (!rawData || rawData.drivers.length === 0) {
           setError('No replay data available for this session');
@@ -257,6 +260,7 @@ function StrategyLabContent() {
         setDrivers(rawData.drivers);
         
         // Step 4: Offload heavy processing to Web Worker
+        setProcessingMessage('Synchronizing timeline...');
         console.log('Offloading race data processing to worker...');
         const worker = new Worker('/workers/race-data-worker.js');
         
@@ -505,8 +509,8 @@ function StrategyLabContent() {
               <span className="text-f1-white font-heading font-bold text-lg mb-2">
                 {isProcessing ? 'Processing Telemetry' : 'Initializing Map'}
               </span>
-              <span className="text-f1-silver font-mono text-sm">
-                {isProcessing ? 'Streaming race data from OpenF1...' : 'Synchronizing track coordinates...'}
+              <span className="text-f1-silver font-mono text-sm h-5">
+                {isProcessing ? processingMessage : 'Synchronizing track coordinates...'}
               </span>
             </div>
           )}
