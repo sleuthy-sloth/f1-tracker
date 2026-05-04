@@ -1,10 +1,9 @@
 {
   "version": 1,
   "taskId": "2.4",
-  "declaredAt": 1777865384991,
-  "expiresAt": 1777951784991,
+  "declaredAt": 1777913014698,
+  "expiresAt": 1777999414698,
   "files": [
-    "components/RosterEditor.tsx",
-    "app/fantasy/page.tsx"
+    "lib/circuit-lookup.ts"
   ]
 }

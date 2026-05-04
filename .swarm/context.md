@@ -4,29 +4,29 @@
 
 | Tool | Calls | Success | Failed | Avg Duration |
 |------|-------|---------|--------|--------------|
-| read | 369 | 369 | 0 | 27ms |
-| bash | 356 | 356 | 0 | 2273ms |
-| update_task_status | 121 | 121 | 0 | 10ms |
-| edit | 103 | 103 | 0 | 3072ms |
-| glob | 97 | 97 | 0 | 39ms |
+| read | 391 | 391 | 0 | 26ms |
+| bash | 361 | 361 | 0 | 2247ms |
+| update_task_status | 128 | 128 | 0 | 10ms |
+| edit | 111 | 111 | 0 | 3213ms |
+| glob | 99 | 99 | 0 | 39ms |
 | grep | 82 | 82 | 0 | 24ms |
 | write | 80 | 80 | 0 | 2274ms |
-| task | 64 | 64 | 0 | 169253ms |
-| declare_scope | 38 | 38 | 0 | 6ms |
+| task | 65 | 65 | 0 | 171405ms |
+| declare_scope | 42 | 42 | 0 | 5ms |
+| todowrite | 27 | 27 | 0 | 8ms |
 | search | 26 | 26 | 0 | 1569ms |
-| todowrite | 22 | 22 | 0 | 8ms |
-| pre_check_batch | 18 | 18 | 0 | 1710ms |
-| save_plan | 10 | 10 | 0 | 26ms |
+| pre_check_batch | 21 | 21 | 0 | 1728ms |
+| save_plan | 11 | 11 | 0 | 25ms |
 | check_gate_status | 10 | 10 | 0 | 4ms |
-| phase_complete | 9 | 9 | 0 | 16714ms |
+| phase_complete | 10 | 10 | 0 | 21374ms |
 | syntax_check | 9 | 9 | 0 | 37ms |
 | set_qa_gates | 7 | 7 | 0 | 7ms |
 | test_runner | 7 | 7 | 0 | 1372ms |
+| diff | 7 | 7 | 0 | 134ms |
 | lint | 6 | 6 | 0 | 3123ms |
 | write_retro | 6 | 6 | 0 | 11ms |
 | get_approved_plan | 6 | 6 | 0 | 15ms |
 | write_drift_evidence | 6 | 6 | 0 | 24ms |
-| diff | 6 | 6 | 0 | 139ms |
 | req_coverage | 5 | 5 | 0 | 6ms |
 | knowledge_add | 5 | 5 | 0 | 24ms |
 | build_check | 4 | 4 | 0 | 4492ms |

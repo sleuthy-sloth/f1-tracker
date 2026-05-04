@@ -157,6 +157,14 @@ export function SatelliteTrackMap({
 
       mapRef.current = mapInstance;
 
+      // Detect zero-dimension container (hidden/not yet laid out)
+      if (mapContainerRef.current &&
+          (mapContainerRef.current.clientWidth === 0 || mapContainerRef.current.clientHeight === 0)) {
+        console.warn('[SatelliteTrackMap] Map container has zero dimensions, will retry on resize');
+      }
+
+      let tileTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
       mapInstance.on('load', () => {
         console.log('[SatelliteTrackMap] Map style loaded');
         
@@ -195,6 +203,35 @@ export function SatelliteTrackMap({
 
         setMapLoaded(true);
         setMapState({ isLoading: false, hasError: false });
+
+        // Set a tile loading timeout — if tiles fail to load within 15s, trigger fallback
+        tileTimeoutId = setTimeout(() => {
+          const container = mapContainerRef.current;
+          if (!container) return;
+          // Check if the map canvas has actual rendered content (tiles loaded)
+          const canvas = container.querySelector('canvas');
+          if (canvas && canvas.width > 0 && canvas.height > 0) {
+            // Canvas exists but tiles may not have rendered — check pixel content
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            if (ctx) {
+              try {
+                const centerPixel = ctx.getImageData(
+                  Math.floor(canvas.width / 2),
+                  Math.floor(canvas.height / 2),
+                  1, 1
+                ).data;
+                // If center pixel is pure background (#0a0a0a = R:10, G:10, B:10), tiles likely failed
+                if (centerPixel[0] <= 15 && centerPixel[1] <= 15 && centerPixel[2] <= 15) {
+                  console.warn('[SatelliteTrackMap] Tile loading timeout — map appears blank, triggering fallback');
+                  // Don't set internal error — let the parent's onError handle it
+                  onErrorRef.current?.();
+                }
+              } catch {
+                // Canvas readback may fail in cross-origin contexts, skip check
+              }
+            }
+          }
+        }, 15000);
       });
 
       mapInstance.on('error', (e) => {
@@ -208,6 +245,7 @@ export function SatelliteTrackMap({
 
       return () => {
         console.log('[SatelliteTrackMap] Cleaning up map instance');
+        if (tileTimeoutId) clearTimeout(tileTimeoutId);
         mapInstance.remove();
         mapRef.current = null;
         setMapLoaded(false);

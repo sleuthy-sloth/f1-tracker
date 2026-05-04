@@ -32,6 +32,7 @@ const DEFAULT_WINDOW_MS = 1000; // 1 second window
 const MAX_RETRIES = 3;
 const INITIAL_BACKOFF_MS = 1000;
 const MAX_BACKOFF_MS = 30000;
+const REQUEST_TIMEOUT_MS = 30000; // 30s timeout to prevent hanging requests
 
 // ============================================================================
 // Error Types
@@ -142,12 +143,22 @@ async function fetchOpenF1<T>(
       // Acquire rate limit permission before making request
       await rateLimiter.acquire();
 
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+      // Use AbortController with timeout to prevent hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+      let response: Response;
+      try {
+        response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+          signal: controller.signal,
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
       // Handle rate limiting (429)
       if (response.status === 429) {

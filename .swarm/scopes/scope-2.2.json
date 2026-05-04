@@ -1,9 +1,9 @@
 {
   "version": 1,
   "taskId": "2.2",
-  "declaredAt": 1777865275980,
-  "expiresAt": 1777951675980,
+  "declaredAt": 1777912860131,
+  "expiresAt": 1777999260131,
   "files": [
-    "app/api/data/fantasy/route.ts"
+    "app/strategy-lab/page.tsx"
   ]
 }

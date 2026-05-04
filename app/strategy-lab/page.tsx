@@ -278,6 +278,80 @@ function StrategyLabContent() {
         rawData.locationByDriver.forEach((val, key) => { locationObj[key] = val; });
         rawData.carDataByDriver.forEach((val, key) => { carObj[key] = val; });
 
+        // Set up handlers BEFORE postMessage to avoid race condition
+        worker.onerror = (e) => {
+          console.error('[StrategyLab] Worker load/runtime error:', e.message, e);
+          e.preventDefault();
+          setError('Telemetry processing failed: worker error');
+          setIsProcessing(false);
+          worker.terminate();
+        };
+
+        worker.onmessageerror = () => {
+          console.error('[StrategyLab] Worker message error (structured clone failure)');
+          setError('Telemetry processing failed: data transfer error');
+          setIsProcessing(false);
+          worker.terminate();
+        };
+
+        worker.onmessage = (e) => {
+          if (e.data.type === 'SUCCESS') {
+            const { replayFrames } = e.data.result;
+            
+            // Handle empty replay frames gracefully
+            if (!replayFrames || replayFrames.length === 0) {
+              console.warn('[StrategyLab] Worker produced 0 replay frames');
+              setError('No replay data available — no valid frames could be generated from this session');
+              setIsProcessing(false);
+              worker.terminate();
+              return;
+            }
+            
+            const newFrameBuffer = new FrameBuffer(replayFrames);
+            setFrameBuffer(newFrameBuffer);
+            
+            // Extract safety car and flag events from processed frames
+            const allMessages: RaceControlData[] = [];
+            for (const frame of replayFrames) {
+              if (frame.race_control_messages) {
+                allMessages.push(...frame.race_control_messages);
+              }
+            }
+            
+            const seen = new Set<string>();
+            const uniqueMessages: RaceControlData[] = [];
+            for (const msg of allMessages) {
+              const key = `${msg.date}-${msg.message}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                uniqueMessages.push(msg);
+              }
+            }
+            
+            const scEvents: RaceControlData[] = [];
+            const flEvents: RaceControlData[] = [];
+            for (const msg of uniqueMessages) {
+              const category = (msg.category || '').toUpperCase();
+              const flag = (msg.flag || '').toUpperCase();
+              if (category.includes('SAFETY CAR') || flag.includes('SCD') || flag.includes('SCR')) {
+                scEvents.push(msg);
+              } else if (flag === 'YELLOW' || flag === 'RED' || flag === 'GREEN') {
+                flEvents.push(msg);
+              }
+            }
+            setSafetyCarEvents(scEvents);
+            setFlagEvents(flEvents);
+            
+            setIsProcessing(false);
+            worker.terminate();
+          } else if (e.data.type === 'ERROR') {
+            console.error('[StrategyLab] Worker processing error:', e.data.error);
+            setError('Telemetry processing failed');
+            setIsProcessing(false);
+            worker.terminate();
+          }
+        };
+
         worker.postMessage({
           type: 'PROCESS_RACE_DATA',
           data: {
@@ -289,56 +363,6 @@ function StrategyLabContent() {
             frameIntervalMs: 200
           }
         });
-
-        worker.onmessage = (e) => {
-          if (e.data.type === 'SUCCESS') {
-            const { replayFrames } = e.data.result;
-            const newFrameBuffer = new FrameBuffer(replayFrames);
-            setFrameBuffer(newFrameBuffer);
-            
-            // Extract safety car and flag events from processed frames
-            if (replayFrames.length > 0) {
-              const allMessages: RaceControlData[] = [];
-              for (const frame of replayFrames) {
-                if (frame.race_control_messages) {
-                  allMessages.push(...frame.race_control_messages);
-                }
-              }
-              
-              const seen = new Set<string>();
-              const uniqueMessages: RaceControlData[] = [];
-              for (const msg of allMessages) {
-                const key = `${msg.date}-${msg.message}`;
-                if (!seen.has(key)) {
-                  seen.add(key);
-                  uniqueMessages.push(msg);
-                }
-              }
-              
-              const scEvents: RaceControlData[] = [];
-              const flEvents: RaceControlData[] = [];
-              for (const msg of uniqueMessages) {
-                const category = (msg.category || '').toUpperCase();
-                const flag = (msg.flag || '').toUpperCase();
-                if (category.includes('SAFETY CAR') || flag.includes('SCD') || flag.includes('SCR')) {
-                  scEvents.push(msg);
-                } else if (flag === 'YELLOW' || flag === 'RED' || flag === 'GREEN') {
-                  flEvents.push(msg);
-                }
-              }
-              setSafetyCarEvents(scEvents);
-              setFlagEvents(flEvents);
-            }
-            
-            setIsProcessing(false);
-            worker.terminate();
-          } else if (e.data.type === 'ERROR') {
-            console.error('Worker error:', e.data.error);
-            setError('Telemetry processing failed');
-            setIsProcessing(false);
-            worker.terminate();
-          }
-        };
         
         // Set initial driver from URL param
         if (driverParam) {
@@ -571,6 +595,16 @@ function StrategyLabContent() {
           {engine.currentFrame && (
             <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono z-10">
               Frame {engine.currentIndex + 1}/{engine.totalFrames}
+            </div>
+          )}
+          
+          {/* Processing status badge */}
+          {isProcessing && !isLoading && (
+            <div className="absolute bottom-4 right-4 bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2 z-10">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <span className="text-[10px] font-mono text-cyan-200/80 uppercase tracking-tight">
+                {processingMessage || 'Processing telemetry...'}
+              </span>
             </div>
           )}
           

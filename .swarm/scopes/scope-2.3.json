@@ -1,9 +1,9 @@
 {
   "version": 1,
   "taskId": "2.3",
-  "declaredAt": 1777865276986,
-  "expiresAt": 1777951676986,
+  "declaredAt": 1777912914543,
+  "expiresAt": 1777999314543,
   "files": [
-    "app/api/data/pu/route.ts"
+    "app/strategy-lab/page.tsx"
   ]
 }
