@@ -277,7 +277,7 @@ export function SatelliteTrackMap({
   // Update track layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapRef.current.isStyleLoaded() || !trackCoordinates.length) return;
+    if (!map || !map.isStyleLoaded() || !trackCoordinates.length) return;
 
     const center = getCircuitCenter();
     if (!center) return;
@@ -320,7 +320,7 @@ export function SatelliteTrackMap({
   // Update drivers layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapRef.current.isStyleLoaded()) return;
+    if (!map || !map.isStyleLoaded()) return;
 
     const center = getCircuitCenter();
     if (!center) return;
@@ -409,7 +409,7 @@ export function SatelliteTrackMap({
   // Safety Car layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapRef.current.isStyleLoaded() || !safetyCar || safetyCar.status === 'none') {
+    if (!map || !map.isStyleLoaded() || !safetyCar || safetyCar.status === 'none') {
       if (map && map.getLayer('safety-car')) map.setLayoutProperty('safety-car', 'visibility', 'none');
       return;
     }
