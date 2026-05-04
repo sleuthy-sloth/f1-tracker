@@ -32,6 +32,8 @@ export interface RaceDataServiceConfig {
   sessionKey: number;
   /** Frame interval in milliseconds (default: 200ms = 5 fps) */
   frameIntervalMs?: number;
+  /** Callback for progress updates */
+  onProgress?: (msg: string) => void;
 }
 
 /**
@@ -256,10 +258,10 @@ export async function fetchRawRaceData(
 export async function fetchRaceData(
   config: RaceDataServiceConfig
 ): Promise<RaceDataServiceResult> {
-  const { sessionKey, frameIntervalMs = DEFAULT_FRAME_INTERVAL_MS } = config;
+  const { sessionKey, frameIntervalMs = DEFAULT_FRAME_INTERVAL_MS, onProgress } = config;
 
   try {
-    const rawData = await fetchRawRaceData(sessionKey);
+    const rawData = await fetchRawRaceData(sessionKey, onProgress);
     if (!rawData || rawData.locationByDriver.size === 0) {
       return {
         frameBuffer: new FrameBuffer(),

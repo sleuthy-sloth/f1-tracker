@@ -108,25 +108,34 @@ function StrategyLabContent() {
         setStints(stintsData);
         setRaceControlMessages(raceControlData);
 
-        // 3. Fetch Track Coordinates (via first driver's location)
-        setProcessingMessage('Building track layout...');
-        // We fetch a sampling of locations for one driver to build the track map
-        const locations = await getLocation({ session_key: sessionKey });
-        if (locations.length > 0) {
-          // Filter for the first driver seen in the data to get a consistent lap path
-          const firstDriver = locations[0].driver_number;
-          const trackPoints = locations
-            .filter(loc => loc.driver_number === firstDriver)
-            .map(loc => ({ x: loc.x, y: loc.y }));
-          setTrackCoordinates(trackPoints);
-        }
-
-        // 4. Fetch Full Race Data (Telemetry + GPS)
+        // 3. Fetch Full Race Data (Telemetry + GPS) with progress tracking
         setProcessingMessage('Synchronizing telemetry streams...');
-        const result = await fetchRaceData({ sessionKey });
+        const result = await fetchRaceData({ 
+          sessionKey, 
+          onProgress: (msg) => setProcessingMessage(msg) 
+        });
         
         setDrivers(result.drivers);
         setFrameBuffer(result.frameBuffer);
+
+        // 4. Build Track Layout from synchronized data
+        // We use the full set of coordinates for one driver to represent the track
+        if (result.frameBuffer.length > 0) {
+          const allFrames = result.frameBuffer.getAll();
+          // Find the first driver with a complete set of points
+          const firstDriver = result.drivers[0]?.driver_number;
+          if (firstDriver) {
+            const trackPoints = allFrames
+              .map(frame => frame.driver_positions.find(dp => dp.driver_number === firstDriver))
+              .filter(Boolean)
+              .map(dp => ({ x: dp!.x, y: dp!.y }));
+            
+            // Only update if we found points to avoid clearing a valid background
+            if (trackPoints.length > 0) {
+              setTrackCoordinates(trackPoints);
+            }
+          }
+        }
         
       } catch (error) {
         console.error('Failed to load strategy lab data:', error);
