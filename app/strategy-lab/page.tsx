@@ -335,7 +335,6 @@ function StrategyLabContent() {
             setSelectedDriverNumber(driverNum);
           }
         }
-        }
       } catch (err) {
         console.error('Error loading session:', err);
         setError('Failed to load session data');
