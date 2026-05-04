@@ -132,135 +132,152 @@ export function SatelliteTrackMap({
       return;
     }
 
-    try {
-      const mapInstance = new Map({
-        container: mapContainerRef.current,
-        style: {
-          version: 8,
-          sources: {},
-          glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-          layers: [
-            {
-              id: 'background',
-              type: 'background',
-              paint: { 'background-color': '#0a0a0a' }
-            }
-          ],
-        },
-        center: center,
-        zoom: 15,
-        attributionControl: false,
-        dragRotate: false,
-        keyboard: false,
-        interactive: true, // Allow zoom/pan for better UX
-      });
+    // Initialize map logic
+    let mapInstance: Map | null = null;
+    let tileTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-      mapRef.current = mapInstance;
+    const initMap = () => {
+      if (!mapContainerRef.current || mapRef.current || circuitKey === 0) return;
 
-      // Detect zero-dimension container (hidden/not yet laid out)
-      if (mapContainerRef.current &&
-          (mapContainerRef.current.clientWidth === 0 || mapContainerRef.current.clientHeight === 0)) {
-        console.warn('[SatelliteTrackMap] Map container has zero dimensions, will retry on resize');
+      // Check dimensions
+      const width = mapContainerRef.current.clientWidth;
+      const height = mapContainerRef.current.clientHeight;
+      
+      if (width === 0 || height === 0) {
+        console.warn('[SatelliteTrackMap] Waiting for non-zero dimensions to initialize map...', { width, height });
+        return;
       }
 
-      let tileTimeoutId: ReturnType<typeof setTimeout> | null = null;
-
-      mapInstance.on('load', () => {
-        console.log('[SatelliteTrackMap] Map style loaded');
-        
-        // Add ESRI World Imagery raster source
-        mapInstance.addSource('esri-imagery', {
-          type: 'raster',
-          tiles: [
-            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-          ],
-          tileSize: 256,
-          attribution: 'ESRI',
-        });
-
-        mapInstance.addLayer({
-          id: 'esri-imagery-layer',
-          type: 'raster',
-          source: 'esri-imagery',
-          paint: { 'raster-opacity': 0.8 },
-        });
-
-        // Add dark overlay
-        mapInstance.addSource('dark-overlay', {
-          type: 'raster',
-          tiles: [
-            'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
-          ],
-          tileSize: 256,
-        });
-
-        mapInstance.addLayer({
-          id: 'dark-overlay-layer',
-          type: 'raster',
-          source: 'dark-overlay',
-          paint: { 'raster-opacity': 0.2 },
-        });
-
-        setMapLoaded(true);
-        setMapState({ isLoading: false, hasError: false });
-
-        // Set a tile loading timeout — if tiles fail to load within 15s, trigger fallback
-        tileTimeoutId = setTimeout(() => {
-          const container = mapContainerRef.current;
-          if (!container) return;
-          // Check if the map canvas has actual rendered content (tiles loaded)
-          const canvas = container.querySelector('canvas');
-          if (canvas && canvas.width > 0 && canvas.height > 0) {
-            // Canvas exists but tiles may not have rendered — check pixel content
-            const ctx = canvas.getContext('2d', { willReadFrequently: true });
-            if (ctx) {
-              try {
-                const centerPixel = ctx.getImageData(
-                  Math.floor(canvas.width / 2),
-                  Math.floor(canvas.height / 2),
-                  1, 1
-                ).data;
-                // If center pixel is pure background (#0a0a0a = R:10, G:10, B:10), tiles likely failed
-                if (centerPixel[0] <= 15 && centerPixel[1] <= 15 && centerPixel[2] <= 15) {
-                  console.warn('[SatelliteTrackMap] Tile loading timeout — map appears blank, triggering fallback');
-                  // Don't set internal error — let the parent's onError handle it
-                  onErrorRef.current?.();
-                }
-              } catch {
-                // Canvas readback may fail in cross-origin contexts, skip check
+      console.log('[SatelliteTrackMap] Initializing MapLibre engine (Satellite Mode)', { width, height });
+      
+      try {
+        mapInstance = new Map({
+          container: mapContainerRef.current,
+          style: {
+            version: 8,
+            sources: {},
+            glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+            layers: [
+              {
+                id: 'background',
+                type: 'background',
+                paint: { 'background-color': 'rgba(0,0,0,0)' } // Transparent background initially
               }
-            }
+            ],
+          },
+          center: center,
+          zoom: 15,
+          attributionControl: false,
+          dragRotate: false,
+          keyboard: false,
+          interactive: true,
+        });
+
+        mapRef.current = mapInstance;
+
+        // Use 'idle' event for full readiness (including tiles)
+        mapInstance.on('idle', () => {
+          if (!mapLoaded && mapInstance?.isStyleLoaded()) {
+            console.log('[SatelliteTrackMap] Map idle (tiles loaded)');
+            setMapLoaded(true);
+            setMapState({ isLoading: false, hasError: false });
           }
-        }, 15000);
-      });
+        });
 
-      mapInstance.on('error', (e) => {
-        console.error('[SatelliteTrackMap] MapLibre error:', e);
-        // Only set error if it's a fatal initialization error
-        if (!mapRef.current?.isStyleLoaded()) {
-          setMapState({ isLoading: false, hasError: true, errorMessage: 'Failed to initialize map engine' });
-          onErrorRef.current?.();
-        }
-      });
+        mapInstance.on('load', () => {
+          console.log('[SatelliteTrackMap] Map style loaded, starting tile fetch');
+          
+          if (!mapInstance) return;
 
-      return () => {
-        console.log('[SatelliteTrackMap] Cleaning up map instance');
-        if (tileTimeoutId) clearTimeout(tileTimeoutId);
-        mapInstance.remove();
-        mapRef.current = null;
-        setMapLoaded(false);
-      };
-    } catch (err) {
-      console.error('[SatelliteTrackMap] Map initialization failed:', err);
-      setMapState({ isLoading: false, hasError: true, errorMessage: 'Map engine initialization failed' });
-      onErrorRef.current?.();
+          // Add ESRI World Imagery raster source
+          mapInstance.addSource('esri-imagery', {
+            type: 'raster',
+            tiles: [
+              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            ],
+            tileSize: 256,
+            attribution: 'ESRI',
+          });
+
+          mapInstance.addLayer({
+            id: 'esri-imagery-layer',
+            type: 'raster',
+            source: 'esri-imagery',
+            paint: { 'raster-opacity': 0.8 },
+          });
+
+          // Add dark overlay
+          mapInstance.addSource('dark-overlay', {
+            type: 'raster',
+            tiles: [
+              'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+            ],
+            tileSize: 256,
+          });
+
+          mapInstance.addLayer({
+            id: 'dark-overlay-layer',
+            type: 'raster',
+            source: 'dark-overlay',
+            paint: { 'raster-opacity': 0.2 },
+          });
+
+          // Force a resize check after load
+          mapInstance.resize();
+
+          // Set a shorter tile loading timeout (5s) for fallback switch
+          tileTimeoutId = setTimeout(() => {
+            if (!mapLoaded) {
+              console.warn('[SatelliteTrackMap] Tile loading timeout (5s) — signaling fallback');
+              onErrorRef.current?.();
+            }
+          }, 5000);
+        });
+
+        mapInstance.on('error', (e) => {
+          console.error('[SatelliteTrackMap] MapLibre error:', e);
+          if (!mapRef.current?.isStyleLoaded()) {
+            setMapState({ isLoading: false, hasError: true, errorMessage: 'Failed to initialize map engine' });
+            onErrorRef.current?.();
+          }
+        });
+      } catch (err) {
+        console.error('[SatelliteTrackMap] Map initialization failed:', err);
+        setMapState({ isLoading: false, hasError: true, errorMessage: 'Map engine initialization failed' });
+        onErrorRef.current?.();
+      }
+    };
+
+    // Set up a resize observer to wait for dimensions if they are missing
+    const resizeObserver = new ResizeObserver(() => {
+      if (!mapRef.current) {
+        initMap();
+      } else {
+        mapRef.current.resize();
+      }
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
     }
+
+    // Initial attempt
+    initMap();
+
+    return () => {
+      console.log('[SatelliteTrackMap] Cleaning up map instance');
+      if (tileTimeoutId) clearTimeout(tileTimeoutId);
+      if (mapInstance) mapInstance.remove();
+      resizeObserver.disconnect();
+      mapRef.current = null;
+      setMapLoaded(false);
+    };
   }, [circuitKey, getCircuitCenter]);
 
   // Update track layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapLoaded || !trackCoordinates.length) return;
+    if (!map || !mapRef.current.isStyleLoaded() || !trackCoordinates.length) return;
 
     const center = getCircuitCenter();
     if (!center) return;
@@ -303,7 +320,7 @@ export function SatelliteTrackMap({
   // Update drivers layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapLoaded) return;
+    if (!map || !mapRef.current.isStyleLoaded()) return;
 
     const center = getCircuitCenter();
     if (!center) return;
@@ -392,7 +409,7 @@ export function SatelliteTrackMap({
   // Safety Car layer
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !mapLoaded || !safetyCar || safetyCar.status === 'none') {
+    if (!map || !mapRef.current.isStyleLoaded() || !safetyCar || safetyCar.status === 'none') {
       if (map && map.getLayer('safety-car')) map.setLayoutProperty('safety-car', 'visibility', 'none');
       return;
     }
@@ -443,19 +460,25 @@ export function SatelliteTrackMap({
 
   return (
     <div 
-      className={`relative rounded-xl overflow-hidden bg-[#0a0a0a] ${className}`}
+      className={`relative rounded-xl overflow-hidden ${className}`}
       style={{ width, height }}
     >
       <div
         ref={mapContainerRef}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-10"
         style={{ 
           opacity: showLoading || mapState.hasError ? 0 : 1,
-          transition: 'opacity 0.5s ease-in-out'
+          transition: 'opacity 0.8s ease-in-out',
+          backgroundColor: '#0a0a0a'
         }}
       />
       
-      {showLoading && <LoadingState />}
+      {/* 
+         Note: Loading state removed from here as the 2D map will be visible behind.
+         We only show an overlay if there is a fatal error or no circuit.
+      */}
+      
+      {circuitKey === 0 && <LoadingState />}
       
       {mapState.hasError && (
         <ErrorState 
@@ -465,7 +488,7 @@ export function SatelliteTrackMap({
       )}
       
       {!showLoading && !mapState.hasError && !trackCoordinates.length && (
-        <div className="absolute top-4 left-4 z-10">
+        <div className="absolute top-4 left-4 z-20">
           <div className="bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
             <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />

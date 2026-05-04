@@ -542,41 +542,27 @@ function StrategyLabContent() {
               <span className="text-f1-silver font-mono text-sm h-5">Loading session data...</span>
             </div>
           )}
-          {mapError ? (
-            <div className="w-full h-full">
-              <TrackMap
-                trackLayout={{
-                  circuit_key: circuitKey,
-                  circuit_name: sessionInfo?.sessionName || 'Circuit',
-                  coordinates: trackCoordinates,
-                }}
-                driverPositions={engine.currentFrame?.driver_positions || []}
-                selectedDriver={selectedDriverNumber ?? undefined}
-                safetyCar={engine.currentFrame?.safety_car ?? undefined}
-                className="w-full h-full"
-                width={800}
-                height={500}
-              />
-            </div>
-          ) : (
+          {/* Base 2D Map (Guaranteed Fallback) */}
+          <div className="w-full h-full absolute inset-0 z-0">
+            <TrackMap
+              trackLayout={{
+                circuit_key: circuitKey,
+                circuit_name: sessionInfo?.sessionName || 'Circuit',
+                coordinates: trackCoordinates,
+              }}
+              driverPositions={engine.currentFrame?.driver_positions || []}
+              selectedDriver={selectedDriverNumber ?? undefined}
+              safetyCar={engine.currentFrame?.safety_car ?? undefined}
+              className="w-full h-full"
+              width={800}
+              height={500}
+            />
+          </div>
+
+          {/* Satellite Map (Fades in over 2D map when ready) */}
+          {!mapError && (
             <MapErrorBoundary
-              fallback={
-                <div className="w-full h-full">
-                  <TrackMap
-                    trackLayout={{
-                      circuit_key: circuitKey,
-                      circuit_name: sessionInfo?.sessionName || 'Circuit',
-                      coordinates: trackCoordinates,
-                    }}
-                    driverPositions={engine.currentFrame?.driver_positions || []}
-                    selectedDriver={selectedDriverNumber ?? undefined}
-                    safetyCar={engine.currentFrame?.safety_car ?? undefined}
-                    className="w-full h-full"
-                    width={800}
-                    height={500}
-                  />
-                </div>
-              }
+              fallback={null} // Error handled by parent mapError state
             >
               <SatelliteTrackMap
                 circuitKey={circuitKey}
@@ -585,7 +571,8 @@ function StrategyLabContent() {
                 drivers={drivers}
                 selectedDriver={selectedDriverNumber ?? undefined}
                 safetyCar={engine.currentFrame?.safety_car ?? null}
-                className="w-full h-full"
+                className="absolute inset-0 z-10"
+                height="100%"
                 onError={() => setMapError(true)}
               />
             </MapErrorBoundary>
@@ -593,14 +580,14 @@ function StrategyLabContent() {
           
           {/* Frame counter badge */}
           {engine.currentFrame && (
-            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono z-10">
+            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono z-20">
               Frame {engine.currentIndex + 1}/{engine.totalFrames}
             </div>
           )}
           
           {/* Processing status badge */}
           {isProcessing && !isLoading && (
-            <div className="absolute bottom-4 right-4 bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2 z-10">
+            <div className="absolute bottom-4 right-4 bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2 z-20">
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
               <span className="text-[10px] font-mono text-cyan-200/80 uppercase tracking-tight">
                 {processingMessage || 'Processing telemetry...'}
@@ -609,7 +596,7 @@ function StrategyLabContent() {
           )}
           
           {/* Telemetry HUD floating over map */}
-          <div className="absolute top-4 right-4 max-w-[calc(100%-2rem)]">
+          <div className="absolute top-4 right-4 max-w-[calc(100%-2rem)] z-20">
             <TelemetryHUD
               drivers={drivers}
               currentFrame={engine.currentFrame}
