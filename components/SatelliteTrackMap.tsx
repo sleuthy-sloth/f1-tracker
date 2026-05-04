@@ -8,7 +8,7 @@ import {
   buildDriversGeoJSON,
   buildTrackGeoJSON,
 } from '@/lib/circuit-projection';
-import { getCircuitLocation } from '@/lib/circuit-lookup';
+import { getCircuitLocation, getApproximateCircuitCenterFromTrackCoordinates } from '@/lib/circuit-lookup';
 import type { Driver, DriverPosition, SafetyCarStatus } from '@/lib/types';
 
 export interface SatelliteTrackMapProps {
@@ -75,17 +75,32 @@ export function SatelliteTrackMap({
     return lookup;
   }, [drivers]);
 
+  const [usesFallbackCenter, setUsesFallbackCenter] = useState(false);
+
   const getCircuitCenter = useCallback((): [number, number] => {
     if (circuitKey === 0) {
+      setUsesFallbackCenter(false);
       return [0, 0];
     }
+
     const location = getCircuitLocation(circuitKey);
-    if (!location) {
-      console.warn(`Circuit lookup: no location found for circuit_key=${circuitKey}, using default`);
-      return [0, 0];
+    if (location) {
+      setUsesFallbackCenter(false);
+      return [location.lng, location.lat];
     }
-    return [location.lng, location.lat];
-  }, [circuitKey]);
+
+    if (trackCoordinates.length > 0) {
+      const approximateCenter = getApproximateCircuitCenterFromTrackCoordinates(trackCoordinates);
+      if (approximateCenter) {
+        setUsesFallbackCenter(true);
+        return [approximateCenter.lng, approximateCenter.lat];
+      }
+    }
+
+    setUsesFallbackCenter(false);
+    console.warn(`Circuit lookup: no location found for circuit_key=${circuitKey}, and no trackCoordinates available`);
+    return [0, 0];
+  }, [circuitKey, trackCoordinates]);
 
   // Initialize map - only when circuitKey is valid
   useEffect(() => {
@@ -407,6 +422,11 @@ export function SatelliteTrackMap({
       {showEmpty && (
         <div className="absolute inset-0">
           <EmptyState message="Track layout unavailable for this circuit" />
+        </div>
+      )}
+      {usesFallbackCenter && !showLoading && !showEmpty && (
+        <div className="absolute top-3 left-3 rounded-md bg-amber-500/20 border border-amber-300/30 px-2 py-1">
+          <span className="text-[11px] text-amber-100 font-mono">Approximate map center</span>
         </div>
       )}
     </div>
