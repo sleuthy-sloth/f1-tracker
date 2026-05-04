@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06b6d4?logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Status:** Active development (v0.5.0) — All 6 phases complete
+**Status:** Active development (v0.6.0) — All phases complete, ready for deployment
 
 ---
 
@@ -141,6 +141,16 @@ The project is organized into six development phases, progressing from foundatio
 - **Fantasy driver data API** (`app/api/data/fantasy/route.ts`) — fetches 22 current F1 drivers (2026 season, 11 teams including Cadillac/GM) with real team colors, fantasy costs, and points via AI web search
 - **PU component data API** (`app/api/data/pu/route.ts`) — fetches real power unit usage data (ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust counts per driver) with grid penalty information via AI web search
 
+**Pre-Deployment Polish (Phase 7):**
+
+- **Error boundaries** (`app/*/error.tsx`) — route-level error.tsx components for archive, fantasy, standings, and strategy-lab with branded error messaging and Try Again buttons
+- **Loading skeletons** (`app/*/loading.tsx`) — animated pulse skeletons for archive (6 GP card grid), standings (year pills + DataCards + table rows), and strategy-lab (map + side panel layout) for smoother perceived performance
+- **SEO metadata** — `generateMetadata` exports on all pages with OpenGraph tags, title templates, and dynamic session-aware titles for the session detail page
+- **Landing page polish** (`components/HeroDashboard.tsx`) — updated CTA buttons linking to real app routes (/archive, /standings, /fantasy), keeping telemetry showcase intact
+- **Session search** — archive page search via ArchiveFilters component with circuit type, weather, and text search filtering
+- **Settings page** (`app/settings/page.tsx`) — new settings hub with Account (links to /auth), Preferences (placeholder), and About (version info) sections
+- **Auth flow polish** (`app/auth/page.tsx`) — sign-in/sign-up form with password reset flow, email verification, and smooth error handling
+
 ### Planned (Phases 6–7)
 
 - ~~**Fantasy F1 League** — team dashboard, roster editor with $100M budget, league system with leaderboards, Firestore persistence~~ ✅
@@ -178,22 +188,34 @@ The project is organized into six development phases, progressing from foundatio
 │   │       ├── fantasy/route.ts   # AI-fetched F1 driver data endpoint
 │   │       └── pu/route.ts        # AI-fetched PU component data endpoint
 │   ├── archive/
-│   │   ├── page.tsx                # Archive grid: GP cards with circuit, podium, session info
+│   │   ├── error.tsx              # Error boundary for archive
+│   │   ├── loading.tsx            # Skeleton loading state
+│   │   ├── page.tsx               # Archive grid: GP cards with circuit, podium, session info
 │   │   └── [sessionKey]/
-│   │       └── page.tsx            # Session detail: results table + DataCard metrics + Card glow
+│   │       ├── page.tsx           # Session detail: results table + DataCard metrics + Card glow
+│   │       ├── loading.tsx        # Skeleton loading state
+│   │       └── error.tsx          # Error boundary for session detail
+│   ├── auth/
+│   │   └── page.tsx               # Sign in / sign up with password reset
 │   ├── fantasy/
+│   │   ├── error.tsx              # Error boundary for fantasy
+│   │   ├── layout.tsx             # SEO metadata wrapper
 │   │   └── page.tsx               # Fantasy F1 dashboard with API-fetched driver data
-│   ├── globals.css                 # Theme tokens, neon glow effects, hex pattern, scrollbar styling
-│   ├── icon.svg                    # SVG favicon (S1 branding)
-│   ├── layout.tsx                  # Root layout: TopNav + MobileNav + AuthProvider
+│   ├── settings/
+│   │   └── page.tsx               # Settings page (account, preferences, about)
 │   ├── standings/
-│   │   ├── page.tsx                # Championship standings with SeasonSelector + DataCards
-│   │   ├── StandingsClient.tsx     # ViewToggle wrapper with Card glow
+│   │   ├── error.tsx              # Error boundary for standings
+│   │   ├── loading.tsx            # Skeleton loading state
+│   │   ├── page.tsx               # Championship standings with SeasonSelector + DataCards
+│   │   ├── StandingsClient.tsx    # ViewToggle wrapper with Card glow
 │   │   └── components/
-│   │       └── page.tsx            # Power Unit component usage (AI-fetched data)
+│   │       └── page.tsx           # Power Unit component usage (AI-fetched data)
 │   ├── strategy-lab/
-│   │   └── page.tsx                # Race replay with SatelliteTrackMap + all side panels
-│   └── page.tsx                    # Landing page with SectorOne branding
+│   │   ├── error.tsx              # Error boundary for replay
+│   │   ├── layout.tsx             # SEO metadata wrapper
+│   │   ├── loading.tsx            # Skeleton loading state
+│   │   └── page.tsx               # Race replay with SatelliteTrackMap + all side panels
+│   └── page.tsx                   # Landing page with SectorOne HeroDashboard
 ├── components/
 │   ├── ArchiveClient.tsx     # Client wrapper: FilterSidebar + SeasonSelector + ArchiveFilters
 │   ├── ArchiveFilters.tsx    # GP card grid with circuit type / search filtering
@@ -779,7 +801,7 @@ The `vercel.json` configuration specifies the Next.js framework, build command, 
 | **6** | Fantasy F1 League | ✅ Complete | Team dashboard, roster editor, league system, Firestore persistence |
 | **6a** | OSM Satellite Track Map | ✅ Complete | MapLibre GL satellite map, circuit projection, strategy-lab replay page |
 | **6b** | AI Data Integration | ✅ Complete | NVIDIA NIM / OpenRouter client, fantasy driver API, PU component API |
-| **7** | Mobile & Final Polish | 🔜 Planned | Responsive layouts, skeletons, error boundaries, performance |
+| **7** | Pre-Deployment Polish | ✅ Complete | Error boundaries, loading skeletons, SEO metadata, settings page, auth polish |
 
 ---
 
