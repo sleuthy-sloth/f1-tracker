@@ -6,772 +6,95 @@
   "phases": [
     {
       "id": 1,
-      "name": "Project Setup & Foundation",
-      "status": "pending",
+      "name": "OSM Satellite Track Map with MapLibre GL",
+      "status": "complete",
       "tasks": [
         {
           "id": "1.1",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Scaffold Next.js project with TypeScript using create-next-app",
+          "description": "Create circuit coordinate projection utility and circuit lat/lng reference lookup",
           "depends": [],
           "files_touched": []
         },
         {
           "id": "1.2",
           "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Configure Tailwind CSS with custom theme, import globals.css",
-          "depends": [
-            "1.1"
-          ],
+          "status": "completed",
+          "size": "medium",
+          "description": "Create SatelliteTrackMap component using MapLibre GL with ESRI satellite tiles",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "1.3",
           "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Set up app directory with root layout and default home page",
-          "depends": [
-            "1.2"
-          ],
+          "status": "completed",
+          "size": "medium",
+          "description": "Create strategy-lab replay page with satellite track map and replay side panels",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "1.4",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Define TypeScript types for all F1 data entities",
-          "depends": [
-            "1.3"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "1.5",
-          "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Create OpenF1 API client with rate limiting and typed endpoints",
-          "depends": [
-            "1.4"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "1.6",
-          "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Install Firebase SDK, set up config with env vars",
-          "depends": [
-            "1.3"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "1.7",
-          "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Build Firebase Auth context provider with useAuth hook",
-          "depends": [
-            "1.6"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "1.8",
-          "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Implement ProtectedRoute wrapper",
-          "depends": [
-            "1.7"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "1.9",
-          "phase": 1,
-          "status": "pending",
-          "size": "small",
-          "description": "Configure Vercel deployment config and env template",
-          "depends": [
-            "1.3"
-          ],
+          "description": "Fix driver dot colors to team colors, add name labels, remove cyan track",
+          "depends": [],
           "files_touched": []
         }
       ]
     },
     {
       "id": 2,
-      "name": "SectorOne Branding & Design System",
-      "status": "pending",
+      "name": "OpenRouter Integration for Real Data",
+      "status": "complete",
       "tasks": [
         {
           "id": "2.1",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Rebrand app layout, metadata, landing page, and favicon to SectorOne",
-          "depends": [
-            "1.3"
-          ],
+          "description": "Create OpenRouter API client with web search support",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "2.2",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Install Space Grotesk and Inter fonts via next/font/google, update theme config",
-          "depends": [
-            "2.1"
-          ],
+          "description": "Create fantasy driver data API route",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "2.3",
           "phase": 2,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build sidebar navigation with Archive, Strategy Lab, Fantasy, Settings sections",
-          "depends": [
-            "2.2"
-          ],
+          "status": "completed",
+          "size": "small",
+          "description": "Create PU component data API route",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "2.4",
           "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "Build glassmorphic Card component",
-          "depends": [
-            "2.2"
-          ],
+          "status": "completed",
+          "size": "medium",
+          "description": "Replace mock fantasy data with API-fetched data in components",
+          "depends": [],
           "files_touched": []
         },
         {
           "id": "2.5",
           "phase": 2,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Build Button components (primary and ghost)",
-          "depends": [
-            "2.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "2.6",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "Build Chip component for tyre compounds and status indicators",
-          "depends": [
-            "2.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "2.7",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "Build Input component with dark styling and F1 Red focus",
-          "depends": [
-            "2.2"
-          ],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Race Archive (Session Browser)",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "3.1",
-          "phase": 3,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build Archive grid page with GP cards showing circuit outlines, podium, and session info",
-          "depends": [
-            "1.5",
-            "2.3"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "3.2",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Add filters for circuit type, weather, and search to the Archive page",
-          "depends": [
-            "3.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "3.3",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Build session detail page with replay launch and session info",
-          "depends": [
-            "3.1"
-          ],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Strategy Lab (Race Replay Engine)",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "4.1",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build Canvas track map with circuit rendering, driver dots, active sector highlighting",
-          "depends": [
-            "1.4",
-            "1.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.2",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build race data service and frame buffer for sequential replay frames",
-          "depends": [
-            "1.5",
-            "3.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.3",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build replay playback engine and bottom timeline controls with event markers",
-          "depends": [
-            "4.1",
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.4",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build scrollable leaderboard with position, driver, team color, gap, tyre life, stint count, and retired OUT indicators",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.5",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build floating driver telemetry HUD: speed, gear, RPM bar, DRS, throttle, brake",
-          "depends": [
-            "4.3",
-            "4.4"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.6",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build lap and time display showing current lap, total laps, elapsed race time",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.7",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build gap-to-leader chart and tyre degradation heatmap side panels",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.8",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build weather radar visualization with precipitation radar and stats",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.9",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build safety car visualization on track map with deploy, on-track, return phases",
-          "depends": [
-            "4.1",
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.10",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build race control messages feed showing flags, SC/VSC, and session status changes",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.11",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build pit stop event display with driver, timing, and tyre compound",
-          "depends": [
-            "4.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "4.12",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Build strategic pit window predictor widget",
-          "depends": [
-            "4.2",
-            "4.4"
-          ],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Championship Standings",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "5.1",
-          "phase": 5,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build driver and constructor standings page with points, wins, podiums, and team color bars",
-          "depends": [
-            "1.5",
-            "2.3"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "5.2",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Build form chart bars (last 5 races) for each driver in standings",
-          "depends": [
-            "5.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "5.3",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Build points progression chart with multi-driver heartbeat lines",
-          "depends": [
-            "5.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "5.4",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Build leading constructor card with driver point split bars",
-          "depends": [
-            "5.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "5.5",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Build year-aware team identity service with historical color mapping",
-          "depends": [
-            "5.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "5.6",
-          "phase": 5,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build power unit component usage tracker showing each driver's ICE/turbo/MGU-H/MGU-K/ES/CE/exhaust counts with penalty indicators",
-          "depends": [
-            "1.5",
-            "5.1"
-          ],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 55,
-      "name": "5.5: Visual Redesign — Neon Telemetry HUD",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "55.1",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create TopNav component with horizontal tabs, logo, user profile",
+          "description": "Replace mock PU data with API-fetched data",
           "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "55.2",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Replace SideNav with TopNav in root layout",
-          "depends": [
-            "55.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.3",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Add hexagonal background pattern",
-          "depends": [
-            "55.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.4",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Add neon glow utilities and cyan accent to design tokens",
-          "depends": [
-            "55.3"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.5",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Update Card component with glow variants",
-          "depends": [
-            "55.4"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.6",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Update Button component with cyan accent and glow-on-hover",
-          "depends": [
-            "55.4"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.7",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create FilterSidebar component",
-          "depends": [
-            "55.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.8",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create SeasonSelector component",
-          "depends": [
-            "55.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.9",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create CircuitOutline component with SVG neon glow",
-          "depends": [
-            "55.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.10",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create DataCard component",
-          "depends": [
-            "55.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.11",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign Archive page layout with FilterSidebar and SeasonSelector",
-          "depends": [
-            "3.1",
-            "55.7",
-            "55.8"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.12",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign GpCard with neon circuit outline and enhanced metadata",
-          "depends": [
-            "55.11",
-            "55.9"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.13",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Update ArchiveFilters for new sidebar layout",
-          "depends": [
-            "55.11"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.14",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign Fantasy page layout with DataCard metrics",
-          "depends": [
-            "55.10"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.15",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign FantasyDashboard with driver cards, standings, budget, countdown",
-          "depends": [
-            "55.14"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.16",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign Standings page layout with SeasonSelector and DataCards",
-          "depends": [
-            "5.1",
-            "55.10"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.17",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Update StandingsClient for new dashboard layout",
-          "depends": [
-            "55.16"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.18",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Update StandingsTable with position color bars",
-          "depends": [
-            "55.17"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.19",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Redesign session replay page with DataCards",
-          "depends": [
-            "4.1",
-            "55.10"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.20",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create SpeedGauge component",
-          "depends": [
-            "55.19"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.21",
-          "phase": 55,
-          "status": "pending",
-          "size": "small",
-          "description": "Create TireIndicator component",
-          "depends": [
-            "55.19"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "55.22",
-          "phase": 55,
-          "status": "pending",
-          "size": "medium",
-          "description": "Visual regression verification",
-          "depends": [
-            "55.12",
-            "55.13",
-            "55.15",
-            "55.18",
-            "55.20",
-            "55.21"
-          ],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Fantasy F1 League",
-      "status": "in_progress",
-      "tasks": [
-        {
-          "id": "6.1",
-          "phase": 6,
-          "status": "pending",
-          "size": "medium",
-          "description": "Build fantasy team dashboard: team name, total points, budget bar, points history chart",
-          "depends": [
-            "1.7",
-            "2.3",
-            "5.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "6.2",
-          "phase": 6,
-          "status": "completed",
-          "size": "small",
-          "description": "Build fantasy points scoring system based on real race results",
-          "depends": [
-            "1.5"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "6.3",
-          "phase": 6,
-          "status": "completed",
-          "size": "medium",
-          "description": "Build roster editor with driver browsing, budget tracking, and save/revert",
-          "depends": [
-            "6.1",
-            "6.2"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "6.4",
-          "phase": 6,
-          "status": "completed",
-          "size": "medium",
-          "description": "Build league system: create, join, and view league leaderboards with rank trends",
-          "depends": [
-            "6.1"
-          ],
-          "files_touched": []
-        },
-        {
-          "id": "6.5",
-          "phase": 6,
-          "status": "in_progress",
-          "size": "small",
-          "description": "Implement Firestore persistence for fantasy teams and league data",
-          "depends": [
-            "1.6",
-            "6.1"
-          ],
           "files_touched": []
         }
       ]

@@ -1,11 +1,9 @@
 {
   "version": 1,
   "taskId": "2.2",
-  "declaredAt": 1777660280791,
-  "expiresAt": 1777746680791,
+  "declaredAt": 1777865275980,
+  "expiresAt": 1777951675980,
   "files": [
-    "app/layout.tsx",
-    "app/globals.css",
-    "app/icon.svg"
+    "app/api/data/fantasy/route.ts"
   ]
 }

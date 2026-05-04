@@ -2,6 +2,71 @@
   "schema_version": "1.0.0",
   "workspaceRoot": "/Users/spkoehl/Documents/OpenCode/sectorone",
   "nodes": {
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/drivers/route.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/drivers/route.ts",
+      "moduleName": "app/api/data/drivers/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "imports": [
+        "next/server",
+        "@/lib/api/openf1"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T03:33:03.418Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/fantasy/route.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/fantasy/route.ts",
+      "moduleName": "app/api/data/fantasy/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "imports": [
+        "next/server",
+        "@/lib/api/openrouter"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:11:20.585Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/pu/route.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/pu/route.ts",
+      "moduleName": "app/api/data/pu/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "imports": [
+        "next/server",
+        "@/lib/api/openrouter"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:11:24.947Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/sessions/route.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/sessions/route.ts",
+      "moduleName": "app/api/data/sessions/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "imports": [
+        "next/server",
+        "@/lib/api/openf1"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T03:32:39.249Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/years/route.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/api/data/years/route.ts",
+      "moduleName": "app/api/data/years/route.ts",
+      "exports": [
+        "GET"
+      ],
+      "imports": [
+        "next/server",
+        "@/lib/api/openf1"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T03:32:31.205Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/archive/[sessionKey]/page.tsx",
       "moduleName": "app/archive/[sessionKey]/page.tsx",
@@ -53,10 +118,11 @@
         "@/lib/auth/useAuth",
         "@/components/DataCard",
         "@/components/FantasyDashboard",
-        "next/link"
+        "next/link",
+        "react"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T21:29:20.514Z"
+      "mtime": "2026-05-04T03:38:25.395Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/layout.tsx",
@@ -83,24 +149,25 @@
       ],
       "imports": [
         "next/link",
-        "next/image"
+        "@/components/HeroDashboard"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T15:15:55.435Z"
+      "mtime": "2026-05-04T01:13:05.036Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/components/page.tsx",
       "moduleName": "app/standings/components/page.tsx",
       "exports": [
-        "async"
+        "ComponentsPage"
       ],
       "imports": [
+        "react",
+        "next/navigation",
         "next/link",
-        "@/lib/api/openf1",
         "@/components/PuUsageTable"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T02:02:27.952Z"
+      "mtime": "2026-05-04T03:38:09.774Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/standings/page.tsx",
@@ -130,6 +197,37 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-03T21:36:16.630Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/page.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/app/strategy-lab/page.tsx",
+      "moduleName": "app/strategy-lab/page.tsx",
+      "exports": [
+        "StrategyLabPage"
+      ],
+      "imports": [
+        "react",
+        "next/navigation",
+        "next/link",
+        "@/lib/raceData",
+        "@/lib/api/openf1",
+        "@/hooks/useReplayEngine",
+        "@/lib/frameBuffer",
+        "@/components/SatelliteTrackMap",
+        "@/components/TelemetryHUD",
+        "@/components/Leaderboard",
+        "@/components/TimelineControls",
+        "@/components/LapTimeDisplay",
+        "@/components/GapChart",
+        "@/components/TyreWidget",
+        "@/components/WeatherRadar",
+        "@/components/SafetyCar",
+        "@/components/RaceControlFeed",
+        "@/components/PitStopIndicator",
+        "@/components/PitWindowWidget",
+        "@/components/ui/Card"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T03:11:24.856Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx",
@@ -250,6 +348,21 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-03T21:19:42.519Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx",
+      "moduleName": "components/HeroDashboard.tsx",
+      "exports": [
+        "HeroDashboard"
+      ],
+      "imports": [
+        "react",
+        "./TireIndicator",
+        "./CircuitOutline",
+        "./TelemetryPulse"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T01:13:05.037Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LapTimeDisplay.tsx",
@@ -380,7 +493,7 @@
         "@/components/ui/Button"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T22:06:11.098Z"
+      "mtime": "2026-05-04T03:35:28.784Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SafetyCar.tsx",
@@ -391,6 +504,22 @@
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-03T15:15:55.455Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/SatelliteTrackMap.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SatelliteTrackMap.tsx",
+      "moduleName": "components/SatelliteTrackMap.tsx",
+      "exports": [
+        "SatelliteTrackMapProps"
+      ],
+      "imports": [
+        "maplibre-gl",
+        "maplibre-gl/dist/maplibre-gl.css",
+        "react",
+        "@/lib/circuit-projection",
+        "@/lib/circuit-lookup"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T03:11:16.265Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx",
@@ -444,6 +573,16 @@
       "imports": [],
       "language": "typescript",
       "mtime": "2026-05-03T15:15:55.456Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryPulse.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryPulse.tsx",
+      "moduleName": "components/TelemetryPulse.tsx",
+      "exports": [
+        "TelemetryPulse"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T00:41:17.692Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TimelineControls.tsx",
@@ -601,6 +740,21 @@
       "language": "typescript",
       "mtime": "2026-05-01T12:24:58.744Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openrouter.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/api/openrouter.ts",
+      "moduleName": "lib/api/openrouter.ts",
+      "exports": [
+        "AiClientConfig",
+        "WebSearchOptions",
+        "AiResponse",
+        "ApiKeyStatus",
+        "AiClient",
+        "createAiClient"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T04:09:08.315Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx",
       "moduleName": "lib/auth/AuthContext.tsx",
@@ -629,6 +783,55 @@
       ],
       "language": "typescript",
       "mtime": "2026-05-01T12:33:53.010Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-lookup.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-lookup.ts",
+      "moduleName": "lib/circuit-lookup.ts",
+      "exports": [
+        "CircuitLocation",
+        "getCircuitLocation",
+        "getCircuitLocationOrDefault",
+        "getAllCircuitLocations",
+        "hasCircuitLocation"
+      ],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T01:54:23.966Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-projection.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-projection.ts",
+      "moduleName": "lib/circuit-projection.ts",
+      "exports": [],
+      "imports": [],
+      "language": "typescript",
+      "mtime": "2026-05-04T01:54:08.618Z"
+    },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts",
+      "moduleName": "lib/fantasy-firestore.ts",
+      "exports": [
+        "FantasyDriverData",
+        "FantasyConstructorData",
+        "FantasyTeamData",
+        "FantasyTeamDocument",
+        "LeagueEntry",
+        "LeagueData",
+        "LeagueMemberData",
+        "LeagueDocument",
+        "generateInviteCode",
+        "saveFantasyTeam",
+        "loadFantasyTeam",
+        "deleteFantasyTeam",
+        "leaveLeague",
+        "loadLeague",
+        "loadUserLeagues"
+      ],
+      "imports": [
+        "firebase/firestore",
+        "./firebase"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T01:25:20.809Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-scoring.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-scoring.ts",
@@ -774,10 +977,10 @@
       "moduleName": "next-env.d.ts",
       "exports": [],
       "imports": [
-        "./.next/dev/types/routes.d.ts"
+        "./.next/types/routes.d.ts"
       ],
       "language": "typescript",
-      "mtime": "2026-05-03T06:02:43.636Z"
+      "mtime": "2026-05-04T02:02:46.094Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/next.config.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/next.config.ts",
@@ -1120,6 +1323,17 @@
       "language": "typescript",
       "mtime": "2026-05-03T22:42:28.701Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/fantasy-firestore.test.ts": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/fantasy-firestore.test.ts",
+      "moduleName": "tests/lib/fantasy-firestore.test.ts",
+      "exports": [],
+      "imports": [
+        "vitest",
+        "../../lib/fantasy-firestore"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T01:39:17.425Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
       "moduleName": "tests/lib/frameBuffer.test.ts",
@@ -1337,9 +1551,33 @@
       "importType": "default"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/CircuitOutline.tsx",
+      "importSpecifier": "./CircuitOutline",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TelemetryPulse.tsx",
+      "importSpecifier": "./TelemetryPulse",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/components/HeroDashboard.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/TireIndicator.tsx",
+      "importSpecifier": "./TireIndicator",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/useAuth.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/auth/AuthContext.tsx",
       "importSpecifier": "./AuthContext",
+      "importType": "named"
+    },
+    {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/firebase.ts",
+      "importSpecifier": "./firebase",
       "importType": "named"
     },
     {
@@ -1356,8 +1594,8 @@
     },
     {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/next-env.d.ts",
-      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/.next/dev/types/routes.d.ts",
-      "importSpecifier": "./.next/dev/types/routes.d.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/.next/types/routes.d.ts",
+      "importSpecifier": "./.next/types/routes.d.ts",
       "importType": "sideeffect"
     },
     {
@@ -1517,6 +1755,12 @@
       "importType": "named"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/fantasy-firestore.test.ts",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts",
+      "importSpecifier": "../../lib/fantasy-firestore",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "importSpecifier": "../../lib/frameBuffer",
@@ -1584,9 +1828,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-04T00:31:16.555Z",
+    "generatedAt": "2026-05-04T04:11:30.064Z",
     "generator": "repo-graph",
-    "nodeCount": 103,
-    "edgeCount": 43
+    "nodeCount": 117,
+    "edgeCount": 48
   }
 }

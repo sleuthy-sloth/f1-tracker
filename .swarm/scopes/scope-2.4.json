@@ -1,9 +1,10 @@
 {
   "version": 1,
   "taskId": "2.4",
-  "declaredAt": 1777662489459,
-  "expiresAt": 1777748889459,
+  "declaredAt": 1777865384991,
+  "expiresAt": 1777951784991,
   "files": [
-    "components/ui/Card.tsx"
+    "components/RosterEditor.tsx",
+    "app/fantasy/page.tsx"
   ]
 }

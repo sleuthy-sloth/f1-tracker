@@ -1,11 +1,9 @@
 {
   "version": 1,
   "taskId": "2.3",
-  "declaredAt": 1777661306400,
-  "expiresAt": 1777747706400,
+  "declaredAt": 1777865276986,
+  "expiresAt": 1777951676986,
   "files": [
-    "components/SideNav.tsx",
-    "components/MobileNav.tsx",
-    "app/layout.tsx"
+    "app/api/data/pu/route.ts"
   ]
 }

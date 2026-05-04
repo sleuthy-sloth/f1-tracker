@@ -1,9 +1,9 @@
 {
   "version": 1,
   "taskId": "2.5",
-  "declaredAt": 1777687604015,
-  "expiresAt": 1777774004015,
+  "declaredAt": 1777865386035,
+  "expiresAt": 1777951786035,
   "files": [
-    "components/ui/Button.tsx"
+    "app/standings/components/page.tsx"
   ]
 }

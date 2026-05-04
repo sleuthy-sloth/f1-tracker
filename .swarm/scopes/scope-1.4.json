@@ -1,9 +1,10 @@
 {
   "version": 1,
   "taskId": "1.4",
-  "declaredAt": 1777637993704,
-  "expiresAt": 1777724393704,
+  "declaredAt": 1777864134301,
+  "expiresAt": 1777950534301,
   "files": [
-    "lib/types.ts"
+    "components/SatelliteTrackMap.tsx",
+    "app/strategy-lab/page.tsx"
   ]
 }
