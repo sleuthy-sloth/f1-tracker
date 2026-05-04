@@ -544,19 +544,20 @@ function StrategyLabContent() {
           )}
           {/* Base 2D Map (Guaranteed Fallback) */}
           <div className="w-full h-full absolute inset-0 z-0">
-            <TrackMap
-              trackLayout={{
-                circuit_key: circuitKey,
-                circuit_name: sessionInfo?.sessionName || 'Circuit',
-                coordinates: trackCoordinates,
-              }}
-              driverPositions={engine.currentFrame?.driver_positions || []}
-              selectedDriver={selectedDriverNumber ?? undefined}
-              safetyCar={engine.currentFrame?.safety_car ?? undefined}
-              className="w-full h-full"
-              width={800}
-              height={500}
-            />
+              <TrackMap
+                trackLayout={{
+                  circuit_key: circuitKey,
+                  circuit_name: sessionInfo?.sessionName || 'Circuit',
+                  coordinates: trackCoordinates,
+                }}
+                driverPositions={engine.currentFrame?.driver_positions || []}
+                drivers={drivers}
+                selectedDriver={selectedDriverNumber ?? undefined}
+                safetyCar={engine.currentFrame?.safety_car ?? undefined}
+                className="w-full h-full"
+                width={800}
+                height={500}
+              />
           </div>
 
           {/* Satellite Map (Fades in over 2D map when ready) */}

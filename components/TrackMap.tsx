@@ -15,14 +15,8 @@ import { normalizeTrackCoordinates, getSectorCoordinates, getCircuitBounds } fro
 interface TrackMapProps {
   /** Track layout data with circuit coordinates */
   trackLayout: TrackLayout;
-  /** Array of driver positions for current frame */
-  driverPositions: DriverPosition[];
-  /** Optional: driver number to highlight */
-  selectedDriver?: number;
-  /** Optional: sector to highlight (1, 2, or 3) */
-  activeSector?: 1 | 2 | 3;
-  /** Optional: safety car status and position */
-  safetyCar?: SafetyCarStatus;
+  /** Array of driver metadata (acronyms, colors) */
+  drivers?: Driver[];
   /** Optional: additional CSS classes */
   className?: string;
   /** Canvas width in pixels (default: 800) */
@@ -40,13 +34,11 @@ function cn(...classes: (string | undefined | null | false)[]): string {
 
 /**
  * TrackMap - Canvas-based track visualization component
- * 
- * Renders an F1 circuit track with driver positions, sector highlighting,
- * and safety car indicator on an HTML Canvas.
  */
 export default function TrackMap({
   trackLayout,
   driverPositions,
+  drivers = [],
   selectedDriver,
   activeSector,
   safetyCar,
@@ -58,6 +50,18 @@ export default function TrackMap({
   const containerRef = useRef<HTMLDivElement>(null);
   const previousPropsRef = useRef<string>('');
 
+  // Build driver lookup map
+  const driverLookup = useCallback(() => {
+    const lookup: Record<number, { teamColour: string; nameAcronym: string }> = {};
+    for (const d of drivers) {
+      lookup[d.driver_number] = {
+        teamColour: d.team_colour ? (d.team_colour.startsWith('#') ? d.team_colour : `#${d.team_colour}`) : '#ffffff',
+        nameAcronym: d.name_acronym || String(d.driver_number),
+      };
+    }
+    return lookup;
+  }, [drivers]);
+
   // Serialize props for change detection
   const serializeProps = useCallback(() => {
     return JSON.stringify({
@@ -68,8 +72,9 @@ export default function TrackMap({
       safetyCar: safetyCar ? `${safetyCar.status}-${safetyCar.x}-${safetyCar.y}` : null,
       width,
       height,
+      driverCount: drivers.length
     });
-  }, [trackLayout, driverPositions, selectedDriver, activeSector, safetyCar, width, height]);
+  }, [trackLayout, driverPositions, selectedDriver, activeSector, safetyCar, width, height, drivers]);
 
   // Render function
   const render = useCallback(() => {
@@ -90,10 +95,9 @@ export default function TrackMap({
     canvas.style.height = `${height}px`;
     ctx.scale(dpr, dpr);
 
-    // Clear canvas with transparent background
+    // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
-    // Check for empty track layout
     if (trackLayout.coordinates.length === 0) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
       ctx.font = '16px Inter, system-ui, sans-serif';
@@ -103,10 +107,7 @@ export default function TrackMap({
       return;
     }
 
-    // Calculate track bounds once so drivers and safety car share the same coordinate space
     const trackBounds = getCircuitBounds(trackLayout.coordinates);
-
-    // Normalize track coordinates using shared bounds
     const normalizedTrack = normalizeTrackCoordinates(
       trackLayout.coordinates,
       width,
@@ -115,71 +116,36 @@ export default function TrackMap({
       trackBounds
     );
 
-    // Draw the circuit path
     if (normalizedTrack.length > 0) {
-      // Draw subtle base track
       ctx.beginPath();
       ctx.moveTo(normalizedTrack[0].x, normalizedTrack[0].y);
       for (let i = 1; i < normalizedTrack.length; i++) {
         ctx.lineTo(normalizedTrack[i].x, normalizedTrack[i].y);
       }
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
       ctx.stroke();
 
-      // Draw active sector highlight
       if (activeSector) {
         const sectorCoords = getSectorCoordinates(normalizedTrack, activeSector);
         if (sectorCoords.end > sectorCoords.start) {
           ctx.beginPath();
-          ctx.moveTo(
-            normalizedTrack[sectorCoords.start].x,
-            normalizedTrack[sectorCoords.start].y
-          );
+          ctx.moveTo(normalizedTrack[sectorCoords.start].x, normalizedTrack[sectorCoords.start].y);
           for (let i = sectorCoords.start + 1; i < sectorCoords.end; i++) {
             ctx.lineTo(normalizedTrack[i].x, normalizedTrack[i].y);
           }
-          ctx.strokeStyle = '#E10600'; // F1 Red
-          ctx.lineWidth = 3;
+          ctx.strokeStyle = '#E10600';
+          ctx.lineWidth = 4;
           ctx.stroke();
         }
       }
     }
 
-    // Draw start/finish line
-    if (normalizedTrack.length >= 2) {
-      const startPoint = normalizedTrack[0];
-      const secondPoint = normalizedTrack[1];
-
-      // Calculate perpendicular direction
-      const dx = secondPoint.x - startPoint.x;
-      const dy = secondPoint.y - startPoint.y;
-      const length = Math.sqrt(dx * dx + dy * dy);
-      
-      if (length > 0) {
-        // Perpendicular vector (rotated 90 degrees)
-        const perpX = -dy / length;
-        const perpY = dx / length;
-        const lineLength = 8;
-
-        ctx.beginPath();
-        ctx.moveTo(
-          startPoint.x + perpX * lineLength,
-          startPoint.y + perpY * lineLength
-        );
-        ctx.lineTo(
-          startPoint.x - perpX * lineLength,
-          startPoint.y - perpY * lineLength
-        );
-        ctx.strokeStyle = 'white';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-    }
+    const lookup = driverLookup();
 
     // Draw driver positions
     if (driverPositions.length > 0) {
-      // Normalize driver positions using track bounds for consistent coordinate space
       const normalizedDrivers = normalizeTrackCoordinates(
         driverPositions.map(d => ({ x: d.x, y: d.y })),
         width,
@@ -189,30 +155,37 @@ export default function TrackMap({
       );
 
       for (let i = 0; i < driverPositions.length; i++) {
-        const driver = driverPositions[i];
+        const dp = driverPositions[i];
         const pos = normalizedDrivers[i];
-
-        // Draw driver dot
-        ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
-        ctx.fill();
+        const info = lookup[dp.driver_number] || { teamColour: '#ffffff', nameAcronym: String(dp.driver_number) };
 
         // Draw selected driver halo
-        if (selectedDriver && driver.driver_number === selectedDriver) {
+        if (selectedDriver && dp.driver_number === selectedDriver) {
           ctx.beginPath();
-          ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
-          ctx.strokeStyle = 'white';
+          ctx.arc(pos.x, pos.y, 11, 0, Math.PI * 2);
+          ctx.strokeStyle = '#00F5FF';
           ctx.lineWidth = 2;
           ctx.stroke();
         }
 
-        // Draw driver number label
+        // Draw driver dot
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = info.teamColour;
+        ctx.fill();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Draw driver acronym label
         ctx.fillStyle = 'white';
-        ctx.font = '8px Inter, system-ui, sans-serif';
+        ctx.font = 'bold 9px Inter, system-ui, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'bottom';
-        ctx.fillText(driver.driver_number.toString(), pos.x, pos.y - 8);
+        ctx.shadowColor = 'black';
+        ctx.shadowBlur = 4;
+        ctx.fillText(info.nameAcronym, pos.x, pos.y - 10);
+        ctx.shadowBlur = 0;
       }
     }
 
