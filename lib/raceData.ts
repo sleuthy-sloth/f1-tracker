@@ -72,7 +72,7 @@ function findClosest<T extends { date: string }>(
 
   while (low <= high) {
     const mid = Math.floor((low + high) / 2);
-    const midMs = new Date(items[mid].date).getTime();
+    const midMs = (items[mid] as any)._ts || new Date(items[mid].date).getTime();
 
     if (midMs === targetMs) return items[mid];
     if (midMs < targetMs) {
@@ -86,8 +86,11 @@ function findClosest<T extends { date: string }>(
   if (high < 0) return items[low];
   if (low >= items.length) return items[high];
 
-  const diffHigh = Math.abs(new Date(items[high].date).getTime() - targetMs);
-  const diffLow = Math.abs(new Date(items[low].date).getTime() - targetMs);
+  const tsHigh = (items[high] as any)._ts || new Date(items[high].date).getTime();
+  const tsLow = (items[low] as any)._ts || new Date(items[low].date).getTime();
+
+  const diffHigh = Math.abs(tsHigh - targetMs);
+  const diffLow = Math.abs(tsLow - targetMs);
   
   return diffHigh <= diffLow ? items[high] : items[low];
 }
@@ -197,36 +200,45 @@ export async function fetchRawRaceData(
     return [] as Driver[];
   });
 
-  if (drivers.length === 0) return null;
+  if (drivers.length === 0) {
+    if (onProgress) onProgress('No drivers found for this session.');
+    return {
+      drivers: [],
+      locationByDriver: new Map(),
+      carDataByDriver: new Map(),
+      weatherData: [],
+      raceControlData: []
+    };
+  }
 
   const totalDrivers = drivers.length;
   let completedDrivers = 0;
-
-  // We fetch driver data in parallel but with a small limit if needed
-  // For now, Promise.all is fine but we track completion
-  const perDriverResults = await Promise.all(
-    drivers.map(async (driver) => {
-      const dn = driver.driver_number;
-      const [locs, cars] = await Promise.all([
-        getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
-        getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
-      ]);
-      
-      completedDrivers++;
-      if (onProgress) {
-        onProgress(`Fetching telemetry: ${completedDrivers}/${totalDrivers} (${driver.name_acronym})`);
-      }
-      
-      return { driverNumber: dn, locations: locs, carData: cars };
-    })
-  );
-
   const locationByDriver = new Map<number, LocationData[]>();
   const carDataByDriver = new Map<number, CarData[]>();
 
-  for (const result of perDriverResults) {
-    if (result.locations.length > 0) locationByDriver.set(result.driverNumber, result.locations);
-    if (result.carData.length > 0) carDataByDriver.set(result.driverNumber, result.carData);
+  // Process drivers in small chunks to avoid overwhelming the connection pool
+  const CHUNK_SIZE = 3;
+  for (let i = 0; i < drivers.length; i += CHUNK_SIZE) {
+    const chunk = drivers.slice(i, i + CHUNK_SIZE);
+    
+    await Promise.all(
+      chunk.map(async (driver) => {
+        const dn = driver.driver_number;
+        if (onProgress) {
+          onProgress(`Synchronizing: ${driver.name_acronym} (${completedDrivers + 1}/${totalDrivers})`);
+        }
+        
+        const [locs, cars] = await Promise.all([
+          getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
+          getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
+        ]);
+        
+        if (locs.length > 0) locationByDriver.set(dn, locs);
+        if (cars.length > 0) carDataByDriver.set(dn, cars);
+        
+        completedDrivers++;
+      })
+    );
   }
 
   if (onProgress) onProgress('Fetching weather and race control messages...');
@@ -273,27 +285,41 @@ export async function fetchRaceData(
 
     const { drivers, locationByDriver, carDataByDriver, weatherData, raceControlData } = rawData;
 
-    // Sort each driver's data by timestamp
-    for (const [, locs] of locationByDriver) {
-      locs.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (onProgress) onProgress('Optimizing data streams...');
+    
+    // Pre-calculate timestamps to avoid redundant new Date() calls in loops
+    for (const locs of locationByDriver.values()) {
+      for (const loc of locs) {
+        (loc as any)._ts = new Date(loc.date).getTime();
+      }
+      locs.sort((a: any, b: any) => a._ts - b._ts);
     }
 
-    for (const [, cars] of carDataByDriver) {
-      cars.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    for (const cars of carDataByDriver.values()) {
+      for (const car of cars) {
+        (car as any)._ts = new Date(car.date).getTime();
+      }
+      cars.sort((a: any, b: any) => a._ts - b._ts);
     }
 
-    // Collect all unique timestamps from location data
+    // Collect unique timestamps using pre-calculated values
     const timestampSet = new Set<number>();
     for (const locs of locationByDriver.values()) {
       for (const loc of locs) {
-        const ts = new Date(loc.date).getTime();
-        if (!isNaN(ts)) {
-          timestampSet.add(ts);
-        }
+        timestampSet.add((loc as any)._ts);
       }
     }
 
+    if (onProgress) onProgress('Analyzing session timeline...');
     const allTimestamps = Array.from(timestampSet).sort((a, b) => a - b);
+
+    // Pre-process weather and race control
+    for (const weather of weatherData) {
+      (weather as any)._ts = new Date(weather.date).getTime();
+    }
+    for (const msg of raceControlData) {
+      (msg as any)._ts = new Date(msg.date).getTime();
+    }
 
     if (allTimestamps.length === 0) {
       console.warn('No valid timestamps found for session:', sessionKey);
@@ -358,15 +384,23 @@ export async function fetchRaceData(
 
     // Weather data sorted by time
     const sortedWeather = [...weatherData].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      (a, b) => (a as any)._ts - (b as any)._ts
     );
 
     // Race control sorted by time
     const sortedRaceControl = [...raceControlData].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      (a, b) => (a as any)._ts - (b as any)._ts
     );
 
+    let frameCount = 0;
+    const totalFramesToBuild = sampledTimestamps.length;
+
     for (const targetTimestamp of sampledTimestamps) {
+      if (onProgress && frameCount % 500 === 0) {
+        onProgress(`Processing frames: ${frameCount}/${totalFramesToBuild}`);
+      }
+      frameCount++;
+      
       const driverPositions: DriverPosition[] = [];
 
       // Build position for each driver
@@ -375,8 +409,8 @@ export async function fetchRaceData(
         const locs = locationByDriver.get(driverNumber) || [];
         const cars = carDataByDriver.get(driverNumber) || [];
 
-        const closestLoc = findClosest(locs, targetTimestamp);
-        const closestCar = findClosest(cars, targetTimestamp);
+        const closestLoc = findClosest<LocationData>(locs, targetTimestamp);
+        const closestCar = findClosest<CarData>(cars, targetTimestamp);
 
         if (!closestLoc) {
           continue;
@@ -417,7 +451,7 @@ export async function fetchRaceData(
 
       // Get race control messages up to this point
       const frameRaceControl = sortedRaceControl.filter(
-        (msg) => new Date(msg.date).getTime() <= targetTimestamp
+        (msg) => (msg as any)._ts <= targetTimestamp
       );
 
       const frame: ReplayFrame = {
