@@ -786,6 +786,18 @@ Set the following environment variables in your Vercel project settings (or via 
 
 The `vercel.json` configuration specifies the Next.js framework, build command, and output directory.
 
+### Automated Deployments (CI/CD)
+
+The project includes a GitHub Action (`.github/workflows/deploy.yml`) that auto-deploys `main` branch pushes to Vercel.
+
+**To enable:**
+
+1. In Vercel dashboard, go to your project → **Settings → Git → Deploy Hooks**
+2. Create a new hook (name it "GitHub Actions"), copy the generated URL
+3. In your GitHub repo, go to **Settings → Secrets and variables → Actions**
+4. Add a new secret called `VERCEL_DEPLOY_HOOK_URL` with the URL from step 2
+5. Done — every push to `main` will auto-deploy
+
 ---
 
 ## Roadmap
