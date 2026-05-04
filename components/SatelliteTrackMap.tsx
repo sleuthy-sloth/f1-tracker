@@ -32,7 +32,7 @@ interface MapState {
 
 function LoadingState() {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-zinc-900/80 rounded-xl backdrop-blur-sm z-20">
+    <div className="w-full h-full flex items-center justify-center bg-transparent rounded-xl z-20">
       <div className="flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
         <span className="text-zinc-400 text-sm font-mono">Initializing Track Map...</span>
@@ -67,7 +67,7 @@ function ErrorState({ message, onRetry }: { message: string; onRetry: () => void
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-zinc-900/60 rounded-xl z-20">
+    <div className="w-full h-full flex items-center justify-center bg-transparent rounded-xl z-20">
       <div className="flex flex-col items-center gap-3 opacity-60">
         <svg className="w-10 h-10 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

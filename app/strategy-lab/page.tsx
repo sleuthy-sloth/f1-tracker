@@ -37,6 +37,7 @@ import PitWindowWidget from '@/components/PitWindowWidget';
 import TimelineControls from '@/components/TimelineControls';
 import MapErrorBoundary from '@/components/MapErrorBoundary';
 import Card from '@/components/ui/Card';
+import CircuitPoster from '@/components/CircuitPoster';
 
 // Loading states
 const LoadingState = () => (
@@ -247,7 +248,10 @@ function StrategyLabContent() {
         </div>
 
         {/* Center Column: Main Map */}
-        <div className="flex-1 relative min-h-[40vh] lg:min-h-0 order-1 lg:order-2 border-b lg:border-b-0 border-white/10">
+        <div className="flex-1 relative min-h-[40vh] lg:min-h-0 order-1 lg:order-2 border-b lg:border-b-0 border-white/10 overflow-hidden">
+          {/* Circuit Poster Background Layer */}
+          <CircuitPoster circuitKey={circuitKey} opacity={0.6} />
+
           {/* Base 2D Map */}
           <div className="w-full h-full absolute inset-0 z-0">
             <TrackMap
