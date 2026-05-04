@@ -749,12 +749,18 @@ vercel --prod
 
 Set the following environment variables in your Vercel project settings (or via `vercel env add`):
 
-- `NEXT_PUBLIC_FIREBASE_API_KEY`
-- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
-- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
-- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
-- `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
-- `NEXT_PUBLIC_FIREBASE_APP_ID`
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | ✅ | Firebase Web API key |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | ✅ | Firebase auth domain (e.g., `project.firebaseapp.com`) |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | ✅ | Firebase project ID |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | ✅ | Firebase storage bucket |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | ✅ | Firebase sender ID |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | ✅ | Firebase app ID |
+| `NVIDIA_API_KEY` | ⬜ | For AI-powered data lookups (fantasy/PU) via NVIDIA NIM |
+| `OPENROUTER_API_KEY` | ⬜ | Fallback AI provider if NVIDIA key is absent |
+
+> **Note:** The AI API keys are optional — if neither is configured, the fantasy and PU pages will show loading states gracefully. Functional features (archive, standings, replay) work without them.
 
 The `vercel.json` configuration specifies the Next.js framework, build command, and output directory.
 

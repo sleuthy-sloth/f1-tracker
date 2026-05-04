@@ -76,7 +76,7 @@ function EmptyState() {
 /**
  * Error state when session not found
  */
-function ErrorState({ message }: { message: string }) {
+function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center h-full gap-4">
       <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center">
@@ -86,12 +86,22 @@ function ErrorState({ message }: { message: string }) {
       </div>
       <h2 className="text-xl font-heading font-bold text-f1-white">Session Not Found</h2>
       <p className="text-f1-silver text-center max-w-md">{message}</p>
-      <Link 
-        href="/archive" 
-        className="mt-4 px-4 py-2 bg-f1-red/20 text-f1-red rounded-lg text-sm font-medium hover:bg-f1-red/30 transition-colors"
-      >
-        Back to Archive
-      </Link>
+      <div className="flex gap-3">
+        {onRetry && (
+          <button
+            onClick={onRetry}
+            className="mt-4 px-4 py-2 bg-white/[0.08] text-f1-silver rounded-lg text-sm font-medium hover:bg-white/[0.12] transition-colors"
+          >
+            Try Again
+          </button>
+        )}
+        <Link 
+          href="/archive" 
+          className="mt-4 px-4 py-2 bg-f1-red/20 text-f1-red rounded-lg text-sm font-medium hover:bg-f1-red/30 transition-colors"
+        >
+          Back to Archive
+        </Link>
+      </div>
     </div>
   );
 }
@@ -298,6 +308,32 @@ function StrategyLabContent() {
     
     fetchSessionInfo();
   }, [sessionParam, driverParam]);
+
+  // Keyboard shortcuts for playback control
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      // Don't capture if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      
+      switch (e.code) {
+        case 'Space':
+          e.preventDefault();
+          engine.togglePlay();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          engine.stepForward();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          engine.stepBack();
+          break;
+      }
+    }
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [engine]);
   
   // Compute selected driver numbers for GapChart
   const selectedDriverNumbers = useMemo(() => {
@@ -375,16 +411,16 @@ function StrategyLabContent() {
         
         {/* Main content */}
         <main className="flex-1 flex items-center justify-center p-8">
-          <ErrorState message={error} />
+          <ErrorState message={error} onRetry={() => window.location.reload()} />
         </main>
       </div>
     );
   }
   
   return (
-    <div className="min-h-screen bg-f1-carbon flex flex-col">
+    <div className="min-h-screen bg-f1-carbon flex flex-col animate-fade-in">
       {/* Header */}
-      <header className="h-16 bg-surface border-b border-white/[0.07] flex items-center justify-between px-6">
+      <header className="h-16 bg-surface border-b border-white/[0.07] flex flex-col lg:flex-row items-start lg:items-center justify-between px-4 lg:px-6 py-2 lg:py-0">
         <div className="flex items-center gap-4">
           <Link href="/archive" className="text-f1-silver hover:text-f1-white transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -402,7 +438,7 @@ function StrategyLabContent() {
         </div>
         
         {/* Session metrics */}
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-2 lg:gap-6 mt-1 lg:mt-0">
           <Card variant="glass" padding="sm" className="py-2 px-4">
             <div className="text-[10px] uppercase tracking-wider text-f1-silver">Drivers</div>
             <div className="text-lg font-heading font-bold text-f1-white">{drivers.length}</div>
@@ -423,9 +459,14 @@ function StrategyLabContent() {
       </header>
       
       {/* Main content: Map + Side panels */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Map area */}
-        <div className="flex-1 relative">
+        <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
+          {!engine.currentFrame && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
+              <span className="text-f1-silver font-mono text-sm">Initializing replay...</span>
+            </div>
+          )}
           <SatelliteTrackMap
             circuitKey={circuitKey}
             trackCoordinates={trackCoordinates}
@@ -436,8 +477,15 @@ function StrategyLabContent() {
             className="w-full h-full"
           />
           
+          {/* Frame counter badge */}
+          {engine.currentFrame && (
+            <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono z-10">
+              Frame {engine.currentIndex + 1}/{engine.totalFrames}
+            </div>
+          )}
+          
           {/* Telemetry HUD floating over map */}
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 max-w-[calc(100%-2rem)]">
             <TelemetryHUD
               drivers={drivers}
               currentFrame={engine.currentFrame}
@@ -447,8 +495,8 @@ function StrategyLabContent() {
         </div>
         
         {/* Side panel */}
-        <div className="w-96 border-l border-white/[0.07] overflow-y-auto custom-scrollbar">
-          <div className="p-3 space-y-3">
+        <div className="w-full lg:w-96 max-h-[50vh] lg:max-h-none border-t lg:border-t-0 lg:border-l border-white/[0.07] overflow-y-auto custom-scrollbar">
+          <div className="p-3 space-y-2 lg:space-y-3">
             {/* Leaderboard */}
             <Leaderboard
               drivers={drivers}
@@ -519,6 +567,13 @@ function StrategyLabContent() {
       />
       
       <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out;
+        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
