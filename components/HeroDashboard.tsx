@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { TireIndicator } from "./TireIndicator";
 import { CircuitOutline } from "./CircuitOutline";
 import { TelemetryPulse } from "./TelemetryPulse";
@@ -279,6 +280,29 @@ export function HeroDashboard() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* CTA buttons */}
+      <div className="flex gap-4 justify-center mt-6 px-4">
+        <Link
+          href="/archive"
+          className="flex items-center gap-2 px-6 py-3 bg-f1-red text-white font-bold rounded-xl shadow-[0_4px_24px_rgba(225,6,0,0.4)] hover:shadow-[0_4px_32px_rgba(225,6,0,0.6)] hover:scale-[1.02] transition-all"
+        >
+          <span className="text-sm font-heading tracking-wide">LAUNCH REPLAY</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+        </Link>
+        <Link
+          href="/standings"
+          className="flex items-center gap-2 px-6 py-3 glass-panel glass-panel-hover text-f1-silver font-bold rounded-xl transition-all"
+        >
+          <span className="text-xs font-heading tracking-wide">VIEW STANDINGS</span>
+        </Link>
+        <Link
+          href="/fantasy"
+          className="flex items-center gap-2 px-6 py-3 glass-panel glass-panel-hover text-f1-silver font-bold rounded-xl transition-all"
+        >
+          <span className="text-xs font-heading tracking-wide">FANTASY LEAGUE</span>
+        </Link>
       </div>
     </div>
   );

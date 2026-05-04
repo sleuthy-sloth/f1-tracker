@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroDashboard } from "@/components/HeroDashboard";
+
+export const metadata: Metadata = {
+  title: "SectorOne — F1 Telemetry Dashboard",
+};
 
 export default function Home() {
   return (

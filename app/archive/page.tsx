@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { getMeetingsByYear, getSessions, getAvailableYears, getSessionResult } from "@/lib/api/openf1";
 import { ArchiveClient } from "@/components/ArchiveClient";
 import type { Session, PodiumEntry } from "@/lib/types";
+
+export const metadata: Metadata = {
+  title: "Race Archive",
+  description: "Browse historical F1 race sessions, view results, and launch full telemetry replays.",
+};
 
 interface ArchivePageProps {
   searchParams: Promise<{ year?: string }>;

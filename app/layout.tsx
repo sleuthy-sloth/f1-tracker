@@ -18,8 +18,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "%s | SectorOne",
-  description: "High-performance Formula 1 telemetry suite",
+  title: {
+    default: "SectorOne — F1 Telemetry Dashboard",
+    template: "%s | SectorOne",
+  },
+  description: "High-performance Formula 1 telemetry suite — real-time race replay, championship standings, fantasy leagues, and historical archives powered by OpenF1.",
+  openGraph: {
+    title: "SectorOne — F1 Telemetry Dashboard",
+    description: "Track live F1 data, replay races, analyze strategy, and compete in fantasy leagues.",
+    siteName: "SectorOne",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

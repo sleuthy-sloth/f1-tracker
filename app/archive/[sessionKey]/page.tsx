@@ -1,9 +1,33 @@
+import type { Metadata } from "next";
 import { getSessions, getDrivers, getSessionResult } from "@/lib/api/openf1";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { DataCard } from "@/components/DataCard";
 import type { Session, Driver, SessionResult } from "@/lib/types";
 import Link from "next/link";
+
+export async function generateMetadata({ params }: { params: Promise<{ sessionKey: string }> }): Promise<Metadata> {
+  const { sessionKey } = await params;
+  const parsedKey = parseInt(sessionKey);
+  if (isNaN(parsedKey)) {
+    return { title: "Session Not Found" };
+  }
+  
+  try {
+    const sessions = await getSessions({ session_key: parsedKey } as Parameters<typeof getSessions>[0]);
+    const session = sessions[0];
+    if (session) {
+      return {
+        title: `${session.session_name} — ${session.circuit_short_name}`,
+        description: `Race session results and telemetry for ${session.session_name} at ${session.circuit_short_name}, ${session.country_name}.`,
+      };
+    }
+  } catch {
+    // Fall through to default
+  }
+  
+  return { title: "Session Detail" };
+}
 
 interface SessionPageProps {
   params: Promise<{ sessionKey: string }>;

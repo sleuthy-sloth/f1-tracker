@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { getSessions, getDrivers, getChampionshipDrivers, getChampionshipTeams, getAvailableYears } from '@/lib/api/openf1';
 import StandingsClient from './StandingsClient';
 import type { Driver, ChampionshipDriver, ChampionshipTeam, Session } from '@/lib/types';
 import { SeasonSelector } from '@/components/SeasonSelector';
 import { DataCard } from '@/components/DataCard';
+
+export const metadata: Metadata = {
+  title: "Championship Standings",
+  description: "F1 driver and constructor championship standings with points progression, form charts, and power unit component usage.",
+};
 
 interface StandingsPageProps {
   searchParams: Promise<{ year?: string }>;
