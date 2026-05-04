@@ -270,11 +270,11 @@ export async function getSessions(
   params?: {
     year?: number;
     country_name?: string;
-    session_key?: number;
+    session_key?: number | string;
     meeting_key?: number;
     session_name?: string;
     session_type?: string;
-  } & { session_key?: string } // Handle 'latest' keyword
+  }
 ): Promise<Session[]> {
   return fetchOpenF1<Session>('/sessions', params);
 }

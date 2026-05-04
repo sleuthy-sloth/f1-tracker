@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { fetchRaceData } from '@/lib/raceData';
-import { getSessions, getStints, getRaceControl } from '@/lib/api/openf1';
+import { getSessions, getStints, getRaceControl, getLocation } from '@/lib/api/openf1';
 import type { 
   Session, 
   TrackCoordinate, 
@@ -42,26 +42,16 @@ const LoadingState = () => (
   </div>
 );
 
-const ErrorState = ({ message, onRetry }: { message: string, onRetry: () => void }) => (
-  <div className="flex flex-col items-center justify-center p-12 bg-red-950/20 backdrop-blur-md rounded-2xl border border-red-500/20">
-    <div className="w-16 h-16 text-f1-red mb-6">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-    </div>
-    <h2 className="text-f1-white font-heading font-bold text-xl mb-2">TELEMETRY ERROR</h2>
-    <p className="text-red-200/60 font-mono text-sm mb-8 max-w-md text-center">{message}</p>
-    <button 
-      onClick={onRetry}
-      className="px-6 py-2 bg-f1-red hover:bg-red-700 text-white font-bold rounded-lg transition-colors"
-    >
-      RETRY CONNECTION
-    </button>
-  </div>
-);
-
 // Dynamic import for MapLibre component
-const SatelliteTrackMap = dynamic(
+const SatelliteTrackMap = dynamic<{
+  circuitKey: number;
+  trackCoordinates: TrackCoordinate[];
+  driverPositions: any[];
+  drivers: Driver[];
+  selectedDriver?: number;
+  safetyCar?: SafetyCarStatus | null;
+  onError?: () => void;
+}>(
   () => import('@/components/SatelliteTrackMap').then(mod => ({ default: mod.SatelliteTrackMap })),
   { 
     ssr: false,
@@ -79,6 +69,7 @@ function StrategyLabContent() {
   const circuitKey = parseInt(searchParams.get('circuit_key') || '0', 10);
 
   const [sessionInfo, setSessionInfo] = useState<Session | null>(null);
+  const [trackCoordinates, setTrackCoordinates] = useState<TrackCoordinate[]>([]);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [stints, setStints] = useState<StintData[]>([]);
   const [raceControlMessages, setRaceControlMessages] = useState<RaceControlData[]>([]);
@@ -87,6 +78,7 @@ function StrategyLabContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingMessage, setProcessingMessage] = useState('');
+  const [mapError, setMapError] = useState(false);
   const [selectedDriverNumber, setSelectedDriverNumber] = useState<number | null>(null);
 
   // Replay engine instance
@@ -116,7 +108,20 @@ function StrategyLabContent() {
         setStints(stintsData);
         setRaceControlMessages(raceControlData);
 
-        // 3. Fetch Full Race Data (Telemetry + GPS)
+        // 3. Fetch Track Coordinates (via first driver's location)
+        setProcessingMessage('Building track layout...');
+        // We fetch a sampling of locations for one driver to build the track map
+        const locations = await getLocation({ session_key: sessionKey });
+        if (locations.length > 0) {
+          // Filter for the first driver seen in the data to get a consistent lap path
+          const firstDriver = locations[0].driver_number;
+          const trackPoints = locations
+            .filter(loc => loc.driver_number === firstDriver)
+            .map(loc => ({ x: loc.x, y: loc.y }));
+          setTrackCoordinates(trackPoints);
+        }
+
+        // 4. Fetch Full Race Data (Telemetry + GPS)
         setProcessingMessage('Synchronizing telemetry streams...');
         const result = await fetchRaceData({ sessionKey });
         
@@ -191,38 +196,30 @@ function StrategyLabContent() {
           {isProcessing && (
             <div className="flex items-center gap-3 px-3 py-1.5 bg-white/5 rounded-full border border-white/10">
               <div className="flex gap-1">
-                <div className="w-1 h-3 bg-f1-red animate-pulse" />
-                <div className="w-1 h-3 bg-f1-red animate-pulse delay-75" />
-                <div className="w-1 h-3 bg-f1-red animate-pulse delay-150" />
+                <div className="w-1 h-1 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <div className="w-1 h-1 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <div className="w-1 h-1 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
-              <span className="text-[10px] font-mono text-f1-white/80 uppercase">
-                {processingMessage || 'Buffering'}
-              </span>
+              <span className="text-[10px] font-mono text-f1-silver uppercase tracking-tight">{processingMessage}</span>
             </div>
           )}
         </div>
       </header>
-      
-      {/* Main content: 3-Column Layout */}
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-[#0a0c0f]">
+
+      {/* Main Dashboard Grid */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
         {/* Left Sidebar: Leaderboard */}
-        <div className="w-full lg:w-[320px] xl:w-[360px] bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col overflow-hidden order-2 lg:order-1">
-          <div className="p-4 border-b border-white/10 flex items-center justify-between">
+        <div className="w-full lg:w-[320px] bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col overflow-hidden order-2 lg:order-1">
+          <div className="p-4 border-b border-white/10">
             <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
-              <svg className="w-4 h-4 text-f1-red" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4 18h2v2H4v-2zm0-4h2v2H4v-2zm0-4h2v2H4v-2zm0-4h2v2H4V6zm4 12h12v2H8v-2zm0-4h12v2H8v-2zm0-4h12v2H8v-2zm0-4h12v2H8V6z" />
-              </svg>
-              Live Leaderboard
+              <span className="w-2 h-2 bg-f1-red rounded-full animate-pulse" />
+              Live Standings
             </h2>
-            <div className="text-[10px] font-mono text-f1-silver px-2 py-0.5 rounded bg-white/5 border border-white/10">
-              LAP {engine.currentFrame?.lap || 1}/{sessionInfo?.totalLaps || '—'}
-            </div>
           </div>
-          <div className="flex-1 overflow-hidden flex flex-col">
-            <Leaderboard
+          <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <Leaderboard 
+              currentFrame={engine.currentFrame} 
               drivers={drivers}
-              currentFrame={engine.currentFrame}
-              stints={stints}
               selectedDriverNumber={selectedDriverNumber}
               onSelectDriver={handleSelectDriver}
             />
@@ -239,64 +236,42 @@ function StrategyLabContent() {
             <TrackMap
               trackLayout={{
                 circuit_key: circuitKey,
-                circuit_name: sessionInfo?.sessionName || 'Circuit',
-                coordinates: trackCoordinates,
+                circuit_name: sessionInfo?.circuit_short_name || 'Circuit',
+                coordinates: trackCoordinates
               }}
               driverPositions={engine.currentFrame?.driver_positions || []}
               drivers={drivers}
-              selectedDriver={selectedDriverNumber ?? undefined}
-              safetyCar={engine.currentFrame?.safety_car ?? undefined}
-              className="w-full h-full"
-              width={800}
-              height={500}
+              selectedDriver={selectedDriverNumber || undefined}
+              safetyCar={engine.currentFrame?.safety_car || undefined}
             />
           </div>
 
-          {/* Satellite Map Overlay */}
+          {/* High-Fidelity Satellite Layer */}
           {!mapError && (
-            <MapErrorBoundary fallback={null}>
+            <MapErrorBoundary fallback={<div className="absolute inset-0 bg-black/20 flex items-center justify-center text-f1-silver text-xs">Satellite Map Unavailable</div>}>
               <SatelliteTrackMap
                 circuitKey={circuitKey}
                 trackCoordinates={trackCoordinates}
                 driverPositions={engine.currentFrame?.driver_positions || []}
                 drivers={drivers}
-                selectedDriver={selectedDriverNumber ?? undefined}
-                safetyCar={engine.currentFrame?.safety_car ?? null}
-                className="absolute inset-0 z-10"
-                height="100%"
+                selectedDriver={selectedDriverNumber || undefined}
+                safetyCar={engine.currentFrame?.safety_car || undefined}
                 onError={() => setMapError(true)}
               />
             </MapErrorBoundary>
           )}
-          
-          {/* Badge overlays */}
-          <div className="absolute bottom-4 left-4 flex flex-col gap-2 z-20">
-            {engine.currentFrame && (
-              <div className="bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-f1-silver font-mono border border-white/10">
-                Frame {engine.currentIndex + 1}/{engine.totalFrames}
-              </div>
-            )}
-          </div>
-          
-          {isProcessing && !isLoading && (
-            <div className="absolute bottom-4 right-4 bg-cyan-500/10 backdrop-blur-sm border border-cyan-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2 z-20">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-              <span className="text-[10px] font-mono text-cyan-200/80 uppercase tracking-tight">
-                {processingMessage || 'Processing...'}
-              </span>
-            </div>
-          )}
-          
-          <div className="absolute top-4 right-4 max-w-[calc(100%-2rem)] z-20">
-            <TelemetryHUD
+
+          {/* Tactical Overlay */}
+          <div className="absolute top-6 left-6 z-30 pointer-events-none">
+            <TelemetryHUD 
+              currentFrame={engine.currentFrame} 
               drivers={drivers}
-              currentFrame={engine.currentFrame}
               selectedDriverNumber={selectedDriverNumber}
             />
           </div>
         </div>
 
-        {/* Right Column: Strategy Hub */}
+        {/* Right Sidebar: Strategy Hub */}
         <div className="w-full lg:w-[360px] xl:w-[400px] bg-black/40 backdrop-blur-md border-l border-white/10 flex flex-col overflow-hidden order-3">
           <div className="p-4 border-b border-white/10">
             <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
@@ -376,7 +351,7 @@ function StrategyLabContent() {
         flagEvents={[]}
       />
       
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }
