@@ -91,28 +91,23 @@ export default async function SessionPage({ params }: SessionPageProps) {
     );
   }
 
-  // Fetch session data with try/catch
+  // Fetch session data in parallel for significant speed boost
   let session: Session | null = null;
   let drivers: Driver[] = [];
   let results: SessionResult[] = [];
 
   try {
-    const sessions = await getSessions({ session_key: parsedSessionKey } as Parameters<typeof getSessions>[0]);
-    session = sessions[0] || null;
-  } catch {
-    session = null;
-  }
+    const [sessionsResult, driversResult, resultsResult] = await Promise.all([
+      getSessions({ session_key: parsedSessionKey } as Parameters<typeof getSessions>[0]).catch(() => []),
+      getDrivers({ session_key: parsedSessionKey } as Parameters<typeof getDrivers>[0]).catch(() => []),
+      getSessionResult({ session_key: parsedSessionKey }).catch(() => [])
+    ]);
 
-  try {
-    drivers = await getDrivers({ session_key: parsedSessionKey } as Parameters<typeof getDrivers>[0]);
-  } catch {
-    drivers = [];
-  }
-
-  try {
-    results = await getSessionResult({ session_key: parsedSessionKey });
-  } catch {
-    results = [];
+    session = (sessionsResult as Session[])[0] || null;
+    drivers = driversResult as Driver[];
+    results = resultsResult as SessionResult[];
+  } catch (error) {
+    console.error("Error fetching session data:", error);
   }
 
   // If session not found, show error with more context

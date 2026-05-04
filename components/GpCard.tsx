@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/Card";
 import { Chip } from "@/components/ui/Chip";
 import { CircuitOutline } from "@/components/CircuitOutline";
@@ -94,13 +95,39 @@ function getSessionDisplayName(sessionType: string): string {
 /**
  * GpCard - Displays a Grand Prix weekend card with session info
  */
-export function GpCard({ meeting, sessions, podium }: GpCardProps) {
-  // Get unique session types for this meeting
-  const uniqueSessionTypes = [...new Set(sessions.map((s) => s.session_type))];
+export function GpCard({ meeting, sessions, podium: initialPodium }: GpCardProps) {
+  const [podium, setPodium] = useState<PodiumEntry[] | undefined>(initialPodium);
+  const [isLoadingPodium, setIsLoadingPodium] = useState(false);
 
   // Find the session to link to (prefer Race, then first available)
   const raceSession = sessions.find((s) => s.session_type === "Race");
   const targetSession = raceSession || sessions[0];
+
+  // Lazy load podium data if not provided
+  useEffect(() => {
+    if (podium || !raceSession) return;
+
+    async function fetchPodium() {
+      setIsLoadingPodium(true);
+      try {
+        const res = await fetch(`/api/data/podium?session_key=${raceSession?.session_key}`);
+        const data = await res.json();
+        if (data.success && data.podium) {
+          setPodium(data.podium);
+        }
+      } catch (err) {
+        console.error("Failed to fetch podium:", err);
+      } finally {
+        setIsLoadingPodium(false);
+      }
+    }
+
+    fetchPodium();
+  }, [podium, raceSession]);
+
+  // Get unique session types for this meeting
+  const uniqueSessionTypes = [...new Set(sessions.map((s) => s.session_type))];
+
   const linkHref = targetSession ? `/archive/${targetSession.session_key}` : "#";
 
   // Build circuit identifier for CircuitOutline
@@ -156,7 +183,13 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
         </div>
 
         {/* Podium Results */}
-        {podium && podium.length > 0 && (
+        {isLoadingPodium ? (
+          <div className="flex gap-2 mt-1 px-1">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-5 w-16 bg-white/5 rounded-full animate-pulse" />
+            ))}
+          </div>
+        ) : podium && podium.length > 0 && (
           <div className="flex items-center gap-3 mt-1 px-1">
             {podium.map((entry) => (
               <div key={entry.position} className="flex items-center gap-1.5">

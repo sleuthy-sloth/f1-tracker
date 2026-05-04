@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { fetchRaceData } from '@/lib/raceData';
+import { fetchRaceData, fetchRawRaceData } from '@/lib/raceData';
 import { getMeetings, getSessions, getStints, getPit } from '@/lib/api/openf1';
 import type { Driver, RaceControlData, StintData, PitData } from '@/lib/types';
 import { useReplayEngine } from '@/hooks/useReplayEngine';
@@ -238,57 +238,88 @@ function StrategyLabContent() {
         });
         setCircuitKey(circuitKeyValue);
         
-        // Fetch race data
-        const raceData = await fetchRaceData({ sessionKey, frameIntervalMs: 200 });
+        // Step 3: Fetch raw race data components
+        const rawData = await fetchRawRaceData(sessionKey);
         
-        if (raceData.drivers.length === 0 || raceData.totalFrames === 0) {
+        if (!rawData || rawData.drivers.length === 0) {
           setError('No replay data available for this session');
           setIsLoading(false);
           return;
         }
         
-        setDrivers(raceData.drivers);
-        setFrameBuffer(raceData.frameBuffer);
+        setDrivers(rawData.drivers);
         
-        // Extract safety car and flag events from race control messages
-        if (raceData.frameBuffer.length > 0) {
-          const allMessages: RaceControlData[] = [];
-          for (let i = 0; i < raceData.frameBuffer.length; i++) {
-            const frame = raceData.frameBuffer.getRange(i, i + 1)[0];
-            if (frame?.race_control_messages) {
-              allMessages.push(...frame.race_control_messages);
-            }
+        // Step 4: Offload heavy processing to Web Worker
+        console.log('Offloading race data processing to worker...');
+        const worker = new Worker('/workers/race-data-worker.js');
+        
+        // Convert Map data to plain objects for structured cloning
+        const locationObj: Record<number, any[]> = {};
+        const carObj: Record<number, any[]> = {};
+        rawData.locationByDriver.forEach((val, key) => { locationObj[key] = val; });
+        rawData.carDataByDriver.forEach((val, key) => { carObj[key] = val; });
+
+        worker.postMessage({
+          type: 'PROCESS_RACE_DATA',
+          data: {
+            drivers: rawData.drivers,
+            locationByDriver: locationObj,
+            carDataByDriver: carObj,
+            weatherData: rawData.weatherData,
+            raceControlData: rawData.raceControlData,
+            frameIntervalMs: 200
           }
-          
-          // Dedupe by date + message
-          const seen = new Set<string>();
-          const uniqueMessages: RaceControlData[] = [];
-          for (const msg of allMessages) {
-            const key = `${msg.date}-${msg.message}`;
-            if (!seen.has(key)) {
-              seen.add(key);
-              uniqueMessages.push(msg);
-            }
-          }
-          
-          // Separate safety car and flag events
-          const scEvents: RaceControlData[] = [];
-          const flEvents: RaceControlData[] = [];
-          
-          for (const msg of uniqueMessages) {
-            const category = (msg.category || '').toUpperCase();
-            const flag = (msg.flag || '').toUpperCase();
+        });
+
+        worker.onmessage = (e) => {
+          if (e.data.type === 'SUCCESS') {
+            const { replayFrames } = e.data.result;
+            const newFrameBuffer = new FrameBuffer(replayFrames);
+            setFrameBuffer(newFrameBuffer);
             
-            if (category.includes('SAFETY CAR') || flag.includes('SCD') || flag.includes('SCR')) {
-              scEvents.push(msg);
-            } else if (flag === 'YELLOW' || flag === 'RED' || flag === 'GREEN') {
-              flEvents.push(msg);
+            // Extract safety car and flag events from processed frames
+            if (replayFrames.length > 0) {
+              const allMessages: RaceControlData[] = [];
+              for (const frame of replayFrames) {
+                if (frame.race_control_messages) {
+                  allMessages.push(...frame.race_control_messages);
+                }
+              }
+              
+              const seen = new Set<string>();
+              const uniqueMessages: RaceControlData[] = [];
+              for (const msg of allMessages) {
+                const key = `${msg.date}-${msg.message}`;
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  uniqueMessages.push(msg);
+                }
+              }
+              
+              const scEvents: RaceControlData[] = [];
+              const flEvents: RaceControlData[] = [];
+              for (const msg of uniqueMessages) {
+                const category = (msg.category || '').toUpperCase();
+                const flag = (msg.flag || '').toUpperCase();
+                if (category.includes('SAFETY CAR') || flag.includes('SCD') || flag.includes('SCR')) {
+                  scEvents.push(msg);
+                } else if (flag === 'YELLOW' || flag === 'RED' || flag === 'GREEN') {
+                  flEvents.push(msg);
+                }
+              }
+              setSafetyCarEvents(scEvents);
+              setFlagEvents(flEvents);
             }
+            
+            setIsLoading(false);
+            worker.terminate();
+          } else if (e.data.type === 'ERROR') {
+            console.error('Worker error:', e.data.error);
+            setError('Telemetry processing failed');
+            setIsLoading(false);
+            worker.terminate();
           }
-          
-          setSafetyCarEvents(scEvents);
-          setFlagEvents(flEvents);
-        }
+        };
         
         // Set initial driver from URL param
         if (driverParam) {

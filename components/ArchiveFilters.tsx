@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { GpCard } from "@/components/GpCard";
 import type { Meeting, Session, PodiumEntry } from "@/lib/types";
 
@@ -13,7 +13,7 @@ interface ArchiveFiltersProps {
   searchQuery?: string;
 }
 
-export function ArchiveFilters({
+export const ArchiveFilters = memo(function ArchiveFilters({
   meetings,
   sessionsByMeeting,
   selectedYear,

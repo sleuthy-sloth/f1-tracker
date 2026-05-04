@@ -54,49 +54,40 @@ export interface RaceDataServiceResult {
 const DEFAULT_FRAME_INTERVAL_MS = 200;
 
 /**
- * Find the closest item to a target timestamp
- * Returns the item whose date is closest to and not exceeding the target,
- * or the closest if all are after the target
- *
- * @param items - Array of items with date strings
- * @param targetMs - Target timestamp in milliseconds
- * @returns The closest item or null if items is empty
+ * Find the closest item to a target timestamp using Binary Search
+ * Returns the item whose date is closest to the target.
+ * Assumes items are sorted by date.
  */
 function findClosest<T extends { date: string }>(
   items: T[],
   targetMs: number
 ): T | null {
-  if (items.length === 0) {
-    return null;
-  }
+  if (items.length === 0) return null;
+  if (items.length === 1) return items[0];
 
-  let bestBefore: T | null = null;
-  let bestAfter: T | null = null;
-  let smallestBeforeDiff = Infinity;
-  let smallestAfterDiff = Infinity;
+  let low = 0;
+  let high = items.length - 1;
 
-  for (const item of items) {
-    const itemMs = new Date(item.date).getTime();
-    const diff = targetMs - itemMs;
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const midMs = new Date(items[mid].date).getTime();
 
-    if (diff >= 0) {
-      // At or before target
-      if (diff < smallestBeforeDiff) {
-        bestBefore = item;
-        smallestBeforeDiff = diff;
-      }
+    if (midMs === targetMs) return items[mid];
+    if (midMs < targetMs) {
+      low = mid + 1;
     } else {
-      // After target
-      const absDiff = Math.abs(diff);
-      if (absDiff < smallestAfterDiff) {
-        bestAfter = item;
-        smallestAfterDiff = absDiff;
-      }
+      high = mid - 1;
     }
   }
 
-  // Prefer before-target (≤ target). Fall back to nearest after-target.
-  return bestBefore ?? bestAfter;
+  // After search: high < low.
+  if (high < 0) return items[low];
+  if (low >= items.length) return items[high];
+
+  const diffHigh = Math.abs(new Date(items[high].date).getTime() - targetMs);
+  const diffLow = Math.abs(new Date(items[low].date).getTime() - targetMs);
+  
+  return diffHigh <= diffLow ? items[high] : items[low];
 }
 
 /**
@@ -192,6 +183,50 @@ function estimateLap(
 }
 
 /**
+ * Fetch raw data components for a race session
+ */
+export async function fetchRawRaceData(sessionKey: number) {
+  const drivers = await getDrivers({ session_key: sessionKey } as any).catch((err) => {
+    console.error('Error fetching drivers:', err);
+    return [] as Driver[];
+  });
+
+  if (drivers.length === 0) return null;
+
+  const perDriverResults = await Promise.all(
+    drivers.map(async (driver) => {
+      const dn = driver.driver_number;
+      const [locs, cars] = await Promise.all([
+        getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
+        getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
+      ]);
+      return { driverNumber: dn, locations: locs, carData: cars };
+    })
+  );
+
+  const locationByDriver = new Map<number, LocationData[]>();
+  const carDataByDriver = new Map<number, CarData[]>();
+
+  for (const result of perDriverResults) {
+    if (result.locations.length > 0) locationByDriver.set(result.driverNumber, result.locations);
+    if (result.carData.length > 0) carDataByDriver.set(result.driverNumber, result.carData);
+  }
+
+  const [weatherData, raceControlData] = await Promise.all([
+    getWeather({ session_key: sessionKey }).catch(() => [] as WeatherData[]),
+    getRaceControl({ session_key: sessionKey }).catch(() => [] as RaceControlData[]),
+  ]);
+
+  return {
+    drivers,
+    locationByDriver,
+    carDataByDriver,
+    weatherData,
+    raceControlData
+  };
+}
+
+/**
  * Fetch race data for a session and build frame buffer
  *
  * @param config - Race data service configuration
@@ -207,64 +242,17 @@ export async function fetchRaceData(
   const { sessionKey, frameIntervalMs = DEFAULT_FRAME_INTERVAL_MS } = config;
 
   try {
-    // Step 1: Fetch drivers first (need these to know driver_numbers)
-    const drivers = await getDrivers({ session_key: sessionKey } as any).catch((err) => {
-      console.error('Error fetching drivers:', err);
-      return [] as Driver[];
-    });
-
-    // Handle empty drivers
-    if (drivers.length === 0) {
-      console.warn('No driver data found for session:', sessionKey);
+    const rawData = await fetchRawRaceData(sessionKey);
+    if (!rawData || rawData.locationByDriver.size === 0) {
       return {
         frameBuffer: new FrameBuffer(),
-        drivers: [],
+        drivers: rawData?.drivers || [],
         totalFrames: 0,
         timeRange: null,
       };
     }
 
-    // Step 2: Fetch location and car data PER DRIVER (the API needs driver_number to return full data)
-    const perDriverResults = await Promise.all(
-      drivers.map(async (driver) => {
-        const dn = driver.driver_number;
-        const [locs, cars] = await Promise.all([
-          getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
-          getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
-        ]);
-        return { driverNumber: dn, locations: locs, carData: cars };
-      })
-    );
-
-    // Merge location and car data into lookup maps
-    const locationByDriver = new Map<number, LocationData[]>();
-    const carDataByDriver = new Map<number, CarData[]>();
-
-    for (const result of perDriverResults) {
-      if (result.locations.length > 0) {
-        locationByDriver.set(result.driverNumber, result.locations);
-      }
-      if (result.carData.length > 0) {
-        carDataByDriver.set(result.driverNumber, result.carData);
-      }
-    }
-
-    // Handle empty location data
-    if (locationByDriver.size === 0) {
-      console.warn('No location data found for session:', sessionKey);
-      return {
-        frameBuffer: new FrameBuffer(),
-        drivers,
-        totalFrames: 0,
-        timeRange: null,
-      };
-    }
-
-    // Step 3: Fetch weather and race control (these are session-wide, no driver filter needed)
-    const [weatherData, raceControlData] = await Promise.all([
-      getWeather({ session_key: sessionKey }).catch(() => [] as WeatherData[]),
-      getRaceControl({ session_key: sessionKey }).catch(() => [] as RaceControlData[]),
-    ]);
+    const { drivers, locationByDriver, carDataByDriver, weatherData, raceControlData } = rawData;
 
     // Sort each driver's data by timestamp
     for (const [, locs] of locationByDriver) {
@@ -304,10 +292,33 @@ export async function fetchRaceData(
     const sampledTimestamps: number[] = [];
 
     for (let ts = startTime; ts <= endTime; ts += frameIntervalMs) {
-      // Find the closest actual timestamp
-      const closestTimestamp = allTimestamps.reduce((prev, curr) =>
-        Math.abs(curr - ts) < Math.abs(prev - ts) ? curr : prev
-      );
+      // Optimized: Use binary search to find the closest actual timestamp
+      let low = 0;
+      let high = allTimestamps.length - 1;
+      let closestTimestamp = allTimestamps[0];
+
+      while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        if (allTimestamps[mid] === ts) {
+          closestTimestamp = allTimestamps[mid];
+          break;
+        }
+        if (allTimestamps[mid] < ts) {
+          low = mid + 1;
+        } else {
+          high = mid - 1;
+        }
+      }
+
+      if (closestTimestamp !== ts) {
+        if (high < 0) closestTimestamp = allTimestamps[low];
+        else if (low >= allTimestamps.length) closestTimestamp = allTimestamps[high];
+        else {
+          closestTimestamp = Math.abs(allTimestamps[high] - ts) <= Math.abs(allTimestamps[low] - ts)
+            ? allTimestamps[high]
+            : allTimestamps[low];
+        }
+      }
 
       // Avoid duplicates
       if (

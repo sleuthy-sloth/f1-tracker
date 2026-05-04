@@ -15,10 +15,7 @@ interface ArchivePageProps {
 export default async function ArchivePage({ searchParams }: ArchivePageProps) {
   const params = await searchParams;
 
-  let availableYears: number[] = [];
-  let meetings: Awaited<ReturnType<typeof getMeetingsByYear>> = [];
-  let sessions: Session[] = [];
-
+  // Step 1: Get available years (used to determine selectedYear)
   try {
     availableYears = await getAvailableYears();
   } catch {
@@ -31,15 +28,17 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
     ? parsedYear
     : (availableYears.length > 0 ? availableYears[0] : currentYear);
 
+  // Step 2: Fetch meetings and sessions in parallel for the selected year
   try {
-    meetings = await getMeetingsByYear(selectedYear);
+    const [meetingsResult, sessionsResult] = await Promise.all([
+      getMeetingsByYear(selectedYear).catch(() => [] as Awaited<ReturnType<typeof getMeetingsByYear>>),
+      getSessions({ year: selectedYear }).catch(() => [] as Session[])
+    ]);
+    
+    meetings = meetingsResult;
+    sessions = sessionsResult;
   } catch {
     meetings = [];
-  }
-
-  try {
-    sessions = await getSessions({ year: selectedYear });
-  } catch {
     sessions = [];
   }
 
@@ -56,27 +55,8 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
     (a, b) => new Date(b.date_start).getTime() - new Date(a.date_start).getTime()
   );
 
-  // Fetch podium data (top 3) for each meeting's Race session
+  // Fetch podium data removed from SSR — now handled lazily on the client per-card
   const podiumByMeeting = new Map<number, PodiumEntry[]>();
-  for (const [meetingKey, meetingSessions] of sessionsByMeeting) {
-    const raceSession = meetingSessions.find((s) => s.session_type === "Race");
-    if (raceSession) {
-      try {
-        const results = await getSessionResult({ session_key: raceSession.session_key });
-        const podium = results
-          .filter((r) => r.position >= 1 && r.position <= 3)
-          .sort((a, b) => a.position - b.position)
-          .map((r) => ({
-            position: r.position,
-            driver_name: `#${r.driver_number}`,
-            driver_number: r.driver_number,
-          }));
-        podiumByMeeting.set(meetingKey, podium);
-      } catch {
-        // No podium data available for this meeting
-      }
-    }
-  }
 
   return (
     <ArchiveClient

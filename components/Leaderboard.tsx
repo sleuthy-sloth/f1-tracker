@@ -1,4 +1,5 @@
 'use client';
+import { useMemo, memo } from 'react';
 
 import type { Driver, DriverPosition, ReplayFrame, StintData } from '@/lib/types';
 
@@ -168,7 +169,7 @@ function sortDrivers(
  *   onSelectDriver={handleSelect}
  * />
  */
-export function Leaderboard({
+export const Leaderboard = memo(function Leaderboard({
   drivers,
   currentFrame,
   stints,
@@ -218,7 +219,7 @@ export function Leaderboard({
   }
 
   const { driver_positions: driverPositions, lap: currentLap } = currentFrame;
-  const sortedDrivers = sortDrivers(drivers, driverPositions);
+  const sortedDrivers = useMemo(() => sortDrivers(drivers, driverPositions), [drivers, driverPositions]);
 
   const handleKeyDown = (e: React.KeyboardEvent, driverNumber: number) => {
     if (e.key === 'Enter' || e.key === ' ') {

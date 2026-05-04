@@ -1,4 +1,5 @@
 'use client';
+import { useMemo, memo } from 'react';
 
 import type { Driver, DriverPosition, ReplayFrame } from '@/lib/types';
 
@@ -111,7 +112,7 @@ function getTeamColor(teamColor: string): string {
  *   className="fixed top-4 right-4"
  * />
  */
-export function TelemetryHUD({
+export const TelemetryHUD = memo(function TelemetryHUD({
   drivers,
   currentFrame,
   selectedDriverNumber,
@@ -166,8 +167,8 @@ export function TelemetryHUD({
   }
 
   // Get driver info and telemetry data
-  const driver = getDriverByNumber(drivers, selectedDriverNumber);
-  const telemetry = getDriverTelemetry(currentFrame, selectedDriverNumber);
+  const driver = useMemo(() => getDriverByNumber(drivers, selectedDriverNumber), [drivers, selectedDriverNumber]);
+  const telemetry = useMemo(() => getDriverTelemetry(currentFrame, selectedDriverNumber), [currentFrame, selectedDriverNumber]);
 
   // State 3: Driver selected but no telemetry data (retired/off track)
   if (!telemetry) {
