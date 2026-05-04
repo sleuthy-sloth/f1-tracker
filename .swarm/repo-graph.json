@@ -1107,6 +1107,19 @@
       "language": "typescript",
       "mtime": "2026-05-02T19:06:43.795Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/tests/LeagueLeaderboard.test.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/LeagueLeaderboard.test.tsx",
+      "moduleName": "tests/LeagueLeaderboard.test.tsx",
+      "exports": [],
+      "imports": [
+        "bun:test",
+        "react",
+        "@testing-library/react",
+        "../components/LeagueLeaderboard"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-03T22:42:28.701Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
       "moduleName": "tests/lib/frameBuffer.test.ts",
@@ -1498,6 +1511,12 @@
       "importType": "named"
     },
     {
+      "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/LeagueLeaderboard.test.tsx",
+      "target": "/Users/spkoehl/Documents/OpenCode/sectorone/components/LeagueLeaderboard.tsx",
+      "importSpecifier": "../components/LeagueLeaderboard",
+      "importType": "named"
+    },
+    {
       "source": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/frameBuffer.test.ts",
       "target": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/frameBuffer.ts",
       "importSpecifier": "../../lib/frameBuffer",
@@ -1565,9 +1584,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-03T22:19:11.250Z",
+    "generatedAt": "2026-05-04T00:31:16.555Z",
     "generator": "repo-graph",
-    "nodeCount": 102,
-    "edgeCount": 42
+    "nodeCount": 103,
+    "edgeCount": 43
   }
 }
