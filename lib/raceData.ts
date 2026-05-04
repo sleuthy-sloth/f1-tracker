@@ -207,40 +207,15 @@ export async function fetchRaceData(
   const { sessionKey, frameIntervalMs = DEFAULT_FRAME_INTERVAL_MS } = config;
 
   try {
-    // Fetch all data in parallel
-    const results = await Promise.all([
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      getDrivers({ session_key: sessionKey } as any).catch((err) => {
-        console.error('Error fetching drivers:', err);
-        return [] as Driver[];
-      }),
-      getLocation({ session_key: sessionKey }).catch((err) => {
-        console.error('Error fetching location:', err);
-        return [] as LocationData[];
-      }),
-      getCarData({ session_key: sessionKey }).catch((err) => {
-        console.error('Error fetching car data:', err);
-        return [] as CarData[];
-      }),
-      getWeather({ session_key: sessionKey }).catch((err) => {
-        console.error('Error fetching weather:', err);
-        return [] as WeatherData[];
-      }),
-      getRaceControl({ session_key: sessionKey }).catch((err) => {
-        console.error('Error fetching race control:', err);
-        return [] as RaceControlData[];
-      }),
-    ]);
+    // Step 1: Fetch drivers first (need these to know driver_numbers)
+    const drivers = await getDrivers({ session_key: sessionKey } as any).catch((err) => {
+      console.error('Error fetching drivers:', err);
+      return [] as Driver[];
+    });
 
-    const drivers = results[0] as Driver[];
-    const locationData = results[1] as LocationData[];
-    const carData = results[2] as CarData[];
-    const weatherData = results[3] as WeatherData[];
-    const raceControlData = results[4] as RaceControlData[];
-
-    // Handle empty responses
-    if (drivers.length === 0 || locationData.length === 0) {
-      console.warn('No driver or location data found for session:', sessionKey);
+    // Handle empty drivers
+    if (drivers.length === 0) {
+      console.warn('No driver data found for session:', sessionKey);
       return {
         frameBuffer: new FrameBuffer(),
         drivers: [],
@@ -249,25 +224,47 @@ export async function fetchRaceData(
       };
     }
 
-    // Group location and car data by driver
+    // Step 2: Fetch location and car data PER DRIVER (the API needs driver_number to return full data)
+    const perDriverResults = await Promise.all(
+      drivers.map(async (driver) => {
+        const dn = driver.driver_number;
+        const [locs, cars] = await Promise.all([
+          getLocation({ session_key: sessionKey, driver_number: dn }).catch(() => [] as LocationData[]),
+          getCarData({ session_key: sessionKey, driver_number: dn }).catch(() => [] as CarData[]),
+        ]);
+        return { driverNumber: dn, locations: locs, carData: cars };
+      })
+    );
+
+    // Merge location and car data into lookup maps
     const locationByDriver = new Map<number, LocationData[]>();
     const carDataByDriver = new Map<number, CarData[]>();
 
-    for (const loc of locationData) {
-      const driverNumber = loc.driver_number;
-      if (!locationByDriver.has(driverNumber)) {
-        locationByDriver.set(driverNumber, []);
+    for (const result of perDriverResults) {
+      if (result.locations.length > 0) {
+        locationByDriver.set(result.driverNumber, result.locations);
       }
-      locationByDriver.get(driverNumber)!.push(loc);
+      if (result.carData.length > 0) {
+        carDataByDriver.set(result.driverNumber, result.carData);
+      }
     }
 
-    for (const car of carData) {
-      const driverNumber = car.driver_number;
-      if (!carDataByDriver.has(driverNumber)) {
-        carDataByDriver.set(driverNumber, []);
-      }
-      carDataByDriver.get(driverNumber)!.push(car);
+    // Handle empty location data
+    if (locationByDriver.size === 0) {
+      console.warn('No location data found for session:', sessionKey);
+      return {
+        frameBuffer: new FrameBuffer(),
+        drivers,
+        totalFrames: 0,
+        timeRange: null,
+      };
     }
+
+    // Step 3: Fetch weather and race control (these are session-wide, no driver filter needed)
+    const [weatherData, raceControlData] = await Promise.all([
+      getWeather({ session_key: sessionKey }).catch(() => [] as WeatherData[]),
+      getRaceControl({ session_key: sessionKey }).catch(() => [] as RaceControlData[]),
+    ]);
 
     // Sort each driver's data by timestamp
     for (const [, locs] of locationByDriver) {
@@ -280,10 +277,12 @@ export async function fetchRaceData(
 
     // Collect all unique timestamps from location data
     const timestampSet = new Set<number>();
-    for (const loc of locationData) {
-      const ts = new Date(loc.date).getTime();
-      if (!isNaN(ts)) {
-        timestampSet.add(ts);
+    for (const locs of locationByDriver.values()) {
+      for (const loc of locs) {
+        const ts = new Date(loc.date).getTime();
+        if (!isNaN(ts)) {
+          timestampSet.add(ts);
+        }
       }
     }
 
