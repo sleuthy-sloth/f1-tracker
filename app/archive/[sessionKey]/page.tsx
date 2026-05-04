@@ -115,18 +115,34 @@ export default async function SessionPage({ params }: SessionPageProps) {
     results = [];
   }
 
-  // If session not found, show error
+  // If session not found, show error with more context
   if (!session) {
     return (
-      <div className="p-6">
-        <Link href="/archive" className="inline-flex items-center gap-2 text-f1-silver hover:text-f1-white mb-6">
+      <div className="p-6 flex flex-col items-center justify-center min-h-[50vh]">
+        <Link href="/archive" className="self-start inline-flex items-center gap-2 text-f1-silver hover:text-f1-white mb-6">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Back to Archive
         </Link>
-        <h1 className="font-heading text-2xl font-bold text-f1-white">Session not found</h1>
-        <p className="text-f1-silver mt-2">The requested session could not be found.</p>
+        <div className="text-center max-w-md">
+          <h1 className="font-heading text-2xl font-bold text-f1-white mb-4">Session not found</h1>
+          <p className="text-f1-silver mb-6">The requested session could not be loaded from the OpenF1 API. This can happen due to rate limiting or temporary API unavailability.</p>
+          <div className="flex gap-3 justify-center">
+            <Link href="/archive" className="px-4 py-2 bg-f1-red text-white rounded-lg text-sm font-medium hover:bg-f1-red/90 transition-colors">
+              Browse Archive
+            </Link>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 border border-white/[0.15] text-f1-white rounded-lg text-sm font-medium hover:bg-white/[0.05] transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+          <p className="text-f1-silver/50 text-xs mt-6">
+            Tip: You can also try the <Link href={`/strategy-lab?session=${sessionKey}`} className="text-f1-cyan hover:underline">Strategy Lab Replay</Link> directly if available.
+          </p>
+        </div>
       </div>
     );
   }

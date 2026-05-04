@@ -111,14 +111,25 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
       <div className="flex flex-col gap-3">
         {/* Top row: Circuit SVG + Info */}
         <div className="flex gap-4">
-          {/* Circuit Outline - Neon Glow */}
-          <div className="shrink-0">
-            <CircuitOutline
-              circuitName={circuitName}
-              size={90}
-              strokeWidth={2}
-              glowColor="#00D2BE"
-            />
+          {/* Circuit Image */}
+          <div className="shrink-0 w-[90px] h-[90px] rounded-lg overflow-hidden bg-white/[0.03]">
+            {meeting.circuit_image ? (
+              <img
+                src={meeting.circuit_image}
+                alt={`${meeting.circuit_short_name} circuit`}
+                className="w-full h-full object-contain"
+                loading="lazy"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <CircuitOutline
+                  circuitName={circuitName}
+                  size={80}
+                  strokeWidth={2}
+                  glowColor="#00D2BE"
+                />
+              </div>
+            )}
           </div>
 
           {/* Meeting Info */}
