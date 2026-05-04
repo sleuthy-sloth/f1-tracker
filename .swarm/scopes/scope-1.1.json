@@ -1,10 +1,9 @@
 {
   "version": 1,
   "taskId": "1.1",
-  "declaredAt": 1777859571813,
-  "expiresAt": 1777945971813,
+  "declaredAt": 1777910097498,
+  "expiresAt": 1777996497498,
   "files": [
-    "lib/circuit-projection.ts",
-    "lib/circuit-lookup.ts"
+    "app/strategy-lab/page.tsx"
   ]
 }

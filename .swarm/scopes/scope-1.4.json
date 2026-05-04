@@ -1,10 +1,10 @@
 {
   "version": 1,
   "taskId": "1.4",
-  "declaredAt": 1777864134301,
-  "expiresAt": 1777950534301,
+  "declaredAt": 1777910874079,
+  "expiresAt": 1777997274079,
   "files": [
-    "components/SatelliteTrackMap.tsx",
+    "components/MapErrorBoundary.tsx",
     "app/strategy-lab/page.tsx"
   ]
 }

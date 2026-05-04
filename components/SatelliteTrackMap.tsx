@@ -21,6 +21,7 @@ export interface SatelliteTrackMapProps {
   className?: string;
   width?: number | string;
   height?: number | string;
+  onError?: () => void;
 }
 
 interface MapState {
@@ -88,11 +89,14 @@ export function SatelliteTrackMap({
   className = '',
   width = '100%',
   height = 500,
+  onError,
 }: SatelliteTrackMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapState, setMapState] = useState<MapState>({ isLoading: true, hasError: false });
+  const onErrorRef = useRef(onError);
+  useEffect(() => { onErrorRef.current = onError; }, [onError]);
 
   // Build driver lookup map for team color and name lookup
   const driverLookup = useMemo(() => {
@@ -124,6 +128,7 @@ export function SatelliteTrackMap({
         hasError: true, 
         errorMessage: `Reference coordinates not found for circuit #${circuitKey}` 
       });
+      onErrorRef.current?.();
       return;
     }
 
@@ -197,6 +202,7 @@ export function SatelliteTrackMap({
         // Only set error if it's a fatal initialization error
         if (!mapRef.current?.isStyleLoaded()) {
           setMapState({ isLoading: false, hasError: true, errorMessage: 'Failed to initialize map engine' });
+          onErrorRef.current?.();
         }
       });
 
@@ -209,6 +215,7 @@ export function SatelliteTrackMap({
     } catch (err) {
       console.error('[SatelliteTrackMap] Map initialization failed:', err);
       setMapState({ isLoading: false, hasError: true, errorMessage: 'Map engine initialization failed' });
+      onErrorRef.current?.();
     }
   }, [circuitKey, getCircuitCenter]);
 

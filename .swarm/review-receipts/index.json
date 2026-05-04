@@ -272,6 +272,22 @@
       "scope_hash": "a5418c2871e158c571ebe1eb0d17771ed6e5122f4a5e62380972b1710fa350c7",
       "agent": "curator",
       "filename": "2026-05-04-1ee95130-e79f-4103-8927-879fc698794b.json"
+    },
+    {
+      "id": "c8176deb-23b0-40d4-984d-66e8db0691c5",
+      "verdict": "approved",
+      "reviewed_at": "2026-05-04T15:44:05.071Z",
+      "scope_hash": "95944531c7e4e09695218c352d11f9d18032635a695bde4a468d1bb2c98aaa79",
+      "agent": "curator",
+      "filename": "2026-05-04-c8176deb-23b0-40d4-984d-66e8db0691c5.json"
+    },
+    {
+      "id": "b2f2ed5f-52cd-4ed0-9fc0-8eaedb2e19b9",
+      "verdict": "rejected",
+      "reviewed_at": "2026-05-04T16:14:29.838Z",
+      "scope_hash": "bc4fb6d791786313706317482dcde63740056bea02caeddeea93b7d5d55b29b1",
+      "agent": "curator",
+      "filename": "2026-05-04-b2f2ed5f-52cd-4ed0-9fc0-8eaedb2e19b9.json"
     }
   ]
 }

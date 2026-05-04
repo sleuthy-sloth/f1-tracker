@@ -6,9 +6,9 @@ import Link from 'next/link';
 import { fetchRaceData, fetchRawRaceData } from '@/lib/raceData';
 import { getMeetings, getSessions, getStints, getPit } from '@/lib/api/openf1';
 import type { Driver, RaceControlData, StintData, PitData } from '@/lib/types';
+import dynamic from 'next/dynamic';
 import { useReplayEngine } from '@/hooks/useReplayEngine';
 import { FrameBuffer } from '@/lib/frameBuffer';
-import { SatelliteTrackMap } from '@/components/SatelliteTrackMap';
 import { TelemetryHUD } from '@/components/TelemetryHUD';
 import { Leaderboard } from '@/components/Leaderboard';
 import { TimelineControls } from '@/components/TimelineControls';
@@ -21,6 +21,13 @@ import RaceControlFeed from '@/components/RaceControlFeed';
 import PitStopIndicator from '@/components/PitStopIndicator';
 import PitWindowWidget from '@/components/PitWindowWidget';
 import { Card } from '@/components/ui/Card';
+import TrackMap from '@/components/TrackMap';
+import { MapErrorBoundary } from '@/components/MapErrorBoundary';
+
+const SatelliteTrackMap = dynamic(
+  () => import('@/components/SatelliteTrackMap').then(mod => ({ default: mod.SatelliteTrackMap })),
+  { ssr: false }
+);
 
 /**
  * Track coordinates from multiviewer API
@@ -146,6 +153,7 @@ function StrategyLabContent() {
   const [pitStops, setPitStops] = useState<PitData[]>([]);
   const [safetyCarEvents, setSafetyCarEvents] = useState<RaceControlData[]>([]);
   const [flagEvents, setFlagEvents] = useState<RaceControlData[]>([]);
+  const [mapError, setMapError] = useState(false);
   
   // Initialize replay engine (will be updated when frameBuffer is ready)
   const engine = useReplayEngine({ 
@@ -503,26 +511,61 @@ function StrategyLabContent() {
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Map area */}
         <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
-          {!engine.currentFrame && (
+          {isLoading && (
             <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-30 backdrop-blur-sm">
               <div className="w-10 h-10 border-4 border-f1-cyan/30 border-t-f1-cyan rounded-full animate-spin mb-4" />
-              <span className="text-f1-white font-heading font-bold text-lg mb-2">
-                {isProcessing ? 'Processing Telemetry' : 'Initializing Map'}
-              </span>
-              <span className="text-f1-silver font-mono text-sm h-5">
-                {isProcessing ? processingMessage : 'Synchronizing track coordinates...'}
-              </span>
+              <span className="text-f1-white font-heading font-bold text-lg mb-2">Initializing Map</span>
+              <span className="text-f1-silver font-mono text-sm h-5">Loading session data...</span>
             </div>
           )}
-          <SatelliteTrackMap
-            circuitKey={circuitKey}
-            trackCoordinates={trackCoordinates}
-            driverPositions={engine.currentFrame?.driver_positions || []}
-            drivers={drivers}
-            selectedDriver={selectedDriverNumber ?? undefined}
-            safetyCar={engine.currentFrame?.safety_car ?? null}
-            className="w-full h-full"
-          />
+          {mapError ? (
+            <div className="w-full h-full">
+              <TrackMap
+                trackLayout={{
+                  circuit_key: circuitKey,
+                  circuit_name: sessionInfo?.sessionName || 'Circuit',
+                  coordinates: trackCoordinates,
+                }}
+                driverPositions={engine.currentFrame?.driver_positions || []}
+                selectedDriver={selectedDriverNumber ?? undefined}
+                safetyCar={engine.currentFrame?.safety_car ?? undefined}
+                className="w-full h-full"
+                width={800}
+                height={500}
+              />
+            </div>
+          ) : (
+            <MapErrorBoundary
+              fallback={
+                <div className="w-full h-full">
+                  <TrackMap
+                    trackLayout={{
+                      circuit_key: circuitKey,
+                      circuit_name: sessionInfo?.sessionName || 'Circuit',
+                      coordinates: trackCoordinates,
+                    }}
+                    driverPositions={engine.currentFrame?.driver_positions || []}
+                    selectedDriver={selectedDriverNumber ?? undefined}
+                    safetyCar={engine.currentFrame?.safety_car ?? undefined}
+                    className="w-full h-full"
+                    width={800}
+                    height={500}
+                  />
+                </div>
+              }
+            >
+              <SatelliteTrackMap
+                circuitKey={circuitKey}
+                trackCoordinates={trackCoordinates}
+                driverPositions={engine.currentFrame?.driver_positions || []}
+                drivers={drivers}
+                selectedDriver={selectedDriverNumber ?? undefined}
+                safetyCar={engine.currentFrame?.safety_car ?? null}
+                className="w-full h-full"
+                onError={() => setMapError(true)}
+              />
+            </MapErrorBoundary>
+          )}
           
           {/* Frame counter badge */}
           {engine.currentFrame && (

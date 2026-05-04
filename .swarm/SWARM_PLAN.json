@@ -1,297 +1,52 @@
 {
   "schema_version": "1.0.0",
-  "title": "SectorOne",
-  "swarm": "default",
+  "title": "Fix Satellite Track Map: SSR + Overlay + Canvas Fallback",
+  "swarm": "satellite-map-fix",
   "current_phase": 1,
   "phases": [
     {
       "id": 1,
-      "name": "OSM Satellite Track Map",
-      "status": "pending",
+      "name": "Fix Satellite Map Display in Race Replay",
+      "status": "complete",
       "tasks": [
         {
           "id": "1.1",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Circuit projection",
+          "description": "Fix SSR issue: Replace static SatelliteTrackMap import in strategy-lab/page.tsx with next/dynamic({ ssr: false }) to prevent maplibre-gl from being evaluated during server rendering",
           "depends": [],
+          "acceptance": "SatelliteTrackMap is loaded client-only via next/dynamic with ssr:false, no maplibre-gl SSR crash",
           "files_touched": []
         },
         {
           "id": "1.2",
           "phase": 1,
-          "status": "pending",
-          "size": "medium",
-          "description": "SatelliteTrackMap",
+          "status": "completed",
+          "size": "small",
+          "description": "Fix overlay z-index: Change the 'Processing Telemetry' overlay in strategy-lab/page.tsx (lines 506-516) to only block the map while isLoading is true, not while isProcessing (worker running). Map can show satellite tiles/track independently of replay engine having frames.",
           "depends": [],
+          "acceptance": "Overlay with z-30 only shows during isLoading phase; map is visible while worker processes telemetry data",
           "files_touched": []
         },
         {
           "id": "1.3",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "medium",
-          "description": "Strategy-lab page",
+          "description": "Add graceful canvas TrackMap fallback: When SatelliteTrackMap hits error state (WebGL failure, unknown circuit, tile load failure), render the existing canvas-based TrackMap component instead. Wire up fallback in strategy-lab/page.tsx with a mapError state that triggers TrackMap rendering.",
           "depends": [],
+          "acceptance": "When SatelliteTrackMap fails, canvas TrackMap renders as fallback showing track outline + driver positions without WebGL",
           "files_touched": []
         },
         {
           "id": "1.4",
           "phase": 1,
-          "status": "pending",
+          "status": "completed",
           "size": "small",
-          "description": "Driver dot colors",
+          "description": "Add React error boundary around the map: Create MapErrorBoundary component that catches runtime errors from maplibre-gl (WebGL unavailable, etc.) and renders TrackMap as fallback instead of crashing the whole page.",
           "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "OpenRouter Integration",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "2.1",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "AI client",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "2.2",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "Fantasy API route",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "2.3",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "PU API route",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "2.4",
-          "phase": 2,
-          "status": "pending",
-          "size": "medium",
-          "description": "Replace mock data",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "2.5",
-          "phase": 2,
-          "status": "pending",
-          "size": "small",
-          "description": "Replace mock PU",
-          "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Mobile, Polish & Deploy",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "3.1",
-          "phase": 3,
-          "status": "pending",
-          "size": "medium",
-          "description": "Tests",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "3.2",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Caching",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "3.3",
-          "phase": 3,
-          "status": "pending",
-          "size": "medium",
-          "description": "UX polish",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "3.4",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Mobile responsive",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "3.5",
-          "phase": 3,
-          "status": "pending",
-          "size": "small",
-          "description": "Vercel setup",
-          "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Pre-Deployment Polish",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "4.1",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Error boundaries",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.2",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Loading skeletons",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.3",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "SEO metadata",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.4",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Landing page",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.5",
-          "phase": 4,
-          "status": "pending",
-          "size": "medium",
-          "description": "Archive search",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.6",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Settings page",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "4.7",
-          "phase": 4,
-          "status": "pending",
-          "size": "small",
-          "description": "Auth polish",
-          "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Landing Page & Guest Access",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "5.1",
-          "phase": 5,
-          "status": "pending",
-          "size": "medium",
-          "description": "Landing page redesign",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "5.2",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Guest access",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "5.3",
-          "phase": 5,
-          "status": "pending",
-          "size": "small",
-          "description": "Pre-deploy cleanup",
-          "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "CI/CD Pipeline",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "6.1",
-          "phase": 6,
-          "status": "pending",
-          "size": "small",
-          "description": "GitHub Action for Vercel",
-          "depends": [],
-          "files_touched": []
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Bug Fixes",
-      "status": "pending",
-      "tasks": [
-        {
-          "id": "7.1",
-          "phase": 7,
-          "status": "pending",
-          "size": "medium",
-          "description": "Circuit images in GpCard + session error page",
-          "depends": [],
-          "files_touched": []
-        },
-        {
-          "id": "7.2",
-          "phase": 7,
-          "status": "pending",
-          "size": "medium",
-          "description": "Fix raceData per-driver location/car data fetching",
-          "depends": [],
+          "acceptance": "MapErrorBoundary catches maplibre-gl crashes and renders canvas TrackMap fallback; page doesn't crash on WebGL failure",
           "files_touched": []
         }
       ]

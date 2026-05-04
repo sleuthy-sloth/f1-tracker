@@ -343,9 +343,9 @@
         "next/link",
         "@/lib/raceData",
         "@/lib/api/openf1",
+        "next/dynamic",
         "@/hooks/useReplayEngine",
         "@/lib/frameBuffer",
-        "@/components/SatelliteTrackMap",
         "@/components/TelemetryHUD",
         "@/components/Leaderboard",
         "@/components/TimelineControls",
@@ -357,10 +357,13 @@
         "@/components/RaceControlFeed",
         "@/components/PitStopIndicator",
         "@/components/PitWindowWidget",
-        "@/components/ui/Card"
+        "@/components/ui/Card",
+        "@/components/TrackMap",
+        "@/components/MapErrorBoundary",
+        "@/components/SatelliteTrackMap"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T14:14:32.865Z"
+      "mtime": "2026-05-04T16:08:36.557Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/ArchiveClient.tsx",
@@ -540,6 +543,23 @@
       "language": "typescript",
       "mtime": "2026-05-04T14:01:33.094Z"
     },
+    "/Users/spkoehl/Documents/OpenCode/sectorone/components/MapErrorBoundary.tsx": {
+      "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/MapErrorBoundary.tsx",
+      "moduleName": "components/MapErrorBoundary.tsx",
+      "exports": [
+        "MapErrorBoundary",
+        "MapErrorBoundary.constructor",
+        "MapErrorBoundary.super",
+        "MapErrorBoundary.componentDidCatch",
+        "MapErrorBoundary.render",
+        "MapErrorBoundary.if"
+      ],
+      "imports": [
+        "react"
+      ],
+      "language": "typescript",
+      "mtime": "2026-05-04T16:08:19.881Z"
+    },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/MobileNav.tsx",
       "moduleName": "components/MobileNav.tsx",
@@ -654,7 +674,7 @@
         "@/lib/circuit-lookup"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T03:11:16.265Z"
+      "mtime": "2026-05-04T16:07:03.054Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/components/SeasonSelector.tsx",
@@ -941,13 +961,12 @@
       "exports": [
         "CircuitLocation",
         "getCircuitLocation",
-        "getCircuitLocationOrDefault",
         "getAllCircuitLocations",
         "hasCircuitLocation"
       ],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-04T01:54:23.966Z"
+      "mtime": "2026-05-04T15:28:56.807Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-projection.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/circuit-projection.ts",
@@ -955,7 +974,7 @@
       "exports": [],
       "imports": [],
       "language": "typescript",
-      "mtime": "2026-05-04T01:54:08.618Z"
+      "mtime": "2026-05-04T14:44:02.100Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/fantasy-firestore.ts",
@@ -1053,7 +1072,6 @@
       "exports": [
         "RaceDataServiceConfig",
         "RaceDataServiceResult",
-        "fetchRawRaceData",
         "getFrameCount"
       ],
       "imports": [
@@ -1061,7 +1079,7 @@
         "./api/openf1"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T14:14:23.244Z"
+      "mtime": "2026-05-04T14:52:42.108Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/lib/teams.ts",
@@ -1505,7 +1523,7 @@
         "../../lib/circuit-lookup"
       ],
       "language": "typescript",
-      "mtime": "2026-05-04T04:22:21.858Z"
+      "mtime": "2026-05-04T15:24:56.784Z"
     },
     "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-projection.test.ts": {
       "filePath": "/Users/spkoehl/Documents/OpenCode/sectorone/tests/lib/circuit-projection.test.ts",
@@ -2045,9 +2063,9 @@
     }
   ],
   "metadata": {
-    "generatedAt": "2026-05-04T14:29:09.692Z",
+    "generatedAt": "2026-05-04T16:08:41.596Z",
     "generator": "repo-graph",
-    "nodeCount": 134,
+    "nodeCount": 135,
     "edgeCount": 50
   }
 }

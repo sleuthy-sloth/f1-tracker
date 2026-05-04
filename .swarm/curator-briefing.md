@@ -1801,6 +1801,12 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T13:47:35.062Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T13:47:44.887Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 - promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T13:47:50.872Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:22:34.511Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:22:47.820Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:23:01.228Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:23:05.503Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:23:16.739Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
+- promote: Hive promotion: 0 new, 0 encounters, 0 advancements, 0 total entries ({"timestamp":"2026-05-04T14:23:47.249Z","new_promotions":0,"encounters_incremented":0,"advancements":0,"total_hive_entries":0})
 
 ## Context Summary
 
@@ -1858,30 +1864,19 @@ Phase 4 completed. 12/12 tasks completed. 2 compliance observations.
 
 ## LLM-Enhanced Analysis
 BRIEFING:
-- Summary: Phase 3 completed (3/3 tasks). Phase 4 completed (12/12 tasks) but with two workflow-compliance warnings (reviewer and test_engineer not dispatched). QA gates were applied; SAST and SME checks active.
-- Active blockers: Address the two missing agents in Phase 4 and close any associated compliance notes; ensure downstream tasks reference the Phase-4 evidence.
-- Key decisions: No explicit new key decisions captured in prior phase digests; phase-level progress largely tracked via task counts and gate notes.
-- Observations for architect: Project context shows heavy, ongoing activity with broad tool usage; consider tightening phase handoffs and ensuring council gates align with phase completions.
+- Status: Phase 3 completed (3/3 tasks) and Phase 4 completed (12/12 tasks). Phase 4 compliance warnings flagged: reviewer and test_engineer were listed as required but not dispatched.
+- Gating context: PROJECT_CONTEXT shows QA gates applied (reviewer: true, test_engineer: true, sast_enabled: true, critic_pre_plan: true, drift_check: true). This suggests gating was exercised, which conflicts with the stated warnings in PRIOR_SUMMARY.
+- Active blockers: reconcile the Phase 4 gating record with the documented workflow_deviation warnings; confirm which agents actually dispatched and capture evidence for gate compliance moving forward.
 
 CONTRADICTIONS:
-- None detected
+- None detected in KNOWLEDGE_ENTRIES themselves. (Prior summary flags two workflow deviations that conflict with the gating state shown in PROJECT_CONTEXT; this is a cross-source inconsistency, not an entry-level contradiction.)
 
 OBSERVATIONS:
-- entry 4c056578-49d0-4632-8cc0-2a614d697bfc appears high-confidence (confidence 0.60): “Tree-sitter has false positives for TSX files - use build_check or pre_check_batch for reliable syntax verification.” This aligns with the project’s need for robust syntax checks.
-- entry 9c19e5c2-a6ef-445f-88ad-412ef623b495 appears high-confidence (0.60): “Reviewer agent may return empty results when model is unavailable - fall back to manual evidence attestation.” Important resilience pattern for gating.
-- entry 33509489-aeb1-414c-9066-bf9032fa1244 appears high-confidence (0.60): “Server components must handle API errors with try/catch and fallback UI to pass review.” Reinforces robust error handling discipline.
-- Could be tighter (examples):
-  - entry f8572b06-e929-4309-b6a4-acf95b21f5fb (0.40) could be tighter: rephrase to a succinct note about CSS/page co-change without imports.
-  - entry 3f301db1-33fe-4e3d-b7a9-edf333c49af5 (0.40) could be tighter: consolidate with similar co-change observations.
-- new candidate: Given recurring co-change signals without direct imports, propose:
-  - new candidate: “Hidden CSS/page couplings: CSS/global styles and page components change together without explicit imports; surface via co-change signals and dependency graphs; consider explicit styling contracts.”
-- KNOWLEDGE_STATS:
-  - Entries reviewed: 15
-  - Prior phases covered: 4
+- 4c056578-49d0-4632-8cc0-2a614d697bfc appears high-confidence: TSX false positives noted for Tree-sitter; recommends relying on build_check/pre_check_batch for syntax verification. Hive_eligible.
+- 9c19e5c2-a6ef-445f-88ad-412ef623b495 appears high-confidence: “Reviewer agent may return empty results” implies need for fallbacks to attestation. Hive_eligible.
+- Several other entries (e.g., f8572b06..., 3f301db1..., 0cf774b8...) hint at co-change risks or gaps in architectural alignment; they could be tightened or archived if stale.
+- new candidate: Lesson on gating discipline — ensure explicit, machine-verified evidence ties each gate to a completed task and phase, reducing drift between plan and execution.
 
-New candidate lesson (suggested for Hive): 
-- “Hidden couplings between UI styling and route/page modules can drive synced changes; surface with cross-file co-change signals and document any styling contracts.”
-
-PROJECT_CONTEXT notes reflected:
-- No conflicting state observed; Phase 4 compliance warnings should be resolved to solidify gates for upcoming work.
-- QA gates remained active (reviewer, test_engineer, SME, SAST). Ensure future phasing includes explicit dispatch of required roles to avoid rework.
+KNOWLEDGE_STATS:
+- Entries reviewed: 15
+- Prior phases covered: 2
