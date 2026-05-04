@@ -250,10 +250,11 @@ export function SatelliteTrackMap({
 
     // Set up a resize observer to wait for dimensions if they are missing
     const resizeObserver = new ResizeObserver(() => {
-      if (!mapRef.current) {
+      const currentMap = mapRef.current;
+      if (!currentMap) {
         initMap();
       } else {
-        mapRef.current.resize();
+        currentMap.resize();
       }
     });
 
