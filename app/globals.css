@@ -4,7 +4,7 @@
   /* SectorOne Brand Colors - Refined for "Functional Premium" */
   --color-primary: #e10600; /* Ferrari Red */
   --color-primary-container: rgba(225, 6, 0, 0.15);
-  --color-secondary: #00d2be; /* Mercedes Teal */
+  --color-secondary: #6366f1; /* Precision Indigo */
   --color-tertiary: #ff8000;  /* McLaren Orange */
   
   /* Surface Colors - Near-black HUD Palette */
@@ -24,7 +24,8 @@
   --on-primary: #ffffff;
   
   /* Accent Colors */
-  --color-cyan-accent: #00D2BE;
+  --color-accent: #6366f1;
+  --color-cyan-accent: var(--color-accent); /* Alias for backward compatibility */
   --outline: rgba(255, 255, 255, 0.1);
   --outline-variant: rgba(255, 255, 255, 0.05);
   
@@ -43,7 +44,8 @@
   /* Effects */
   --neon-glow-red: 0 0 10px rgba(225, 6, 0, 0.4), 0 0 20px rgba(225, 6, 0, 0.2);
   --neon-glow-white: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
-  --neon-glow-cyan: 0 0 10px rgba(0, 210, 190, 0.4), 0 0 20px rgba(0, 210, 190, 0.2);
+  --glow-accent: 0 0 8px rgba(99, 102, 241, 0.3), 0 0 16px rgba(99, 102, 241, 0.1);
+  --neon-glow-cyan: var(--glow-accent); /* Alias */
   --neon-glow-yellow: 0 0 10px rgba(255, 251, 0, 0.4), 0 0 20px rgba(255, 251, 0, 0.2);
   --neon-glow-green: 0 0 10px rgba(34, 197, 94, 0.4), 0 0 20px rgba(34, 197, 94, 0.2);
 }
@@ -53,7 +55,8 @@
   --color-primary-container: var(--color-primary-container);
   --color-secondary: var(--color-secondary);
   --color-tertiary: var(--color-tertiary);
-  --color-cyan-accent: var(--color-cyan-accent);
+  --color-accent: var(--color-accent);
+  --color-cyan-accent: var(--color-accent);
   
   --color-surface: var(--surface);
   --color-surface-dim: var(--surface-dim);
@@ -82,24 +85,27 @@
 body {
   background: 
     url('/hex-pattern.svg') center / 60px 52px,
-    var(--surface-dim);
+    radial-gradient(circle at 50% -20%, #1e2330 0%, #0e1014 100%);
+  background-attachment: fixed;
   color: var(--on-surface);
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Solid Panel - HUD aesthetic, no blur */
+/* Precision Panel - HUD aesthetic, subtle blue tint */
 .glass-panel {
-  background: var(--surface-container-low);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  background: rgba(22, 26, 32, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .glass-panel-hover:hover {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: var(--surface-container);
-  transform: translateY(-1px);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: rgba(99, 102, 241, 0.3);
+  background: rgba(30, 35, 43, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* High-Performance Typography */
@@ -151,7 +157,10 @@ body {
 }
 
 .glow-cyan {
-  box-shadow: var(--neon-glow-cyan);
+  box-shadow: var(--glow-accent);
+}
+.glow-accent {
+  box-shadow: var(--glow-accent);
 }
 .glow-yellow {
   box-shadow: var(--neon-glow-yellow);
@@ -161,7 +170,10 @@ body {
 }
 
 .text-glow-cyan {
-  text-shadow: 0 0 8px rgba(0, 210, 190, 0.6);
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+.text-glow-accent {
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
 }
 .text-glow-yellow {
   text-shadow: 0 0 8px rgba(255, 251, 0, 0.6);

@@ -27,7 +27,7 @@ export function SeasonSelector({
               href={`${hrefBase}${year}`}
               className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 isSelected
-                  ? "bg-[#00D2BE] text-white shadow-[0_0_8px_rgba(0,210,190,0.4)]"
+                  ? "bg-accent text-white shadow-[0_0_8px_rgba(99,102,241,0.4)]"
                   : "bg-white/[0.06] text-f1-silver hover:text-f1-white hover:bg-white/[0.1]"
               }`}
               aria-current={isSelected ? "page" : undefined}
@@ -43,7 +43,7 @@ export function SeasonSelector({
             onClick={() => onYearChange?.(year)}
             className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
               isSelected
-                ? "bg-[#00D2BE] text-white shadow-[0_0_8px_rgba(0,210,190,0.4)]"
+                ? "bg-accent text-white shadow-[0_0_8px_rgba(99,102,241,0.4)]"
                 : "bg-white/[0.06] text-f1-silver hover:text-f1-white hover:bg-white/[0.1]"
             }`}
             aria-current={isSelected ? "page" : undefined}

@@ -57,7 +57,7 @@ function FilterCheckbox({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="w-3.5 h-3.5 rounded border-white/20 bg-transparent checked:bg-[#00D2BE] checked:border-[#00D2BE] focus:ring-1 focus:ring-[#00D2BE]/50 accent-[#00D2BE]"
+        className="w-3.5 h-3.5 rounded border-white/20 bg-transparent checked:bg-accent checked:border-accent focus:ring-1 focus:ring-accent/50 accent-accent"
       />
       <span className="text-xs text-f1-silver group-hover:text-f1-white transition-colors">
         {label}
@@ -84,7 +84,7 @@ function FilterPill({
       onClick={onClick}
       className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-all duration-200 ${
         active
-          ? "bg-[#00D2BE]/20 text-[#00D2BE] border border-[#00D2BE]/30"
+          ? "bg-accent/20 text-accent border border-accent/30"
           : "bg-white/[0.06] text-f1-silver hover:text-f1-white hover:bg-white/[0.1] border border-transparent"
       }`}
     >
@@ -114,7 +114,7 @@ function MobileFilterButton({ onClick, activeCount }: { onClick: () => void; act
         </svg>
         Filters
         {activeCount > 0 && (
-          <span className="ml-auto bg-[#00D2BE] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+          <span className="ml-auto bg-accent text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
             {activeCount}
           </span>
         )}
@@ -185,7 +185,7 @@ export function FilterSidebar({
               onClick={() => onYearChange(year)}
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${
                 year === selectedYear
-                  ? "bg-[#00D2BE] text-white shadow-[0_0_8px_rgba(0,210,190,0.4)]"
+                  ? "bg-accent text-white shadow-[0_0_8px_rgba(99,102,241,0.4)]"
                   : "bg-white/[0.06] text-f1-silver hover:text-f1-white hover:bg-white/[0.1]"
               }`}
             >
@@ -250,7 +250,7 @@ export function FilterSidebar({
           <select
             value={filters.driverWins}
             onChange={(e) => onFilterChange({ driverWins: e.target.value })}
-            className="w-full px-2.5 py-1.5 rounded-md bg-white/[0.08] border border-white/10 text-xs text-f1-white focus:outline-none focus:border-[#00D2BE]/50 focus:ring-1 focus:ring-[#00D2BE]/30 transition-colors appearance-none"
+            className="w-full px-2.5 py-1.5 rounded-md bg-white/[0.08] border border-white/10 text-xs text-f1-white focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-colors appearance-none"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a0a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
               backgroundRepeat: "no-repeat",
@@ -292,7 +292,7 @@ export function FilterSidebar({
                     driverWins: "all",
                   })
                 }
-                className="text-[10px] text-[#00D2BE] hover:text-white transition-colors font-medium"
+                className="text-[10px] text-accent hover:text-white transition-colors font-medium"
               >
                 Clear all
               </button>

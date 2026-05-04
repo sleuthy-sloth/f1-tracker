@@ -107,7 +107,7 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
   const circuitName = meeting.circuit_short_name?.toLowerCase().replace(/\s+/g, '_') || "";
 
   return (
-    <Card glow="cyan" variant="glass" padding="md" hoverable>
+    <Card glow="accent" variant="glass" padding="md" hoverable>
       <div className="flex flex-col gap-3">
         {/* Top row: Circuit SVG + Info */}
         <div className="flex gap-4">
@@ -126,7 +126,7 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
                   circuitName={circuitName}
                   size={80}
                   strokeWidth={2}
-                  glowColor="#00D2BE"
+                  glowColor="#6366F1"
                 />
               </div>
             )}
@@ -195,7 +195,7 @@ export function GpCard({ meeting, sessions, podium }: GpCardProps) {
           <div className="mt-1">
             <Link
               href={linkHref}
-              className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-all duration-200 bg-[#00D2BE] text-white shadow-[var(--neon-glow-cyan)] hover:bg-[#00E8D0] hover:shadow-[0_0_15px_rgba(0,210,190,0.6),0_0_30px_rgba(0,210,190,0.3)]"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold tracking-wider uppercase transition-all duration-200 bg-accent text-white shadow-[var(--glow-accent)] hover:bg-accent/90 hover:shadow-[0_0_15px_rgba(99,102,241,0.4),0_0_30px_rgba(99,102,241,0.2)]"
             >
               VIEW FULL TELEMETRY
             </Link>

@@ -38,7 +38,7 @@ function Spinner({ className }: { className?: string }) {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost" | "outline" | "cyan";
+  variant?: "primary" | "secondary" | "ghost" | "outline" | "cyan" | "accent";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   icon?: ReactNode;
@@ -58,7 +58,9 @@ const variantStyles: Record<ButtonVariant, string> = {
   outline:
     "bg-transparent border border-white/[0.20] text-f1-white hover:bg-white/[0.05] hover:border-white/[0.30]",
   cyan:
-    "bg-[#00D2BE] text-white hover:bg-[#00E8D0] shadow-[var(--neon-glow-cyan)] hover:shadow-[0_0_15px_rgba(0,210,190,0.6),0_0_30px_rgba(0,210,190,0.3)]",
+    "bg-accent text-white hover:bg-accent/90 shadow-[var(--glow-accent)] hover:shadow-[0_0_15px_rgba(99,102,241,0.4),0_0_30px_rgba(99,102,241,0.2)]",
+  accent:
+    "bg-accent text-white hover:bg-accent/90 shadow-[var(--glow-accent)] hover:shadow-[0_0_15px_rgba(99,102,241,0.4),0_0_30px_rgba(99,102,241,0.2)]",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -114,7 +116,7 @@ export function Button({
   const sizeStyle = sizeStyles[size];
 
   const spinnerColorClass =
-    variant === "primary" || variant === "secondary" || variant === "cyan"
+    variant === "primary" || variant === "secondary" || variant === "cyan" || variant === "accent"
       ? "text-white"
       : "text-f1-red";
 

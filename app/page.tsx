@@ -18,13 +18,13 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden px-6 pt-20 pb-16 lg:pt-32 lg:pb-24">
         {/* Background glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#00D2BE]/5 via-transparent to-transparent" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#00D2BE]/3 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl" />
         
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00D2BE] to-[#E10600] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-[#E10600] flex items-center justify-center">
               <span className="text-white font-heading font-bold text-lg">S1</span>
             </div>
             <span className="text-2xl font-heading font-bold text-f1-white tracking-wider">SectorOne</span>
@@ -33,7 +33,7 @@ export default function HomePage() {
           {/* Tagline */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-f1-white leading-tight mb-6">
             Your F1 Telemetry
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D2BE] to-[#E10600]">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#E10600]">
               Command Center
             </span>
           </h1>
@@ -75,9 +75,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             
             {/* Archive */}
-            <Link href="/archive" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-[#00D2BE]/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-[#00D2BE]/10 flex items-center justify-center mb-3 group-hover:bg-[#00D2BE]/20 transition-colors">
-                <svg className="w-5 h-5 text-[#00D2BE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <Link href="/archive" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
@@ -86,9 +86,9 @@ export default function HomePage() {
             </Link>
 
             {/* Replay */}
-            <Link href="/strategy-lab" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-[#00D2BE]/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-[#00D2BE]/10 flex items-center justify-center mb-3 group-hover:bg-[#00D2BE]/20 transition-colors">
-                <svg className="w-5 h-5 text-[#00D2BE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <Link href="/strategy-lab" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -98,9 +98,9 @@ export default function HomePage() {
             </Link>
 
             {/* Standings */}
-            <Link href="/standings" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-[#00D2BE]/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-[#00D2BE]/10 flex items-center justify-center mb-3 group-hover:bg-[#00D2BE]/20 transition-colors">
-                <svg className="w-5 h-5 text-[#00D2BE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <Link href="/standings" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
@@ -109,9 +109,9 @@ export default function HomePage() {
             </Link>
 
             {/* Fantasy */}
-            <Link href="/fantasy" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-[#00D2BE]/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-[#00D2BE]/10 flex items-center justify-center mb-3 group-hover:bg-[#00D2BE]/20 transition-colors">
-                <svg className="w-5 h-5 text-[#00D2BE]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <Link href="/fantasy" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </div>

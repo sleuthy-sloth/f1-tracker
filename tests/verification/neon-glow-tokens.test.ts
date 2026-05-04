@@ -30,14 +30,14 @@ describe('Neon glow tokens and utilities in app/globals.css', () => {
     }
   });
 
-  test('--color-cyan-accent is set to #00D2BE', () => {
-    expect(/--color-cyan-accent\s*:\s*#00D2BE\s*;/.test(css)).toBe(true);
+  test('--color-accent is set to #6366f1', () => {
+    expect(/--color-accent\s*:\s*#6366f1\s*;/.test(css)).toBe(true);
   });
 
   test('@theme inline references color accent', () => {
     // Ensure theme inline section exists and references the color accent
     expect(/@theme\s+inline/i.test(css)).toBe(true);
-    expect(/var\(--color-cyan-accent\)/.test(css)).toBe(true);
+    expect(/var\(--color-accent\)/.test(css)).toBe(true);
   });
 
   test('glow-red tokens preserved (no regression)', () => {

@@ -216,7 +216,7 @@ export function RosterEditor({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           disabled={driversLoading}
-          className="w-full mb-3 px-3 py-2 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-[#00D2BE]/50 transition-colors disabled:opacity-50"
+          className="w-full mb-3 px-3 py-2 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-accent/50 transition-colors disabled:opacity-50"
         />
         <div className="max-h-64 overflow-y-auto space-y-1">
           {driversLoading ? (
@@ -260,7 +260,7 @@ export function RosterEditor({
       {/* Save / Revert */}
       <div className="flex gap-3 pt-2">
         <Button
-          variant="cyan"
+          variant="accent"
           size="sm"
           onClick={handleSave}
           disabled={!hasChanges || isOverBudget || isLoading}

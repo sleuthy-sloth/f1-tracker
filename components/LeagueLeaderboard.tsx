@@ -68,7 +68,7 @@ function EmptyLeagueState({ onShowCreate, onShowJoin }: { onShowCreate: () => vo
         Create a league to compete with friends, or join one with an invite code
       </p>
       <div className="flex gap-3">
-        <Button variant="cyan" size="md" onClick={onShowCreate}>
+        <Button variant="accent" size="md" onClick={onShowCreate}>
           Create League
         </Button>
         <Button variant="outline" size="md" onClick={onShowJoin}>
@@ -117,12 +117,12 @@ export function LeagueLeaderboard({
               value={leagueName}
               onChange={(e) => setLeagueName(e.target.value)}
               placeholder="e.g. Championship Challengers"
-              className="w-full px-3 py-2.5 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-[#00D2BE]/50 transition-colors"
+              className="w-full px-3 py-2.5 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-accent/50 transition-colors"
             />
           </div>
           <div className="flex gap-3">
             <Button
-              variant="cyan"
+              variant="accent"
               size="md"
               disabled={!leagueName.trim() || isLoading}
               onClick={() => {
@@ -157,12 +157,12 @@ export function LeagueLeaderboard({
               value={inviteCode}
               onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
               placeholder="e.g. F1-ABCD"
-              className="w-full px-3 py-2.5 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-[#00D2BE]/50 transition-colors font-mono uppercase tracking-wider"
+              className="w-full px-3 py-2.5 rounded-lg bg-white/[0.08] border border-white/10 text-sm text-f1-white placeholder:text-f1-silver/40 focus:outline-none focus:border-accent/50 transition-colors font-mono uppercase tracking-wider"
             />
           </div>
           <div className="flex gap-3">
             <Button
-              variant="cyan"
+              variant="accent"
               size="md"
               disabled={!inviteCode.trim() || isLoading}
               onClick={() => {
@@ -190,14 +190,14 @@ export function LeagueLeaderboard({
   const leaderPoints = sortedMembers[0]?.totalPoints || 0;
 
   return (
-    <Card glow="cyan" variant="glass" padding="none" className={className}>
+    <Card glow="accent" variant="glass" padding="none" className={className}>
       {/* League Header */}
       <div className="px-6 py-5 border-b border-white/[0.05]">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-heading text-xl font-bold text-f1-white">{league.name}</h2>
             <p className="text-xs text-f1-silver/60 mt-0.5">
-              {league.members.length} member{league.members.length !== 1 ? "s" : ""} · Code: <span className="font-mono text-[#00D2BE]">{league.inviteCode}</span>
+              {league.members.length} member{league.members.length !== 1 ? "s" : ""} · Code: <span className="font-mono text-accent">{league.inviteCode}</span>
             </p>
           </div>
         </div>

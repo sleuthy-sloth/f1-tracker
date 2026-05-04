@@ -7,7 +7,7 @@ export interface CircuitOutlineProps {
   pathData?: string;
   /** Circuit short name for built-in lookup (if pathData not provided) */
   circuitName?: string;
-  /** Glow color - hex format (defaults to cyan #00D2BE) */
+  /** Glow color - hex format (defaults to indigo #6366F1) */
   glowColor?: string;
   /** Width and height of the SVG viewBox */
   size?: number;
@@ -37,7 +37,7 @@ const CIRCUIT_PATHS: Record<string, string> = {
 export function CircuitOutline({
   pathData,
   circuitName,
-  glowColor = "#00D2BE",
+  glowColor = "#6366F1",
   size = 100,
   strokeWidth = 2,
   hoverable = false,

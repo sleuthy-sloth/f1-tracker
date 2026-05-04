@@ -15,7 +15,7 @@ interface CardProps {
   padding?: "none" | "sm" | "md" | "lg";
   onClick?: () => void;
   hoverable?: boolean;
-  glow?: "cyan" | "red" | "yellow" | "green";
+  glow?: "cyan" | "red" | "yellow" | "green" | "accent";
 }
 
 type CardVariant = NonNullable<CardProps["variant"]>;
@@ -36,14 +36,16 @@ const paddingStyles: Record<CardPadding, string> = {
 };
 
 const glowStyles: Record<string, string> = {
-  cyan: "shadow-[var(--neon-glow-cyan)]",
+  cyan: "shadow-[var(--glow-accent)]",
+  accent: "shadow-[var(--glow-accent)]",
   red: "shadow-[var(--neon-glow-red)]",
   yellow: "shadow-[var(--neon-glow-yellow)]",
   green: "shadow-[var(--neon-glow-green)]",
 };
 
 const glowHoverStyles: Record<string, string> = {
-  cyan: "hover:shadow-[0_0_15px_rgba(0,210,190,0.6),0_0_30px_rgba(0,210,190,0.3)]",
+  cyan: "hover:shadow-[0_0_15px_rgba(99,102,241,0.4),0_0_30px_rgba(99,102,241,0.2)]",
+  accent: "hover:shadow-[0_0_15px_rgba(99,102,241,0.4),0_0_30px_rgba(99,102,241,0.2)]",
   red: "hover:shadow-[0_0_15px_rgba(225,6,0,0.6),0_0_30px_rgba(225,6,0,0.3)]",
   yellow: "hover:shadow-[0_0_15px_rgba(255,251,0,0.6),0_0_30px_rgba(255,251,0,0.3)]",
   green: "hover:shadow-[0_0_15px_rgba(34,197,94,0.6),0_0_30px_rgba(34,197,94,0.3)]",
