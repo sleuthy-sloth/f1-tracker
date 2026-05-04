@@ -20,28 +20,11 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-f1-white font-heading tracking-tighter uppercase leading-[0.8]">
-            Functional <span className="text-f1-red">Intelligence</span>
+            FUNCTIONAL <span className="text-f1-red">INTELLIGENCE</span>
           </h1>
         </div>
 
         <HeroDashboard />
-      </div>
-
-      {/* Footer Info / Minimalist */}
-      <div className="relative z-10 mt-auto w-full max-w-7xl px-10 py-8 flex flex-col md:flex-row justify-between items-center gap-6 opacity-40">
-        <div className="flex gap-12">
-          <div className="space-y-1">
-            <div className="text-[10px] font-bold text-f1-silver uppercase">API_STATUS</div>
-            <div className="text-xs font-mono text-f1-white font-bold">NOMINAL</div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-[10px] font-bold text-f1-silver uppercase">LATENCY</div>
-            <div className="text-xs font-mono text-f1-white font-bold">12ms</div>
-          </div>
-        </div>
-        <div className="text-[10px] font-mono text-f1-silver tracking-widest">
-          SECTORONE LABORATORY // HIGH PERFORMANCE TELEMETRY
-        </div>
       </div>
     </div>
   );
