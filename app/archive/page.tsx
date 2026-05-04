@@ -16,6 +16,7 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
   const params = await searchParams;
 
   // Step 1: Get available years (used to determine selectedYear)
+  let availableYears: number[];
   try {
     availableYears = await getAvailableYears();
   } catch {
@@ -29,6 +30,8 @@ export default async function ArchivePage({ searchParams }: ArchivePageProps) {
     : (availableYears.length > 0 ? availableYears[0] : currentYear);
 
   // Step 2: Fetch meetings and sessions in parallel for the selected year
+  let meetings: Awaited<ReturnType<typeof getMeetingsByYear>> = [];
+  let sessions: Session[] = [];
   try {
     const [meetingsResult, sessionsResult] = await Promise.all([
       getMeetingsByYear(selectedYear).catch(() => [] as Awaited<ReturnType<typeof getMeetingsByYear>>),
