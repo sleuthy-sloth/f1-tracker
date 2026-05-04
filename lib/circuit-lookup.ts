@@ -63,19 +63,30 @@ export function hasCircuitLocation(circuitKey: number): boolean {
 export function getApproximateCircuitCenterFromTrackCoordinates(
   trackCoordinates: { x: number; y: number }[]
 ): { lat: number; lng: number } | undefined {
-  if (!trackCoordinates.length) return undefined;
+  if (!trackCoordinates || trackCoordinates.length === 0) return undefined;
 
-  const minX = Math.min(...trackCoordinates.map((point) => point.x));
-  const maxX = Math.max(...trackCoordinates.map((point) => point.x));
-  const minY = Math.min(...trackCoordinates.map((point) => point.y));
-  const maxY = Math.max(...trackCoordinates.map((point) => point.y));
+  // Calculate the bounding box of the track coordinates
+  const xCoords = trackCoordinates.map(p => p.x).filter(x => !isNaN(x));
+  const yCoords = trackCoordinates.map(p => p.y).filter(y => !isNaN(y));
+
+  if (xCoords.length === 0 || yCoords.length === 0) return undefined;
+
+  const minX = Math.min(...xCoords);
+  const maxX = Math.max(...xCoords);
+  const minY = Math.min(...yCoords);
+  const maxY = Math.max(...yCoords);
 
   const centerX = (minX + maxX) / 2;
   const centerY = (minY + maxY) / 2;
 
-  // OpenF1 local coordinates are typically meter-based and near venue origin.
-  return {
-    lat: centerY / 111_320,
-    lng: centerX / 111_320,
-  };
+  // OpenF1 local coordinates are meter-based offsets from a venue origin.
+  // Crucially, we DON'T know where that origin is geographically without a reference.
+  // Returning (centerX/111320) as lat/lng is wrong because it assumes the origin is at (0,0) lat/lng (Null Island).
+  
+  // Since we can't determine the geographic center from local coordinates alone,
+  // we return undefined here to signal that geographic placement failed.
+  // This forces the caller to rely on the lookup table or show an error.
+  console.warn('[circuit-lookup] Cannot determine geographic center from local coordinates alone. Need lookup reference.');
+  return undefined;
 }
+

@@ -504,7 +504,7 @@ function StrategyLabContent() {
         {/* Map area */}
         <div className="flex-1 relative min-h-[40vh] lg:min-h-0">
           {!engine.currentFrame && (
-            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-10 backdrop-blur-sm">
+            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center z-30 backdrop-blur-sm">
               <div className="w-10 h-10 border-4 border-f1-cyan/30 border-t-f1-cyan rounded-full animate-spin mb-4" />
               <span className="text-f1-white font-heading font-bold text-lg mb-2">
                 {isProcessing ? 'Processing Telemetry' : 'Initializing Map'}

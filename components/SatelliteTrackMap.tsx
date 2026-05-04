@@ -8,7 +8,7 @@ import {
   buildDriversGeoJSON,
   buildTrackGeoJSON,
 } from '@/lib/circuit-projection';
-import { getCircuitLocation, getApproximateCircuitCenterFromTrackCoordinates } from '@/lib/circuit-lookup';
+import { getCircuitLocation } from '@/lib/circuit-lookup';
 import type { Driver, DriverPosition, SafetyCarStatus } from '@/lib/types';
 
 export interface SatelliteTrackMapProps {
@@ -31,10 +31,34 @@ interface MapState {
 
 function LoadingState() {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-zinc-900/50 rounded-xl">
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900/80 rounded-xl backdrop-blur-sm z-20">
       <div className="flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
-        <span className="text-zinc-400 text-sm font-mono">Loading track map...</span>
+        <span className="text-zinc-400 text-sm font-mono">Initializing Track Map...</span>
+      </div>
+    </div>
+  );
+}
+
+function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900/90 rounded-xl z-30">
+      <div className="flex flex-col items-center gap-4 p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <div>
+          <h3 className="text-white font-bold">Map Loading Failed</h3>
+          <p className="text-zinc-400 text-sm mt-1">{message}</p>
+        </div>
+        <button
+          onClick={onRetry}
+          className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-lg text-xs font-medium transition-colors border border-white/10"
+        >
+          Retry Load
+        </button>
       </div>
     </div>
   );
@@ -42,8 +66,14 @@ function LoadingState() {
 
 function EmptyState({ message }: { message: string }) {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-zinc-900/30 rounded-xl">
-      <span className="text-zinc-500 text-sm font-mono">{message}</span>
+    <div className="w-full h-full flex items-center justify-center bg-zinc-900/60 rounded-xl z-20">
+      <div className="flex flex-col items-center gap-3 opacity-60">
+        <svg className="w-10 h-10 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span className="text-zinc-500 text-sm font-mono">{message}</span>
+      </div>
     </div>
   );
 }
@@ -60,7 +90,8 @@ export function SatelliteTrackMap({
   height = 500,
 }: SatelliteTrackMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<Map | null>(null);
+  const mapRef = useRef<Map | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [mapState, setMapState] = useState<MapState>({ isLoading: true, hasError: false });
 
   // Build driver lookup map for team color and name lookup
@@ -68,69 +99,63 @@ export function SatelliteTrackMap({
     const lookup: Record<number, { teamColour: string; nameAcronym: string }> = {};
     for (const d of drivers) {
       lookup[d.driver_number] = {
-        teamColour: d.team_colour || '#ffffff',
+        teamColour: d.team_colour ? (d.team_colour.startsWith('#') ? d.team_colour : `#${d.team_colour}`) : '#ffffff',
         nameAcronym: d.name_acronym || String(d.driver_number),
       };
     }
     return lookup;
   }, [drivers]);
 
-  const [usesFallbackCenter, setUsesFallbackCenter] = useState(false);
-
-  const getCircuitCenter = useCallback((): [number, number] => {
-    if (circuitKey === 0) {
-      setUsesFallbackCenter(false);
-      return [0, 0];
-    }
-
+  const getCircuitCenter = useCallback((): [number, number] | null => {
+    if (circuitKey === 0) return null;
     const location = getCircuitLocation(circuitKey);
-    if (location) {
-      setUsesFallbackCenter(false);
-      return [location.lng, location.lat];
-    }
+    if (location) return [location.lng, location.lat];
+    return null;
+  }, [circuitKey]);
 
-    if (trackCoordinates.length > 0) {
-      const approximateCenter = getApproximateCircuitCenterFromTrackCoordinates(trackCoordinates);
-      if (approximateCenter) {
-        setUsesFallbackCenter(true);
-        return [approximateCenter.lng, approximateCenter.lat];
-      }
-    }
-
-    setUsesFallbackCenter(false);
-    console.warn(`Circuit lookup: no location found for circuit_key=${circuitKey}, and no trackCoordinates available`);
-    return [0, 0];
-  }, [circuitKey, trackCoordinates]);
-
-  // Initialize map - only when circuitKey is valid
+  // Initialize map
   useEffect(() => {
     if (!mapContainerRef.current || circuitKey === 0) return;
 
-    const [centerLng, centerLat] = getCircuitCenter();
+    const center = getCircuitCenter();
+    if (!center) {
+      setMapState({ 
+        isLoading: false, 
+        hasError: true, 
+        errorMessage: `Reference coordinates not found for circuit #${circuitKey}` 
+      });
+      return;
+    }
 
-    const mapInstance = new Map({
-      container: mapContainerRef.current,
-      style: {
-        version: 8,
-        sources: {},
-        layers: [],
-        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-      },
-      center: [centerLng, centerLat],
-      zoom: 16,
-      pitch: 0,
-      bearing: 0,
-      attributionControl: false,
-      dragRotate: false,
-      keyboard: false,
-      interactive: false,
-    });
+    try {
+      const mapInstance = new Map({
+        container: mapContainerRef.current,
+        style: {
+          version: 8,
+          sources: {},
+          glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+          layers: [
+            {
+              id: 'background',
+              type: 'background',
+              paint: { 'background-color': '#0a0a0a' }
+            }
+          ],
+        },
+        center: center,
+        zoom: 15,
+        attributionControl: false,
+        dragRotate: false,
+        keyboard: false,
+        interactive: true, // Allow zoom/pan for better UX
+      });
 
-    setMap(mapInstance);
+      mapRef.current = mapInstance;
 
-    mapInstance.on('load', () => {
-      // Add ESRI World Imagery raster source
-      if (!mapInstance.getSource('esri-imagery')) {
+      mapInstance.on('load', () => {
+        console.log('[SatelliteTrackMap] Map style loaded');
+        
+        // Add ESRI World Imagery raster source
         mapInstance.addSource('esri-imagery', {
           type: 'raster',
           tiles: [
@@ -139,294 +164,269 @@ export function SatelliteTrackMap({
           tileSize: 256,
           attribution: 'ESRI',
         });
-      }
 
-      // Add the raster layer
-      if (!mapInstance.getLayer('esri-imagery-layer')) {
         mapInstance.addLayer({
           id: 'esri-imagery-layer',
           type: 'raster',
           source: 'esri-imagery',
-          paint: {
-            'raster-opacity': 0.85,
-          },
+          paint: { 'raster-opacity': 0.8 },
         });
-      }
 
-      // Add dark overlay for better contrast with HUD
-      if (!mapInstance.getSource('dark-overlay')) {
+        // Add dark overlay
         mapInstance.addSource('dark-overlay', {
           type: 'raster',
           tiles: [
             'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
           ],
           tileSize: 256,
-          attribution: 'ESRI',
         });
-      }
 
-      if (!mapInstance.getLayer('dark-overlay-layer')) {
         mapInstance.addLayer({
           id: 'dark-overlay-layer',
           type: 'raster',
           source: 'dark-overlay',
-          paint: {
-            'raster-opacity': 0.3,
-          },
+          paint: { 'raster-opacity': 0.2 },
         });
-      }
 
-      setMapState({ isLoading: false, hasError: false });
-    });
+        setMapLoaded(true);
+        setMapState({ isLoading: false, hasError: false });
+      });
 
-    mapInstance.on('error', (e) => {
-      console.error('MapLibre error:', e);
-      setMapState({ isLoading: false, hasError: true, errorMessage: 'Map failed to load' });
-    });
+      mapInstance.on('error', (e) => {
+        console.error('[SatelliteTrackMap] MapLibre error:', e);
+        // Only set error if it's a fatal initialization error
+        if (!mapRef.current?.isStyleLoaded()) {
+          setMapState({ isLoading: false, hasError: true, errorMessage: 'Failed to initialize map engine' });
+        }
+      });
 
-    return () => {
-      mapInstance.remove();
-      setMap(null);
-    };
+      return () => {
+        console.log('[SatelliteTrackMap] Cleaning up map instance');
+        mapInstance.remove();
+        mapRef.current = null;
+        setMapLoaded(false);
+      };
+    } catch (err) {
+      console.error('[SatelliteTrackMap] Map initialization failed:', err);
+      setMapState({ isLoading: false, hasError: true, errorMessage: 'Map engine initialization failed' });
+    }
   }, [circuitKey, getCircuitCenter]);
 
-  // Add circuit track layer
+  // Update track layer
   useEffect(() => {
-    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
-    if (!trackCoordinates.length) return;
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !trackCoordinates.length) return;
 
-    const [centerLng, centerLat] = getCircuitCenter();
-    const trackGeoJSON = buildTrackGeoJSON(trackCoordinates, centerLat, centerLng);
+    const center = getCircuitCenter();
+    if (!center) return;
 
-    const existingSource = map.getSource('circuit-track') as GeoJSONSource;
-    if (existingSource) {
-      existingSource.setData(trackGeoJSON as GeoJSON.Feature);
+    const trackGeoJSON = buildTrackGeoJSON(trackCoordinates, center[1], center[0]);
+
+    if (map.getSource('circuit-track')) {
+      (map.getSource('circuit-track') as GeoJSONSource).setData(trackGeoJSON as GeoJSON.Feature);
     } else {
       map.addSource('circuit-track', {
         type: 'geojson',
         data: trackGeoJSON as GeoJSON.Feature,
       });
 
-      // Track base layer
       map.addLayer({
         id: 'track-base',
         type: 'line',
         source: 'circuit-track',
         paint: {
-          'line-color': 'rgba(255, 255, 255, 0.4)',
+          'line-color': '#ffffff',
           'line-width': 3,
-          'line-opacity': 0.5,
+          'line-opacity': 0.4,
         },
       });
 
-      // Track glow layer
       map.addLayer({
         id: 'track-glow',
         type: 'line',
         source: 'circuit-track',
         paint: {
-          'line-color': 'rgba(255, 255, 255, 0.15)',
-          'line-width': 8,
-          'line-opacity': 0.15,
-          'line-blur': 3,
+          'line-color': '#ffffff',
+          'line-width': 10,
+          'line-opacity': 0.1,
+          'line-blur': 4,
         },
       });
     }
-  }, [map, mapState.isLoading, trackCoordinates, getCircuitCenter]);
+  }, [mapLoaded, trackCoordinates, getCircuitCenter]);
 
-  // Add/update driver layers
+  // Update drivers layer
   useEffect(() => {
-    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
 
-    const [centerLng, centerLat] = getCircuitCenter();
-    // Enrich driver positions with team color and name acronym before building GeoJSON
-    const enrichedDriverPositions = driverPositions.map((dp) => {
+    const center = getCircuitCenter();
+    if (!center) return;
+
+    const enrichedPositions = driverPositions.map((dp) => {
       const info = driverLookup[dp.driver_number];
       return {
-        driver_number: dp.driver_number,
-        x: dp.x,
-        y: dp.y,
-        speed: dp.speed,
-        gear: dp.gear,
-        drs: dp.drs,
-        // Extra properties that buildDriversGeoJSON passes through to GeoJSON
+        ...dp,
         team_colour: info?.teamColour || '#ffffff',
         name_acronym: info?.nameAcronym || String(dp.driver_number),
       };
     });
-    const driversGeoJSON = buildDriversGeoJSON(enrichedDriverPositions, centerLat, centerLng);
 
-    const existingSource = map.getSource('drivers') as GeoJSONSource;
-    if (existingSource) {
-      existingSource.setData(driversGeoJSON as GeoJSON.FeatureCollection);
+    const driversGeoJSON = buildDriversGeoJSON(enrichedPositions, center[1], center[0]);
+
+    if (map.getSource('drivers')) {
+      (map.getSource('drivers') as GeoJSONSource).setData(driversGeoJSON as GeoJSON.FeatureCollection);
     } else {
       map.addSource('drivers', {
         type: 'geojson',
         data: driversGeoJSON as GeoJSON.FeatureCollection,
       });
 
-      // Driver glow layer (behind)
       map.addLayer({
         id: 'driver-glow',
         type: 'circle',
         source: 'drivers',
         paint: {
-          'circle-radius': 8,
+          'circle-radius': 12,
           'circle-color': ['get', 'team_colour'],
           'circle-opacity': 0.3,
-          'circle-blur': 1,
+          'circle-blur': 0.8,
         },
       });
 
-      // Driver dot layer
       map.addLayer({
         id: 'driver-dot',
         type: 'circle',
         source: 'drivers',
         paint: {
-          'circle-radius': 5,
+          'circle-radius': 6,
           'circle-color': ['get', 'team_colour'],
-          'circle-stroke-color': ['get', 'team_colour'],
-          'circle-stroke-width': 1.5,
+          'circle-stroke-color': '#000000',
+          'circle-stroke-width': 1,
         },
       });
 
-      // Selected driver highlight layer
+      map.addLayer({
+        id: 'driver-labels',
+        type: 'symbol',
+        source: 'drivers',
+        layout: {
+          'text-field': ['get', 'name_acronym'],
+          'text-size': 9,
+          'text-offset': [0, -1.8],
+          'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+        },
+        paint: {
+          'text-color': '#ffffff',
+          'text-halo-color': '#000000',
+          'text-halo-width': 1.5,
+        },
+      });
+    }
+
+    // Update selection filter
+    if (map.getLayer('driver-selected')) {
+       map.setFilter('driver-selected', ['==', ['get', 'driver_number'], selectedDriver ?? -1]);
+    } else {
       map.addLayer({
         id: 'driver-selected',
         type: 'circle',
         source: 'drivers',
         filter: ['==', ['get', 'driver_number'], selectedDriver ?? -1],
         paint: {
-          'circle-radius': 8,
-          'circle-color': '#FFD700',
-          'circle-opacity': 0.6,
-          'circle-stroke-color': '#FFD700',
+          'circle-radius': 10,
+          'circle-color': '#00F5FF',
+          'circle-opacity': 0.4,
+          'circle-stroke-color': '#00F5FF',
           'circle-stroke-width': 2,
         },
       });
-
-      // Driver number label
-      map.addLayer({
-        id: 'driver-number',
-        type: 'symbol',
-        source: 'drivers',
-        layout: {
-          'text-field': ['get', 'name_acronym'],
-          'text-size': 8,
-          'text-offset': [0, -1.5],
-        },
-        paint: {
-          'text-color': '#ffffff',
-          'text-halo-color': '#000000',
-          'text-halo-width': 1,
-        },
-      });
     }
-  }, [map, mapState.isLoading, driverPositions, selectedDriver, getCircuitCenter, driverLookup]);
+  }, [mapLoaded, driverPositions, selectedDriver, getCircuitCenter, driverLookup]);
 
-  // Update selected driver filter
+  // Safety Car layer
   useEffect(() => {
-    if (!map || !map.getLayer('driver-selected')) return;
-
-    map.setFilter('driver-selected', [
-      '==',
-      ['get', 'driver_number'],
-      selectedDriver ?? -1,
-    ]);
-  }, [map, selectedDriver]);
-
-  // Safety car layer
-  useEffect(() => {
-    if (!map || !map.isStyleLoaded() || mapState.isLoading) return;
-
-    // Remove existing safety car layer
-    if (map.getLayer('safety-car')) {
-      map.removeLayer('safety-car');
-    }
-    if (map.getSource('safety-car')) {
-      map.removeSource('safety-car');
-    }
-
-    if (!safetyCar || safetyCar.status === 'none' || safetyCar.x === undefined || safetyCar.y === undefined) {
+    const map = mapRef.current;
+    if (!map || !mapLoaded || !safetyCar || safetyCar.status === 'none') {
+      if (map && map.getLayer('safety-car')) map.setLayoutProperty('safety-car', 'visibility', 'none');
       return;
     }
 
-    const [centerLng, centerLat] = getCircuitCenter();
-    const [lng, lat] = projectToLatLng(safetyCar.x, safetyCar.y, centerLat, centerLng);
+    const center = getCircuitCenter();
+    if (!center || safetyCar.x === undefined || safetyCar.y === undefined) return;
 
-    map.addSource('safety-car', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: [
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [lng, lat],
-            },
-            properties: {},
-          },
-        ],
-      },
-    });
+    const [lng, lat] = projectToLatLng(safetyCar.x, safetyCar.y, center[1], center[0]);
+    const geojson: GeoJSON.FeatureCollection = {
+      type: 'FeatureCollection',
+      features: [{
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [lng, lat] },
+        properties: {}
+      }]
+    };
 
-    map.addLayer({
-      id: 'safety-car',
-      type: 'circle',
-      source: 'safety-car',
-      paint: {
-        'circle-radius': 7,
-        'circle-color': '#FFB300',
-        'circle-stroke-color': '#FFB300',
-        'circle-stroke-width': 2,
-      },
-    });
-  }, [map, mapState.isLoading, safetyCar, getCircuitCenter]);
+    if (map.getSource('safety-car')) {
+      (map.getSource('safety-car') as GeoJSONSource).setData(geojson);
+      map.setLayoutProperty('safety-car', 'visibility', 'visible');
+    } else {
+      map.addSource('safety-car', { type: 'geojson', data: geojson });
+      map.addLayer({
+        id: 'safety-car',
+        type: 'circle',
+        source: 'safety-car',
+        paint: {
+          'circle-radius': 8,
+          'circle-color': '#FFB300',
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': 2,
+        },
+      });
+    }
+  }, [mapLoaded, safetyCar, getCircuitCenter]);
 
-  // Resize observer
+  // Resize handling
   useEffect(() => {
+    const map = mapRef.current;
     if (!map || !mapContainerRef.current) return;
 
-    const resizeObserver = new ResizeObserver(() => {
-      map.resize();
-    });
-
+    const resizeObserver = new ResizeObserver(() => map.resize());
     resizeObserver.observe(mapContainerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [map]);
+    return () => resizeObserver.disconnect();
+  }, [mapLoaded]);
 
   const showLoading = circuitKey === 0 || mapState.isLoading;
-  const showEmpty = !showLoading && !trackCoordinates.length;
 
   return (
-    <div
-      className={`relative rounded-xl overflow-hidden ${className}`}
+    <div 
+      className={`relative rounded-xl overflow-hidden bg-[#0a0a0a] ${className}`}
       style={{ width, height }}
     >
-      {/* Map container is always mounted so the ref is available for initialization */}
       <div
         ref={mapContainerRef}
-        className="absolute inset-0 cursor-default"
-        style={{ visibility: showLoading || showEmpty ? 'hidden' : 'visible' }}
+        className="absolute inset-0 z-0"
+        style={{ 
+          opacity: showLoading || mapState.hasError ? 0 : 1,
+          transition: 'opacity 0.5s ease-in-out'
+        }}
       />
-      {showLoading && (
-        <div className="absolute inset-0">
-          <LoadingState />
-        </div>
+      
+      {showLoading && <LoadingState />}
+      
+      {mapState.hasError && (
+        <ErrorState 
+          message={mapState.errorMessage || 'An unknown error occurred'} 
+          onRetry={() => window.location.reload()} 
+        />
       )}
-      {showEmpty && (
-        <div className="absolute inset-0">
-          <EmptyState message="Track layout unavailable for this circuit" />
-        </div>
-      )}
-      {usesFallbackCenter && !showLoading && !showEmpty && (
-        <div className="absolute top-3 left-3 rounded-md bg-amber-500/20 border border-amber-300/30 px-2 py-1">
-          <span className="text-[11px] text-amber-100 font-mono">Approximate map center</span>
+      
+      {!showLoading && !mapState.hasError && !trackCoordinates.length && (
+        <div className="absolute top-4 left-4 z-10">
+          <div className="bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span className="text-[10px] font-mono text-amber-200/80 uppercase tracking-tight">Track Geometry Unavailable</span>
+          </div>
         </div>
       )}
     </div>
