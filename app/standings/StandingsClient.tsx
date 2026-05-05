@@ -48,10 +48,14 @@ function StandingsClient({
   driverStandings,
   teamStandings,
   drivers,
+  winsMap,
+  podiumsMap,
 }: {
   driverStandings: ChampionshipDriver[];
   teamStandings: ChampionshipTeam[];
   drivers: Driver[];
+  winsMap: Record<number, number>;
+  podiumsMap: Record<number, number>;
 }) {
   const [view, setView] = useState<'drivers' | 'constructors'>('drivers');
 
@@ -62,6 +66,8 @@ function StandingsClient({
         driverStandings={driverStandings}
         teamStandings={teamStandings}
         drivers={drivers}
+        winsMap={winsMap}
+        podiumsMap={podiumsMap}
         view={view}
       />
     </Card>

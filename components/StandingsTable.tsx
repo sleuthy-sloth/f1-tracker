@@ -56,6 +56,8 @@ interface StandingsTableProps {
   isLoading?: boolean;
   view: 'drivers' | 'constructors';
   className?: string;
+  winsMap?: Record<number, number>;
+  podiumsMap?: Record<number, number>;
 }
 
 export default function StandingsTable({
@@ -65,6 +67,8 @@ export default function StandingsTable({
   isLoading = false,
   view,
   className,
+  winsMap = {},
+  podiumsMap = {},
 }: StandingsTableProps) {
   const sortedDriverStandings = useMemo(() => {
     return [...driverStandings].sort((a, b) => a.position_current - b.position_current);
@@ -148,9 +152,16 @@ export default function StandingsTable({
           </span>
         </div>
 
-        {/* Placeholder Stats */}
-        <div className="text-center text-data text-xs text-f1-silver/40">—</div>
-        <div className="text-center text-data text-xs text-f1-silver/40">—</div>
+        {/* Wins */}
+        <div className="text-center text-data text-sm font-bold"
+          style={{ color: (winsMap[standing.driver_number] ?? 0) > 0 ? '#E07B00' : 'rgba(255,255,255,0.3)' }}>
+          {winsMap[standing.driver_number] ?? 0}
+        </div>
+        {/* Podiums */}
+        <div className="text-center text-data text-sm"
+          style={{ color: (podiumsMap[standing.driver_number] ?? 0) > 0 ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)' }}>
+          {podiumsMap[standing.driver_number] ?? 0}
+        </div>
       </div>
     );
   };
