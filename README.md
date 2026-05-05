@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06b6d4?logo=tailwind-css)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**Status:** Active development (v0.6.0) — All phases complete, ready for deployment
+**Status:** Active development (v0.7.0) — Race replay fixes: accurate lap counter, progressive loading, mobile tab navigation, CartoDB satellite tiles
 
 ---
 
@@ -74,24 +74,6 @@ The project is organized into six development phases, progressing from foundatio
 - **Archive filters** — circuit type, weather, and search filtering for race sessions
 - **Session detail page** — results table with driver/team/gap/laps, back to archive navigation, and **Launch Replay** entry point
 
-**Strategy Lab — Replay Engine (Phase 4):**
-
-- **Real-time race data service** (`lib/raceData.ts`) — fetches OpenF1 API data and builds full `ReplayFrame` objects with driver positions, telemetry, weather, safety car status, and race control messages
-- **Frame buffer** (`lib/frameBuffer.ts`) — binary-search indexed array for seeking, stepping, and range extraction across replay frames
-- **Canvas track map** (`components/TrackMap.tsx`) — circuit rendering with driver dots, active sector highlighting, safety car visualization, and coordinate normalization
-- **Replay playback engine** (`hooks/useReplayEngine.ts`) — custom hook with play/pause, variable speed (0.25x–20x), step forward/back, seek to index/timestamp/progress, accumulator-based sub-1x speeds, and end-of-replay detection
-- **Timeline controls** (`components/TimelineControls.tsx`) — bottom bar with play/pause, speed selector, frame counter, elapsed time, clickable progress bar, and safety car/flag event markers with tooltips
-- **Scrollable leaderboard** (`components/Leaderboard.tsx`) — driver positions with team color bars, gap-to-leader, tyre compound chips, tyre life bars, stint count, and OUT indicators for retired drivers
-- **Driver telemetry HUD** (`components/TelemetryHUD.tsx`) — floating panel showing selected driver's speed, gear, RPM bar with redline zone, DRS status (OFF/DET/ON), throttle percentage, and brake ON/OFF with percentage
-- **Lap & time display** (`components/LapTimeDisplay.tsx`) — glassmorphic card showing current lap, total laps, elapsed race time (MM:SS), and lap progress bar
-- **Gap-to-leader chart** (`components/GapChart.tsx`) — live horizontal bar visualization with team colors, proportional widths, and lapped driver detection
-- **Tyre degradation widget** (`components/TyreWidget.tsx`) — compound badges, tyre life bars with green/yellow/red coloring, stint count, and tyre age per driver
-- **Weather radar** (`components/WeatherRadar.tsx`) — conditions grid (track/air temp, humidity, rainfall, wind), SVG precipitation radar with intensity-based coloring, pressure display
-- **Safety car indicator** (`components/SafetyCar.tsx`) — status visualization with pulsing orange for deployed, yellow for returning, and dimmed for inactive
-- **Race control feed** (`components/RaceControlFeed.tsx`) — scrollable message feed with color-coded flag dots, category badges, lap numbers, and timestamps
-- **Pit stop indicator** (`components/PitStopIndicator.tsx`) — chronological pit event feed with driver, lap, stop duration, and tyre compound badges
-- **Pit window predictor** (`components/PitWindowWidget.tsx`) — strategic insights: optimal pit window, tyre life estimation, pit loss time, undercut delta, and recommendation engine
-
 **Championship Standings (Phase 5):**
 
 - **Driver & constructor standings** (`components/StandingsTable.tsx`, `app/standings/`) — server-rendered page with Drivers/Constructors toggle, podium color badges (gold/silver/bronze), team color bars, and points-change indicators
@@ -120,12 +102,33 @@ The project is organized into six development phases, progressing from foundatio
 - **Speed gauge** (`components/SpeedGauge.tsx`) — SVG arc gauge showing speed in KM/H with color-coded zones (green <50%, yellow <80%, red ≥80%), smooth CSS transitions
 - **Tire indicator** (`components/TireIndicator.tsx`) — SVG circular progress for each position (FL, FR, RL, RR) with color-coded wear states (green >60%, yellow >30%, red ≤30%)
 
-**OSM Satellite Track Map (Phase 6a):**
+**Satellite Track Map (Phase 6a, reworked):**
 
-- **Satellite track map** (`components/SatelliteTrackMap.tsx`) — MapLibre GL-based track visualization with ESRI World Imagery satellite tiles, replacing the Canvas 2D TrackMap. Features geographic circuit overlay via equirectangular coordinate projection, animated driver dots colored by team identity, 3-letter driver name labels (VER, HAM, LEC), and safety car indicator. Driver positions update in real-time via GeoJSON `setData()` at 5fps with data-driven MapLibre styling
+- **Satellite track map** (`components/SatelliteTrackMap.tsx`) — MapLibre GL-based track visualization with **CartoDB Dark Matter** raster tiles (reliable, CORS-enabled, no API key). Features geographic circuit overlay via equirectangular coordinate projection, animated driver dots colored by team identity, 3-letter driver name labels (VER, HAM, LEC), and safety car indicator. Driver positions update in real-time via GeoJSON `setData()` at 5fps with data-driven MapLibre styling
 - **Coordinate projection** (`lib/circuit-projection.ts`) — equirectangular projection from local circuit X/Y meters to lat/lng for MapLibre GeoJSON overlay
 - **Circuit lookup** (`lib/circuit-lookup.ts`) — reference table with 24 F1 circuits mapped to approximate geographic center coordinates
-- **Strategy Lab page** (`app/strategy-lab/page.tsx`) — full-screen race replay with SatelliteTrackMap, floating TelemetryHUD, scrollable right sidebar (Leaderboard, GapChart, LapTimeDisplay, TyreWidget, WeatherRadar, RaceControlFeed, PitStopIndicator, SafetyCar, PitWindowWidget), and TimelineControls for playback at 0.25x–20x speed
+
+**Strategy Lab — Replay Engine (Phase 4, reworked):**
+
+- **Session metadata + progressive streaming** (`app/strategy-lab/page.tsx`) — tiered loading pipeline: T1 fetches session metadata + race leader's lap data, T2 seeds track coordinates from a single driver's GPS, T3 builds scripted frames for instant interactivity, T4 streams remaining drivers' GPS positions in chunks of 3. FrameBuffer progressively mutates frames via `replaceDriverLocations()` — no re-creation needed
+- **Accurate lap counter** (`lib/scriptedReplay.ts`) — lap numbers derived from real OpenF1 `/laps` timestamps using binary-search `buildLapLookup()`. Falls back to time-based estimate when lap data is unavailable. Clamped to `totalRaceLaps` from `SessionResult.number_of_laps` to never exceed race distance
+- **Hidden unloaded drivers** — `loadedDriverNumbers: Set<number>` tracks which drivers have real GPS data. Unloaded drivers' scripted positions are hidden from the TrackMap, eliminating the "insane speeds" visual artifact during progressive streaming. Streaming badge (SYNC X/Y) shown until all drivers arrive
+- **Satellite track map** (`components/SatelliteTrackMap.tsx`) — MapLibre GL with CartoDB Dark Matter tiles (reliable, CORS-enabled, no API key), equirectangular circuit projection, team-colored driver dots, 3-letter labels, safety car indicator
+- **Canvas track map** (`components/TrackMap.tsx`) — circuit rendering with driver dots, active sector highlighting, safety car visualization, and coordinate normalization
+- **Frame buffer** (`lib/frameBuffer.ts`) — binary-search indexed array for seeking, stepping, and range extraction across replay frames
+- **Replay playback engine** (`hooks/useReplayEngine.ts`) — custom hook with play/pause, variable speed (0.25x–20x), step forward/back, seek to index/timestamp/progress, accumulator-based sub-1x speeds, and end-of-replay detection
+- **Timeline controls** (`components/TimelineControls.tsx`) — bottom bar with play/pause, speed selector, frame counter, elapsed time, clickable progress bar, and safety car/flag event markers with tooltips
+- **Scrollable leaderboard** (`components/Leaderboard.tsx`) — driver positions with team color bars, gap-to-leader, tyre compound chips, tyre life bars, stint count, and OUT indicators for retired drivers
+- **Driver telemetry HUD** (`components/TelemetryHUD.tsx`) — floating panel showing selected driver's speed, gear, RPM bar with redline zone, DRS status (OFF/DET/ON), throttle percentage, and brake ON/OFF with percentage. **Hidden when no driver is selected** (no longer covers the map with a "Select a driver" prompt). Close button in header to dismiss
+- **Lap & time display** (`components/LapTimeDisplay.tsx`) — glassmorphic card showing current lap, total laps (from real race data), elapsed race time (MM:SS), and lap progress bar
+- **Gap-to-leader chart** (`components/GapChart.tsx`) — live horizontal bar visualization with team colors, proportional widths, and lapped driver detection
+- **Tyre degradation widget** (`components/TyreWidget.tsx`) — compound badges, tyre life bars with green/yellow/red coloring, stint count, and tyre age per driver
+- **Weather radar** (`components/WeatherRadar.tsx`) — conditions grid (track/air temp, humidity, rainfall, wind), SVG precipitation radar with intensity-based coloring, pressure display
+- **Safety car indicator** (`components/SafetyCar.tsx`) — status visualization with pulsing orange for deployed, yellow for returning, and dimmed for inactive
+- **Race control feed** (`components/RaceControlFeed.tsx`) — scrollable message feed with color-coded flag dots, category badges, lap numbers, and timestamps
+- **Pit stop indicator** (`components/PitStopIndicator.tsx`) — chronological pit event feed with driver, lap, stop duration, and tyre compound badges
+- **Pit window predictor** (`components/PitWindowWidget.tsx`) — strategic insights: optimal pit window, tyre life estimation, pit loss time, undercut delta, and recommendation engine
+- **Mobile tab bar** — bottom tab bar (MAP | STANDINGS | STRATEGY) on small screens, `block lg:hidden`. On mobile, Leaderboard and Strategy Hub widgets are accessible via tabs below the map rather than stacking vertically in a compressed layout
 
 **Fantasy F1 League (Phase 6b):**
 
@@ -171,7 +174,7 @@ The project is organized into six development phases, progressing from foundatio
 | **Authentication** | Firebase Auth |
 | **Database** | Firestore |
 | **Data Source** | [OpenF1 API](https://openf1.org/), AI-powered lookups via NVIDIA NIM / OpenRouter |
-| **Map Engine** | MapLibre GL JS with ESRI World Imagery satellite tiles |
+| **Map Engine** | MapLibre GL JS with CartoDB Dark Matter raster tiles |
 | **Fonts** | Space Grotesk (display), Inter (body) |
 | **Linting** | ESLint 9 + `eslint-config-next` |
 | **Testing** | Bun native test runner |
@@ -584,11 +587,18 @@ The Strategy Lab's race replay system follows a data pipeline architecture:
 
 **Frame structure** — each `ReplayFrame` captures a single point in time:
 - `timestamp` and `date` for temporal positioning
-- `lap` number (estimated from elapsed time)
+- `lap` number (derived from real OpenF1 `/laps` timestamps via binary search, clamped to `totalRaceLaps`; falls back to time-based estimate when no lap data available)
 - `driver_positions[]` — every driver's position, coordinates, speed, RPM, gear, throttle, brake, DRS, and gap/interval
 - `weather` — air/track temperature, humidity, rainfall, wind
 - `safety_car` — deployed/returning/none status with position
 - `race_control_messages[]` — full flag and messaging history up to this frame
+
+**Tiered loading pipeline** — Strategy Lab uses progressive loading for instant interactivity:
+- **T1**: Session metadata + leader's `/laps` data fetched in parallel (5 requests)
+- **T2**: Seed driver location data fetched, track path extracted
+- **T3**: Scripted `ReplayFrame` objects built from seed path, buffer created, UI interactive
+- **T4**: Remaining drivers' GPS locations streamed in chunks of 3 via `replaceDriverLocations()`, `loadedDriverNumbers` state hides unloaded drivers from TrackMap
+- **T5**: Car telemetry (speed/RPM/gear) fetched lazily when user selects a driver
 
 ### Data Flow
 
@@ -743,6 +753,8 @@ bun test tests/verification/
 | `tests/lib/fantasy-firestore.test.ts` | Firestore fantasy team and league CRUD operations (14 tests) |
 | `tests/lib/frameBuffer.test.ts` | Frame buffer operations (load, seek, binary search, range) |
 | `tests/lib/raceData.test.ts` | Race data service fetch, frame building, safety car detection |
+| `tests/scriptedReplay.test.js` | Scripted frame generation: lap data lookup, fallback clamping, edge cases |
+| `app/strategy-lab/page.test.ts` | Visible driver filtering, streaming badge visibility logic |
 | `tests/lib/teams.test.ts` | Team identity service mapping and year-aware lookups |
 | `tests/session-page.test.tsx` | Session detail page rendering with driver results table |
 | `tests/adversarial/track-map.adversarial.test.ts` | Track map adversarial edge cases |
@@ -814,6 +826,7 @@ The project includes a GitHub Action (`.github/workflows/deploy.yml`) that auto-
 | **6a** | OSM Satellite Track Map | ✅ Complete | MapLibre GL satellite map, circuit projection, strategy-lab replay page |
 | **6b** | AI Data Integration | ✅ Complete | NVIDIA NIM / OpenRouter client, fantasy driver API, PU component API |
 | **7** | Pre-Deployment Polish | ✅ Complete | Error boundaries, loading skeletons, SEO metadata, settings page, auth polish |
+| **8** | Race Replay Fixes | ✅ Complete | Accurate lap counter via `/laps` API, progressive loading with hidden unloaded drivers, TelemetryHUD collapses when unselected, mobile tab bar (MAP \| STANDINGS \| STRATEGY), CartoDB Dark Matter satellite tiles (reliable, CORS-enabled) |
 
 ---
 
