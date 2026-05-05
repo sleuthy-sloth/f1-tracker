@@ -91,11 +91,10 @@ export function CircuitOutline({
 }: CircuitOutlineProps) {
   const filterId = useId();
   const path = pathData || CIRCUIT_PATHS[(circuitName || "").toLowerCase()] || CIRCUIT_PATHS.default;
-  const viewBox = `0 0 ${size} ${size}`;
 
   return (
     <svg
-      viewBox={viewBox}
+      viewBox="0 0 100 100"
       width={size}
       height={size}
       className={`block ${hoverable ? "group" : ""} ${className}`}

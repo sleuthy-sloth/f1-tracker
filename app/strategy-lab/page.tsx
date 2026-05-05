@@ -64,7 +64,7 @@ const SatelliteTrackMap = dynamic<{
  */
 function StrategyLabContent() {
   const searchParams = useSearchParams();
-  const sessionKeyStr = searchParams.get('session_key');
+  const sessionKeyStr = searchParams.get('session') || searchParams.get('session_key');
   const sessionKey = parseInt(sessionKeyStr || '0', 10);
   const circuitKey = parseInt(searchParams.get('circuit_key') || '0', 10);
 
@@ -86,7 +86,7 @@ function StrategyLabContent() {
 
   // Load session metadata and frames
   useEffect(() => {
-    if (!sessionKey || isNaN(circuitKey)) return;
+    if (!sessionKey) return;
 
     async function loadData() {
       try {
