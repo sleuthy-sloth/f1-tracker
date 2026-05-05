@@ -14,7 +14,8 @@ import type {
   Driver,
 } from "@/lib/types";
 import { getTeamColour } from "@/lib/teams";
-import { CircuitOutline, resolveCircuitKey } from "@/components/CircuitOutline";
+import { CircuitOutline } from "@/components/CircuitOutline";
+import { resolveCircuitKey } from "@/lib/circuits";
 
 export const metadata: Metadata = {
   title: "SectorOne — Dashboard",
