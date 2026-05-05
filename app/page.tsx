@@ -14,6 +14,7 @@ import type {
   Driver,
 } from "@/lib/types";
 import { getTeamColour } from "@/lib/teams";
+import { CircuitOutline, resolveCircuitKey } from "@/components/CircuitOutline";
 
 export const metadata: Metadata = {
   title: "SectorOne — Dashboard",
@@ -345,17 +346,13 @@ export default async function DashboardPage() {
               </div>
             </div>
             {/* Circuit shape */}
-            <div style={{ width: 90, opacity: 0.2, flexShrink: 0 }}>
-              <svg viewBox="0 0 120 80" style={{ width: "100%", height: "100%" }}>
-                <path
-                  d="M18 58 L18 26 Q18 13 32 13 L88 13 Q102 13 102 26 L102 48 Q102 58 92 58 L72 58 Q62 58 62 48 L62 43 Q62 38 57 38 L47 38 Q42 38 42 43 L42 58 Z"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.4)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <div style={{ width: 90, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <CircuitOutline
+                circuitName={resolveCircuitKey(nextRaceCircuit ?? lastRaceCircuit ?? "")}
+                glowColor="rgba(255,255,255,0.5)"
+                size={90}
+                strokeWidth={2}
+              />
             </div>
           </div>
 

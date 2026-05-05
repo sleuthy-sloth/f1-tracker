@@ -29,10 +29,10 @@ import type {
 const BASE_URL = 'https://api.openf1.org/v1';
 const DEFAULT_RATE_LIMIT = 3; // requests per second (free tier)
 const DEFAULT_WINDOW_MS = 1000; // 1 second window
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 2;
 const INITIAL_BACKOFF_MS = 1000;
-const MAX_BACKOFF_MS = 30000;
-const REQUEST_TIMEOUT_MS = 30000; // 30s timeout to prevent hanging requests
+const MAX_BACKOFF_MS = 8000;
+const REQUEST_TIMEOUT_MS = 12000; // 12s timeout — short enough to fail fast
 
 // ============================================================================
 // Error Types
@@ -203,6 +203,11 @@ async function fetchOpenF1<T>(
       return (data.data || data.result || []) as T[];
     } catch (error) {
       lastError = error as Error;
+
+      // Never retry on timeout — the connection is gone, retrying just multiplies the hang time
+      if (lastError.name === 'AbortError' || (lastError as NodeJS.ErrnoException).code === 'ABORT_ERR') {
+        throw new OpenF1Error('Request timed out', 408, endpoint);
+      }
 
       // Don't retry on non-network errors
       if (error instanceof OpenF1Error && error.statusCode !== undefined) {
