@@ -188,14 +188,14 @@ export function TimelineControls({
   // Empty state
   if (totalFrames === 0) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 h-24 bg-surface border-t border-white/[0.10] flex items-center justify-center">
+      <div className="flex-shrink-0 h-24 bg-surface border-t border-white/[0.10] flex items-center justify-center">
         <span className="text-f1-silver text-sm">No replay data</span>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-28 bg-surface-dim border-t border-white/[0.10] px-4 py-3">
+    <div className="flex-shrink-0 h-28 bg-surface-dim border-t border-white/[0.10] px-4 py-3 z-40">
       {/* Controls row */}
       <div className="flex items-center justify-between mb-3">
         {/* Left: Playback controls */}

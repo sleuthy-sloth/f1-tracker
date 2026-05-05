@@ -394,13 +394,17 @@ export async function fetchRaceData(
 
     let frameCount = 0;
     const totalFramesToBuild = sampledTimestamps.length;
+    // Pointer that advances monotonically through the sorted race-control list as
+    // we walk frames in time order. Avoids the O(N) per-frame filter that used to
+    // copy the entire prefix into every frame (O(F·N) memory and allocations).
+    let raceControlCursor = 0;
 
     for (const targetTimestamp of sampledTimestamps) {
       if (onProgress && frameCount % 500 === 0) {
         onProgress(`Processing frames: ${frameCount}/${totalFramesToBuild}`);
       }
       frameCount++;
-      
+
       const driverPositions: DriverPosition[] = [];
 
       // Build position for each driver
@@ -449,10 +453,21 @@ export async function fetchRaceData(
       // Detect safety car status
       const safetyCar = detectSafetyCar(sortedRaceControl, targetTimestamp);
 
-      // Get race control messages up to this point
-      const frameRaceControl = sortedRaceControl.filter(
-        (msg) => (msg as any)._ts <= targetTimestamp
-      );
+      // Advance the race-control cursor to include any newly-active messages, then
+      // expose only the most recent ones. Consumers (RaceControlFeed, SafetyCar)
+      // sort/filter from this slice and the feed already caps at 50 entries, so
+      // there's no point storing the entire prefix in every frame.
+      while (
+        raceControlCursor < sortedRaceControl.length &&
+        (sortedRaceControl[raceControlCursor] as any)._ts <= targetTimestamp
+      ) {
+        raceControlCursor++;
+      }
+      const RACE_CONTROL_TAIL = 50;
+      const frameRaceControl =
+        raceControlCursor === 0
+          ? []
+          : sortedRaceControl.slice(Math.max(0, raceControlCursor - RACE_CONTROL_TAIL), raceControlCursor);
 
       const frame: ReplayFrame = {
         timestamp: targetTimestamp,

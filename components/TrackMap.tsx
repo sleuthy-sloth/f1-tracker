@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import type { TrackLayout, DriverPosition, SafetyCarStatus, Driver } from '@/lib/types';
 import { normalizeTrackCoordinates, getSectorCoordinates, getCircuitBounds } from '@/lib/track-map';
 
@@ -27,9 +27,9 @@ interface TrackMapProps {
   safetyCar?: SafetyCarStatus;
   /** Optional: additional CSS classes */
   className?: string;
-  /** Canvas width in pixels (default: 800) */
+  /** Canvas width in pixels. When omitted, fills the container. */
   width?: number;
-  /** Canvas height in pixels (default: 600) */
+  /** Canvas height in pixels. When omitted, fills the container. */
   height?: number;
 }
 
@@ -51,12 +51,21 @@ export default function TrackMap({
   activeSector,
   safetyCar,
   className,
-  width = 800,
-  height = 600,
+  width: widthProp,
+  height: heightProp,
 }: TrackMapProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const previousPropsRef = useRef<string>('');
+
+  // Track measured container dimensions when no explicit size is provided.
+  const [measured, setMeasured] = useState<{ width: number; height: number }>({
+    width: widthProp ?? 0,
+    height: heightProp ?? 0,
+  });
+
+  const width = widthProp ?? measured.width;
+  const height = heightProp ?? measured.height;
 
   // Build driver lookup map
   const driverLookup = useCallback(() => {
@@ -228,27 +237,39 @@ export default function TrackMap({
     }
   }, [serializeProps, render]);
 
-  // Resize observer for container-based responsiveness
+  // Resize observer for container-based responsiveness — also feeds measured dims
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const resizeObserver = new ResizeObserver(() => {
-      render();
-    });
+    const update = () => {
+      const rect = container.getBoundingClientRect();
+      setMeasured((prev) =>
+        prev.width === rect.width && prev.height === rect.height
+          ? prev
+          : { width: rect.width, height: rect.height }
+      );
+    };
 
+    update();
+    const resizeObserver = new ResizeObserver(update);
     resizeObserver.observe(container);
 
     return () => {
       resizeObserver.disconnect();
     };
-  }, [render]);
+  }, []);
+
+  const wrapperStyle: React.CSSProperties = {
+    width: widthProp ?? '100%',
+    height: heightProp ?? '100%',
+  };
 
   return (
     <div
       ref={containerRef}
       className={cn('relative', className)}
-      style={{ width: width || '100%', height: height || '100%' }}
+      style={wrapperStyle}
     >
       <canvas
         ref={canvasRef}
