@@ -1,19 +1,23 @@
 'use client';
 
-import { useEffect, useState, Suspense, useCallback } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { fetchRaceData } from '@/lib/raceData';
-import { getSessions, getStints, getRaceControl, getLocation } from '@/lib/api/openf1';
-import type { 
-  Session, 
-  TrackCoordinate, 
-  Driver, 
-  StintData, 
-  ReplayFrame, 
-  SafetyCarStatus, 
-  RaceControlData 
+import {
+  fetchSessionMetadata,
+  fetchDriverLocations,
+  fetchDriverCarData,
+  deriveGridOrder,
+} from '@/lib/raceData';
+import { buildScriptedFrames } from '@/lib/scriptedReplay';
+import { getSessions } from '@/lib/api/openf1';
+import type {
+  Session,
+  TrackCoordinate,
+  Driver,
+  StintData,
+  SafetyCarStatus,
 } from '@/lib/types';
 import { useReplayEngine } from '@/hooks/useReplayEngine';
 import { FrameBuffer } from '@/lib/frameBuffer';
@@ -66,27 +70,37 @@ function StrategyLabContent() {
   const searchParams = useSearchParams();
   const sessionKeyStr = searchParams.get('session') || searchParams.get('session_key');
   const sessionKey = parseInt(sessionKeyStr || '0', 10);
-  const circuitKey = parseInt(searchParams.get('circuit_key') || '0', 10);
+  const circuitKeyParam = parseInt(searchParams.get('circuit_key') || '0', 10);
 
   const [sessionInfo, setSessionInfo] = useState<Session | null>(null);
   const [trackCoordinates, setTrackCoordinates] = useState<TrackCoordinate[]>([]);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [stints, setStints] = useState<StintData[]>([]);
-  const [raceControlMessages, setRaceControlMessages] = useState<RaceControlData[]>([]);
   const [frameBuffer, setFrameBuffer] = useState<FrameBuffer>(new FrameBuffer());
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingMessage, setProcessingMessage] = useState('');
   const [mapError, setMapError] = useState(false);
   const [selectedDriverNumber, setSelectedDriverNumber] = useState<number | null>(null);
 
+  // Resolve circuit key: URL parameter wins, then session metadata once it loads.
+  const circuitKey = circuitKeyParam || sessionInfo?.circuit_key || 0;
+
   // Replay engine instance
   const engine = useReplayEngine({ frameBuffer });
 
-  // Load session metadata and frames
+  // Tracks which driver_numbers have already had car-telemetry fetched (T5).
+  const [carDataLoaded, setCarDataLoaded] = useState<Set<number>>(new Set());
+
+  // Tiered Load: T1 metadata → T2 seed driver location → T3 scripted frames
+  // → T4 background-stream remaining drivers' locations.  T5 (car telemetry)
+  // happens in a separate effect when the user selects a driver.
   useEffect(() => {
     if (!sessionKey) return;
+
+    let cancelled = false;
+    let buffer: FrameBuffer | null = null;
 
     async function loadData() {
       try {
@@ -94,60 +108,151 @@ function StrategyLabContent() {
         setIsProcessing(true);
         setProcessingMessage('Fetching session info...');
 
-        // 1. Fetch basic session info
-        const sessions = await getSessions({ session_key: sessionKey });
+        // ── T1: session info + lightweight metadata in parallel ──────────
+        const [sessions, meta] = await Promise.all([
+          getSessions({ session_key: sessionKey }),
+          fetchSessionMetadata(sessionKey),
+        ]);
+        if (cancelled) return;
+
         const session = sessions[0] || null;
         setSessionInfo(session);
+        setStints(meta.stints);
+        setDrivers(meta.drivers);
 
-        // 2. Fetch Stints and Race Control for analytics
-        setProcessingMessage('Fetching metadata...');
-        const [stintsData, raceControlData] = await Promise.all([
-          getStints({ session_key: sessionKey }),
-          getRaceControl({ session_key: sessionKey })
-        ]);
-        setStints(stintsData);
-        setRaceControlMessages(raceControlData);
+        if (meta.drivers.length === 0) {
+          setIsLoading(false);
+          setIsProcessing(false);
+          return;
+        }
 
-        // 3. Fetch Full Race Data (Telemetry + GPS) with progress tracking
-        setProcessingMessage('Synchronizing telemetry streams...');
-        const result = await fetchRaceData({ 
-          sessionKey, 
-          onProgress: (msg) => setProcessingMessage(msg) 
-        });
-        
-        setDrivers(result.drivers);
-        setFrameBuffer(result.frameBuffer);
+        // ── T2: pick a seed driver and fetch their location ──────────────
+        const gridOrder = deriveGridOrder(meta.sessionResult, meta.drivers);
+        let seedLocations: Awaited<ReturnType<typeof fetchDriverLocations>> = [];
+        let seedDriver: number | null = null;
 
-        // 4. Build Track Layout from synchronized data
-        // We use the full set of coordinates for one driver to represent the track
-        if (result.frameBuffer.length > 0) {
-          const allFrames = result.frameBuffer.getAll();
-          // Find the first driver with a complete set of points
-          const firstDriver = result.drivers[0]?.driver_number;
-          if (firstDriver) {
-            const trackPoints = allFrames
-              .map(frame => frame.driver_positions.find(dp => dp.driver_number === firstDriver))
-              .filter(Boolean)
-              .map(dp => ({ x: dp!.x, y: dp!.y }));
-            
-            // Only update if we found points to avoid clearing a valid background
-            if (trackPoints.length > 0) {
-              setTrackCoordinates(trackPoints);
+        setProcessingMessage('Tracing circuit...');
+        for (const candidate of gridOrder.slice(0, 3)) {
+          try {
+            const locs = await fetchDriverLocations(sessionKey, candidate);
+            if (cancelled) return;
+            if (locs.length > 0) {
+              seedLocations = locs;
+              seedDriver = candidate;
+              break;
             }
+          } catch {
+            /* try next candidate */
           }
         }
-        
+
+        if (!seedDriver || seedLocations.length === 0) {
+          // No driver data at all — bail out cleanly.
+          setIsLoading(false);
+          setIsProcessing(false);
+          return;
+        }
+
+        // ── T3: build scripted frames so the UI is interactive immediately ──
+        const trackPath = seedLocations
+          .filter((l) => Number.isFinite(l.x) && Number.isFinite(l.y))
+          .map((l) => ({ x: l.x, y: l.y }));
+
+        setTrackCoordinates(trackPath);
+
+        const seedTimestamps = seedLocations.map((l) => new Date(l.date).getTime());
+        const startTs = Math.min(...seedTimestamps);
+        const endTs = Math.max(...seedTimestamps);
+
+        const scriptedFrames = buildScriptedFrames({
+          trackPath,
+          drivers: meta.drivers,
+          gridOrder,
+          startTimestamp: startTs,
+          endTimestamp: endTs,
+          frameIntervalMs: 200,
+          weather: meta.weather,
+          raceControl: meta.raceControl,
+        });
+
+        buffer = new FrameBuffer(scriptedFrames);
+        // Seed driver: replace scripted positions with real positions immediately.
+        buffer.replaceDriverLocations(seedDriver, seedLocations);
+        setFrameBuffer(buffer);
+
+        // UI is now interactive. Drop the loading screen.
+        setIsLoading(false);
+        setProcessingMessage('Streaming driver positions…');
+
+        // ── T4: background-stream remaining drivers' locations ──────────
+        const remaining = gridOrder.filter((dn) => dn !== seedDriver);
+        const CHUNK_SIZE = 3;
+        for (let i = 0; i < remaining.length; i += CHUNK_SIZE) {
+          if (cancelled) return;
+          const chunk = remaining.slice(i, i + CHUNK_SIZE);
+          await Promise.all(
+            chunk.map(async (dn) => {
+              try {
+                const locs = await fetchDriverLocations(sessionKey, dn);
+                if (cancelled || !buffer) return;
+                if (locs.length > 0) buffer.replaceDriverLocations(dn, locs);
+              } catch {
+                /* silently skip drivers whose data fails */
+              }
+            })
+          );
+          if (!cancelled) {
+            const done = Math.min(i + CHUNK_SIZE, remaining.length);
+            setProcessingMessage(`Synchronizing drivers ${done}/${remaining.length}…`);
+          }
+        }
       } catch (error) {
         console.error('Failed to load strategy lab data:', error);
       } finally {
-        setIsLoading(false);
-        setIsProcessing(false);
-        setProcessingMessage('');
+        if (!cancelled) {
+          setIsLoading(false);
+          setIsProcessing(false);
+          setProcessingMessage('');
+        }
       }
     }
 
     loadData();
-  }, [sessionKey, circuitKey]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionKey]);
+
+  // ── T5: lazy-load car telemetry for the selected driver only ──────────
+  useEffect(() => {
+    if (selectedDriverNumber === null) return;
+    if (!sessionKey) return;
+    if (carDataLoaded.has(selectedDriverNumber)) return;
+
+    let cancelled = false;
+    const driver = selectedDriverNumber;
+
+    fetchDriverCarData(sessionKey, driver)
+      .then((carData) => {
+        if (cancelled) return;
+        if (carData.length > 0) {
+          frameBuffer.replaceDriverCarData(driver, carData);
+        }
+        setCarDataLoaded((prev) => {
+          const next = new Set(prev);
+          next.add(driver);
+          return next;
+        });
+      })
+      .catch(() => {
+        /* non-fatal; HUD just shows zeros */
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedDriverNumber, sessionKey, frameBuffer, carDataLoaded]);
 
   const handleSelectDriver = (driverNumber: number) => {
     setSelectedDriverNumber(driverNumber === selectedDriverNumber ? null : driverNumber);
@@ -241,7 +346,7 @@ function StrategyLabContent() {
           <CircuitPoster circuitKey={circuitKey} opacity={0.6} />
 
           {/* Base 2D Map */}
-          <div className="w-full h-full absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0">
             <TrackMap
               trackLayout={{
                 circuit_key: circuitKey,
@@ -255,25 +360,27 @@ function StrategyLabContent() {
             />
           </div>
 
-          {/* High-Fidelity Satellite Layer */}
-          {!mapError && (
-            <MapErrorBoundary fallback={<div className="absolute inset-0 bg-black/20 flex items-center justify-center text-f1-silver text-xs">Satellite Map Unavailable</div>}>
-              <SatelliteTrackMap
-                circuitKey={circuitKey}
-                trackCoordinates={trackCoordinates}
-                driverPositions={engine.currentFrame?.driver_positions || []}
-                drivers={drivers}
-                selectedDriver={selectedDriverNumber || undefined}
-                safetyCar={engine.currentFrame?.safety_car || undefined}
-                onError={() => setMapError(true)}
-              />
-            </MapErrorBoundary>
+          {/* High-Fidelity Satellite Layer — only when we have a known circuit */}
+          {!mapError && circuitKey > 0 && (
+            <div className="absolute inset-0 z-10 pointer-events-auto">
+              <MapErrorBoundary fallback={<div className="absolute inset-0 bg-black/20 flex items-center justify-center text-f1-silver text-xs">Satellite Map Unavailable</div>}>
+                <SatelliteTrackMap
+                  circuitKey={circuitKey}
+                  trackCoordinates={trackCoordinates}
+                  driverPositions={engine.currentFrame?.driver_positions || []}
+                  drivers={drivers}
+                  selectedDriver={selectedDriverNumber || undefined}
+                  safetyCar={engine.currentFrame?.safety_car || undefined}
+                  onError={() => setMapError(true)}
+                />
+              </MapErrorBoundary>
+            </div>
           )}
 
           {/* Tactical Overlay */}
           <div className="absolute top-6 left-6 z-30 pointer-events-none">
-            <TelemetryHUD 
-              currentFrame={engine.currentFrame} 
+            <TelemetryHUD
+              currentFrame={engine.currentFrame}
               drivers={drivers}
               selectedDriverNumber={selectedDriverNumber}
             />

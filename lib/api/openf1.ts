@@ -300,10 +300,10 @@ export async function getSessions(
  */
 export async function getDrivers(
   params: {
-    session_key?: number;
+    session_key?: number | string; // string accepts the 'latest' keyword
     driver_number?: number;
     meeting_key?: number;
-  } & { session_key?: string } // Handle 'latest' keyword
+  }
 ): Promise<Driver[]> {
   if (!params.session_key && !params.meeting_key) {
     throw new OpenF1Error('session_key or meeting_key is required');

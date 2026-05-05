@@ -82,9 +82,14 @@ export function useReplayEngine(config: ReplayEngineConfig): ReplayEngineState {
   useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
   useEffect(() => { speedRef.current = speed; }, [speed]);
 
-  // Keep frameBuffer ref updated
+  // Keep frameBuffer ref updated and re-render when the buffer mutates
+  // (driver data streamed in progressively).
   useEffect(() => {
     frameBufferRef.current = frameBuffer;
+    const unsubscribe = frameBuffer.subscribe(() => {
+      setRenderTick((t) => t + 1);
+    });
+    return unsubscribe;
   }, [frameBuffer]);
 
   // Derived state (uses frameBuffer directly to stay in sync)
@@ -92,7 +97,13 @@ export function useReplayEngine(config: ReplayEngineConfig): ReplayEngineState {
   const timeRange = frameBuffer.getTimeRange();
   const currentIndex = frameBuffer.index >= 0 ? frameBuffer.index : 0;
   const progress = totalFrames === 0 ? 0 : totalFrames === 1 ? 1 : currentIndex / (totalFrames - 1);
-  const currentFrame = frameBuffer.current;
+  // Return a shallow copy on every render so React memo'd consumers
+  // (TelemetryHUD, Leaderboard, etc.) re-render after in-place buffer mutations
+  // such as progressive driver location/telemetry streams.
+  const rawFrame = frameBuffer.current;
+  const currentFrame = rawFrame
+    ? { ...rawFrame, driver_positions: rawFrame.driver_positions.slice() }
+    : null;
 
   // Trigger re-render via renderTick increment
   const bumpRenderTick = useCallback(() => {

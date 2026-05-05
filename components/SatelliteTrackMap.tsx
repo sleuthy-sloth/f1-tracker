@@ -87,8 +87,8 @@ export function SatelliteTrackMap({
   selectedDriver,
   safetyCar,
   className = '',
-  width = '100%',
-  height = 500,
+  width,
+  height,
   onError,
 }: SatelliteTrackMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -457,38 +457,43 @@ export function SatelliteTrackMap({
     return () => resizeObserver.disconnect();
   }, [mapLoaded]);
 
-  const showLoading = circuitKey === 0 || mapState.isLoading;
+  // Only show the map's loading overlay while we're actively initialising for a known circuit;
+  // when the circuit is unknown the parent's 2D fallback should render unobstructed.
+  const showLoading = circuitKey > 0 && mapState.isLoading;
+
+  // When parent doesn't pass dimensions, fill the parent instead of taking 500px in flow.
+  const sizingStyle: React.CSSProperties =
+    width === undefined && height === undefined
+      ? { position: 'absolute', inset: 0 }
+      : { position: 'relative', width: width ?? '100%', height: height ?? '100%' };
 
   return (
-    <div 
-      className={`relative rounded-xl overflow-hidden ${className}`}
-      style={{ width, height }}
+    <div
+      className={`rounded-xl overflow-hidden ${className}`}
+      style={sizingStyle}
     >
       <div
         ref={mapContainerRef}
         className="absolute inset-0 z-10"
-        style={{ 
+        style={{
           opacity: showLoading || mapState.hasError ? 0 : 1,
           transition: 'opacity 0.8s ease-in-out',
-          backgroundColor: '#0a0a0a'
+          backgroundColor: 'transparent',
         }}
       />
-      
-      {/* 
-         Note: Loading state removed from here as the 2D map will be visible behind.
-         We only show an overlay if there is a fatal error or no circuit.
-      */}
-      
-      {circuitKey === 0 && <LoadingState />}
-      
+
+      {/* Loading overlay only while a known circuit is initialising; otherwise the
+         2D fallback map underneath should remain visible. */}
+      {showLoading && <LoadingState />}
+
       {mapState.hasError && (
-        <ErrorState 
-          message={mapState.errorMessage || 'An unknown error occurred'} 
-          onRetry={() => window.location.reload()} 
+        <ErrorState
+          message={mapState.errorMessage || 'An unknown error occurred'}
+          onRetry={() => window.location.reload()}
         />
       )}
-      
-      {!showLoading && !mapState.hasError && !trackCoordinates.length && (
+
+      {circuitKey > 0 && !showLoading && !mapState.hasError && !trackCoordinates.length && (
         <div className="absolute top-4 left-4 z-20">
           <div className="bg-amber-500/10 backdrop-blur-sm border border-amber-500/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
             <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

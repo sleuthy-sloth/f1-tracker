@@ -3,7 +3,7 @@
  * Provides sequential access to ReplayFrame objects with seeking and timestamp navigation
  */
 
-import type { ReplayFrame } from './types';
+import type { ReplayFrame, LocationData, CarData, DriverPosition } from './types';
 
 /**
  * Frame buffer state interface
@@ -15,11 +15,18 @@ interface FrameBufferState {
 
 /**
  * FrameBuffer - A circular buffer for storing and navigating replay frames
- * Provides methods for sequential access, binary search, and timestamp-based seeking
+ * Provides methods for sequential access, binary search, and timestamp-based seeking.
+ *
+ * The buffer also supports in-place mutation (replaceDriverLocations / replaceDriverCarData)
+ * so progressive driver data can stream in without re-creating the buffer or
+ * disrupting the user's current playback position. Subscribers (e.g. the
+ * replay engine hook) are notified after each mutation.
  */
 export class FrameBuffer {
   private frames: ReplayFrame[] = [];
   private currentIndex: number = -1;
+  private listeners: Set<() => void> = new Set();
+  private _version = 0;
 
   /**
    * Create a new FrameBuffer
@@ -28,6 +35,29 @@ export class FrameBuffer {
   constructor(frames?: ReplayFrame[]) {
     if (frames && frames.length > 0) {
       this.load(frames);
+    }
+  }
+
+  /**
+   * Monotonic counter that increments on every mutation. Cheap dependency
+   * for memoised consumers that need to re-derive on buffer change.
+   */
+  get version(): number {
+    return this._version;
+  }
+
+  /**
+   * Subscribe to mutation events. Returns an unsubscribe function.
+   */
+  subscribe(listener: () => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private notify(): void {
+    this._version++;
+    for (const listener of this.listeners) {
+      listener();
     }
   }
 
@@ -229,6 +259,131 @@ export class FrameBuffer {
       end: this.frames[this.frames.length - 1].timestamp,
     };
   }
+
+  /**
+   * Replace the x/y for a single driver across all frames using fresh location
+   * data. Frames where the driver is not yet present have a position appended.
+   * Intended for progressive (streaming) loads where each driver's GPS arrives
+   * separately. Notifies subscribers after the in-place edit.
+   */
+  replaceDriverLocations(driverNumber: number, locations: LocationData[]): void {
+    if (this.frames.length === 0 || locations.length === 0) return;
+
+    const sorted = sortAndStampByDate(locations);
+
+    for (const frame of this.frames) {
+      const closest = closestByTimestamp(sorted, frame.timestamp);
+      if (!closest) continue;
+
+      const existing = frame.driver_positions.find(
+        (dp) => dp.driver_number === driverNumber
+      );
+      if (existing) {
+        existing.x = closest.x;
+        existing.y = closest.y;
+      } else {
+        const fresh: DriverPosition = {
+          driver_number: driverNumber,
+          position: frame.driver_positions.length + 1,
+          x: closest.x,
+          y: closest.y,
+          speed: 0,
+          rpm: 0,
+          gear: 0,
+          throttle: 0,
+          brake: 0,
+          drs: 0,
+        };
+        frame.driver_positions.push(fresh);
+      }
+    }
+
+    this.notify();
+  }
+
+  /**
+   * Fill in speed/rpm/gear/throttle/brake/drs for a single driver across all
+   * frames using fresh car-data. Drivers not yet present in a frame are skipped.
+   * Notifies subscribers after the in-place edit.
+   */
+  replaceDriverCarData(driverNumber: number, carData: CarData[]): void {
+    if (this.frames.length === 0 || carData.length === 0) return;
+
+    const sorted = sortAndStampByDate(carData);
+
+    for (const frame of this.frames) {
+      const dp = frame.driver_positions.find(
+        (p) => p.driver_number === driverNumber
+      );
+      if (!dp) continue;
+
+      const closest = closestByTimestamp(sorted, frame.timestamp);
+      if (!closest) continue;
+
+      dp.speed = closest.speed ?? 0;
+      dp.rpm = closest.rpm ?? 0;
+      dp.gear = closest.n_gear ?? 0;
+      dp.throttle = closest.throttle ?? 0;
+      dp.brake = closest.brake ?? 0;
+      dp.drs = closest.drs ?? 0;
+    }
+
+    this.notify();
+  }
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Internal helpers — kept out of the public API
+// ──────────────────────────────────────────────────────────────────────────
+
+/**
+ * Pre-stamp `_ts` (numeric timestamp) on each item if missing, then sort.
+ * The optional `_ts` cache lets repeated binary searches skip Date parsing.
+ */
+function sortAndStampByDate<T extends { date: string }>(items: T[]): T[] {
+  const out = items.slice();
+  for (const item of out) {
+    if ((item as unknown as { _ts?: number })._ts === undefined) {
+      (item as unknown as { _ts: number })._ts = new Date(item.date).getTime();
+    }
+  }
+  out.sort(
+    (a, b) =>
+      (a as unknown as { _ts: number })._ts -
+      (b as unknown as { _ts: number })._ts
+  );
+  return out;
+}
+
+/**
+ * Binary search for the item whose `_ts` is closest to `targetMs`.
+ */
+function closestByTimestamp<T extends { date: string }>(
+  items: T[],
+  targetMs: number
+): T | null {
+  if (items.length === 0) return null;
+  if (items.length === 1) return items[0];
+
+  let low = 0;
+  let high = items.length - 1;
+
+  while (low <= high) {
+    const mid = (low + high) >> 1;
+    const midTs = (items[mid] as unknown as { _ts: number })._ts;
+    if (midTs === targetMs) return items[mid];
+    if (midTs < targetMs) low = mid + 1;
+    else high = mid - 1;
+  }
+
+  if (high < 0) return items[low];
+  if (low >= items.length) return items[high];
+
+  const tsHigh = (items[high] as unknown as { _ts: number })._ts;
+  const tsLow = (items[low] as unknown as { _ts: number })._ts;
+  return Math.abs(tsHigh - targetMs) <= Math.abs(tsLow - targetMs)
+    ? items[high]
+    : items[low];
 }
 
 export type { FrameBufferState };

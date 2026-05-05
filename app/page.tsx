@@ -14,8 +14,7 @@ import type {
   Driver,
 } from "@/lib/types";
 import { getTeamColour } from "@/lib/teams";
-import { CircuitOutline } from "@/components/CircuitOutline";
-import { resolveCircuitKey } from "@/lib/circuits";
+import { DashboardCircuitMap } from "@/components/DashboardCircuitMap";
 
 export const metadata: Metadata = {
   title: "SectorOne — Dashboard",
@@ -151,8 +150,7 @@ export default async function DashboardPage() {
       teamStandings = await getChampionshipTeams({ session_key: sk });
     } catch { /* ignore */ }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      drivers = await (getDrivers as any)({ session_key: sk });
+      drivers = await getDrivers({ session_key: sk });
     } catch { /* ignore */ }
   }
 
@@ -205,6 +203,48 @@ export default async function DashboardPage() {
         month: "short",
       })
     : null;
+
+  // Find a historic Race session at the same circuit so we can render its
+  // GPS-traced track on the dashboard. Prefer the most recent completed race
+  // — same year first, then prior years.
+  const targetCircuitKey =
+    nextRace?.circuit_key ?? latestRace?.circuit_key ?? null;
+  let historicSessionKey: number | null = null;
+  if (targetCircuitKey != null) {
+    const sameCircuitThisYear = raceSessions.find(
+      (s) => s.circuit_key === targetCircuitKey && new Date(s.date_start) <= now
+    );
+    if (sameCircuitThisYear) {
+      historicSessionKey = sameCircuitThisYear.session_key;
+    } else {
+      // Walk back through prior years until we find a completed race at this
+      // circuit. Cap at 5 years to keep dashboard load bounded.
+      const priorYears = availableYears.filter((y) => y < year).slice(0, 5);
+      for (const y of priorYears) {
+        try {
+          const priorSessions: Session[] = await getSessions({ year: y });
+          const priorRace = priorSessions
+            .filter(
+              (s) =>
+                s.session_type === "Race" &&
+                s.circuit_key === targetCircuitKey &&
+                new Date(s.date_start) <= now
+            )
+            .sort(
+              (a, b) =>
+                new Date(b.date_start).getTime() -
+                new Date(a.date_start).getTime()
+            )[0];
+          if (priorRace) {
+            historicSessionKey = priorRace.session_key;
+            break;
+          }
+        } catch {
+          /* try next year */
+        }
+      }
+    }
+  }
 
   // Silence unused-var — topTeam used implicitly via teamStandings sort below
 
@@ -346,13 +386,13 @@ export default async function DashboardPage() {
                 </Link>
               </div>
             </div>
-            {/* Circuit shape */}
+            {/* Circuit shape — live GPS map seeded from last completed race
+                at this circuit; falls back to SVG outline if unavailable. */}
             <div style={{ width: 90, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <CircuitOutline
-                circuitName={resolveCircuitKey(nextRaceCircuit ?? lastRaceCircuit ?? "")}
-                glowColor="rgba(255,255,255,0.5)"
+              <DashboardCircuitMap
+                historicSessionKey={historicSessionKey}
+                fallbackCircuitName={nextRaceCircuit ?? lastRaceCircuit ?? ""}
                 size={90}
-                strokeWidth={2}
               />
             </div>
           </div>
