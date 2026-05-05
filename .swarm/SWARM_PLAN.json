@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "title": "Fix Race Replay Session Loading: Timeouts, Error Handling, Circuit Lookup",
+  "title": "Fix Race Replay Layout: TelemetryHUD, Mobile, Satellite",
   "swarm": "satellite-map-fix",
   "current_phase": 2,
   "phases": [
@@ -14,9 +14,8 @@
           "phase": 2,
           "status": "completed",
           "size": "small",
-          "description": "Add fetch timeout: Add AbortController with 30s timeout to all fetchOpenF1 calls to prevent hanging requests from blocking the entire session load",
+          "description": "Add fetch timeout to all fetchOpenF1 calls",
           "depends": [],
-          "acceptance": "Every fetchOpenF1 call has a 30-second timeout; hanging requests abort cleanly and are retried or caught",
           "files_touched": []
         },
         {
@@ -24,9 +23,8 @@
           "phase": 2,
           "status": "completed",
           "size": "small",
-          "description": "Fix worker error handling: Add worker.onerror handler to catch worker load/runtime failures, move worker.onmessage before postMessage to avoid race condition",
+          "description": "Fix worker error handling",
           "depends": [],
-          "acceptance": "Worker.onerror sets error state in page; onmessage assigned before postMessage",
           "files_touched": []
         },
         {
@@ -34,9 +32,8 @@
           "phase": 2,
           "status": "completed",
           "size": "small",
-          "description": "Add processing status indicator: Show a subtle status bar/badge during isProcessing phase so user knows data is loading, handle empty replay frames gracefully",
+          "description": "Add processing status indicator",
           "depends": [],
-          "acceptance": "User sees a processing indicator while worker runs; empty replay frames show a clear message instead of blank UI",
           "files_touched": []
         },
         {
@@ -44,9 +41,76 @@
           "phase": 2,
           "status": "completed",
           "size": "small",
-          "description": "Expand circuit lookup table: Add newer F1 circuits (2025 season) to circuit-lookup.ts to prevent SatelliteTrackMap from failing on unknown circuit keys",
+          "description": "Expand circuit lookup table",
           "depends": [],
-          "acceptance": "Newer circuit keys resolve to known locations; SatelliteTrackMap initializes correctly for 2025 season circuits",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Fix Lap Counter & Progressive Loading",
+      "status": "complete",
+      "tasks": [
+        {
+          "id": "3.1",
+          "phase": 3,
+          "status": "completed",
+          "size": "medium",
+          "description": "Fix lap counter to use real OpenF1 lap data",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.2",
+          "phase": 3,
+          "status": "completed",
+          "size": "small",
+          "description": "Hide unloaded drivers from TrackMap during progressive streaming",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "3.3",
+          "phase": 3,
+          "status": "completed",
+          "size": "small",
+          "description": "Add streaming indicator overlay on TrackMap while driver data loads",
+          "depends": [],
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Fix Map Overlay, Mobile Layout & Satellite",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "4.1",
+          "phase": 4,
+          "status": "pending",
+          "size": "small",
+          "description": "Fix TelemetryHUD: hide when no driver selected, add close button, responsive sizing",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.2",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add mobile tab bar (MAP | STANDINGS | STRATEGY) for Strategy Lab",
+          "depends": [],
+          "files_touched": []
+        },
+        {
+          "id": "4.3",
+          "phase": 4,
+          "status": "pending",
+          "size": "medium",
+          "description": "Fix SatelliteTrackMap: swap to CartoDB dark tiles, fix fonts, increase timeout",
+          "depends": [],
           "files_touched": []
         }
       ]
