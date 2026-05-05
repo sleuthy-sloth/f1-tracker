@@ -17,6 +17,7 @@ interface TelemetryHUDProps {
   drivers: Driver[];
   currentFrame: ReplayFrame | null;
   selectedDriverNumber: number | null;
+  onClose?: () => void;
   className?: string;
 }
 
@@ -107,65 +108,25 @@ export const TelemetryHUD = memo(function TelemetryHUD({
   drivers,
   currentFrame,
   selectedDriverNumber,
+  onClose,
   className,
 }: TelemetryHUDProps) {
-  // State 1: No driver selected
-  if (selectedDriverNumber === null) {
-    return (
-      <div className={cn(
-        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
-        className
-      )}>
-        <div className="text-f1-silver text-sm text-center py-8">
-          Select a driver
-        </div>
-      </div>
-    );
-  }
-
-  // State 2: Loading - no frame data
-  if (!currentFrame) {
-    return (
-      <div className={cn(
-        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
-        className
-      )}>
-        <div className="flex items-center justify-center gap-2 py-8">
-          <svg
-            className="animate-spin h-4 w-4 text-f1-silver"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-          <span className="text-f1-silver text-sm">Waiting for replay data...</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Get driver info and telemetry data
-  const driver = useMemo(() => getDriverByNumber(drivers, selectedDriverNumber), [drivers, selectedDriverNumber]);
+  // Get driver info and telemetry data (declared before any conditional returns
+  // to comply with React hooks ordering rules — hooks must be called in the
+  // same order on every render).
+  const driver = useMemo(() => getDriverByNumber(drivers, selectedDriverNumber ?? 0), [drivers, selectedDriverNumber]);
   const telemetry = useMemo(() => getDriverTelemetry(currentFrame, selectedDriverNumber), [currentFrame, selectedDriverNumber]);
 
-  // State 3: Driver selected but no telemetry data (retired/off track)
-  if (!telemetry) {
+  // State 1: No driver selected — don't render anything to avoid covering the map.
+  if (selectedDriverNumber === null) {
+    return null;
+  }
+
+  // State 2: Loading or no telemetry data (retired/off track)
+  if (!currentFrame || !telemetry) {
     return (
       <div className={cn(
-        'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
+        'w-full md:w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
         className
       )}>
         {driver && (
@@ -197,25 +158,36 @@ export const TelemetryHUD = memo(function TelemetryHUD({
 
   return (
     <div className={cn(
-      'w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
+      'w-full md:w-[280px] bg-[#111418] border border-white/[0.07] rounded-xl p-4',
       className
     )}>
-      {/* Header */}
+      {/* Header with close button */}
       <div className="flex items-center gap-2 mb-4">
         <div
-          className="w-2 h-2 rounded-full"
+          className="w-2 h-2 rounded-full flex-shrink-0"
           style={{ backgroundColor: `#${teamColor}` }}
         />
-        <div>
+        <div className="flex-1 min-w-0">
           <span className="font-heading font-bold text-f1-white">
             {driver?.name_acronym || selectedDriverNumber}
           </span>
           {driver && (
-            <div className="text-[10px] text-f1-silver">
+            <div className="text-[10px] text-f1-silver truncate">
               {driver.full_name}
             </div>
           )}
         </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-white/10 rounded-md transition-colors pointer-events-auto text-f1-silver hover:text-f1-white flex-shrink-0"
+            aria-label="Close telemetry panel"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Telemetry Grid */}

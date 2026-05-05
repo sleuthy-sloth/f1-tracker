@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -11,13 +11,14 @@ import {
   deriveGridOrder,
 } from '@/lib/raceData';
 import { buildScriptedFrames } from '@/lib/scriptedReplay';
-import { getSessions } from '@/lib/api/openf1';
+import { getSessions, getLaps } from '@/lib/api/openf1';
 import type {
   Session,
   TrackCoordinate,
   Driver,
   StintData,
   SafetyCarStatus,
+  LapData,
 } from '@/lib/types';
 import { useReplayEngine } from '@/hooks/useReplayEngine';
 import { FrameBuffer } from '@/lib/frameBuffer';
@@ -83,6 +84,16 @@ function StrategyLabContent() {
   const [processingMessage, setProcessingMessage] = useState('');
   const [mapError, setMapError] = useState(false);
   const [selectedDriverNumber, setSelectedDriverNumber] = useState<number | null>(null);
+  const [totalRaceLaps, setTotalRaceLaps] = useState<number>(0);
+
+  // Tracks which driver_numbers have real GPS positions loaded (T4 streaming).
+  // Unloaded drivers are hidden from the TrackMap to avoid showing scripted
+  // positions that would appear to move at incorrect speeds.
+  const [loadedDriverNumbers, setLoadedDriverNumbers] = useState<Set<number>>(new Set());
+
+  // Mobile tab state: MAP | STANDINGS | STRATEGY — toggles which panel is visible
+  // below the map on small screens.
+  const [mobileTab, setMobileTab] = useState<'map' | 'standings' | 'strategy'>('map');
 
   // Resolve circuit key: URL parameter wins, then session metadata once it loads.
   const circuitKey = circuitKeyParam || sessionInfo?.circuit_key || 0;
@@ -128,6 +139,22 @@ function StrategyLabContent() {
 
         // ── T2: pick a seed driver and fetch their location ──────────────
         const gridOrder = deriveGridOrder(meta.sessionResult, meta.drivers);
+
+        // ── T2b: fetch the race leader's lap data for accurate lap counts ──
+        let leaderLaps: LapData[] = [];
+        let raceLeaderLaps = 0;
+        const raceLeader = meta.sessionResult
+          .filter((r) => r.position === 1)
+          .sort((a, b) => a.driver_number - b.driver_number)[0];
+        if (raceLeader) {
+          raceLeaderLaps = raceLeader.number_of_laps || 0;
+          try {
+            leaderLaps = await getLaps({ session_key: sessionKey, driver_number: raceLeader.driver_number });
+          } catch {
+            /* non-fatal; scripted frames use time-based fallback */
+          }
+        }
+
         let seedLocations: Awaited<ReturnType<typeof fetchDriverLocations>> = [];
         let seedDriver: number | null = null;
 
@@ -171,13 +198,17 @@ function StrategyLabContent() {
           startTimestamp: startTs,
           endTimestamp: endTs,
           frameIntervalMs: 200,
+          lapData: leaderLaps,
+          totalRaceLaps: raceLeaderLaps,
           weather: meta.weather,
           raceControl: meta.raceControl,
         });
 
         buffer = new FrameBuffer(scriptedFrames);
+        if (raceLeaderLaps > 0) setTotalRaceLaps(raceLeaderLaps);
         // Seed driver: replace scripted positions with real positions immediately.
         buffer.replaceDriverLocations(seedDriver, seedLocations);
+        setLoadedDriverNumbers(new Set([seedDriver]));
         setFrameBuffer(buffer);
 
         // UI is now interactive. Drop the loading screen.
@@ -187,6 +218,9 @@ function StrategyLabContent() {
         // ── T4: background-stream remaining drivers' locations ──────────
         const remaining = gridOrder.filter((dn) => dn !== seedDriver);
         const CHUNK_SIZE = 3;
+        // Accumulator for batch-updating loadedDriverNumbers — one state set
+        // per chunk instead of per-driver to avoid cascading re-renders.
+        const totalLoaded = new Set([seedDriver]);
         for (let i = 0; i < remaining.length; i += CHUNK_SIZE) {
           if (cancelled) return;
           const chunk = remaining.slice(i, i + CHUNK_SIZE);
@@ -195,12 +229,17 @@ function StrategyLabContent() {
               try {
                 const locs = await fetchDriverLocations(sessionKey, dn);
                 if (cancelled || !buffer) return;
-                if (locs.length > 0) buffer.replaceDriverLocations(dn, locs);
+                if (locs.length > 0) {
+                  buffer.replaceDriverLocations(dn, locs);
+                  totalLoaded.add(dn);
+                }
               } catch {
                 /* silently skip drivers whose data fails */
               }
             })
           );
+          // Batch state update — one re-render per chunk.
+          setLoadedDriverNumbers(new Set(totalLoaded));
           if (!cancelled) {
             const done = Math.min(i + CHUNK_SIZE, remaining.length);
             setProcessingMessage(`Synchronizing drivers ${done}/${remaining.length}…`);
@@ -258,6 +297,15 @@ function StrategyLabContent() {
     setSelectedDriverNumber(driverNumber === selectedDriverNumber ? null : driverNumber);
   };
 
+  // Compute visible driver positions: only show drivers whose real GPS data
+  // has been loaded. Unloaded drivers' scripted positions are hidden to
+  // prevent the "insane speeds" visual artifact during progressive streaming.
+  const visibleDriverPositions = useMemo(() => {
+    return engine.currentFrame?.driver_positions?.filter(
+      (dp) => loadedDriverNumbers.has(dp.driver_number)
+    ) || [];
+  }, [engine.currentFrame?.driver_positions, loadedDriverNumbers]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-f1-carbon flex flex-col">
@@ -301,10 +349,6 @@ function StrategyLabContent() {
               <div className="text-[9px] uppercase tracking-wider text-f1-silver">Drivers</div>
               <div className="text-sm font-heading font-bold text-f1-white leading-tight">{drivers.length}</div>
             </Card>
-            <Card variant="glass" padding="sm" className="py-1 px-3">
-              <div className="text-[9px] uppercase tracking-wider text-f1-silver">Frames</div>
-              <div className="text-sm font-heading font-bold text-f1-white leading-tight">{engine.totalFrames}</div>
-            </Card>
           </div>
 
           {isProcessing && (
@@ -322,8 +366,8 @@ function StrategyLabContent() {
 
       {/* Main Dashboard Grid */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
-        {/* Left Sidebar: Leaderboard */}
-        <div className="w-full lg:w-[320px] bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col overflow-hidden order-2 lg:order-1">
+        {/* Left Sidebar: Leaderboard — hidden on mobile (shown via tab) */}
+        <div className="hidden lg:flex w-full lg:w-[320px] bg-black/40 backdrop-blur-md border-r border-white/10 flex-col overflow-hidden order-2 lg:order-1">
           <div className="p-4 border-b border-white/10">
             <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
               <span className="w-2 h-2 bg-f1-red rounded-full animate-pulse" />
@@ -341,7 +385,7 @@ function StrategyLabContent() {
         </div>
 
         {/* Center Column: Main Map */}
-        <div className="flex-1 relative min-h-[40vh] lg:min-h-0 order-1 lg:order-2 border-b lg:border-b-0 border-white/10 overflow-hidden">
+        <div className="flex-1 relative min-h-[40vh] lg:min-h-0 order-1 lg:order-2 overflow-hidden">
           {/* Circuit Poster Background Layer */}
           <CircuitPoster circuitKey={circuitKey} opacity={0.6} />
 
@@ -353,21 +397,21 @@ function StrategyLabContent() {
                 circuit_name: sessionInfo?.circuit_short_name || 'Circuit',
                 coordinates: trackCoordinates
               }}
-              driverPositions={engine.currentFrame?.driver_positions || []}
+              driverPositions={visibleDriverPositions}
               drivers={drivers}
               selectedDriver={selectedDriverNumber || undefined}
               safetyCar={engine.currentFrame?.safety_car || undefined}
             />
           </div>
 
-          {/* High-Fidelity Satellite Layer — only when we have a known circuit */}
+          {/* High-Fidelity Satellite Layer */}
           {!mapError && circuitKey > 0 && (
             <div className="absolute inset-0 z-10 pointer-events-auto">
               <MapErrorBoundary fallback={<div className="absolute inset-0 bg-black/20 flex items-center justify-center text-f1-silver text-xs">Satellite Map Unavailable</div>}>
                 <SatelliteTrackMap
                   circuitKey={circuitKey}
                   trackCoordinates={trackCoordinates}
-                  driverPositions={engine.currentFrame?.driver_positions || []}
+                  driverPositions={visibleDriverPositions}
                   drivers={drivers}
                   selectedDriver={selectedDriverNumber || undefined}
                   safetyCar={engine.currentFrame?.safety_car || undefined}
@@ -377,18 +421,35 @@ function StrategyLabContent() {
             </div>
           )}
 
-          {/* Tactical Overlay */}
+          {/* Streaming progress badge */}
+          {loadedDriverNumbers.size > 0 && loadedDriverNumbers.size < drivers.length && (
+            <div className="absolute top-6 right-6 z-30 pointer-events-none">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-sm rounded-full border border-white/10">
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-1.5 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1.5 h-1.5 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1.5 h-1.5 bg-f1-red rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                </div>
+                <span className="text-[10px] font-mono text-f1-silver uppercase tracking-tight whitespace-nowrap">
+                  SYNC {loadedDriverNumbers.size}/{drivers.length}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Tactical Overlay — hidden when no driver selected */}
           <div className="absolute top-6 left-6 z-30 pointer-events-none">
             <TelemetryHUD
               currentFrame={engine.currentFrame}
               drivers={drivers}
               selectedDriverNumber={selectedDriverNumber}
+              onClose={() => setSelectedDriverNumber(null)}
             />
           </div>
         </div>
 
-        {/* Right Sidebar: Strategy Hub */}
-        <div className="w-full lg:w-[360px] xl:w-[400px] bg-black/40 backdrop-blur-md border-l border-white/10 flex flex-col overflow-hidden order-3">
+        {/* Right Sidebar: Strategy Hub — hidden on mobile (shown via tab) */}
+        <div className="hidden lg:flex w-full lg:w-[360px] xl:w-[400px] bg-black/40 backdrop-blur-md border-l border-white/10 flex-col overflow-hidden order-3">
           <div className="p-4 border-b border-white/10">
             <h2 className="text-f1-white font-heading font-bold uppercase tracking-wider text-sm flex items-center gap-2">
               <svg className="w-4 h-4 text-f1-cyan" fill="currentColor" viewBox="0 0 24 24">
@@ -418,7 +479,7 @@ function StrategyLabContent() {
               <div className="p-2">
                 <LapTimeDisplay
                   currentFrame={engine.currentFrame}
-                  totalLaps={50}
+                  totalLaps={totalRaceLaps}
                   sessionStartTimestamp={engine.timeRange?.start || null}
                 />
               </div>
@@ -452,11 +513,108 @@ function StrategyLabContent() {
                 drivers={drivers}
                 stints={stints}
                 currentLap={engine.currentFrame?.lap || 1}
-                totalLaps={50}
+                totalLaps={totalRaceLaps}
                 selectedDriverNumber={selectedDriverNumber}
               />
             </div>
           </div>
+        </div>
+
+        {/* Mobile tab panel — shown below map on mobile when standings or strategy tab is active */}
+        {mobileTab !== 'map' && (
+          <div className="lg:hidden border-t border-white/10 bg-black/60 backdrop-blur-md max-h-[45vh] overflow-y-auto order-2">
+            {mobileTab === 'standings' && (
+              <div className="p-4">
+                <Leaderboard 
+                  currentFrame={engine.currentFrame} 
+                  drivers={drivers}
+                  selectedDriverNumber={selectedDriverNumber}
+                  onSelectDriver={handleSelectDriver}
+                />
+              </div>
+            )}
+            {mobileTab === 'strategy' && (
+              <div className="p-4 space-y-4">
+                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                  <div className="px-4 py-2 border-b border-white/10 bg-white/5">
+                    <h3 className="text-[10px] font-bold text-f1-silver uppercase tracking-widest">Interval Analysis</h3>
+                  </div>
+                  <div className="p-2">
+                    <GapChart
+                      currentFrame={engine.currentFrame}
+                      drivers={drivers}
+                      selectedDriverNumbers={selectedDriverNumber ? [selectedDriverNumber] : []}
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+                  <div className="px-4 py-2 border-b border-white/10 bg-white/5">
+                    <h3 className="text-[10px] font-bold text-f1-silver uppercase tracking-widest">Race Progress</h3>
+                  </div>
+                  <div className="p-2">
+                    <LapTimeDisplay
+                      currentFrame={engine.currentFrame}
+                      totalLaps={totalRaceLaps}
+                      sessionStartTimestamp={engine.timeRange?.start || null}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <TyreWidget 
+                    drivers={drivers}
+                    stints={stints} 
+                    currentLap={engine.currentFrame?.lap || 1}
+                    selectedDriverNumber={selectedDriverNumber}
+                    onSelectDriver={handleSelectDriver}
+                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <WeatherRadar currentFrame={engine.currentFrame} />
+                    <SafetyCar currentFrame={engine.currentFrame} />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <RaceControlFeed currentFrame={engine.currentFrame} />
+                  <div className="grid grid-cols-1 gap-4">
+                    <PitStopIndicator
+                      drivers={drivers}
+                      pitStops={[]}
+                      stints={stints}
+                      currentLap={engine.currentFrame?.lap || 1}
+                    />
+                  </div>
+                  <PitWindowWidget
+                    drivers={drivers}
+                    stints={stints}
+                    currentLap={engine.currentFrame?.lap || 1}
+                    totalLaps={totalRaceLaps}
+                    selectedDriverNumber={selectedDriverNumber}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Mobile Tab Bar — only visible on small screens */}
+      <div className="block lg:hidden flex-shrink-0 border-t border-white/10 bg-surface">
+        <div className="flex h-11">
+          {(['map', 'standings', 'strategy'] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setMobileTab(tab)}
+              className={`flex-1 flex items-center justify-center text-[10px] font-bold uppercase tracking-widest transition-colors ${
+                mobileTab === tab
+                  ? 'text-f1-white bg-white/5 border-t-2 border-f1-red'
+                  : 'text-f1-silver hover:text-f1-white hover:bg-white/5'
+              }`}
+            >
+              {tab === 'map' ? 'Map' : tab === 'standings' ? 'Standings' : 'Strategy'}
+            </button>
+          ))}
         </div>
       </div>
       

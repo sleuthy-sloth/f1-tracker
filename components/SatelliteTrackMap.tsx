@@ -156,7 +156,7 @@ export function SatelliteTrackMap({
           style: {
             version: 8,
             sources: {},
-            glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+            glyphs: 'https://fonts.openmaptiles.org/{fontstack}/{range}.pbf',
             layers: [
               {
                 id: 'background',
@@ -171,6 +171,13 @@ export function SatelliteTrackMap({
           dragRotate: false,
           keyboard: false,
           interactive: true,
+          transformRequest: (url: string) => {
+            // Only apply to tile servers (not local sources)
+            if (url.startsWith('https://cartodb-basemaps-a') || url.startsWith('https://cartodb-basemaps-b') || url.startsWith('https://cartodb-basemaps-c')) {
+              return { url, headers: {}, referrerPolicy: 'strict-origin-when-cross-origin' as const };
+            }
+            return { url };
+          },
         });
 
         mapRef.current = mapInstance;
@@ -185,53 +192,38 @@ export function SatelliteTrackMap({
         });
 
         mapInstance.on('load', () => {
-          console.log('[SatelliteTrackMap] Map style loaded, starting tile fetch');
-          
+          console.log('[SatelliteTrackMap] Map style loaded, adding CartoDB dark tiles');
           if (!mapInstance) return;
 
-          // Add ESRI World Imagery raster source
-          mapInstance.addSource('esri-imagery', {
+          // CartoDB Dark Matter raster tiles — pre-styled dark, reliable,
+          // CORS-enabled, free tier, no API key required.
+          mapInstance.addSource('carto-dark', {
             type: 'raster',
             tiles: [
-              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+              'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+              'https://cartodb-basemaps-b.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+              'https://cartodb-basemaps-c.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
             ],
             tileSize: 256,
-            attribution: 'ESRI',
+            attribution: '© OpenStreetMap contributors © CARTO',
           });
 
           mapInstance.addLayer({
-            id: 'esri-imagery-layer',
+            id: 'carto-dark-layer',
             type: 'raster',
-            source: 'esri-imagery',
-            paint: { 'raster-opacity': 0.8 },
+            source: 'carto-dark',
+            paint: { 'raster-opacity': 0.85 },
           });
 
-          // Add dark overlay
-          mapInstance.addSource('dark-overlay', {
-            type: 'raster',
-            tiles: [
-              'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
-            ],
-            tileSize: 256,
-          });
-
-          mapInstance.addLayer({
-            id: 'dark-overlay-layer',
-            type: 'raster',
-            source: 'dark-overlay',
-            paint: { 'raster-opacity': 0.2 },
-          });
-
-          // Force a resize check after load
           mapInstance.resize();
 
-          // Set a shorter tile loading timeout (5s) for fallback switch
+          // Set a 15s tile loading timeout before falling back to the 2D map
           tileTimeoutId = setTimeout(() => {
             if (!mapLoaded) {
-              console.warn('[SatelliteTrackMap] Tile loading timeout (5s) — signaling fallback');
+              console.warn('[SatelliteTrackMap] Tile loading timeout (15s) — signaling fallback');
               onErrorRef.current?.();
             }
-          }, 5000);
+          }, 15000);
         });
 
         mapInstance.on('error', (e) => {

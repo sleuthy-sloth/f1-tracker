@@ -14,6 +14,7 @@ import type {
   DriverPosition,
   WeatherData,
   RaceControlData,
+  LapData,
 } from './types';
 
 export interface ScriptedReplayConfig {
@@ -32,6 +33,13 @@ export interface ScriptedReplayConfig {
   frameIntervalMs?: number;
   /** Time per scripted lap in ms (default 90s). */
   scriptedLapMs?: number;
+  /** Optional real lap start data (from the race leader). When provided, each
+   *  frame's lap number is derived from the most recent lap start timestamp,
+   *  giving accurate lap counts that match the actual race. */
+  lapData?: LapData[];
+  /** Optional total number of laps in the race (from SessionResult). Used to
+   *  clamp the per-frame lap number so it never exceeds the race distance. */
+  totalRaceLaps?: number;
   /** Optional weather samples — attached per-frame via nearest timestamp. */
   weather?: WeatherData[];
   /** Optional race control messages — attached per-frame via nearest timestamp. */
@@ -55,6 +63,8 @@ export function buildScriptedFrames(config: ScriptedReplayConfig): ReplayFrame[]
     endTimestamp,
     frameIntervalMs = DEFAULT_FRAME_INTERVAL_MS,
     scriptedLapMs = DEFAULT_SCRIPTED_LAP_MS,
+    lapData,
+    totalRaceLaps,
     weather,
     raceControl,
   } = config;
@@ -80,6 +90,17 @@ export function buildScriptedFrames(config: ScriptedReplayConfig): ReplayFrame[]
 
   const sortedWeather = weather?.length ? sortByDate(weather) : null;
   const sortedRaceControl = raceControl?.length ? sortByDate(raceControl) : null;
+
+  // ── Lap lookup: use real lap start timestamps if available ────────
+  // Build a binary-search closure that maps any frame timestamp to the
+  // correct lap number. Falls back to the time-based estimate when no
+  // lap data is provided.
+  const getLap = lapData && lapData.length > 0
+    ? buildLapLookup(lapData, totalRaceLaps)
+    : (ts: number) => {
+        const lap = Math.floor((ts - startTimestamp) / scriptedLapMs) + 1;
+        return totalRaceLaps ? Math.min(lap, totalRaceLaps) : lap;
+      };
 
   const frames: ReplayFrame[] = [];
   const totalDurationMs = endTimestamp - startTimestamp;
@@ -125,7 +146,7 @@ export function buildScriptedFrames(config: ScriptedReplayConfig): ReplayFrame[]
     frames.push({
       timestamp: ts,
       date: new Date(ts).toISOString(),
-      lap: Math.floor(t / scriptedLapMs) + 1,
+      lap: getLap(ts),
       driver_positions: driverPositions,
       weather: frameWeather,
       safety_car: undefined,
@@ -188,4 +209,51 @@ function messagesAtOrBefore(items: RaceControlData[], ts: number): RaceControlDa
     else break;
   }
   return filtered.slice(-20);
+}
+
+/**
+ * Build a binary-search closure that maps any frame timestamp to the
+ * correct lap number using real lap-start timestamps from OpenF1.
+ *
+ * Assumes `laps` is sorted by date_start ascending. Only lap_number >= 1
+ * entries are used (excludes the formation lap / lap 0).
+ *
+ * When totalRaceLaps is provided, the returned lap is clamped so it
+ * never exceeds the actual race distance — this handles the time after
+ * the chequered flag where no new lap starts exist.
+ */
+function buildLapLookup(
+  laps: LapData[],
+  totalRaceLaps?: number
+): (ts: number) => number {
+  // Convert lap date_start to numeric timestamps, keep only race laps.
+  const lapStarts = laps
+    .filter((l) => l.lap_number >= 1 && !!l.date_start)
+    .map((l) => ({
+      ts: new Date(l.date_start).getTime(),
+      lap: l.lap_number,
+    }))
+    .sort((a, b) => a.ts - b.ts);
+
+  const maxLap =
+    totalRaceLaps && totalRaceLaps > 0
+      ? totalRaceLaps
+      : (lapStarts.length > 0 ? lapStarts[lapStarts.length - 1].lap : 0);
+
+  return (ts: number): number => {
+    if (lapStarts.length === 0) return 1;
+
+    // Binary search: find the most recent lap start ≤ ts
+    let lo = 0;
+    let hi = lapStarts.length - 1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (lapStarts[mid].ts <= ts) lo = mid + 1;
+      else hi = mid - 1;
+    }
+
+    // hi is the index of the most recent lap start ≤ ts
+    if (hi < 0) return 1; // Before first lap start (formation lap etc.)
+    return Math.min(lapStarts[hi].lap, maxLap);
+  };
 }

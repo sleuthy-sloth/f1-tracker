@@ -108,7 +108,7 @@ Return a JSON object with a "drivers" array.`;
   );
 
   if (result.success && result.data) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const drivers = driverNumber
       ? result.data.drivers.filter((d: { driverNumber: number }) => d.driverNumber === parseInt(driverNumber))
       : result.data.drivers;
