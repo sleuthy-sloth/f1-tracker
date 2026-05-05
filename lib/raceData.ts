@@ -12,6 +12,8 @@ import type {
   ReplayFrame,
   DriverPosition,
   SafetyCarStatus,
+  StintData,
+  SessionResult,
 } from './types';
 
 import { FrameBuffer } from './frameBuffer';
@@ -22,7 +24,101 @@ import {
   getCarData,
   getWeather,
   getRaceControl,
+  getStints,
+  getSessionResult,
 } from './api/openf1';
+
+// ──────────────────────────────────────────────────────────────────────────
+// Composable Fetchers — used by Strategy Lab's tiered progressive loader
+// ──────────────────────────────────────────────────────────────────────────
+
+/**
+ * Lightweight session bootstrap data: drivers + stints + race control +
+ * session_result (for grid order) + weather. ~5 parallel requests.
+ *
+ * Designed to land in <1s so the UI shell can render before the (expensive)
+ * per-driver location streams begin.
+ */
+export interface SessionMetadata {
+  drivers: Driver[];
+  stints: StintData[];
+  raceControl: RaceControlData[];
+  sessionResult: SessionResult[];
+  weather: WeatherData[];
+}
+
+export async function fetchSessionMetadata(
+  sessionKey: number
+): Promise<SessionMetadata> {
+  const [drivers, stints, raceControl, sessionResult, weather] = await Promise.all([
+    getDrivers({ session_key: sessionKey }).catch(() => [] as Driver[]),
+    getStints({ session_key: sessionKey }).catch(() => [] as StintData[]),
+    getRaceControl({ session_key: sessionKey }).catch(() => [] as RaceControlData[]),
+    getSessionResult({ session_key: sessionKey }).catch(() => [] as SessionResult[]),
+    getWeather({ session_key: sessionKey }).catch(() => [] as WeatherData[]),
+  ]);
+  return { drivers, stints, raceControl, sessionResult, weather };
+}
+
+/**
+ * Resolve a driver_number ordering using the session_result (final position
+ * is a reasonable proxy for grid order; we don't have an explicit /grid call
+ * in our client). Falls back to the order in `drivers` for any unmapped slots.
+ */
+export function deriveGridOrder(
+  sessionResult: SessionResult[],
+  drivers: Driver[]
+): number[] {
+  const ordered: number[] = [];
+  const seen = new Set<number>();
+
+  const sortedResults = sessionResult
+    .filter((r) => typeof r.position === 'number' && r.position > 0)
+    .sort((a, b) => a.position - b.position);
+
+  for (const r of sortedResults) {
+    if (!seen.has(r.driver_number)) {
+      ordered.push(r.driver_number);
+      seen.add(r.driver_number);
+    }
+  }
+
+  for (const d of drivers) {
+    if (!seen.has(d.driver_number)) {
+      ordered.push(d.driver_number);
+      seen.add(d.driver_number);
+    }
+  }
+
+  return ordered;
+}
+
+/**
+ * Fetch raw GPS location data for a single driver. Wraps `getLocation` so
+ * Strategy Lab can stream driver data in chunks and progressively merge it
+ * into the FrameBuffer.
+ */
+export async function fetchDriverLocations(
+  sessionKey: number,
+  driverNumber: number
+): Promise<LocationData[]> {
+  return getLocation({ session_key: sessionKey, driver_number: driverNumber });
+}
+
+/**
+ * Fetch raw car telemetry for a single driver. Called lazily — only after the
+ * user selects a driver in the UI.
+ */
+export async function fetchDriverCarData(
+  sessionKey: number,
+  driverNumber: number
+): Promise<CarData[]> {
+  return getCarData({ session_key: sessionKey, driver_number: driverNumber });
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Original monolithic fetcher (kept for backwards compatibility / tests)
+// ──────────────────────────────────────────────────────────────────────────
 
 /**
  * Configuration for RaceDataService
