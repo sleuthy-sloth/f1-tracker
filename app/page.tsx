@@ -1,161 +1,857 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import {
+  getSessions,
+  getChampionshipDrivers,
+  getChampionshipTeams,
+  getDrivers,
+  getAvailableYears,
+} from "@/lib/api/openf1";
+import type {
+  Session,
+  ChampionshipDriver,
+  ChampionshipTeam,
+  Driver,
+} from "@/lib/types";
+import { getTeamColour } from "@/lib/teams";
 
 export const metadata: Metadata = {
-  title: "SectorOne — F1 Telemetry Dashboard",
-  description: "High-performance Formula 1 telemetry suite with real-time race replay, championship standings, fantasy leagues, and satellite track maps.",
-  openGraph: {
-    title: "SectorOne — F1 Telemetry Dashboard",
-    description: "Track live F1 data, replay races with satellite maps, analyze strategy, and compete in fantasy leagues.",
-    siteName: "SectorOne",
-    type: "website",
-  },
+  title: "SectorOne — Dashboard",
+  description: "F1 race replays, championship standings, and fantasy leagues.",
 };
 
-export default function HomePage() {
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function Label({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-f1-carbon">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden px-6 pt-20 pb-16 lg:pt-32 lg:pb-24">
-        {/* Background glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-accent/3 rounded-full blur-3xl" />
-        
-        <div className="relative max-w-4xl mx-auto text-center">
-          {/* Logo */}
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-[#E10600] flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-lg">S1</span>
+    <div
+      style={{
+        fontFamily: "var(--font-mono)",
+        fontSize: 9,
+        fontWeight: 700,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: "var(--text-3)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Card({
+  children,
+  pad = 16,
+  style,
+}: {
+  children: React.ReactNode;
+  pad?: number;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      style={{
+        background: "var(--surface-1)",
+        borderRadius: 6,
+        border: "1px solid var(--border)",
+        padding: pad,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Divider() {
+  return <div style={{ height: 1, background: "var(--border)" }} />;
+}
+
+function SectionHeader({
+  children,
+  action,
+}: {
+  children: React.ReactNode;
+  action?: React.ReactNode;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 14,
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 700,
+          fontSize: 13,
+          color: "var(--text-1)",
+          letterSpacing: "0.05em",
+        }}
+      >
+        {children}
+      </div>
+      {action}
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
+
+export default async function DashboardPage() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+
+  // Fetch data in parallel — all errors are caught individually
+  let availableYears: number[] = [];
+  let sessions: Session[] = [];
+  let driverStandings: ChampionshipDriver[] = [];
+  let teamStandings: ChampionshipTeam[] = [];
+  let drivers: Driver[] = [];
+
+  try { availableYears = await getAvailableYears(); } catch { /* ignore */ }
+
+  const year = availableYears[0] ?? currentYear;
+
+  try { sessions = await getSessions({ year }); } catch { /* ignore */ }
+
+  const raceSessions = sessions
+    .filter((s) => s.session_type === "Race")
+    .sort(
+      (a, b) =>
+        new Date(b.date_start).getTime() - new Date(a.date_start).getTime()
+    );
+
+  const latestRace = raceSessions.find(
+    (s) => new Date(s.date_start) <= now
+  );
+  const nextRace = [...sessions]
+    .filter((s) => new Date(s.date_start) > now)
+    .sort(
+      (a, b) =>
+        new Date(a.date_start).getTime() - new Date(b.date_start).getTime()
+    )[0];
+
+  // Recent completed race sessions (for the recent results list)
+  const recentRaces = raceSessions
+    .filter((s) => new Date(s.date_start) <= now)
+    .slice(0, 5);
+
+  if (latestRace) {
+    const sk = latestRace.session_key;
+    try {
+      driverStandings = await getChampionshipDrivers({ session_key: sk });
+    } catch { /* ignore */ }
+    try {
+      teamStandings = await getChampionshipTeams({ session_key: sk });
+    } catch { /* ignore */ }
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      drivers = await (getDrivers as any)({ session_key: sk });
+    } catch { /* ignore */ }
+  }
+
+  // Build driver lookup by number
+  const driverByNum = new Map<number, Driver>(
+    drivers.map((d) => [d.driver_number, d])
+  );
+
+  // Merge standings with driver info
+  const mergedStandings = driverStandings
+    .sort((a, b) => a.position_current - b.position_current)
+    .slice(0, 5)
+    .map((s) => {
+      const d = driverByNum.get(s.driver_number);
+      return {
+        position: s.position_current,
+        code: d?.name_acronym ?? `#${s.driver_number}`,
+        name: d ? `${d.first_name} ${d.last_name}` : `Driver #${s.driver_number}`,
+        team: d?.team_name ?? "Unknown",
+        teamColor: d?.team_colour
+          ? `#${d.team_colour}`
+          : `#${getTeamColour(d?.team_name ?? "")}`,
+        pts: s.points_current,
+      };
+    });
+
+  const leader = mergedStandings[0];
+  const maxPts = leader?.pts ?? 1;
+
+  // Last race winner (best effort — use leader's team from last session)
+  const lastRaceCircuit = latestRace?.circuit_short_name ?? "";
+  const lastRaceDate = latestRace
+    ? new Date(latestRace.date_start).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+      })
+    : null;
+
+  // Rounds info
+  const totalRaces = raceSessions.length;
+  const completedRaces = raceSessions.filter(
+    (s) => new Date(s.date_start) <= now
+  ).length;
+
+  const nextRaceCountry = nextRace?.country_name ?? null;
+  const nextRaceCircuit = nextRace?.circuit_short_name ?? null;
+  const nextRaceDate = nextRace
+    ? new Date(nextRace.date_start).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+      })
+    : null;
+
+  // Silence unused-var — topTeam used implicitly via teamStandings sort below
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+      {/* Top bar */}
+      <div
+        style={{
+          height: 52,
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          alignItems: "center",
+          padding: "0 24px",
+          flexShrink: 0,
+        }}
+      >
+        <div>
+          <div
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: 19,
+              fontWeight: 700,
+              color: "var(--text-1)",
+              letterSpacing: "0.03em",
+            }}
+          >
+            DASHBOARD
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 9,
+              color: "var(--text-3)",
+              letterSpacing: "0.08em",
+              marginTop: 1,
+            }}
+          >
+            {year} FORMULA 1 SEASON
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          padding: 24,
+          display: "flex",
+          flexDirection: "column",
+          gap: 20,
+          maxWidth: 1100,
+        }}
+      >
+        {/* Row 1: Next race + stats */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            gap: 12,
+          }}
+        >
+          {/* Next race — spans 2 cols */}
+          <div
+            style={{
+              gridColumn: "1 / 3",
+              background: "var(--surface-1)",
+              border: "1px solid var(--border)",
+              borderRadius: 6,
+              padding: 20,
+              display: "flex",
+              alignItems: "stretch",
+              gap: 20,
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <Label>Next Round</Label>
+              <div
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontSize: 26,
+                  fontWeight: 700,
+                  color: "var(--text-1)",
+                  lineHeight: 1,
+                  marginTop: 8,
+                  marginBottom: 4,
+                }}
+              >
+                {nextRaceCountry
+                  ? `${nextRaceCountry} GP`
+                  : "Season Complete"}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 13,
+                  color: "var(--text-2)",
+                  marginBottom: 16,
+                }}
+              >
+                {nextRaceCircuit && nextRaceDate
+                  ? `${nextRaceCircuit} · ${nextRaceDate}`
+                  : `${completedRaces} of ${totalRaces} rounds complete`}
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <Link
+                  href="/archive"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    padding: "7px 16px",
+                    background: "var(--red)",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 4,
+                    letterSpacing: "0.04em",
+                    textDecoration: "none",
+                  }}
+                >
+                  VIEW CALENDAR
+                </Link>
+                <Link
+                  href="/standings"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    padding: "7px 14px",
+                    background: "var(--surface-2)",
+                    color: "var(--text-2)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 4,
+                    letterSpacing: "0.04em",
+                    textDecoration: "none",
+                  }}
+                >
+                  STANDINGS
+                </Link>
+              </div>
             </div>
-            <span className="text-2xl font-heading font-bold text-f1-white tracking-wider">SectorOne</span>
-          </div>
-          
-          {/* Tagline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-f1-white leading-tight mb-6">
-            Your F1 Telemetry
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent to-[#E10600]">
-              Command Center
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-f1-silver max-w-2xl mx-auto mb-10 leading-relaxed">
-            Replay races on satellite maps, analyze strategy with real telemetry, 
-            track championship battles, and compete in fantasy leagues — all powered by live OpenF1 data.
-          </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/auth"
-              className="px-8 py-3.5 bg-gradient-to-r from-[#E10600] to-[#E10600]/80 text-white font-heading font-bold rounded-lg hover:from-[#E10600]/90 hover:to-[#E10600]/70 transition-all shadow-lg shadow-f1-red/20 hover:shadow-f1-red/40"
-            >
-              Get Started — Sign Up Free
-            </Link>
-            <Link
-              href="/archive"
-              className="px-8 py-3.5 border border-white/[0.15] text-f1-white font-heading font-bold rounded-lg hover:bg-white/[0.05] transition-all flex items-center gap-2"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            {/* Circuit shape */}
+            <div style={{ width: 90, opacity: 0.2, flexShrink: 0 }}>
+              <svg viewBox="0 0 120 80" style={{ width: "100%", height: "100%" }}>
+                <path
+                  d="M18 58 L18 26 Q18 13 32 13 L88 13 Q102 13 102 26 L102 48 Q102 58 92 58 L72 58 Q62 58 62 48 L62 43 Q62 38 57 38 L47 38 Q42 38 42 43 L42 58 Z"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.4)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
-              Browse as Guest
-            </Link>
+            </div>
           </div>
-          
-          {/* Guest hint */}
-          <p className="text-xs text-f1-silver/50 mt-4">
-            No account needed to explore the archive, replay races, or view standings
-          </p>
-        </div>
-      </section>
 
-      {/* Feature Cards */}
-      <section className="px-6 pb-20">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            {/* Archive */}
-            <Link href="/archive" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="font-heading font-bold text-f1-white mb-1">Race Archive</h3>
-              <p className="text-sm text-f1-silver">Browse historical sessions, view results, and launch full telemetry replays</p>
-            </Link>
-
-            {/* Replay */}
-            <Link href="/strategy-lab" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="font-heading font-bold text-f1-white mb-1">Strategy Lab</h3>
-              <p className="text-sm text-f1-silver">Replay races on satellite maps with live telemetry, gap charts, and weather</p>
-            </Link>
-
-            {/* Standings */}
-            <Link href="/standings" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="font-heading font-bold text-f1-white mb-1">Standings</h3>
-              <p className="text-sm text-f1-silver">Driver and constructor championships with form charts and PU tracking</p>
-            </Link>
-
-            {/* Fantasy */}
-            <Link href="/fantasy" className="group rounded-xl border border-white/[0.07] bg-[#111418] p-5 hover:border-accent/30 hover:bg-white/[0.04] transition-all">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <h3 className="font-heading font-bold text-f1-white mb-1">Fantasy League</h3>
-              <p className="text-sm text-f1-silver">Build your dream team, create leagues, and track points across the season</p>
-            </Link>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="px-6 pb-20">
-        <div className="max-w-2xl mx-auto text-center rounded-xl border border-white/[0.07] bg-gradient-to-b from-[#111418] to-[#0d1114] p-10">
-          <h2 className="font-heading text-2xl font-bold text-f1-white mb-3">Ready to dive in?</h2>
-          <p className="text-f1-silver mb-6">
-            All core features are available without an account. Sign up to save your fantasy teams and league data.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/auth"
-              className="px-6 py-3 bg-f1-red text-white font-heading font-bold rounded-lg hover:bg-f1-red/90 transition-colors"
+          {/* Last race */}
+          <Card>
+            <Label>Last Race</Label>
+            <div
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: 17,
+                fontWeight: 700,
+                color: "var(--text-1)",
+                lineHeight: 1.2,
+                marginTop: 8,
+              }}
             >
-              Sign Up Free
-            </Link>
-            <Link
-              href="/archive"
-              className="px-6 py-3 border border-white/[0.15] text-f1-white font-heading font-bold rounded-lg hover:bg-white/[0.05] transition-colors"
-            >
-              Start Browsing
-            </Link>
-          </div>
-        </div>
-      </section>
+              {lastRaceCircuit ?? "—"}
+            </div>
+            {lastRaceDate && (
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--text-3)",
+                  marginTop: 4,
+                }}
+              >
+                {lastRaceDate}
+              </div>
+            )}
+          </Card>
 
-      {/* Footer */}
-      <footer className="px-6 pb-8">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs text-f1-silver/40">
-            Powered by <a href="https://openf1.org/" target="_blank" rel="noopener noreferrer" className="text-f1-silver/60 hover:text-f1-silver">OpenF1 API</a> and NVIDIA NIM.
-            Not affiliated with Formula 1 or any F1 team.
-          </p>
+          {/* Season leader */}
+          <Card>
+            <Label>Season Leader</Label>
+            <div
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: 17,
+                fontWeight: 700,
+                color: leader?.teamColor ?? "var(--text-1)",
+                lineHeight: 1.2,
+                marginTop: 8,
+              }}
+            >
+              {leader ? `${leader.code} — ${leader.pts} pts` : "—"}
+            </div>
+            {leader && (
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--text-3)",
+                  marginTop: 4,
+                }}
+              >
+                {leader.team}
+              </div>
+            )}
+          </Card>
         </div>
-      </footer>
+
+        {/* Row 2: Recent results + Championship snapshot */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 16,
+          }}
+        >
+          {/* Recent results */}
+          <Card pad={0}>
+            <div style={{ padding: "14px 16px 10px" }}>
+              <SectionHeader
+                action={
+                  <Link
+                    href="/archive"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 9,
+                      color: "var(--text-2)",
+                      textDecoration: "none",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    VIEW ALL →
+                  </Link>
+                }
+              >
+                RECENT RESULTS
+              </SectionHeader>
+            </div>
+            <Divider />
+            {recentRaces.length === 0 ? (
+              <div
+                style={{
+                  padding: "24px 16px",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--text-3)",
+                  textAlign: "center",
+                }}
+              >
+                No race results yet
+              </div>
+            ) : (
+              recentRaces.map((race, i) => {
+                return (
+                  <div key={race.session_key}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "11px 16px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: 10,
+                          color: "var(--text-3)",
+                          width: 20,
+                          flexShrink: 0,
+                        }}
+                      >
+                        R{i + 1}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: 13,
+                            fontWeight: 500,
+                            color: "var(--text-1)",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {race.country_name} GP
+                        </div>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 9,
+                            color: "var(--text-3)",
+                            marginTop: 1,
+                          }}
+                        >
+                          {new Date(race.date_start).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                          })}{" "}
+                          · {race.circuit_short_name}
+                        </div>
+                      </div>
+                      <Link
+                        href={`/strategy-lab?session=${race.session_key}`}
+                        style={{
+                          fontFamily: "var(--font-heading)",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          padding: "5px 10px",
+                          background: "var(--surface-2)",
+                          color: "var(--text-2)",
+                          border: "1px solid var(--border)",
+                          borderRadius: 3,
+                          letterSpacing: "0.04em",
+                          textDecoration: "none",
+                          flexShrink: 0,
+                        }}
+                      >
+                        REPLAY
+                      </Link>
+                    </div>
+                    {i < recentRaces.length - 1 && <Divider />}
+                  </div>
+                );
+              })
+            )}
+          </Card>
+
+          {/* Constructor standings snapshot */}
+          <Card pad={0}>
+            <div style={{ padding: "14px 16px 10px" }}>
+              <SectionHeader
+                action={
+                  <Link
+                    href="/standings"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 9,
+                      color: "var(--text-2)",
+                      textDecoration: "none",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    FULL STANDINGS →
+                  </Link>
+                }
+              >
+                CONSTRUCTORS
+              </SectionHeader>
+            </div>
+            <Divider />
+            <div style={{ padding: "8px 0" }}>
+              {teamStandings.length === 0 ? (
+                <div
+                  style={{
+                    padding: "16px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 10,
+                    color: "var(--text-3)",
+                    textAlign: "center",
+                  }}
+                >
+                  No standings data
+                </div>
+              ) : (
+                teamStandings
+                  .sort((a, b) => a.position_current - b.position_current)
+                  .slice(0, 5)
+                  .map((team) => {
+                    const tc = `#${getTeamColour(team.team_name)}`;
+                    const maxTeamPts =
+                      teamStandings[0]?.points_current ?? 1;
+                    return (
+                      <div
+                        key={team.team_name}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 12,
+                          padding: "8px 16px",
+                          position: "relative",
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            top: 4,
+                            bottom: 4,
+                            width: 3,
+                            background: tc,
+                            borderRadius: "0 2px 2px 0",
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 11,
+                            color: "var(--text-3)",
+                            width: 16,
+                          }}
+                        >
+                          {team.position_current}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            fontSize: 13,
+                            color: "var(--text-1)",
+                            flex: 1,
+                          }}
+                        >
+                          {team.team_name}
+                        </span>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            width: 120,
+                          }}
+                        >
+                          <div
+                            style={{
+                              flex: 1,
+                              height: 2,
+                              background: "rgba(255,255,255,0.05)",
+                              borderRadius: 99,
+                              overflow: "hidden",
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "100%",
+                                width: `${(team.points_current / maxTeamPts) * 100}%`,
+                                background: tc,
+                              }}
+                            />
+                          </div>
+                          <span
+                            style={{
+                              fontFamily: "var(--font-heading)",
+                              fontWeight: 700,
+                              fontSize: 15,
+                              color: "var(--text-1)",
+                              width: 36,
+                              textAlign: "right",
+                            }}
+                          >
+                            {team.points_current}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })
+              )}
+            </div>
+          </Card>
+        </div>
+
+        {/* Row 3: Driver championship leaders */}
+        <Card pad={0}>
+          <div style={{ padding: "14px 16px 10px" }}>
+            <SectionHeader
+              action={
+                <Link
+                  href="/standings"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 9,
+                    color: "var(--text-2)",
+                    textDecoration: "none",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  FULL STANDINGS →
+                </Link>
+              }
+            >
+              CHAMPIONSHIP LEADERS
+            </SectionHeader>
+          </div>
+          <Divider />
+          <div style={{ padding: "8px 0" }}>
+            {mergedStandings.length === 0 ? (
+              <div
+                style={{
+                  padding: "24px 16px",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--text-3)",
+                  textAlign: "center",
+                }}
+              >
+                No standings data available
+              </div>
+            ) : (
+              mergedStandings.map((d) => (
+                <div
+                  key={d.code}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 14,
+                    padding: "7px 16px",
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      top: 4,
+                      bottom: 4,
+                      width: 3,
+                      background: d.teamColor,
+                      borderRadius: "0 2px 2px 0",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      color: "var(--text-3)",
+                      width: 16,
+                    }}
+                  >
+                    {d.position}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      fontWeight: 700,
+                      fontSize: 16,
+                      color: d.teamColor,
+                      width: 40,
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    {d.code}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 13,
+                      color: "var(--text-2)",
+                      flex: 1,
+                    }}
+                  >
+                    {d.name}
+                  </span>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      width: 200,
+                    }}
+                  >
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 2,
+                        background: "rgba(255,255,255,0.05)",
+                        borderRadius: 99,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "100%",
+                          width: `${(d.pts / maxPts) * 100}%`,
+                          background: d.teamColor,
+                        }}
+                      />
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 700,
+                        fontSize: 16,
+                        color: "var(--text-1)",
+                        width: 36,
+                        textAlign: "right",
+                      }}
+                    >
+                      {d.pts}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </Card>
+
+        {/* Quick links row */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+          {[
+            { href: "/archive", label: "Race Archive", sub: "Browse & replay past sessions" },
+            { href: "/fantasy", label: "Fantasy League", sub: "Manage your team & track points" },
+            { href: "/strategy-lab", label: "Strategy Lab", sub: "Full replay with live telemetry" },
+          ].map(({ href, label, sub }) => (
+            <Link
+              key={href}
+              href={href}
+              className="dash-quick-link"
+              style={{
+                display: "block",
+                background: "var(--surface-1)",
+                border: "1px solid var(--border)",
+                borderRadius: 6,
+                padding: "14px 16px",
+                textDecoration: "none",
+                transition: "border-color 0.12s",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  color: "var(--text-1)",
+                  letterSpacing: "0.04em",
+                  marginBottom: 4,
+                }}
+              >
+                {label}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 12,
+                  color: "var(--text-2)",
+                }}
+              >
+                {sub}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

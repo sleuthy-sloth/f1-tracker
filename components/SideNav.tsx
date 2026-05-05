@@ -3,54 +3,57 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Dashboard icon
-function DashboardIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-  );
-}
-
-// Archive icon
-function ArchiveIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></svg>
-  );
-}
-
-// Strategy icon
-function StrategyIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" /></svg>
-  );
-}
-
-// Standings icon
-function StandingsIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>
-  );
-}
-
-// Fantasy icon
-function FantasyIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-  );
-}
-
-// Settings icon
-function SettingsIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg>
-  );
-}
-
 const NAV_ITEMS = [
-  { href: "/", label: "Dashboard", icon: DashboardIcon },
-  { href: "/archive", label: "Race Archive", icon: ArchiveIcon },
-  { href: "/strategy-lab", label: "Strategy Lab", icon: StrategyIcon },
-  { href: "/standings", label: "Standings", icon: StandingsIcon },
-  { href: "/fantasy", label: "Fantasy Hub", icon: FantasyIcon },
+  {
+    href: "/",
+    label: "Dashboard",
+    icon: (
+      <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="2" y="2" width="7" height="7" rx="1.5" />
+        <rect x="11" y="2" width="7" height="7" rx="1.5" />
+        <rect x="2" y="11" width="7" height="7" rx="1.5" />
+        <rect x="11" y="11" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+  },
+  {
+    href: "/archive",
+    label: "Race Archive",
+    icon: (
+      <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="10" cy="10" r="7" />
+        <polyline points="10,6 10,10 13,12" />
+      </svg>
+    ),
+  },
+  {
+    href: "/strategy-lab",
+    label: "Strategy Lab",
+    icon: (
+      <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M3 17 L3 3" />
+        <path d="M3 14 L8 9 L12 12 L17 5" />
+      </svg>
+    ),
+  },
+  {
+    href: "/standings",
+    label: "Standings",
+    icon: (
+      <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M5 17V11M10 17V5M15 17V9" />
+      </svg>
+    ),
+  },
+  {
+    href: "/fantasy",
+    label: "Fantasy",
+    icon: (
+      <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <polygon points="10,2 12.9,7.3 19,8.1 14.5,12.4 15.6,18.4 10,15.4 4.4,18.4 5.5,12.4 1,8.1 7.1,7.3" />
+      </svg>
+    ),
+  },
 ];
 
 export function SideNav() {
@@ -63,86 +66,197 @@ export function SideNav() {
 
   return (
     <nav
-      className="hidden md:flex fixed left-0 top-0 h-screen w-64 flex-col border-t-2 border-t-f1-red border-r border-white/5 bg-surface-dim z-50"
+      className="hidden md:flex fixed left-0 top-0 h-screen z-50 flex-col"
+      style={{
+        width: "var(--nav-w)",
+        background: "var(--surface-1)",
+        borderRight: "1px solid var(--border)",
+      }}
       aria-label="Main navigation"
     >
-      {/* Branding */}
-      <div className="flex h-20 items-center px-6 border-b border-white/5 bg-surface-dim">
-        <Link href="/" className="group flex flex-col gap-0.5">
-          <div className="flex items-center gap-2.5">
-            <div className="relative w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center border border-f1-red/30 shadow-[0_0_15px_rgba(225,6,0,0.15)] group-hover:border-f1-red/60 group-hover:shadow-[0_0_20px_rgba(225,6,0,0.3)] transition-all duration-300">
-              <span className="font-bold text-f1-white text-lg">S</span>
-            </div>
-            <span className="text-heading text-xl font-bold text-f1-white tracking-tighter">
-              SECTOR<span className="text-f1-red text-glow-red">ONE</span>
+      {/* Logo */}
+      <div
+        style={{
+          padding: "20px 16px 16px",
+          borderBottom: "1px solid var(--border)",
+        }}
+      >
+        <Link href="/" className="flex items-center gap-2.5 no-underline">
+          <div
+            style={{
+              width: 28,
+              height: 28,
+              background: "var(--red)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 5,
+              flexShrink: 0,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: 12,
+                color: "#fff",
+                letterSpacing: 0,
+              }}
+            >
+              S1
             </span>
           </div>
-          {/* Neon Pulse Line Sub-branding */}
-          <div className="ml-0.5 h-[1px] w-full bg-gradient-to-r from-f1-red via-white to-transparent opacity-40 group-hover:opacity-100 transition-opacity" />
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: 16,
+                color: "var(--text-1)",
+                letterSpacing: "0.04em",
+              }}
+            >
+              SECTORONE
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 8,
+                color: "var(--text-3)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              F1 TELEMETRY
+            </div>
+          </div>
         </Link>
       </div>
 
-      {/* Navigation Items */}
-      <div className="flex flex-1 flex-col gap-1.5 p-4 overflow-y-auto">
-        <div className="px-3 mb-2 text-[10px] font-bold text-f1-silver/40 uppercase tracking-widest">
-          Main Menu
-        </div>
+      {/* Nav items */}
+      <div
+        style={{
+          flex: 1,
+          padding: "8px 10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
+          overflowY: "auto",
+        }}
+      >
         {NAV_ITEMS.map((item) => {
-          const Icon = item.icon;
           const active = isActive(item.href);
-
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
-                active
-                  ? "bg-f1-red/[0.1] border border-f1-red/25 text-f1-white"
-                  : "text-f1-silver hover:bg-white/[0.04] hover:text-f1-white border border-transparent"
-              }`}
               aria-current={active ? "page" : undefined}
+              className="flex items-center gap-2.5 rounded no-underline transition-colors"
+              style={{
+                padding: "9px 10px",
+                background: active ? "var(--red-bg)" : "transparent",
+                color: active ? "var(--text-1)" : "var(--text-2)",
+              }}
+              onMouseEnter={(e) => {
+                if (!active) (e.currentTarget as HTMLElement).style.background = "var(--surface-2)";
+              }}
+              onMouseLeave={(e) => {
+                if (!active) (e.currentTarget as HTMLElement).style.background = "transparent";
+              }}
             >
-              <div className={`transition-colors duration-200 ${active ? "text-f1-red drop-shadow-[0_0_5px_rgba(225,6,0,0.5)]" : "group-hover:text-f1-white"}`}>
-                <Icon />
-              </div>
-              <span className={`font-medium tracking-tight ${active ? "text-f1-white" : ""}`}>{item.label}</span>
+              <span style={{ color: active ? "var(--red)" : "inherit", flexShrink: 0 }}>
+                {item.icon}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 13,
+                  fontWeight: active ? 600 : 400,
+                }}
+              >
+                {item.label}
+              </span>
               {active && (
-                <div className="ml-auto w-1 h-5 rounded-full bg-f1-red shadow-[0_0_12px_rgba(225,6,0,0.8)]" />
+                <div
+                  style={{
+                    marginLeft: "auto",
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    background: "var(--red)",
+                  }}
+                />
               )}
             </Link>
           );
         })}
-
-        <div className="mt-8 px-3 mb-2 text-[10px] font-bold text-f1-silver/40 uppercase tracking-widest">
-          System
-        </div>
-        <Link
-          href="/settings"
-          className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 ${
-            isActive("/settings")
-              ? "bg-f1-red/[0.1] border border-f1-red/25 text-f1-white"
-              : "text-f1-silver hover:bg-white/[0.04] hover:text-f1-white border border-transparent"
-          }`}
-        >
-          <div className={`transition-colors duration-200 ${isActive("/settings") ? "text-f1-red" : "group-hover:text-f1-white"}`}>
-            <SettingsIcon />
-          </div>
-          <span className="font-medium">Settings</span>
-        </Link>
       </div>
 
-      {/* User Info / Status */}
-      <div className="border-t border-white/5 p-4 bg-surface-dim">
-        <div className="flex items-center gap-3 px-2">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[10px] font-mono text-f1-silver/60 uppercase tracking-widest">
-            Telemetry Online
+      {/* Footer */}
+      <div
+        style={{
+          padding: "12px 16px",
+          borderTop: "1px solid var(--border)",
+        }}
+      >
+        <Link
+          href="/settings"
+          className="flex items-center gap-2.5 rounded no-underline w-full transition-colors"
+          style={{
+            padding: "7px 10px",
+            color: isActive("/settings") ? "var(--text-1)" : "var(--text-2)",
+            background: isActive("/settings") ? "var(--surface-2)" : "transparent",
+            marginBottom: 2,
+            fontSize: 13,
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.background = "var(--surface-2)";
+          }}
+          onMouseLeave={(e) => {
+            if (!isActive("/settings"))
+              (e.currentTarget as HTMLElement).style.background = "transparent";
+          }}
+        >
+          <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="10" cy="10" r="2.5" />
+            <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.1 4.1l1.4 1.4M14.5 14.5l1.4 1.4M4.1 15.9l1.4-1.4M14.5 5.5l1.4-1.4" />
+          </svg>
+          <span style={{ fontFamily: "var(--font-sans)", fontWeight: isActive("/settings") ? 600 : 400 }}>
+            Settings
           </span>
-        </div>
-        <div className="mt-2 px-2">
-          <span className="text-[10px] font-mono text-f1-silver/30">
-            SEC-ONE // V0.2.0-STABLE
-          </span>
+        </Link>
+        <Link
+          href="/auth"
+          className="flex items-center gap-2.5 rounded no-underline w-full transition-colors"
+          style={{
+            padding: "7px 10px",
+            color: "var(--text-2)",
+            background: "transparent",
+            fontSize: 13,
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.background = "var(--surface-2)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.background = "transparent";
+          }}
+        >
+          <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="9" cy="7" r="3" />
+            <path d="M3 17c0-2.8 2.7-5 6-5" />
+            <path d="M13 13l2 2 4-4" />
+          </svg>
+          <span style={{ fontFamily: "var(--font-sans)" }}>Sign In</span>
+        </Link>
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 8,
+            color: "var(--text-3)",
+            marginTop: 6,
+            paddingLeft: 10,
+          }}
+        >
+          v0.2.0 · OpenF1 API
         </div>
       </div>
     </nav>
