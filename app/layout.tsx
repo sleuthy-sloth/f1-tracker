@@ -1,19 +1,28 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Barlow_Condensed, Barlow, JetBrains_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/auth/AuthContext";
-import { TopNav } from "@/components/TopNav";
+import { SideNav } from "@/components/SideNav";
 import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const barlow = Barlow({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
@@ -22,10 +31,12 @@ export const metadata: Metadata = {
     default: "SectorOne — F1 Telemetry Dashboard",
     template: "%s | SectorOne",
   },
-  description: "High-performance Formula 1 telemetry suite — real-time race replay, championship standings, fantasy leagues, and historical archives powered by OpenF1.",
+  description:
+    "High-performance Formula 1 telemetry suite — race replay, championship standings, fantasy leagues, and historical archives powered by OpenF1.",
   openGraph: {
     title: "SectorOne — F1 Telemetry Dashboard",
-    description: "Track live F1 data, replay races, analyze strategy, and compete in fantasy leagues.",
+    description:
+      "Replay F1 races, analyze strategy, and compete in fantasy leagues.",
     siteName: "SectorOne",
     type: "website",
   },
@@ -33,20 +44,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${barlowCondensed.variable} ${barlow.variable} ${jetbrainsMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-f1-carbon">
-        <TopNav />
+      <body className="h-full flex bg-[#0C0E12] text-[#EEEEF0] antialiased">
         <AuthProvider>
-          <main className="flex-1 pt-14 md:pt-16 pb-16 md:pb-0">{children}</main>
+          {/* Desktop sidebar — hidden on mobile */}
+          <SideNav />
+
+          {/* Main content — offset by sidebar on desktop */}
+          <div className="flex-1 flex flex-col min-w-0 md:ml-[200px]">
+            <main className="flex-1 overflow-y-auto pb-16 md:pb-0">{children}</main>
+          </div>
+
+          {/* Mobile bottom tab bar */}
+          <MobileNav />
         </AuthProvider>
-        <MobileNav />
       </body>
     </html>
   );

@@ -275,7 +275,7 @@ export function FilterSidebar({
 
       {/* Desktop Sidebar - always visible */}
       <aside className="hidden md:block w-72 shrink-0">
-        <div className="fixed top-16 bottom-0 w-72 overflow-y-auto border-r border-white/5 bg-surface-dim p-4">
+        <div className="fixed top-0 bottom-0 w-72 overflow-y-auto border-r border-white/5 bg-surface-dim p-4">
           {/* Header */}
           <div className="flex items-center justify-between mb-4 px-1">
             <span className="text-[10px] font-bold text-f1-silver/40 uppercase tracking-[0.15em]">
@@ -313,7 +313,7 @@ export function FilterSidebar({
         ref={drawerRef}
         role="dialog"
         aria-label="Filter sidebar"
-        className={`md:hidden fixed top-14 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-surface-dim border-r border-white/5 overflow-y-auto transition-transform duration-300 ${
+        className={`md:hidden fixed top-0 left-0 bottom-0 z-50 w-80 max-w-[85vw] bg-surface-dim border-r border-white/5 overflow-y-auto transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
